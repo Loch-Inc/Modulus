@@ -1,0 +1,773 @@
+:root {
+  // UPDATED
+  --sidebarBackgroud: white;
+  --primaryBackgroud: #f2f2f2;
+  --cardBackgroud: white;
+  --cardBackgroudWithOpacity: rgba(255, 255, 255, 0);
+  --cardBorder: #cacbcc;
+  --greyCardBackgroud: #e5e5e680;
+  --cardSeperator: #e5e5e680;
+  --lighterDarkIcons: 1;
+  --primaryTextColor: #0d0d0d;
+  --primaryTextColorGrey: #0d0d0d;
+  --primarySubTextColor: #adadad;
+  --primaryGainColor: rgba(208, 252, 234, 0.5);
+  --primaryLossColor: rgba(250, 217, 217, 0.5);
+  --primaryDropdownBackground: #f2f2f2;
+  --primaryDropdownBorder: #0d0d0d;
+  --primaryDropdownSelectedItem: rgba(229, 229, 230, 0.5);
+  --primaryBoxShadowColor: rgba(24, 39, 75, 0.12);
+  --primaryBoxShadowDarkerColor: rgba(0, 0, 0, 0.04);
+  --swapContainer: #f4edfd;
+  --purpleHighlight: #5f33ff;
+  --modalInput: white;
+  --modalInputPlaceholder: #d4d4d4;
+  --modalHeaderIcon: transparent;
+  --modalPrimaryCTA: #0d0d0d;
+  --modalPrimaryCTAHover: white;
+  --modalPrimaryCTAHoverText: #0d0d0d;
+  --modalPrimaryCTAColor: white;
+  --modalSecondaryCTA: white;
+  --modalSecondaryCTAHover: #202020;
+  --modalSecondaryCTATextHoverColor: white;
+  --modalPrimaryCTABorder: #0d0d0d;
+  --swapContainer: #f4edfd;
+  --purpleHighlight: #5f33ff;
+  --purpleHighlightBorder: rgba(95, 51, 255, 0.5);
+  --primaryFilter: #f2f2f2;
+  --primaryActiveFilter: #fff;
+  --black191: #19191a;
+  --invertMode: black;
+  --glassCardBg: rgba(255, 255, 255, 0.8);
+  --white191darke5ee6: #19191a;
+  --dropdownActiveSelected: #19191a;
+  --popularAccountsDataBlock: #e5e5e64d;
+  --popularAccountsHeaderBrightness: brightness(0.96);
+  --brightenDarkModeColors: brightness(1);
+  --referallCopyBtn: #e5e5e6;
+  --referallUsedBtn: #e5e5e680;
+  --referallUsedBtnText: #7c7d81;
+  --referalCompletedTasks: #e5e5e6;
+  --w3m-z-index: 1000 !important;
+
+  // FILTERS
+  --scrollBarThumb: #cacbcc;
+  --invertColor: invert(0);
+  --invertColorHover: invert(1);
+  --invertColor2: invert(100%);
+  --brightInDarkMode: brightness(1);
+  --hoverBrightness: brightness(50%);
+  --darkerBrightness: brightness(0);
+  --hoverBrightnessValue: brightness(0);
+  --hoverBrightnessValueInvert: brightness(20);
+  --infoBrightnessPortfolio: brightness(1);
+  --updatedAgoFilter: brightness(1);
+
+  // Secondary
+  --secondaryTextColor: #adadad;
+  --secondaryLightColor: #cacbcc;
+  --secondaryDarkTextColor: #4f4f4f;
+  --secondaryDarkTextColorNew: #4f4f4f;
+
+  //TEMP
+  --backColor: #000;
+  --sameModeColor: #fff;
+  --diffModeColorWithOpacity: #rgba(255, 255, 255, 0.05);
+  --greyF2f: #f2f2f2;
+  --grey636: #636467;
+  --greyE5e: #e5e5e6;
+  --greyCac: #cacbcc;
+  --grey5b5b: #5b5b5d;
+  --grey313: #313233;
+  --greyb0b: #b0b1b3;
+  --grey969: #96979a;
+
+  //Insight Page
+  --insightBlurColorOne: rgba(255, 255, 255, 0.8);
+  --insightBlurColorTwo: rgba(255, 244, 158, 0.8);
+
+  //Table
+  --tableNumberCover: rgba(229, 229, 230, 0.5);
+  --tablePersonalTint: #e5e5e640;
+  --tableHeadingLightBorder: #19191a;
+  --topbarAdressAddColorHover: #fff;
+  --tableSectionToggleBg: #e5e5e680;
+  --tableCostCommonColor: #313233;
+  --tableCostCommonBg: rgba(229, 229, 230, 0.5);
+  --InActiveToggleBg: #636467;
+  --tableDataColor: #313233;
+
+  //Sidebar
+  --currenyConvertorBorder: #e5e5e6;
+  --currenyConvertorText: #96979a;
+  --sidebarTextColor: #636467;
+  --sidebarActivePageColor: #e5e5e680;
+  --sidebarBottomOptions: #b0b1b3;
+  --sidebarWalletAmount: #1d2129;
+  --sidebarHoverLink: white;
+  --profileReferralHoverShadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.15);
+  // --profileReferralHoverShadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+  //   0px 18px 88px -4px rgba(24, 39, 75, 0.12);
+  --sidebarHoverShadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.12);
+  --sidebarSectional: #ffffff;
+  --sidebarSectionalBOrder: #e5e5e680;
+  --sidebarSectionalBOrderNoOpacity: #e5e5e6;
+  --sidebarInactiveIconsFilter: invert(0);
+
+  // Headers
+  --headerSelectEyeBg: #e5e5e6;
+  --topbarAdressAddBorder: #e5e5e6;
+  --topbarAdressAddBg: #f2f2f2;
+  --topbarAdressAddColorHover: #0d0d0d;
+  --topbarBackgroud: transparent;
+
+  //buttons and badges
+  --mainButtonBg: #fff;
+  --mainButtonBgTwitter: #fff;
+  --badgeGreenBg: rgba(208, 252, 234, 0.5);
+  --badgeGreencolor: #313233;
+  --badgeRedBg: rgba(250, 219, 219, 0.5);
+  --badgeRedcolor: #313233;
+
+  //Box shadow color
+  --boxShadowColorMd: rgba(0, 0, 0, 0.04);
+  --boxShadowColorLg: rgba(0, 0, 0, 0.04);
+  --profileHideMultiWallet: #f2f2f2;
+
+  --boxShadowMd: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --topBarShadow: 0 0 10px 4px #e5e5e680;
+  --inputShadow: 0 0 0 30px #fff inset;
+  --custmCheckboxShadow: 0px 0px 0px 3px rgba(0, 113, 227, 0.1);
+  --boxShadowCalender: 0px 6.17911px 18.5373px rgba(109, 109, 109, 0.15);
+  --trendingAddressShadow: 0px 14px 64px -4px rgba(24, 39, 75, 0.12),
+    0px 8px 22px -6px rgba(24, 39, 75, 0.12);
+  --welcomeWalletInputShadow: 0px 14px 64px -4px rgba(24, 39, 75, 0.12),
+    0px 8px 22px -6px rgba(24, 39, 75, 0.12);
+
+  //borders
+  --dropdownContentBorderColor: #e1e1e1;
+  --whiteTransparentBlackE5e5e6: transparent;
+  --borderwhiteDarkLight: #e5e5e6;
+  --popupCenterIconsBorder: transparent;
+
+  //badges
+  --lochPointsBadgeSuccessBg: #bdfadea7;
+  --lochPointsBadgeWarningBg: #fcebd780;
+
+  //yield opportunities
+  --yieldOppYourPortfolioContainerBg: #e5e5e640;
+
+  //watermarkOpacity
+  --watermarkOpacity: 1;
+
+  //pagination
+  --paginationInputBg: white;
+
+  //mobile
+  --floatingAppPopupShadow: 0px 0 2rem 0.8rem rgba(24, 39, 75, 0.08),
+    0rem 0 2rem 0.8rem rgba(24, 39, 75, 0.08);
+  --mobileTransactionFiltersBg: #e5e5e680;
+  --mobileWalletHeaderBg: #e5e5e6;
+  --mobileModeToggleBg: #e5e5e6;
+
+  //Explainer
+  --explainerIconsFill: white;
+
+  --topbarInput: #7c7d81;
+
+  --chartXAxis: #666666;
+  --chartYAxis: #b0b1b3;
+  --seeMoreColor: #4f4f4f;
+
+  --nftShadow: 0.1rem solid #e5e5e680;
+
+  --sidebarActiveIcon: brightness(0.1);
+
+  --signinIconBg: #fff;
+  --signinIconBorder: #e5e5e6;
+  --signinIconColor: #313233;
+  --signinIconContainerBOrder: #e5e5e6;
+  --signinIconContainerBg: #fff;
+
+  --twitterIconsBg: rgba(229, 229, 230, 0.5);
+  --twitterIconsBgHover: rgba(229, 229, 230, 0.8);
+  --twitterIconsColor: #636467;
+
+  --deifSectionalBOrder: #e5e5e6;
+  --pageLimitBOrder: #d4d4d4;
+
+  --yeildBottomBorder1: #cacbcc;
+  --yeildBottomBorder2: #e5e5e680;
+
+  --dropdownListSelectedBg: rgba(229, 229, 230, 0.5);
+
+  --tableHeading: #4f4f4f;
+  --tableData: #313233;
+
+  --inputPlaceHolder: #d4d4d4;
+  --inputBorder: #d4d4d4;
+  --inputBorderHover: #0d0d0d;
+
+  --activeToggleBg: rgba(255, 255, 255, 0.7);
+  --whiteOnlyInvert: invert(1);
+
+  // Insights page
+  --insightsBlock: white;
+  --insightsFilter: #e5e5e6;
+  --insightsFilterSelected: white;
+  --insightsIconBorder: transparent;
+
+  // Connect Exchange Modal
+  --connectExchangeModal: white;
+  --connectExchangeModalBlock: #f8f8f8;
+  --connectExchangeModalBlockBorder: #e5e5e6;
+  --connectExchangeModalBlockStep: #e5e5e680;
+  --connectExchangeModalBlockStepCircle: #e5e5e6;
+  --connectExchangeModalBlockStepCircleActive: #636467;
+
+  // Toastify
+  --toastify: white;
+  --toastifyBorder: #e5e5e6;
+  --toastifyBtn: white;
+  --toastifySuccessGradientFrom: #f4fff8;
+  --toastifySuccessGradientTo: #ffffff;
+  --toastifyErrorGradientFrom: #fff1ef;
+  --toastifyErrorGradientTo: #ffffff;
+  --toastifyWarningGradientFrom: #fff6e1;
+  --toastifyWarningGradientTo: #ffffff;
+  --toastifyBtnText: #19191a;
+  --toastifyBtnBorder: #e5e5e6;
+  --toastifyText: #0d0d0d;
+  --toastifySuccessIcon: url(../../images/icons/toastSuccessLight.svg);
+  --toastifyWarningIcon: url(../../images/icons/toastWarningLight.svg);
+  --toastifyErrorIcon: url(../../images/icons/toastErrorLight.svg);
+
+  // Leaderboard
+  --leaderboardFaq: white;
+  --leaderboardFaqBlocksMobile: white;
+  --leaderboardFaqBlocks: #f8f8f8;
+  --leaderboardFaqBlocksBorder: #e5e5e6;
+  --leaderboardFaqAnswerBlock: white;
+  --leaderboardFaqAnswerBlockBorder: #e5e5e6;
+
+  //Sidebar
+  --closedSideBarPersonBackgroundColor: #ffffff;
+  --closedSideBarPersonBackgroundBorderColor: #e5e5e6;
+  --closeTwitterBackgroundColor: #e5e5e680;
+  --closeTwitterBackgroundBorderColor: #e5e5e680;
+
+  // Smart Money
+  --abountSmartMoneyTextBlock: white;
+  --abountSmartMoneyTextBlockBorder: #e5e5e6;
+
+  // Profile
+  --profileUnrecognizedWallet: #f2f2f2;
+  --profileWalletDivider: rgba(229, 229, 230, 0.5);
+  --profileWalletAddress: #b0b1b3;
+
+  // Copy Trader Welcome
+  --blockOneHeaderGradMain: #000000;
+  --blockOneHeaderGradSecondary: #666666;
+  --blockOneDesc: #0000004d;
+  --blockOneBtnBackground: #5f33ff;
+  --blockFourHeader: #000000;
+  --blockFiveHeader: #c0c0c0;
+  // Fremium
+  --fremiumTooltipHeader: #19191a;
+  --fremiumTooltipDescription: #cacbcc;
+
+  //Tooltip
+  --freemiumTooltipShadow: rgba(24, 39, 75, 0.05);
+
+  //PayModal
+  --payModalBg: #5f33ff1a;
+  --payModalBgOpacity: 1;
+  --payModalPurpleText: #5f33ff;
+  --payModalDescText: #5a5b5d;
+  --outOfFocusBody: rgba(0, 0, 0, 0.8);
+  --outOfFocusTopBar: #3a3a3a;
+
+  // Copy trade welcome
+
+  // Mobile Add Address Signed out
+  --mobileSearchInputShadow: rgba(255, 255, 255, 0.95);
+  --tableFirstRowShadow: rgba(0, 0, 0, 0.04);
+
+  // Back Test
+  --strategyBuilderBackGroundImage: url(../../images/icons/strategyBuilderBackgroundDot.svg);
+  --strategyBuilderBackGround: #ebebeb;
+  --strategyBuilderTableHeader: #f2f2f2;
+  --strategyBuilderGraphGrid: #e5e5e6;
+  --strategyBuilderGraphNavigatorOuline: #b3b4b7;
+  --strategyBuilderGraphNavigatorMaskFill: #cacbcc80;
+  --strategyBuilderGraphNavigatorMaskBackground: #e5e5e680;
+
+  --strategyBuilderGraph1: rgb(247, 147, 26);
+  --strategyBuilderGraph2: rgb(128, 67, 243);
+  --strategyBuilderGraph3: rgb(43, 127, 255);
+  --strategyBuilderGraph4: rgb(43, 127, 255);
+  --strategyBuilderGraph5: rgb(86, 185, 182);
+
+  --strategyBuilderGraphLowOpacity1: rgba(247, 147, 26, 0.1);
+  --strategyBuilderGraphLowOpacity2: rgba(128, 67, 243, 0.1);
+  --strategyBuilderGraphLowOpacity3: rgba(43, 127, 255, 0.1);
+  --strategyBuilderGraphLowOpacity4: rgba(43, 127, 255, 0.1);
+  --strategyBuilderGraphLowOpacity5: rgba(86, 185, 182, 0.1);
+
+  --strategyBuilderMainBlockBackground: #00000014;
+
+  --strategyBuilderLighterPurple: #e8bce0;
+  --strategyBuilderLighterYellow: #e0ef67;
+  --strategyBuilderLighterBlue: #d9dbeb;
+
+  --strategyBuilderLightGreen: #adcdc0;
+  --strategyBuilderLightGreenHover: #deebe6;
+  --strategyBuilderLightPurple: #e5e1f9;
+  --strategyBuilderLightPurpleHover: #f6e4f3;
+  --strategyBuilderLightYellow: #f3f9c2;
+  --strategyBuilderLightYellowHover: #f3f9c2;
+  --strategyBuilderLightBlue: #d4eff6;
+  --strategyBuilderLightBlueHover: #f0f1f7;
+
+  --strategyBuilderDarkPurple: #b3a3ff;
+  --strategyBuilderDarkYellow: #cbffa2;
+  --strategyBuilderDarkBlue: #99ceff;
+
+  --strategyBuilderLightGrey: #f3f3f3;
+  --strategyBuilderDarkGrey: #d9d9d9;
+  --strategyBuilderLightRed: #fef2f2;
+  --strategyBuilderDarkRed: #fac5c5;
+
+  --strategyBuilderPopUpAssetBorder: #f1f1f1;
+
+  --strategyBuilderDropdownSelected: #cbf45880;
+
+  --strategyBuilderBorder: #0000000d;
+
+  --strategyBuilderAddBackground: #303030;
+
+  --strategyBuilderEmptyText: #8d8d8d;
+
+  --strategyDiscoveryTableHeader: #f7f7f7;
+  --strategyDiscoveryTableColHover: #e5e5e680;
+  --strategyDiscoveryTableSeperator: #f9f9f9;
+  --strategyDiscoveryTableTitleColor: #262626;
+
+  --strategySignUpBtn: #cbf458;
+  --strategySignUpBtnBorder: #19191a1a;
+}
+[data-theme="dark"] {
+  --w3m-z-index: 1000 !important;
+  // UPDATED
+  --sidebarBackgroud: #1a1a1a;
+  --primaryBackgroud: #141414;
+  --cardBackgroud: #1a1a1a;
+  --cardBackgroudWithOpacity: rgba(26, 26, 26, 0.9);
+  --cardBorder: #313233;
+  --greyCardBackgroud: #313233;
+  --cardSeperator: #313233;
+  --lighterDarkIcons: 0.7;
+  --primaryTextColor: white;
+  --primaryTextColorGrey: #cacbcc;
+  --primarySubTextColor: #7c7d81;
+  --primaryGainColor: rgba(208, 252, 234, 1);
+  --primaryLossColor: rgba(250, 217, 217, 1);
+  --primaryDropdownBackground: #313233;
+  --primaryDropdownBorder: rgba(255, 255, 255, 0.85);
+  --primaryDropdownSelectedItem: #313233;
+  --primaryBoxShadowColor: #2a2a2a;
+  --primaryBoxShadowDarkerColor: #2a2a2a;
+  --swapContainer: rgba(86, 72, 107, 0.3);
+  --purpleHighlight: #be66ff;
+  --modalInput: #202020;
+  --modalInputPlaceholder: #cacbcc;
+  --modalHeaderIcon: #303030;
+  --modalPrimaryCTA: #303030;
+  --modalPrimaryCTAHover: white;
+  --modalPrimaryCTAHoverText: #0d0d0d;
+  --modalPrimaryCTAColor: white;
+  --modalSecondaryCTA: #202020;
+  --modalSecondaryCTAHover: white;
+  --modalSecondaryCTATextHoverColor: #0d0d0d;
+  --modalPrimaryCTABorder: #404040;
+  --swapContainer: rgba(86, 72, 107, 0.3);
+  --purpleHighlight: #be66ff;
+  --purpleHighlightBorder: rgba(190, 102, 255, 0.5);
+  --primaryFilter: #303030;
+  --primaryActiveFilter: #636467;
+  --black191: #cacbcc;
+  --invertMode: rgba(255, 255, 255, 0.85);
+  --glassCardBg: rgba(24, 24, 24, 0.8);
+  --white191darke5ee6: #e5e5e6;
+  --dropdownActiveSelected: #e5e5e6;
+  --referallCopyBtn: #303030;
+  --referallUsedBtn: rgba(229, 229, 230, 0.2);
+  --referallUsedBtnText: #cacbcc;
+
+  // FILTERS
+  --scrollBarThumb: #cacbcc;
+  --invertColor: invert(100%);
+  --invertColorHover: invert(0);
+  --invertColor2: invert(0%);
+  --brightInDarkMode: brightness(2);
+  --hoverBrightness: brightness(200%);
+  --darkerBrightness: brightness(1);
+  --hoverBrightnessValue: brightness(20);
+  --hoverBrightnessValueInvert: brightness(0);
+  --infoBrightnessPortfolio: invert(1);
+  --updatedAgoFilter: brightness(0.5);
+
+  // Secondary
+  --secondaryTextColor: #7c7d81;
+  --secondaryLightColor: #545558;
+  --secondaryDarkTextColor: #cacbcc;
+  --secondaryDarkTextColorNew: #96979a;
+
+  // Headers
+  --headerSelectEyeBg: #313233;
+  --topbarAdressAddBorder: #e5e5e6;
+  --topbarAdressAddBg: rgba(255, 255, 255, 0.85);
+  --topbarAdressAddColorHover: #000;
+  --topbarBackgroud: #202020;
+
+  //TEMP
+  --greyF2f: #f2f2f2;
+  --grey636: #636467;
+  --greyE5e: #e5e5e6;
+  --greyCac: #cacbcc;
+  --grey5b5b: #cacbcc;
+  --grey313: #cacbcc;
+  --greyb0b: #4a4b4d;
+  --backColor: rgba(255, 255, 255, 0.95);
+  --sameModeColor: #282829;
+  --diffModeColorWithOpacity: #rgba(0, 0, 0, 0.05);
+
+  //Insight Page
+  --insightBlurColorOne: rgba(255, 255, 255, 0.3);
+  --insightBlurColorTwo: rgba(255, 244, 158, 0.3);
+
+  //Table
+  --tableNumberCover: #313233;
+  --tablePersonalTint: rgba(16, 16, 16, 0.6);
+  --popularAccountsDataBlock: #303030;
+  --popularAccountsHeaderBrightness: brightness(1.3);
+  --brightenDarkModeColors: brightness(2);
+  --tableHeadingLightBorder: #313233;
+  --tableSectionToggleBg: #101010;
+  --tableCostCommonColor: #141414;
+  --tableCostCommonBg: #303030;
+  --InActiveToggleBg: #96979a;
+  --tableDataColor: #cacbcc;
+
+  //Sidebar
+  --currenyConvertorBorder: #7c7d81;
+  --currenyConvertorText: #7c7d81;
+  --sidebarTextColor: #96979a;
+  --sidebarActivePageColor: #303030;
+  --sidebarBottomOptions: #96979a;
+  --sidebarWalletAmount: #cacbcc;
+  --sidebarHoverLink: #282828bd;
+  --sidebarHoverShadow: none;
+  --sidebarSectional: #202020;
+  --sidebarSectionalBOrder: #303030;
+  --sidebarSectionalBOrderNoOpacity: #303030;
+  --sidebarInactiveIconsFilter: invert(1);
+
+  //buttons and badges
+  --mainButtonBg: #101010;
+  --mainButtonBgTwitter: transparent;
+  --badgeGreenBg: rgba(208, 252, 234, 0.1);
+  --badgeGreencolor: rgba(208, 252, 234, 1);
+  --badgeRedBg: rgba(250, 219, 219, 0.1);
+  --badgeRedcolor: rgba(250, 219, 219, 1);
+
+  //Box shadow color
+  --boxShadowColorMd: rgba(255, 255, 255, 0.04);
+  --boxShadowColorLg: rgba(255, 255, 255, 0.1);
+  --profileHideMultiWallet: #101010;
+
+  --boxShadowMd: none;
+  --topBarShadow: none;
+  --inputShadow: none;
+  --custmCheckboxShadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4);
+  --boxShadowCalender: none;
+  --trendingAddressShadow: none;
+  --welcomeWalletInputShadow: none;
+
+  //Borders
+  --dropdownContentBorderColor: #313233;
+  --whiteTransparentBlackE5e5e6: #e5e5e6;
+  --borderwhiteDarkLight: #313233;
+  --popupCenterIconsBorder: #404040;
+
+  //badges
+  --lochPointsBadgeSuccessBg: #bdfade30;
+  --lochPointsBadgeWarningBg: #fcebd730;
+
+  //yield opportunities
+  --yieldOppYourPortfolioContainerBg: #e5e5e610;
+
+  //watermarkOpacity
+  --watermarkOpacity: 0.1;
+
+  //pagination
+  --paginationInputBg: #141414;
+
+  //mobile
+  --floatingAppPopupShadow: none;
+  --mobileTransactionFiltersBg: #e5e5e61a;
+  --mobileWalletHeaderBg: #202020;
+  --mobileModeToggleBg: #303030;
+
+  //Explianer
+  --explainerIconsFill: #303030;
+
+  --topbarInput: #b0b1b3;
+  --chartXAxis: #7c7d81;
+  --chartYAxis: #7c7d81;
+
+  --seeMoreColor: #7c7d81;
+
+  --sidebarActiveIcon: brightness(2.4);
+
+  --nftShadow: 0.1rem solid none;
+
+  --signinIconBg: #303030;
+  --signinIconBorder: #404040;
+  --signinIconColor: #cacbcc;
+  --signinIconContainerBOrder: #606060;
+  --signinIconContainerBg: #505050;
+
+  --twitterIconsBg: #202020;
+  --twitterIconsBgHover: #303030;
+  --twitterIconsColor: #cacbcc;
+
+  --deifSectionalBOrder: #303030;
+  --pageLimitBOrder: #303030;
+
+  --yeildBottomBorder1: #606060;
+  --yeildBottomBorder2: #303030;
+  --dropdownListSelectedBg: rgba(229, 229, 230, 0.2);
+
+  --tableHeading: #cacbcc;
+  --tableData: #cacbcc;
+  --inputPlaceHolder: #5a5a5b;
+  --inputBorder: #313233;
+  --inputBorderHover: #cacbcc;
+
+  --activeToggleBg: rgba(26, 26, 26, 0.5);
+  --whiteOnlyInvert: invert(0);
+
+  // Insights page
+  --insightsBlock: #202020;
+  --insightsFilter: #101010;
+  --insightsFilterSelected: #202020;
+  --insightsIconBorder: #cfcfcf;
+
+  // Connect Exchange Modal
+  --connectExchangeModal: #1a1a1a;
+  --connectExchangeModalBlock: #202020;
+  --connectExchangeModalBlockBorder: #303030;
+  --connectExchangeModalBlockStep: #313233;
+  --connectExchangeModalBlockStepCircle: #313233;
+  --connectExchangeModalBlockStepCircleActive: #cacbcc;
+
+  // Toastify
+  --toastify: #202020;
+  --toastifyBorder: #4a4b4d;
+  --toastifyBtn: #101010;
+  --toastifySuccessGradientFrom: #5abe7e1a;
+  --toastifySuccessGradientTo: #5abe7e00;
+  --toastifyErrorGradientFrom: #f04d611a;
+  --toastifyErrorGradientTo: #f04d6100;
+  --toastifyWarningGradientFrom: #ffc12e1a;
+  --toastifyWarningGradientTo: #ffc12e00;
+  --toastifyBtnText: #e5e5e6;
+  --toastifyBtnBorder: #101010;
+  --toastifyText: #b0b1b3;
+  --toastifySuccessIcon: url(../../images/icons/toastSuccessDark.svg);
+  --toastifyWarningIcon: url(../../images/icons/toastWarningDark.svg);
+  --toastifyErrorIcon: url(../../images/icons/toastErrorDark.svg);
+
+  // Leaderboard
+  --leaderboardFaqModal: #1a1a1a;
+  --leaderboardFaqBlocksMobile: #202020;
+  --leaderboardFaqBlocks: #202020;
+  --leaderboardFaqBlocksBorder: #303030;
+  --leaderboardFaqAnswerBlock: #202020;
+  --leaderboardFaqAnswerBlockBorder: #303030;
+
+  //Sidebar
+  --closedSideBarPersonBackgroundColor: #303030;
+  --closedSideBarPersonBackgroundBorderColor: #404040;
+  --closeTwitterBackgroundColor: #202020;
+  --closeTwitterBackgroundBorderColor: #202020;
+
+  // Smart Money
+  --abountSmartMoneyTextBlock: #101010;
+  --abountSmartMoneyTextBlockBorder: #202020;
+
+  // Profile
+  --profileUnrecognizedWallet: #313233;
+  --profileWalletDivider: #313233;
+  --profileWalletAddress: #636467;
+
+  // Copy Trader Welcome
+  --blockOneHeaderGradMain: white;
+  --blockOneHeaderGradSecondary: rgb(169, 169, 169);
+  --blockOneDesc: #cacbcc;
+  --blockOneBtnBackground: #5f33ff;
+  --blockFourHeader: white;
+  --blockFiveHeader: #c0c0c0;
+  // Fremium
+  --fremiumTooltipHeader: white;
+  --fremiumTooltipDescription: #b0b1b3;
+
+  //Tooltip
+  --freemiumTooltipShadow: rgba(255, 255, 255, 0.05);
+
+  //PayModal
+  --payModalBg: #673dfc1a;
+  --payModalBgOpacity: 0.9;
+  --payModalPurpleText: #5f33ff;
+  --payModalDescText: #5a5b5d;
+  --outOfFocusBody: rgba(255, 255, 255, 0.8);
+  --outOfFocusTopBar: #d7d7d7;
+
+  // Copy trade welcome
+  --mobileSearchInputShadow: rgba(0, 0, 0, 0.95);
+  --tableFirstRowShadow: rgba(255, 255, 255, 0.06);
+
+  //Back Test
+  --strategyBuilderMainBlockBackground: #00000014;
+
+  --strategyBuilderLightGrey: #303030;
+
+  --strategyBuilderBackGroundImage: url(../../images/icons/strategyBuilderBackgroundDotDark.svg);
+  --strategyBuilderBackGround: #1a1a1a;
+  --strategyBuilderTableHeader: #0f0f0f;
+  --strategyBuilderGraphGrid: #343333;
+  --strategyBuilderGraphNavigatorOuline: #343333;
+  --strategyBuilderGraphNavigatorMaskFill: #5c5c5c80;
+  --strategyBuilderGraphNavigatorMaskBackground: #343333;
+  --strategyBuilderGraph1: rgba(247, 147, 26, 0.7);
+  --strategyBuilderGraph2: rgba(128, 67, 243, 0.7);
+  --strategyBuilderGraph3: rgba(43, 127, 255, 0.7);
+  --strategyBuilderGraph4: rgba(43, 127, 255, 0.7);
+  --strategyBuilderGraph5: rgba(86, 185, 182, 0.7);
+}
+[data-theme="dark2"] {
+  // UPDATED
+  --sidebarBackgroud: rgb(22, 24, 28);
+  --primaryBackgroud: #101010;
+  --cardBackgroud: rgb(22, 24, 28);
+  --cardBackgroudWithOpacity: rgba(24, 24, 28, 0);
+  --cardBorder: #010202;
+  --greyCardBackgroud: #313233;
+  --cardSeperator: #313233;
+  --primaryTextColor: #e7e9ea;
+  --primarySubTextColor: #7c7d81;
+  --primaryGainColor: rgba(208, 252, 234, 1);
+  --primaryLossColor: rgba(250, 217, 217, 1);
+  --primaryDropdownBackground: #313233;
+  --primaryDropdownBorder: rgba(255, 255, 255, 0.9);
+  --primaryDropdownSelectedItem: #313233;
+  --primaryBoxShadowColor: #2a2a2a;
+  --primaryBoxShadowDarkerColor: #2a2a2a;
+  --swapContainer: rgba(86, 72, 107, 0.3);
+  --primaryFilter: #313233;
+  --primaryActiveFilter: #636467;
+  --black191: #e7e9ea;
+  --invertMode: rgba(255, 255, 255);
+  --glassCardBg: rgba(24, 24, 24, 0.8);
+
+  // FILTERS
+  --scrollBarThumb: #cacbcc;
+  --invertColor: invert(100%);
+  --invertColor2: invert(0%);
+  --hoverBrightness: brightness(200%);
+  --darkerBrightness: brightness(0);
+  --hoverBrightnessValue: brightness(20);
+  --hoverBrightnessValueInvert: brightness(0);
+  --infoBrightnessPortfolio: none;
+
+  // Secondary
+  --secondaryTextColor: #7c7d81;
+  --secondaryLightColor: #545558;
+  --secondaryDarkTextColor: #cacbcccc;
+
+  // Headers
+  --headerSelectEyeBg: #313233;
+  --topbarAdressAddBorder: #e5e5e6;
+  --topbarAdressAddBg: rgba(255, 255, 255, 0.9);
+  --topbarAdressAddColorHover: #000;
+
+  //TEMP
+  --greyF2f: #f2f2f2;
+  --grey636: #636467;
+  --greyE5e: #e5e5e6;
+  --greyCac: #cacbcc;
+  --grey313: rgba(255, 255, 255, 0.9);
+  --backColor: rgba(255, 255, 255, 0.9);
+  --sameModeColor: #101010;
+  --diffModeColorWithOpacity: #rgba(0, 0, 0, 0.05);
+
+  //Insight Page
+  --insightBlurColorOne: rgba(255, 255, 255, 0.3);
+  --insightBlurColorTwo: rgba(255, 244, 158, 0.3);
+
+  //Table
+  --tableNumberCover: #313233;
+  --tablePersonalTint: rgba(16, 16, 16, 0.6);
+  --tableHeadingLightBorder: #313233;
+
+  //Sidebar
+  --currenyConvertorBorder: #7c7d81;
+  --currenyConvertorText: #7c7d81;
+  --sidebarTextColor: #9b9b9b;
+  --sidebarActivePageColor: #2d2e2f;
+  --sidebarBottomOptions: #96979a;
+  --sidebarWalletAmount: rgba(255, 255, 255, 0.9);
+  --sidebarHoverLink: #2a2a2a34;
+  --sidebarHoverShadow: none;
+
+  //buttons and badges
+  --mainButtonBg: transparent;
+  --badgeGreenBg: rgba(208, 252, 234, 0.1);
+  --badgeGreencolor: rgba(208, 252, 234, 1);
+  --badgeRedBg: rgba(250, 219, 219, 0.1);
+  --badgeRedcolor: rgba(250, 219, 219, 1);
+
+  //Box shadow color
+  --boxShadowColorMd: rgba(255, 255, 255, 0.04);
+  --profileHideMultiWallet: #101010;
+
+  --boxShadowMd: none;
+  --topBarShadow: none;
+  --inputShadow: none;
+  --custmCheckboxShadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4);
+
+  //Borders
+  --dropdownContentBorderColor: #313233;
+  --whiteTransparentBlackE5e5e6: #e5e5e6;
+  --borderwhiteDarkLight: #2a2a2a;
+  --popupCenterIconsBorder: #2a2a2a;
+
+  //badges
+  --lochPointsBadgeSuccessBg: #bdfade30;
+  --lochPointsBadgeWarningBg: #fcebd730;
+
+  //yield opportunities
+  --yieldOppYourPortfolioContainerBg: #e5e5e610;
+
+  //watermarkOpacity
+  --watermarkOpacity: 0.1;
+
+  //pagination
+  --paginationInputBg: #101010;
+
+  //mobile
+  --floatingAppPopupShadow: none;
+  --mobileTransactionFiltersBg: #e5e5e61a;
+}

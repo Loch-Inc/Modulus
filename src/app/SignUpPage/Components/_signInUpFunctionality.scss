@@ -1,0 +1,73 @@
+.sign-in-up-functionality {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 50rem;
+  .sign-in-up-functionality-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .sign-in-up-functionality-logo-image {
+      height: 8rem;
+      width: 8rem;
+    }
+  }
+  .sign-in-up-functionality-title {
+    width: 100%;
+    text-align: left;
+    font-size: 31px;
+    font-weight: 500;
+    line-height: 37.2px;
+  }
+  .sign-in-up-functionality-input {
+    width: 100%;
+    border: 1px solid var(--strategyBuilderGraphGrid);
+    outline: none;
+    padding: 1.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    &::placeholder {
+      color: var(--secondaryLightColor);
+    }
+    &:hover,
+    &:focus {
+      border-color: var(--primaryTextColor);
+    }
+
+    &:focus {
+      color: var(--primaryTextColor);
+    }
+  }
+  .sign-in-up-functionality-button {
+    width: 100%;
+    border: 1px solid var(--strategySignUpBtnBorder);
+    outline: none;
+    padding: 1.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    background-color: var(--strategySignUpBtn);
+    color: var(--primaryTextColor);
+
+    &:hover,
+    &:focus {
+      border-color: var(--primaryTextColor);
+      background-color: var(--primaryTextColor);
+      color: var(--strategySignUpBtn);
+    }
+  }
+  .sign-in-up-functionality-sub-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--referallUsedBtnText);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--primaryTextColor);
+    }
+  }
+}

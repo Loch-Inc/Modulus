@@ -1,0 +1,37 @@
+.customRadioContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 0;
+    padding: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: 'none';
+    border: 1px solid #96979A;
+    border-radius: 50%;
+    cursor: pointer;
+    .customRadio{
+        height: 100%;
+        width: 100%;
+        background-color: #96979A;
+        border-radius: 50%;
+    }
+
+}
+
+.customRadioContainerActive{
+    border: 1px solid var(--black191);
+    .customRadioActive{
+        background-color: var(--black191);
+    }
+}
+.feedbackQuestion{
+    color: #96979A;
+    &:hover{
+        color: var(--black191);
+    }
+    &.feedbackQuestionActive{
+        color: var(--black191);
+    }
+}
+

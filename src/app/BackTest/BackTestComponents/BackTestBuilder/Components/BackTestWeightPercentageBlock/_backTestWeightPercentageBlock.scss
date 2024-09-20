@@ -1,0 +1,11 @@
+.back-test-weight-percentage {
+  height: 100%;
+  font-size: 13px;
+  text-shadow: 0.4px 0 var(--primaryTextColor);
+  .back-test-weight-percentage-title {
+    text-transform: lowercase;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

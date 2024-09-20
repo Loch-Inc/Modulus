@@ -1,0 +1,85 @@
+.back-test-weight-percentage-popup-container {
+  position: relative;
+  .back-test-weight-percentage-popup {
+    z-index: 1;
+    background-color: var(--cardBackgroud);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-4rem, 1rem);
+    padding: 1rem;
+    box-shadow: var(--boxShadowMd);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+    .back-test-weight-percentage-popup-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 40rem;
+      width: 100%;
+      .back-test-weight-percentage-popup-header-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        gap: 4px;
+        .back-test-weight-percentage-popup-header-text-icon {
+          height: 15px;
+        }
+      }
+      .back-test-weight-percentage-popup-header-close {
+        cursor: pointer;
+        background-color: var(--strategyBuilderLightGrey);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 4rem;
+        width: 4rem;
+        border-radius: 10px;
+        .back-test-weight-percentage-popup-header-close-icon {
+          height: 1.5rem;
+          width: 1.5rem;
+          filter: var(--invertColor);
+        }
+        &:hover {
+          background-color: var(--primaryTextColor);
+          .back-test-weight-percentage-popup-header-close-icon {
+            filter: var(--invertColorHover);
+          }
+        }
+      }
+    }
+    .back-test-weight-percentage-popup-body {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .back-test-weight-percentage-popup-body-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        line-height: normal;
+        text-shadow: 0.1px 0 var(--primaryTextColor);
+        width: 100%;
+        .back-test-weight-percentage-popup-body-colored-block {
+          padding: 0.8rem 1rem;
+          border: 1px solid var(--strategyBuilderLightGrey);
+          border-radius: 6px;
+          background-color: var(--strategyBuilderLightGrey);
+        }
+      }
+    }
+  }
+}
+.back-test-weight-percentage-popup-container-mobile {
+  .back-test-weight-percentage-popup {
+    .back-test-weight-percentage-popup-header-container {
+      min-width: 30rem;
+    }
+  }
+}

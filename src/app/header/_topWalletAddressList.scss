@@ -1,0 +1,464 @@
+@import "../../../src/assets/scss/common/_variables.scss";
+.topWalletAddressListFollowShareBtnContainer {
+  position: relative;
+  .topWalletAddressListFollowShareBtnPopUpContainer {
+    background-color: var(--cardBackgroud);
+    border: 0.15rem solid var(--currenyConvertorBorder);
+    border-radius: 1rem;
+    box-shadow: 0rem 0.31549rem 0.47324rem -0.31549rem var(--freemiumTooltipShadow),
+      0rem 0.63099rem 0.63099rem -0.31549rem var(--freemiumTooltipShadow);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(calc(100% + 1rem));
+    z-index: 1001;
+    .topWalletAddressListFollowShareBtnPopUp {
+      padding: 1rem;
+      position: relative;
+      flex-wrap: nowrap;
+      .topWalletAddressListFollowShareBtnPopUpArrow {
+        background-color: var(--cardBackgroud);
+        border: 0.15rem solid var(--currenyConvertorBorder);
+        border-right-width: 0rem;
+        border-bottom-width: 0rem;
+        height: 0.6rem;
+        width: 0.6rem;
+        position: absolute;
+        top: 0;
+        right: 4rem;
+        transform: translateX(-50%) translateY(-60%) rotate(45deg);
+      }
+
+      .TWALSFBPopUpCopyBlock {
+        border-radius: 0.6rem;
+        padding: 1rem;
+        .TWALSFBPopUpHeading {
+          white-space: nowrap;
+          overflow: hidden;
+          font-size: 13px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          .TWALSFBPopUpHeadingIcon {
+            margin-right: 0.5rem;
+            height: 12px;
+            filter: var(--invertColor);
+          }
+        }
+      }
+      .TWALSFBPopUpCopyTradeBlock {
+        background-color: var(--payModalBg);
+      }
+      .TWALSFBPopUpShareBlock {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 1.2rem;
+        .TWALSFBPopUpShareDirect {
+          margin-bottom: 0.3rem;
+          display: flex;
+          align-items: center;
+          color: var(--sidebarBottomOptions);
+          text-shadow: 0.2px 0px 0px var(--sidebarBottomOptions);
+          font-size: 13px;
+          font-weight: 500;
+
+          .TWALSFBPopUpShareDirectIcon {
+            height: 10px;
+            margin-right: 0.5rem;
+          }
+        }
+        .TWALSFBPopUpShareBlockFlex {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+        }
+      }
+      .TWALSFBPopUpCopy {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+        gap: 0.5rem;
+        font: 13px;
+        .TWALSFBPopUpCopyLink {
+          background-color: var(--cardBackgroud);
+          padding: 0.7rem 1rem;
+          border-radius: 0.7rem;
+          color: var(--grey969);
+          width: 22rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          border: 0.15rem solid var(--currenyConvertorBorder);
+        }
+        .TWALSFBPopUpCopyBtn {
+          background-color: var(--cardBackgroud);
+          padding: 0.7rem 1.3rem;
+          border-radius: 0.7rem;
+          border: 0.15rem solid var(--currenyConvertorBorder);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .TWALSFBPopUpCopyBtnIcon {
+            height: 12px;
+            margin-left: 0.8rem;
+            filter: var(--invertColor);
+          }
+          &:hover {
+            background-color: var(--backColor);
+            border-color: var(--backColor);
+            color: var(--cardBackgroud);
+            .TWALSFBPopUpCopyBtnIcon {
+              filter: var(--invertColor2);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.topWalletAddressList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 85rem;
+  max-width: 120rem;
+  width: 120rem;
+  margin-bottom: 1.5rem;
+  //Left
+  .topWalletAddressListDropdownContainer {
+    border-radius: 15px;
+    .topbar-btn {
+      background-color: var(--primaryFilter);
+      border: 0.1rem solid var(--greyE5e);
+      border-radius: 8px;
+      padding: 1.2rem 2rem;
+      color: var(--primaryTextColor);
+      font-weight: 600;
+      font-size: 1.3rem;
+      line-height: 1.5rem;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition-duration: 300ms;
+      display: flex;
+      align-items: center;
+      .dotDotText {
+        .captilasideText {
+          text-transform: capitalize;
+        }
+      }
+      .topBarWalletChainEyeAmountContainer {
+        background-color: var(--headerSelectEyeBg);
+        // background-color: red;
+        margin-right: 0.6rem;
+        padding: 0.45rem 0.9rem;
+        border-radius: 0.4rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .topBarWalletChain {
+        height: 1.2rem;
+      }
+
+      .topBarWalletTotalWallets {
+        margin-left: 0.6rem;
+      }
+      .topBarWalletArrow {
+        transition-duration: 0ms;
+        width: 1.1rem;
+      }
+      .topBarWalletArrowRotate {
+        transform: rotate(180deg);
+      }
+
+      .topBarExchangeIcons {
+        margin-left: -0.8rem;
+        height: 1.8rem;
+        border-radius: 5px;
+        margin-bottom: 0px;
+      }
+      .topBarWalletAdd {
+        margin-right: 0.8rem;
+        // width: 1.2rem;
+        height: 1.2rem;
+        object-fit: cover;
+        margin-bottom: 0px;
+      }
+      img {
+        // transition-duration: 300ms;
+        filter: var(--invertColor);
+      }
+
+      &:hover {
+        border-color: var(--greyE5e);
+        background-color: var(--backColor);
+        color: var(--sameModeColor);
+
+        img {
+          filter: var(--invertColor2);
+        }
+        .noHoverEffect {
+          filter: invert(0);
+        }
+        .topBarExchangeIcons {
+          filter: none;
+        }
+        .topBarWalletChainEyeAmountContainer {
+          img {
+            filter: var(--invertColor);
+          }
+        }
+      }
+    }
+
+    .topbar-btn-transparent {
+      background-color: transparent;
+      border: none;
+      // padding-left: 0rem;
+      cursor: default;
+      .topBarWalletAddressNameTagAndAddress {
+        .topBarWalletAddressNameTag {
+          color: var(--white191darke5ee6);
+          font-size: 13px;
+          font-weight: 600;
+        }
+        .topBarWalletAddressAddress {
+          color: var(--currenyConvertorText);
+          font-size: 13px;
+          font-weight: 600;
+        }
+      }
+      .topBarWalletArrowContainer {
+        transition-duration: 300ms;
+        cursor: pointer;
+        &:hover {
+          filter: var(--hoverBrightnessValue);
+        }
+      }
+      &:hover {
+        border-color: transparent;
+        background-color: transparent;
+        color: var(--primaryTextColor);
+        img {
+          filter: invert(0);
+        }
+        .topBarWalletChainEyeAmountContainer {
+          img {
+            filter: var(--invertColor);
+          }
+        }
+      }
+    }
+    .topWalletAddressListDropdown {
+      text-align: left !important;
+      margin-top: 0rem;
+
+      .copy-icon-top-bar-new {
+        &:hover {
+          filter: var(--hoverBrightnessValue);
+        }
+      }
+      .dropdown-menu-list-container {
+        .topBarWalletAddressNameTagAndAddress {
+          .topBarWalletAddressNameTag {
+            color: var(--white191darke5ee6);
+            font-size: 13px;
+            font-weight: 600;
+          }
+          .topBarWalletAddressAddress {
+            color: #96979a;
+            font-size: 13px;
+            font-weight: 500;
+          }
+        }
+      }
+      .dropdown-menu {
+        width: 100%;
+        padding: 0.4rem;
+        max-height: 22rem;
+        margin-top: 3px !important;
+        border-radius: 12px;
+        overflow: auto;
+        box-shadow: 0 10px 15px 5px rgba(0, 0, 0, 0.07);
+
+        background-color: var(--cardBackgroud);
+        border-color: var(--secondaryLightColor);
+        position: relative;
+
+        .dropdown-menu-list-container {
+          overflow-y: auto;
+          max-height: 20rem;
+          &::-webkit-scrollbar {
+            width: 0.4rem;
+            background: #f2f2f3;
+            border-radius: 0.8rem;
+          }
+          &::-webkit-scrollbar-thumb {
+            border-radius: 0.8rem;
+            background: #cacbcc;
+            opacity: 1;
+          }
+          .dropdown-item {
+            font: $grey-313, "Inter-Medium", 1.3rem, 500, 1.6rem;
+            padding: 1rem;
+            position: relative;
+            border-radius: 10px;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+            &:hover {
+              background-color: var(--primaryFilter);
+            }
+          }
+        }
+      }
+
+      .btn-primary.dropdown-toggle {
+        background-color: transparent;
+        padding: 0 !important;
+        .hideText {
+          overflow: hidden;
+          background-color: transparent;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
+        }
+        .topbar-btn {
+          font-family: "Inter-Regular" !important;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+        }
+        &:active {
+          border: none;
+          background-color: transparent;
+        }
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // Right
+  .topWalletAddressListFollowShareContainer {
+    display: flex;
+    align-items: center;
+    .refresh-btn {
+      display: flex;
+      align-items: center;
+      user-select: none;
+      width: max-content;
+
+      img {
+        position: relative;
+        margin-right: 0.6rem;
+        width: 1.3rem;
+        height: 1.3rem;
+        filter: var(--updatedAgoFilter);
+      }
+
+      &:hover {
+        color: var(--primaryTextColor);
+
+        span {
+          color: var(--primaryTextColor);
+        }
+
+        img {
+          filter: var(--hoverBrightnessValue) !important;
+        }
+      }
+    }
+    .topWalletAddressListFollowShareBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--mainButtonBg);
+      height: 4.5rem;
+      width: 10rem;
+      border-radius: 1rem;
+      border: 0.1rem solid var(--topbarBackgroud);
+      font-size: 13px;
+      color: var(--white191darke5ee6);
+      box-shadow: var(--boxShadowMd);
+      .topWalletAddressListFollowShareBtnIcon {
+        height: 13px;
+        margin-right: 1rem;
+      }
+
+      // transition-duration: 300ms;
+      cursor: pointer;
+
+      .topWalletAddressListFollowShareBtnIcon {
+        filter: var(--invertColor);
+      }
+      &:hover {
+        background-color: var(--backColor);
+        color: var(--sameModeColor);
+        .topWalletAddressListFollowShareBtnIcon {
+          filter: var(--invertColor2);
+        }
+      }
+    }
+    .topWalletAddressListFollowShareBtnBig {
+      width: 12rem;
+    }
+  }
+}
+.topWalletAddressListWide {
+  max-width: unset;
+  width: 100%;
+}
+.topWalletAddressListMobile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.3rem;
+
+  .refresh-btn {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    width: max-content;
+    margin-bottom: 1.3rem;
+    img {
+      position: relative;
+      margin-right: 0.6rem;
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+  }
+  .twalFollowAndShareMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .topWalletAddressListFollowShareBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--mainButtonBg);
+      height: 4rem;
+      border-radius: 0.8rem;
+      border: 0.1rem solid var(--topbarBackgroud);
+      font-size: 13px;
+      color: var(--white191darke5ee6);
+      box-shadow: var(--boxShadowMd);
+      .topWalletAddressListFollowShareBtnIcon {
+        height: 13px;
+        margin-right: 1rem;
+      }
+      cursor: pointer;
+      .topWalletAddressListFollowShareBtnIcon {
+        filter: var(--invertColor);
+      }
+    }
+  }
+}

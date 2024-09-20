@@ -1,0 +1,44 @@
+.sbb-edit-delete-options {
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0px 7px;
+  right: 0;
+  opacity: 0;
+  // pointer-events: none;
+
+  .sbb-edit-delete-options-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 6px;
+    background-color: var(--strategyBuilderLightGrey);
+    cursor: pointer;
+    .sbb-edit-delete-options-block-image {
+      width: 13px;
+      height: 13px;
+    }
+    &:hover {
+      background-color: var(--strategyBuilderDarkGrey);
+    }
+  }
+  .sbb-edit-delete-options-delete {
+    background-color: var(--strategyBuilderLightRed);
+
+    &:hover {
+      background-color: var(--strategyBuilderDarkRed);
+    }
+  }
+}
+.sbb-edit-delete-options-mobile {
+  opacity: 1;
+  .sbb-edit-delete-options-block {
+    &:hover {
+      background-color: var(--strategyBuilderLightGrey);
+    }
+  }
+}
