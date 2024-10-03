@@ -2,11 +2,12 @@ import Highcharts from "highcharts/highstock";
 import { BaseReactComponent } from "../../../../utils/form";
 import {
   mobileCheck,
-  strategyByilderOperatorConvertorTextToSymbol,
-  strategyByilderTypeConvertorTextToSymbol,
+  strategyBuilderOperatorConvertorTextToSymbol,
+  strategyBuilderTypeConvertorTextToSymbol,
 } from "../../../../utils/ReusableFunctions";
 import "./_backTestBuilder.scss";
 
+import { cloneDeep } from "lodash";
 import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -18,7 +19,6 @@ import {
 import { createBackTestQuery, getBackTestQueries } from "../../Api/BackTestApi";
 import BackTestBuilderMainBlock from "./BackTestBuilderMainBlock/BackTestBuilderMainBlock";
 import BackTestAddingOptions from "./Components/BackTestAddingOptions/BackTestAddingOptions";
-import { cloneDeep } from "lodash";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -91,33 +91,40 @@ class BackTestBuilder extends BaseReactComponent {
   };
 
   getStrategiesQueries = () => {
-    let tempApiData = new URLSearchParams();
-    let setStrategy = false;
     if (
+      this.props.passedUserList &&
+      this.props.passedUserList.length > 0 &&
       this.props.passedStrategyList &&
       this.props.passedStrategyList.length > 0
     ) {
-      tempApiData.append(
-        "strategy_list",
-        JSON.stringify([...this.props.passedStrategyList])
-      );
-      if (this.props.passedUserList && this.props.passedUserList.length > 0) {
+      let tempApiData = new URLSearchParams();
+      let setStrategy = false;
+      if (
+        this.props.passedStrategyList &&
+        this.props.passedStrategyList.length > 0
+      ) {
         tempApiData.append(
-          "user_list",
-          JSON.stringify([...this.props.passedUserList])
+          "strategy_list",
+          JSON.stringify([...this.props.passedStrategyList])
         );
+        if (this.props.passedUserList && this.props.passedUserList.length > 0) {
+          tempApiData.append(
+            "user_list",
+            JSON.stringify([...this.props.passedUserList])
+          );
+        }
+        // tempApiData.append(
+        //   "user_list",
+        //   JSON.stringify(["64dcc25ffd5e77c52e0fddf6"])
+        // );
+        setStrategy = true;
       }
       // tempApiData.append(
       //   "user_list",
-      //   JSON.stringify(["64dcc25ffd5e77c52e0fddf6"])
+      //   JSON.stringify(["66cc01184d9fe2be2b11806d"])
       // );
-      setStrategy = true;
+      this.props.getBackTestQueries(tempApiData, setStrategy);
     }
-    // tempApiData.append(
-    //   "user_list",
-    //   JSON.stringify(["66cc01184d9fe2be2b11806d"])
-    // );
-    this.props.getBackTestQueries(tempApiData, setStrategy);
   };
   afterQueryCreation = (isApiPassed) => {
     if (isApiPassed) {
@@ -127,13 +134,13 @@ class BackTestBuilder extends BaseReactComponent {
       this.props.hideSaveStrategy();
     }
   };
-  strategyByilderIsQueryValid = (obj, path, emptyHolderArr) => {
+  strategyBuilderIsQueryValid = (obj, path, emptyHolderArr) => {
     if ("weight" in obj) {
       let totalWeight = 0;
       if (obj.weight && obj.weight.weight_item) {
         obj.weight.weight_item.forEach((curItem, curIndex) => {
           totalWeight = totalWeight + parseFloat(curItem.percentage);
-          this.strategyByilderIsQueryValid(
+          this.strategyBuilderIsQueryValid(
             curItem,
             [...path, "weight", "weight_item", curIndex],
             emptyHolderArr
@@ -144,13 +151,13 @@ class BackTestBuilder extends BaseReactComponent {
         }
       }
     } else if ("item" in obj) {
-      this.strategyByilderIsQueryValid(
+      this.strategyBuilderIsQueryValid(
         obj.item,
         [...path, "item"],
         emptyHolderArr
       );
     } else if ("condition" in obj) {
-      this.strategyByilderIsQueryValid(
+      this.strategyBuilderIsQueryValid(
         obj.condition,
         [...path, "condition"],
         emptyHolderArr
@@ -160,7 +167,7 @@ class BackTestBuilder extends BaseReactComponent {
         if (Object.keys(obj.success).length === 0) {
           emptyHolderArr.push([...path, "success"]);
         }
-        this.strategyByilderIsQueryValid(
+        this.strategyBuilderIsQueryValid(
           obj.success,
           [...path, "success"],
           emptyHolderArr
@@ -170,7 +177,7 @@ class BackTestBuilder extends BaseReactComponent {
         if (Object.keys(obj.failed).length === 0) {
           emptyHolderArr.push([...path, "failed"]);
         }
-        this.strategyByilderIsQueryValid(
+        this.strategyBuilderIsQueryValid(
           obj.failed,
           [...path, "failed"],
           emptyHolderArr
@@ -181,7 +188,6 @@ class BackTestBuilder extends BaseReactComponent {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.BackTestQueryState !== this.props.BackTestQueryState) {
       const passedQueryData = this.props.BackTestQueryState;
-      console.log("passedQueryData is ", passedQueryData);
 
       if (passedQueryData.length > 0 && passedQueryData[0].strategy) {
         // this.setState({
@@ -201,22 +207,24 @@ class BackTestBuilder extends BaseReactComponent {
         this.setState({
           isStrategyEmpty: true,
         });
+        if (this.props.hideSaveStrategy) {
+          this.props.hideSaveStrategy();
+        }
       } else {
         this.setState({
           isStrategyEmpty: false,
         });
+        if (this.props.showSaveStrategy) {
+          this.props.showSaveStrategy();
+        }
       }
-      console.log(
-        "this.state.strategyBuilderString",
-        this.state.strategyBuilderString
-      );
     }
     if (prevProps.saveStrategyCheck !== this.props.saveStrategyCheck) {
       this.setState({
         emptyItems: [],
       });
       let emptyHolderArr = [];
-      this.strategyByilderIsQueryValid(
+      this.strategyBuilderIsQueryValid(
         this.state.strategyBuilderString,
         [],
         emptyHolderArr
@@ -250,9 +258,7 @@ class BackTestBuilder extends BaseReactComponent {
       this.setState({
         emptyItems: [],
       });
-      if (this.props.showSaveStrategy) {
-        this.props.showSaveStrategy();
-      }
+
       window.localStorage.setItem(
         "strategyBuilderStringLocal",
         JSON.stringify(this.state.strategyBuilderString)
@@ -265,6 +271,7 @@ class BackTestBuilder extends BaseReactComponent {
         canUpdateBuilder: true,
       });
     }, 1000);
+
     // this.getStrategiesQueries();
     // const strategyBuilderStringLocal = window.localStorage.getItem(
     //   "strategyBuilderStringLocal"
@@ -274,10 +281,11 @@ class BackTestBuilder extends BaseReactComponent {
     //     strategyBuilderString: JSON.parse(strategyBuilderStringLocal),
     //   });
     // }
+    this.getStrategiesQueries();
   }
   changeType = (passedType) => {
     let operatorType = "";
-    operatorType = strategyByilderTypeConvertorTextToSymbol(passedType);
+    operatorType = strategyBuilderTypeConvertorTextToSymbol(passedType);
 
     let itemItem = {
       ...this.state.strategyBuilderString.condition,
@@ -300,7 +308,7 @@ class BackTestBuilder extends BaseReactComponent {
   changeOperator = (passedOperator) => {
     let operatorSymbol = "";
     operatorSymbol =
-      strategyByilderOperatorConvertorTextToSymbol(passedOperator);
+      strategyBuilderOperatorConvertorTextToSymbol(passedOperator);
     let itemItem = {
       ...this.state.strategyBuilderString.condition,
       operator: operatorSymbol,
@@ -342,10 +350,16 @@ class BackTestBuilder extends BaseReactComponent {
                 type: "CURRENT_PRICE",
                 token: "BTC",
                 operator: ">",
-                amount: "10000",
+                amount: "100",
                 time_period: "4",
                 success: {},
                 failed: {},
+                compare_type: "function",
+                compare_function: {
+                  type: "CURRENT_PRICE",
+                  time_period: "4",
+                  token: "ETH",
+                },
               },
             },
           },
@@ -358,11 +372,20 @@ class BackTestBuilder extends BaseReactComponent {
       return (
         <>
           <div className="btpcb-title btpcb-builder-title">
-            <div>Strategy Builder</div>
+            {/* <div>Strategy Builder</div> */}
           </div>
           <div className="btpcb-left-block">
             <div className="strategy-builder-container strategy-builder-container-empty">
               <div className="sbc-empty-container">
+                <div className="sbc-empty-options-container-container">
+                  <div className="sbc-empty-options-container">
+                    <BackTestAddingOptions
+                      closeOptions={() => null}
+                      onAddAssetClick={this.onAddAssetInEmptyClick}
+                      onAddConditionClick={this.onAddConditionInEmptyClick}
+                    />
+                  </div>
+                </div>
                 <div className="sbc-empty">
                   <Image
                     className="sbc-empty-image"
@@ -371,16 +394,7 @@ class BackTestBuilder extends BaseReactComponent {
                   <div className="sbc-empty-text">
                     Start building by
                     <br />
-                    adding a block below
-                  </div>
-                </div>
-                <div className="sbc-empty-options-container-container">
-                  <div className="sbc-empty-options-container">
-                    <BackTestAddingOptions
-                      closeOptions={() => null}
-                      onAddAssetClick={this.onAddAssetInEmptyClick}
-                      onAddConditionClick={this.onAddConditionInEmptyClick}
-                    />
+                    adding a block above
                   </div>
                 </div>
               </div>
@@ -392,32 +406,41 @@ class BackTestBuilder extends BaseReactComponent {
     return (
       <>
         <div className="btpcb-title btpcb-builder-title">
-          <div>Strategy Builder</div>
+          {/* <div>Strategy Builder</div> */}
           <div className="btpcb-builder-title-undo-redo-container">
-            <Image
+            <div
               onClick={this.undo}
-              className={`btpcb-builder-title-undo-redo-icon ${
+              className={`btpcb-builder-title-undo-redo-item ${
                 this.state.currentHistoryIndex <= 0
-                  ? "btpcb-builder-title-undo-redo-icon-disabled"
+                  ? "btpcb-builder-title-undo-redo-item-disabled"
                   : ""
               }`}
-              src={StrategyBuilderUndoIcon}
-            />
-            <Image
+            >
+              <Image
+                className={`btpcb-builder-title-undo-redo-icon`}
+                src={StrategyBuilderUndoIcon}
+              />
+            </div>
+            <div
               onClick={this.redo}
-              className={`btpcb-builder-title-undo-redo-icon ${
+              className={`btpcb-builder-title-undo-redo-item ${
                 this.state.currentHistoryIndex >= this.state.history.length - 1
-                  ? "btpcb-builder-title-undo-redo-icon-disabled"
+                  ? "btpcb-builder-title-undo-redo-item-disabled"
                   : ""
               }`}
-              src={StrategyBuilderRedoIcon}
-            />
+            >
+              <Image
+                className={`btpcb-builder-title-undo-redo-icon`}
+                src={StrategyBuilderRedoIcon}
+              />
+            </div>
           </div>
         </div>
         <div className="btpcb-left-block">
           <div className="strategy-builder-container">
             <div className="sbc-logic-container">
               <BackTestBuilderMainBlock
+                saveStrategyName={this.props.saveStrategyName}
                 emptyItems={this.state.emptyItems}
                 strategyBuilderString={this.state.strategyBuilderString}
                 changeStrategyBuilderString={this.changeStrategyBuilderString}

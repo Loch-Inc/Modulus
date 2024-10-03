@@ -1,0 +1,377 @@
+.profile-page {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--primaryTextColor);
+  .profile-page-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    .profile-page-left-block {
+      width: calc(30% - 10px);
+      background-color: var(--cardBackgroud);
+      box-shadow: var(--boxShadowLg);
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      .profile-page-left-block-bio {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+
+        .profile-page-left-block-dp {
+          width: 60px;
+          height: 60px;
+          .profile-page-left-block-dp-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+          }
+        }
+        .profile-page-left-block-bio-name-mail {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          .profile-page-left-block-name {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 24px;
+            text-align: left;
+            color: var(--primaryTextColor);
+          }
+          .profile-page-left-block-email {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 15.6px;
+            text-align: left;
+            color: var(--profilePageBioEmail);
+          }
+        }
+      }
+      .profile-page-left-block-action-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        width: 100%;
+        .profile-page-left-block-action-btn {
+          width: 100%;
+          height: 40px;
+          padding: 12px 16px;
+          gap: 4px;
+          border-radius: 8px;
+          background-color: var(--cardBackgroud);
+          border: 1.5px solid var(--strategyBuilderSaveStrategyBorder);
+          box-shadow: var(--boxShadowLg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          .profile-page-left-block-action-btn-icon {
+            width: 20px;
+            height: 20px;
+          }
+          .profile-page-left-block-action-btn-text {
+            color: var(--primaryTextColor);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 15.6px;
+            text-align: center;
+          }
+          &:hover {
+            border-color: var(--strategyBuilderDarkNeon);
+            background-color: var(--strategyBuilderLighterNeon);
+          }
+
+          .profile-page-left-block-action-btn-referral-code-block {
+            cursor: default;
+            position: absolute;
+            transform: translateY(calc(45px));
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-color: var(--cardBackgroud);
+            border-radius: 12px;
+            border: 1.5px solid var(--cardBorder);
+            box-shadow: var(--boxShadowLg);
+            padding: 10px 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2;
+            .profile-page-left-block-action-btn-referral-code-block-title {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 0px 5px;
+              .profile-page-left-block-action-btn-referral-code-block-title-text {
+                font-size: 15px;
+                text-shadow: 0.01px 0 var(--primaryTextColor);
+                font-weight: 500;
+                line-height: 15.6px;
+              }
+              .profile-page-left-block-action-btn-referral-code-block-title-copy-all-btn {
+                opacity: 0.5;
+                cursor: pointer;
+                &:hover {
+                  opacity: 1;
+                }
+              }
+            }
+            .profile-page-left-block-action-btn-referral-code-block-list {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              max-height: 30rem;
+              overflow-y: scroll;
+              gap: 5px;
+              &::-webkit-scrollbar {
+                width: 0.4rem;
+                height: 0rem;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                border-radius: 0.8rem;
+                background-color: #cacbcc;
+              }
+
+              &::-webkit-scrollbar-track {
+                background-color: rgba(229, 229, 230, 0.5);
+                border-radius: 0.8rem;
+              }
+
+              .profile-page-left-block-action-btn-referral-code-block-list-item {
+                width: 100%;
+                height: calc(3.5rem - 1px);
+                min-height: calc(3.5rem - 1px);
+
+                border-radius: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0rem 1rem;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 15.6px;
+
+                &:hover {
+                  background-color: var(--greyCardBackgroud);
+                }
+
+                .profile-page-left-block-action-btn-referral-code-block-list-item-copy-icon {
+                  height: 10px;
+                  width: 10px;
+                  opacity: 0.5;
+                  cursor: pointer;
+                  filter: var(--invertColor);
+                }
+                &:hover {
+                  .profile-page-left-block-action-btn-referral-code-block-list-item-copy-icon {
+                    opacity: 1;
+                  }
+                }
+                &:active {
+                  filter: brightness(0.8);
+                }
+              }
+              .profile-page-left-block-action-btn-referral-code-block-list-item-used {
+                pointer-events: none;
+                opacity: 0.5;
+                text-decoration: line-through;
+                .profile-page-left-block-action-btn-referral-code-block-list-item-copy-icon {
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+        .profile-page-left-block-action-btn-selected {
+          border-color: var(--strategyBuilderDarkNeon);
+          background-color: var(--strategyBuilderLighterNeon);
+        }
+        .profile-page-left-block-action-btn-logh-out {
+          background-color: var(--strategyBuilderLightRed);
+          border-color: var(--strategyBuilderLightRedBorder);
+          .profile-page-left-block-action-btn-icon {
+            height: 16px;
+            width: 16px;
+          }
+          .profile-page-left-block-action-btn-text {
+            color: var(--strategyBuilderDarkerRed);
+          }
+          &:hover {
+            background-color: var(--strategyBuilderDarkRed);
+            border-color: var(--strategyBuilderDarkerRed);
+          }
+        }
+      }
+    }
+    .profile-page-right-block {
+      width: calc(70% - 10px);
+      .profile-page-right-block-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .profile-page-right-block-content-title {
+          font-weight: 500;
+          font-size: 16px;
+          color: var(--primaryTextColor);
+          text-shadow: 0px var(--primaryTextColor);
+        }
+
+        .profile-page-right-block-content-table-container {
+          background-color: var(--cardBackgroud);
+          border-radius: 16px;
+          padding: 5px;
+          padding-bottom: 0.5rem;
+          box-shadow: var(--boxShadowLg);
+          .profile-page-table-strategy-name-container {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            overflow: hidden;
+            width: 100%;
+            .profile-page-table-strategy-name {
+              padding: 4px;
+              gap: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              width: 100%;
+              .profile-page-table-strategy-name-circle {
+                height: 15px;
+                width: 15px;
+                min-height: 15px;
+                min-width: 15px;
+              }
+            }
+            .profile-page-table-strategy-name-title {
+              font-size: 15px;
+              color: var(--strategyDiscoveryTableTitleColor);
+              text-shadow: 0.01px 0 var(--strategyDiscoveryTableTitleColor);
+            }
+            .profile-page-table-strategy-date {
+              color: var(--profilePageStrategyDate);
+              font-size: 10px;
+              font-weight: 500;
+              padding: 0px 4px;
+            }
+          }
+          .table-wrapper {
+            .not-found-wrapper {
+              height: 20rem;
+            }
+            .animation-wrapper {
+              height: 20rem;
+            }
+            .ReactVirtualized__Table__headerRow {
+              height: fit-content !important;
+              border-bottom: 0rem !important;
+              margin-bottom: 5px;
+              .ReactVirtualized__Table__headerColumn {
+                align-self: stretch;
+                width: 100%;
+                padding: 0;
+                .ReactVirtualized__Table__headerTruncatedText {
+                  width: 100%;
+                  height: 100%;
+                  .history-table-header-col {
+                    height: 100%;
+                    background-color: var(--strategyDiscoveryTableHeader);
+                    // opacity: 0.5;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 1rem;
+                    box-sizing: border-box !important;
+                    overflow: hidden;
+
+                    text-align: center;
+                    pointer-events: none;
+                    .inter-display-medium {
+                      color: var(--tableData);
+                      font-weight: 600;
+                    }
+                  }
+
+                  .history-table-header-col-curve-left {
+                    border-top-left-radius: 12px;
+                    border-bottom-left-radius: 12px;
+                  }
+                  .history-table-header-col-curve-right {
+                    border-top-right-radius: 12px;
+                    border-bottom-right-radius: 12px;
+                    border-right: 0rem;
+                  }
+                }
+              }
+            }
+            .ReactVirtualized__Table__Grid {
+              gap: 5px;
+              .ReactVirtualized__Table__row {
+                cursor: pointer;
+
+                .ReactVirtualized__Table__rowColumn {
+                  height: 100%;
+                  padding: 0rem;
+                  .inter-display-medium {
+                    color: var(--strategyDiscoveryTableTitleColor);
+                  }
+                  .full-table-row-col-width {
+                    height: 100%;
+                    padding: 0rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    .full-table-row-col-width-arrow {
+                      height: 10px;
+                      width: 10px;
+                    }
+                    .full-table-row-col-width-arrow-reverse {
+                      transform: rotate(180deg);
+                    }
+                  }
+                }
+                &:hover {
+                  border-radius: 12px;
+                  background-color: var(--strategyDiscoveryTableColHover);
+                  border-bottom-color: transparent;
+                }
+              }
+              &::-webkit-scrollbar {
+                width: 0.4rem;
+                height: 0rem;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                border-radius: 0.8rem;
+                background-color: #cacbcc;
+              }
+
+              &::-webkit-scrollbar-track {
+                background-color: rgba(229, 229, 230, 0.5);
+                margin: 1rem 0rem;
+                border-radius: 0.8rem;
+              }
+            }
+            .ReactVirtualized__Table__row:not(:last-child) {
+              border-bottom: 0.5px solid var(--strategyDiscoveryTableSeperator);
+            }
+          }
+        }
+      }
+    }
+  }
+}

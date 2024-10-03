@@ -3,7 +3,7 @@ const deleteAddWallet = () => {
 };
 const deleteToken = (notCurrencyRates) => {
   window.localStorage.removeItem("setMetamaskConnectedSessionStorage");
-  window.localStorage.removeItem("lochToken");
+  window.localStorage.removeItem("lochModulusToken");
   window.localStorage.removeItem("addWallet");
   window.localStorage.removeItem("lochUser");
   window.localStorage.removeItem("lochDummyUser");
@@ -24,8 +24,11 @@ const deleteToken = (notCurrencyRates) => {
 };
 
 const getToken = () => {
-  const lochToken = window.localStorage.getItem("lochToken");
+  const lochToken = window.localStorage.getItem("lochModulusToken");
   return lochToken;
+};
+const setToken = (token) => {
+  window.localStorage.setItem("lochModulusToken", token);
 };
 
 const getCurrentUser = () => {
@@ -91,6 +94,7 @@ const resetPreviewAddress = () => {
 
 export {
   getToken,
+  setToken,
   deleteToken,
   getCurrentUser,
   setLocalStoraage,

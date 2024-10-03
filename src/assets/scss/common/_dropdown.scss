@@ -4,7 +4,7 @@
     cursor: pointer;
     box-shadow: none;
     border: none;
-    @include font($grey-313, "Inter-Medium", 1.3rem, 500, 1.6rem);
+    @include font($grey-313, "Inter", 1.3rem, 500, 1.6rem);
   }
   // .dropdown-toggle:active{
   //     background-color:$secondary;
@@ -92,7 +92,7 @@
       span {
         @include font(
           var(--dropdownActiveSelected),
-          "Inter-Medium",
+          "Inter",
           1.3rem,
           500,
           1.6rem
@@ -160,7 +160,7 @@
           0px 14px 64px -4px rgba(24, 39, 75, 0.12);
         border-radius: 4px;
         padding: 1rem 1rem 1rem 2.5rem;
-        @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+        @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
 
         &:focus,
         :active,
@@ -170,14 +170,14 @@
         }
 
         &::placeholder {
-          @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+          @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
         }
       }
       .dropdown-search-input-smaller {
         padding: 1rem 1rem 1rem 2rem;
         font-size: 1rem;
         &::placeholder {
-          @include font(var(--black191), "Inter-Medium", 1rem, 500, 1.6rem);
+          @include font(var(--black191), "Inter", 1rem, 500, 1.6rem);
         }
       }
       img {
@@ -207,7 +207,7 @@
         border-radius: 8px;
         padding: 0.8rem;
         border: 0.1rem solid #b0b1b3;
-        @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+        @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
 
         &:focus,
         :active,
@@ -217,7 +217,7 @@
         }
 
         &::placeholder {
-          @include font(#b0b1b3, "Inter-Medium", 1.3rem, 500, 1.6rem);
+          @include font(#b0b1b3, "Inter", 1.3rem, 500, 1.6rem);
         }
       }
     }
@@ -257,7 +257,7 @@
         user-select: none;
         border-radius: 4px;
         cursor: pointer;
-        // @include font($black-191, "Inter-Medium", 1.1rem, 500, 3rem);
+        // @include font($black-191, "Inter", 1.1rem, 500, 3rem);
         font-size: 1.1rem;
       }
     }
@@ -271,7 +271,7 @@
   }
 
   .placeholder {
-    @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+    @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
     position: absolute;
     top: 50%;
     width: 100%;
@@ -284,7 +284,7 @@
     transform: translateY(-50%);
 
     &.lineChartPlaceholder {
-      @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+      @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
       height: 4rem;
       display: flex;
       align-items: center;
@@ -327,7 +327,7 @@
   .placeholderPriceDropdown {
     min-width: 18rem;
     max-width: 80rem;
-    @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+    @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -341,7 +341,7 @@
     }
 
     &.lineChartPlaceholder {
-      @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+      @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
       display: flex;
       align-items: center;
 
@@ -381,7 +381,7 @@
       span {
         @include font(
           var(--dropdownActiveSelected),
-          "Inter-Medium",
+          "Inter",
           1.3rem,
           500,
           1.6rem
@@ -449,7 +449,7 @@
           0px 14px 64px -4px rgba(24, 39, 75, 0.12);
         border-radius: 4px;
         padding: 1rem 1rem 1rem 2.5rem;
-        @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+        @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
 
         &:focus,
         :active,
@@ -459,20 +459,14 @@
         }
 
         &::placeholder {
-          @include font(var(--black191), "Inter-Medium", 1.3rem, 500, 1.6rem);
+          @include font(var(--black191), "Inter", 1.3rem, 500, 1.6rem);
         }
       }
       .dropdown-search-input-smaller {
         padding: 1rem 1rem 1rem 2rem;
         font-size: 1rem;
         &::placeholder {
-          @include font(
-            var(--sameModeColor),
-            "Inter-Medium",
-            1rem,
-            500,
-            1.6rem
-          );
+          @include font(var(--sameModeColor), "Inter", 1rem, 500, 1.6rem);
         }
       }
       img {
@@ -519,7 +513,7 @@
         user-select: none;
         border-radius: 4px;
         cursor: pointer;
-        // @include font($black-191, "Inter-Medium", 1.1rem, 500, 3rem);
+        // @include font($black-191, "Inter", 1.1rem, 500, 3rem);
         font-size: 1.1rem;
       }
     }

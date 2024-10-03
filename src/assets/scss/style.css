@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Inter-Regular";
+  font-family: "Inter";
   font-style: normal;
   font-weight: normal;
   src: url("/assets/fonts/Inter/Inter-Regular.ttf") format("truetype");
@@ -23,10 +23,10 @@
 }
 
 @font-face {
-  font-family: "Inter-Medium";
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 500;
-  src: url("/assets/fonts/Inter/Inter-Medium.ttf") format("truetype");
+  src: url("/assets/fonts/Inter/Inter.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -160,7 +160,7 @@ a:focus {
 }
 
 .inter-display-regular {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -168,7 +168,7 @@ a:focus {
 }
 
 .inter-display-medium {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -192,7 +192,7 @@ a:focus {
 }
 
 .inter-display-thin {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -200,7 +200,7 @@ a:focus {
 }
 
 .inter-display-extra-light {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -208,7 +208,7 @@ a:focus {
 }
 
 .inter-display-light {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -2022,7 +2022,7 @@ form label {
   max-width: 100%;
   margin-bottom: 8px;
   font-weight: 500;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   color: #868686;
 }
@@ -2034,7 +2034,7 @@ form .form-group {
 
 form .form-group .form-control,
 form .form-group .custom-select__control {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: normal;
   color: #19191a;
@@ -2082,7 +2082,7 @@ form
   .custom-select__menu
   .custom-select__menu-list
   .custom-select__option {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -2162,7 +2162,7 @@ form .form-group .input-group .form-control.is-invalid {
 
 form .form-group .form-control::-webkit-input-placeholder {
   color: #d4d4d4;
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.9rem;
   font-weight: 400;
   font-size: 1.6rem;
@@ -2170,7 +2170,7 @@ form .form-group .form-control::-webkit-input-placeholder {
 
 form .form-group .form-control:-ms-input-placeholder {
   color: #d4d4d4;
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.9rem;
   font-weight: 400;
   font-size: 1.6rem;
@@ -2178,7 +2178,7 @@ form .form-group .form-control:-ms-input-placeholder {
 
 form .form-group .form-control::-ms-input-placeholder {
   color: #d4d4d4;
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.9rem;
   font-weight: 400;
   font-size: 1.6rem;
@@ -2186,7 +2186,7 @@ form .form-group .form-control::-ms-input-placeholder {
 
 form .form-group .form-control::placeholder {
   color: #d4d4d4;
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 1.9rem;
   font-weight: 400;
   font-size: 1.6rem;
@@ -2205,7 +2205,7 @@ form
   .custom-select__control
   .custom-select__value-container
   .custom-select__single-value {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -2220,7 +2220,7 @@ form
   .custom-select__placeholder {
   padding: 0;
   color: #b6b6b6;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 1.4rem;
 }
@@ -2233,7 +2233,7 @@ form .form-group .search-input::-webkit-input-placeholder {
   font-size: 1.4rem;
   font-weight: 500;
   color: #b6b6b6;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 24px;
 }
 
@@ -2241,7 +2241,7 @@ form .form-group .search-input:-ms-input-placeholder {
   font-size: 1.4rem;
   font-weight: 500;
   color: #b6b6b6;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 24px;
 }
 
@@ -2249,7 +2249,7 @@ form .form-group .search-input::-ms-input-placeholder {
   font-size: 1.4rem;
   font-weight: 500;
   color: #b6b6b6;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 24px;
 }
 
@@ -2257,7 +2257,7 @@ form .form-group .search-input::placeholder {
   font-size: 1.4rem;
   font-weight: 500;
   color: #b6b6b6;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   line-height: 24px;
 }
 
@@ -2270,7 +2270,7 @@ form .form-group .form-text {
 }
 
 form .form-group .has-error {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: normal;
   color: #ea4e3c;
@@ -2428,7 +2428,7 @@ form .radio-wrapper.inline .radio-control {
 }
 
 .dropdown .dropdown-menu .dropdown-item {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -2490,7 +2490,7 @@ form .radio-wrapper.inline .radio-control {
 
 .table-wrapper .ReactVirtualized__Table__headerColumn {
   text-transform: none;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #999999;
@@ -2529,7 +2529,7 @@ form .radio-wrapper.inline .radio-control {
 }
 
 .table-wrapper .ReactVirtualized__Table__row {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   font-weight: 500;
   color: #565656;
@@ -2760,7 +2760,7 @@ form .radio-wrapper.inline .radio-control {
 }
 
 .grey-btn {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #7c7d81;
@@ -2915,7 +2915,7 @@ form .radio-wrapper.inline .radio-control {
 }
 
 .react-datepicker__input-container input {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -3768,7 +3768,7 @@ form .radio-wrapper.inline .radio-control {
   max-height: 2rem;
   overflow: hidden;
   line-height: 120%;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #55575a;
@@ -3861,7 +3861,7 @@ textarea {
 }
 
 .custom-switch label {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -4231,7 +4231,7 @@ textarea {
   height: 4rem;
   border: none;
   outline: none;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #19191a;
@@ -4249,7 +4249,7 @@ textarea {
 }
 
 .page-search-wrapper .page-search-input ::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: "#FDFDFD";
@@ -4258,7 +4258,7 @@ textarea {
 }
 
 .page-search-wrapper .page-search-input :-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: "#FDFDFD";
@@ -4267,7 +4267,7 @@ textarea {
 }
 
 .page-search-wrapper .page-search-input ::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: "#FDFDFD";
@@ -4276,7 +4276,7 @@ textarea {
 }
 
 .page-search-wrapper .page-search-input ::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: "#FDFDFD";
@@ -4349,7 +4349,7 @@ textarea {
 }
 
 .remarkInput .form-group input {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -5493,7 +5493,7 @@ input:-webkit-autofill:focus {
 }
 
 .sidebar-section .sidebar .logo .loch-text {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.4rem;
   font-weight: 500;
   color: #19191a;
@@ -5589,7 +5589,7 @@ input:-webkit-autofill:focus {
 }
 
 .sidebar-section .sidebar .sidebar-plan h3 {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 400;
   color: #ffffff;
@@ -5797,7 +5797,7 @@ input:-webkit-autofill:focus {
 }
 
 .sidebar-section .sidebar .sidebar-body nav ul li .nav-link {
-  font-family: "Inter-Medium";
+  font-family: "Inter", sans-serif;
   color: #636467;
   font-size: 1.3rem;
   font-weight: 500;
@@ -5889,7 +5889,7 @@ input:-webkit-autofill:focus {
 
 .sidebar-section .sidebar .sidebar-body nav ul li .none {
   background-color: transparent;
-  font-family: "Inter-Medium";
+  font-family: "Inter", sans-serif;
   color: #636467;
   font-size: 1.3rem;
   font-weight: 500;
@@ -5915,7 +5915,7 @@ input:-webkit-autofill:focus {
   top: 0rem;
   left: 0px;
   font-size: 1.3rem;
-  font-family: Inter-Medium;
+  font-family: Inter;
   color: white;
   bottom: 0;
   padding: 2rem;
@@ -6066,7 +6066,7 @@ input:-webkit-autofill:focus {
     0px 4px 4px -2px rgba(24, 39, 75, 0.08);
   box-shadow: 0px 2px 4px -2px rgba(24, 39, 75, 0.12),
     0px 4px 4px -2px rgba(24, 39, 75, 0.08);
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -7540,7 +7540,7 @@ input:-webkit-autofill:focus {
   .cohort-item-wrapper
   .form-group
   label {
-  font-family: Inter-Medium;
+  font-family: Inter;
   line-height: 1.6rem;
   font-size: 1.3rem;
   color: #313233;
@@ -8879,7 +8879,7 @@ input:-webkit-autofill:focus {
 }
 
 .overlayContainer .overLayHeader {
-  font-family: "Inter-Medium";
+  font-family: "Inter", sans-serif;
   z-index: 2147483647;
   position: fixed;
   top: 0;
@@ -10371,7 +10371,7 @@ input:-webkit-autofill:focus {
   right: 1rem;
   top: 1rem;
   color: #da2f58;
-  font-family: "Inter-Medium";
+  font-family: "Inter", sans-serif;
   font-size: 1.6rem;
   line-height: 19px;
 }
@@ -12990,7 +12990,7 @@ input:-webkit-autofill:focus {
 }
 
 .feedback-form-wrapper .feedback-wrapper input {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #adadad;
@@ -13118,7 +13118,7 @@ input:-webkit-autofill:focus {
   .dropdown-menu
   .dropdown-item {
   padding: 0.8rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -13418,7 +13418,7 @@ input:-webkit-autofill:focus {
   .dropdown-menu
   .dropdown-menu-list-container
   .dropdown-item {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -13465,7 +13465,7 @@ input:-webkit-autofill:focus {
   .topWalletDropdown
   .btn-primary.dropdown-toggle
   .topbar-btn {
-  font-family: "Inter-Regular" !important;
+  font-family: "Inter" !important;
   font-weight: 600;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14457,7 +14457,7 @@ input:-webkit-autofill:focus {
 }
 
 .portfolio-page-section .portfolio-section .highcharts-xaxis-labels {
-  font-family: "Inter-Regular";
+  font-family: "Inter";
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 2rem;
@@ -14465,7 +14465,7 @@ input:-webkit-autofill:focus {
 }
 
 .portfolio-page-section .portfolio-section .highcharts-yaxis-labels {
-  font-family: "Inter-Regular";
+  font-family: "Inter";
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 2rem;
@@ -19400,7 +19400,7 @@ input:-webkit-autofill:focus {
   .custom-select__control
   .custom-select__value-container
   .custom-select__placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -19421,7 +19421,7 @@ input:-webkit-autofill:focus {
   .custom-select__single-value {
   text-align: center;
   width: 100%;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -19491,7 +19491,7 @@ input:-webkit-autofill:focus {
   .dropdown-menu
   .dropdown-item {
   padding: 0.8rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -19551,7 +19551,7 @@ input:-webkit-autofill:focus {
   .dropdown-item {
   padding: 0.8rem;
   position: relative;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -19661,7 +19661,7 @@ input:-webkit-autofill:focus {
   .fillter_tabs_section
   .searchBar
   ::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -19673,7 +19673,7 @@ input:-webkit-autofill:focus {
   .fillter_tabs_section
   .searchBar
   :-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -19685,7 +19685,7 @@ input:-webkit-autofill:focus {
   .fillter_tabs_section
   .searchBar
   ::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -19697,7 +19697,7 @@ input:-webkit-autofill:focus {
   .fillter_tabs_section
   .searchBar
   ::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -19729,7 +19729,7 @@ input:-webkit-autofill:focus {
   .search-input {
   border: none;
   outline: none;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-weight: 500;
   color: #19191a;
@@ -19979,7 +19979,7 @@ input:-webkit-autofill:focus {
   margin: 0 1rem;
   width: 100%;
   border-radius: 8px;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20017,7 +20017,7 @@ input:-webkit-autofill:focus {
 
 .insights-section .cohort-dropdown .dropdown-menu .dropdown-item {
   padding: 0.8rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -20756,7 +20756,7 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   border: none;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -20844,7 +20844,7 @@ input:-webkit-autofill:focus {
 }
 
 .custom-dropdown .dropdown-content .dropdown-list span {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20924,7 +20924,7 @@ input:-webkit-autofill:focus {
     0px 14px 64px -4px rgba(24, 39, 75, 0.12);
   border-radius: 4px;
   padding: 1rem 1rem 1rem 2.5rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20953,7 +20953,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20964,7 +20964,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input:-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20975,7 +20975,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -20986,7 +20986,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21005,7 +21005,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21016,7 +21016,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input-smaller:-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21027,7 +21027,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21038,7 +21038,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21074,7 +21074,7 @@ input:-webkit-autofill:focus {
   border-radius: 8px;
   padding: 0.8rem;
   border: 0.1rem solid #b0b1b3;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21103,7 +21103,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper-min-max
   .dropdown-min-max-input::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -21114,7 +21114,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper-min-max
   .dropdown-min-max-input:-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -21125,7 +21125,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper-min-max
   .dropdown-min-max-input::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -21136,7 +21136,7 @@ input:-webkit-autofill:focus {
   .dropdown-content
   .dropdown-search-wrapper-min-max
   .dropdown-min-max-input::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -21186,7 +21186,7 @@ input:-webkit-autofill:focus {
 }
 
 .custom-dropdown .placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21210,7 +21210,7 @@ input:-webkit-autofill:focus {
 }
 
 .custom-dropdown .placeholder.lineChartPlaceholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21251,7 +21251,7 @@ input:-webkit-autofill:focus {
 .custom-dropdown .placeholderPriceDropdown {
   min-width: 18rem;
   max-width: 80rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21270,7 +21270,7 @@ input:-webkit-autofill:focus {
 }
 
 .custom-dropdown .placeholderPriceDropdown.lineChartPlaceholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21318,7 +21318,7 @@ input:-webkit-autofill:focus {
 }
 
 .custom-dropdown .dropdown-content-price .dropdown-list span {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21402,7 +21402,7 @@ input:-webkit-autofill:focus {
     0px 14px 64px -4px rgba(24, 39, 75, 0.12);
   border-radius: 4px;
   padding: 1rem 1rem 1rem 2.5rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21431,7 +21431,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21442,7 +21442,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input:-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21453,7 +21453,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21464,7 +21464,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -21483,7 +21483,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::-webkit-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21494,7 +21494,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input-smaller:-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21505,7 +21505,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::-ms-input-placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21516,7 +21516,7 @@ input:-webkit-autofill:focus {
   .dropdown-content-price
   .dropdown-search-wrapper
   .dropdown-search-input-smaller::placeholder {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #19191a;
@@ -21774,7 +21774,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -21815,7 +21815,7 @@ input:-webkit-autofill:focus {
   .pricing-section
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #b0b1b3;
@@ -21851,7 +21851,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.baron-bg
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
   color: #ffffff;
@@ -21892,7 +21892,7 @@ input:-webkit-autofill:focus {
   .pricing-section.baron-bg
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #ffffff;
@@ -21945,7 +21945,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.soverign-bg
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
   color: #ffffff;
@@ -21986,7 +21986,7 @@ input:-webkit-autofill:focus {
   .pricing-section.soverign-bg
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #ffffff;
@@ -22086,7 +22086,7 @@ input:-webkit-autofill:focus {
   .feature-list
   .label
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #96979a;
@@ -22104,7 +22104,7 @@ input:-webkit-autofill:focus {
   .feature-list-wrapper
   .feature-list
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -23319,7 +23319,7 @@ input:-webkit-autofill:focus {
 }
 
 .edit-wallet-modal .modal-body .edit-wallet-body .form-group label {
-  font-family: Inter-Medium;
+  font-family: Inter;
   line-height: 1.6rem;
   font-size: 1.3rem;
   color: #313233;
@@ -24893,7 +24893,7 @@ input:-webkit-autofill:focus {
 }
 
 .cohort-address-wrapper .nickname-input input {
-  font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: normal;
   color: #0d0d0d;
@@ -25093,7 +25093,7 @@ input:-webkit-autofill:focus {
   .dropdown-menu
   .dropdown-item {
   padding: 0.8rem;
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -25290,7 +25290,7 @@ input:-webkit-autofill:focus {
   .plan-name
   .plan-top
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -25305,7 +25305,7 @@ input:-webkit-autofill:focus {
   .plan-name
   .plan-top
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -25343,7 +25343,7 @@ input:-webkit-autofill:focus {
   .plan-top
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -25463,7 +25463,7 @@ input:-webkit-autofill:focus {
   .feature-list
   .label
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -25482,7 +25482,7 @@ input:-webkit-autofill:focus {
   .list
   .feature-list
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -25977,7 +25977,7 @@ input:-webkit-autofill:focus {
   .form
   .form-group
   label {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #313233;
@@ -26108,7 +26108,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -26122,7 +26122,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #19191a;
@@ -26155,7 +26155,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.baron-bg
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
   color: #ffffff;
@@ -26169,7 +26169,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.baron-bg
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #ffffff;
@@ -26207,7 +26207,7 @@ input:-webkit-autofill:focus {
   .pricing-section.baron-bg
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #ffffff;
@@ -26255,7 +26255,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.soverign-bg
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
   color: #ffffff;
@@ -26269,7 +26269,7 @@ input:-webkit-autofill:focus {
   .plan-card
   .pricing-section.soverign-bg
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #ffffff;
@@ -26307,7 +26307,7 @@ input:-webkit-autofill:focus {
   .pricing-section.soverign-bg
   .price
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #ffffff;
@@ -26387,7 +26387,7 @@ input:-webkit-autofill:focus {
   .feature-list
   .label
   h3 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #96979a;
@@ -26403,7 +26403,7 @@ input:-webkit-autofill:focus {
   .feature-list-wrapper
   .feature-list
   h4 {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   color: #0d0d0d;
@@ -27166,7 +27166,7 @@ input:-webkit-autofill:focus {
 }
 
 .highcharts-xaxis-labels {
-  font-family: "Inter-Regular";
+  font-family: "Inter";
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 2rem;
@@ -27174,7 +27174,7 @@ input:-webkit-autofill:focus {
 }
 
 .highcharts-yaxis-labels {
-  font-family: "Inter-Regular";
+  font-family: "Inter";
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 2rem;

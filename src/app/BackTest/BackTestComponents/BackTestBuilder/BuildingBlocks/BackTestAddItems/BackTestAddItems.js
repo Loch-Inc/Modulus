@@ -135,10 +135,16 @@ class BackTestAddItems extends BaseReactComponent {
             type: "CURRENT_PRICE",
             token: "BTC",
             operator: ">",
-            amount: "10000",
+            amount: "100",
             time_period: "4",
             success: {},
             failed: {},
+            compare_type: "function",
+            compare_function: {
+              type: "CURRENT_PRICE",
+              time_period: "4",
+              token: "ETH",
+            },
           },
         },
       });
@@ -155,9 +161,9 @@ class BackTestAddItems extends BaseReactComponent {
   }
 
   render() {
-    return (
-      <div className={`sbb-add-options`}>
-        {this.state.isOptionsOpen ? (
+    if (this.state.isOptionsOpen) {
+      return (
+        <div className={`sbb-add-options`}>
           <div className={`sbb-add-options-items `}>
             <BackTestAddingOptions
               closeOptions={this.closeOptions}
@@ -166,9 +172,10 @@ class BackTestAddItems extends BaseReactComponent {
               blockType={this.props.blockType}
             />
           </div>
-        ) : null}
-      </div>
-    );
+        </div>
+      );
+    }
+    return null;
   }
 }
 

@@ -3,7 +3,7 @@
 
   .back-test-pop-up-dropdown {
     border: 1px solid var(--strategyBuilderPopUpAssetBorder);
-    padding: 0.8rem 1rem;
+    padding: 0.6rem 1rem;
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -73,14 +73,14 @@
         border-radius: 0.8rem;
       }
       .back-test-popup-list-item {
-        height: calc(3.5rem - 1px);
-        min-height: calc(3.5rem - 1px);
+        height: fit-content;
         margin: 0rem 0.2rem;
         border-radius: 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0rem 1rem;
+        padding: 0.5rem 1rem;
+        box-sizing: border-box;
         cursor: pointer;
         .back-test-popup-list-item-check-icon {
           height: 12px;

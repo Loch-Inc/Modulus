@@ -168,7 +168,7 @@ export const BackTestChartOption = (
       },
       zoomType: "x",
       style: {
-        fontFamily: "Inter-Medium, Arial, Helvetica, sans-serif",
+        fontFamily: "Inter, Arial, Helvetica, sans-serif",
         fontSize: "12px",
       },
     },

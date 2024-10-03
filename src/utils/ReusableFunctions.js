@@ -39,33 +39,46 @@ export const isArrayInArrayOfArrays = (arr1, arrOfArr) => {
 
   return false; // No match found
 };
-export const strategyByilderChartWhichSymbol = (passedItem) => {
+export const strategyBuilderLimitAmountTo = (passedItem) => {
   if (
-    passedItem === "MOVING_AVERAGE_CONVERGENCE_DIVERGENCE" ||
-    passedItem === "VOLUME" ||
-    passedItem === "MARKET_CAPITALIZATION" ||
-    passedItem === "MAX_DRAWDOWN"
+    passedItem === "MAX_DRAWDOWN" ||
+    passedItem === "RELATIVE_STRENGTH_INDEX"
+  ) {
+    return 100;
+  }
+  return null;
+};
+export const strategyBuilderChartWhichSymbol = (passedItem) => {
+  if (
+    passedItem === "CUMULATIVE_RETURN" ||
+    passedItem === "MAX_DRAWDOWN" ||
+    passedItem === "MOVING_AVERAGE_RETURN" ||
+    passedItem === "RELATIVE_STRENGTH_INDEX" ||
+    passedItem === "STANDARD_DEVIATION_OF_RETURN"
   ) {
     return "%";
   }
   return "$";
 };
-export const strategyByilderChartShouldShowDate = (passedItem) => {
+export const strategyBuilderChartShouldShowDate = (passedItem) => {
   if (
-    passedItem === "MARKET_CAPITALIZATION" ||
-    passedItem === "BOLLINGER_BAND" ||
-    passedItem === "MOVING_AVERAGE_CONVERGENCE_DIVERGENCE" ||
-    passedItem === "RELATIVE_STRENGTH_INDEX" ||
-    passedItem === "MOVING_AVERAGE_RETURN" ||
-    passedItem === "MOVING_AVERAGE_PRICE" ||
+    passedItem === "CUMULATIVE_RETURN" ||
     passedItem === "EXPONENTIAL_MOVING_AVERAGE" ||
-    passedItem === "MAX_DRAWDOWN"
+    passedItem === "MAX_DRAWDOWN" ||
+    passedItem === "MOVING_AVERAGE_PRICE" ||
+    passedItem === "MOVING_AVERAGE_RETURN" ||
+    passedItem === "RELATIVE_STRENGTH_INDEX" ||
+    passedItem === "STANDARD_DEVIATION_OF_PRICE" ||
+    passedItem === "STANDARD_DEVIATION_OF_RETURN" ||
+    passedItem === "MOVING_AVERAGE_CONVERGENCE_DIVERGENCE" ||
+    passedItem === "VOLUME" ||
+    passedItem === "MARKET_CAPITALIZATION"
   ) {
     return true;
   }
   return false;
 };
-export const strategyByilderChartLineColorByIndexLowOpacity = (passedIndex) => {
+export const strategyBuilderChartLineColorByIndexLowOpacity = (passedIndex) => {
   // if (passedIndex === 0) {
   //   return "rgba(128, 67, 243,0.1)";
   // } else if (passedIndex === 1) {
@@ -76,11 +89,11 @@ export const strategyByilderChartLineColorByIndexLowOpacity = (passedIndex) => {
   // return "black";
   return `var(--strategyBuilderGraphLowOpacity${passedIndex + 1})`;
 };
-export const strategyByilderChartLineColorByIndex = (passedIndex) => {
+export const strategyBuilderChartLineColorByIndex = (passedIndex) => {
   return `var(--strategyBuilderGraph${passedIndex + 1})`;
 };
 
-export const strategyByilderAssetList = () => {
+export const strategyBuilderAssetListriod = () => {
   return [
     {
       name: "BTC",
@@ -144,11 +157,11 @@ export const strategyByilderAssetList = () => {
     },
   ];
 };
-export const strategyByilderAssetDetailFromName = (passedItem) => {
-  const curAssetList = strategyByilderAssetList();
+export const strategyBuilderAssetDetailFromName = (passedItem) => {
+  const curAssetList = strategyBuilderAssetListriod();
   return curAssetList.find((element) => element.name === passedItem);
 };
-export const strategyByilderTypeConvertorSymbolToText = (passedItem) => {
+export const strategyBuilderTypeConvertorSymbolToText = (passedItem) => {
   if (passedItem === "CURRENT_PRICE") {
     return "Current price";
   } else if (passedItem === "CUMULATIVE_RETURN") {
@@ -183,7 +196,7 @@ export const strategyByilderTypeConvertorSymbolToText = (passedItem) => {
 
   return "";
 };
-export const strategyByilderTypeConvertorTextToSymbol = (passedItem) => {
+export const strategyBuilderTypeConvertorTextToSymbol = (passedItem) => {
   if (passedItem === "Current price") {
     return "CURRENT_PRICE";
   } else if (passedItem === "Cumulative return") {
@@ -218,7 +231,7 @@ export const strategyByilderTypeConvertorTextToSymbol = (passedItem) => {
 
   return "";
 };
-export const strategyByilderOperatorConvertorSymbolToText = (passedItem) => {
+export const strategyBuilderOperatorConvertorSymbolToText = (passedItem) => {
   if (passedItem === ">") {
     return "greater than";
   } else if (passedItem === "<") {
@@ -232,7 +245,7 @@ export const strategyByilderOperatorConvertorSymbolToText = (passedItem) => {
   }
   return "";
 };
-export const strategyByilderOperatorConvertorTextToSymbol = (passedItem) => {
+export const strategyBuilderOperatorConvertorTextToSymbol = (passedItem) => {
   if (passedItem === "greater than") {
     return ">";
   } else if (passedItem === "less than") {

@@ -59,7 +59,7 @@ class BackTestWeightPercentageBlock extends BaseReactComponent {
         <div className="sbb-content">
           <div className="back-test-weight-percentage">
             <div className="back-test-weight-percentage-title">
-              {this.state.weightPercentage} %
+              {this.state.weightPercentage}%
             </div>
             {this.state.isPopUpOpen ? (
               <OutsideClickHandler onOutsideClick={this.closePopUp}>

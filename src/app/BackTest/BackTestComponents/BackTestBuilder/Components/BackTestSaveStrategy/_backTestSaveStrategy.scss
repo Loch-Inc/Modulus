@@ -1,0 +1,156 @@
+.strategy-builder-save-strategy {
+  background-color: var(--strategyBuilderSaveStrategyBackground);
+  border: 1px solid var(--strategyBuilderSaveStrategyBorder);
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 6rem;
+  padding: 0 1rem;
+
+  .strategy-builder-save-strategy-title-input {
+    flex: 1;
+    font-size: 16px;
+    color: var(--primaryTextColor);
+    text-shadow: 0.1px 0 var(--primaryTextColor);
+    outline: none;
+    border-radius: 8px;
+    padding: 0.8rem;
+    border: 1px solid transparent;
+    height: 4rem;
+
+    box-shadow: none !important;
+    transition: none !important;
+    background-color: transparent;
+
+    &::placeholder {
+      opacity: 0.3;
+    }
+  }
+  .strategy-builder-save-strategy-title-container-parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .strategy-builder-save-strategy-title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 4rem;
+      .strategy-builder-save-strategy-title-diamond {
+        height: 18px;
+      }
+      .strategy-builder-save-strategy-title {
+        color: var(--primaryTextColor);
+        text-shadow: 0.1px 0 var(--primaryTextColor);
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .strategy-builder-save-strategy-title-rename-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        padding: 2px 4px;
+        padding-right: 5px;
+        border-radius: 8px;
+        background-color: var(--strategyBuilderSaveStrategyRenameBackground);
+        border: 1px solid var(--strategyBuilderSaveStrategyRenameBorder);
+        .strategy-builder-save-strategy-title-rename-icon {
+          height: 13px;
+        }
+        .strategy-builder-save-strategy-title-rename {
+          color: var(--topbarInput);
+          text-shadow: 0.1px 0 var(--topbarInput);
+          font-size: 14px;
+        }
+
+        &:hover {
+          background-color: var(--primaryTextColor);
+          border: 1px solid var(--primaryTextColor);
+          .strategy-builder-save-strategy-title-rename-icon {
+            filter: brightness(0) invert(1);
+          }
+          .strategy-builder-save-strategy-title-rename {
+            color: var(--cardBackgroud);
+            text-shadow: 0.1px 0 var(--cardBackgroud);
+          }
+        }
+      }
+    }
+  }
+  .strategy-builder-save-strategy-btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+.strategy-builder-save-strategy-btn {
+  border: 1px solid var(--strategyBuilderBorder);
+  box-shadow: var(--boxShadowMd);
+  border-radius: 10px;
+  height: 4rem;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--primaryTextColor);
+  text-shadow: 0.1px 0 var(--primaryTextColor);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--strategyBuilderDarkGrey);
+  }
+}
+.strategy-builder-save-strategy-btn-highlighted {
+  background-color: #cbf458;
+  &:hover {
+    background-color: var(--primaryTextColor);
+    color: var(--cardBackgroud);
+  }
+}
+.strategy-builder-save-strategy-btn-loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.strategy-builder-save-strategy-input-open {
+  .strategy-builder-save-strategy-title-input {
+    &:hover:not(:focus) {
+      opacity: 0.6;
+    }
+
+    &:focus {
+      opacity: 1;
+    }
+  }
+}
+.strategy-builder-save-strategy-mobile {
+  margin: 0;
+  padding: 0.5rem;
+  .strategy-builder-save-strategy-title-input {
+    border-radius: 0;
+    &:hover {
+      border: 1px solid transparent;
+    }
+  }
+  .strategy-builder-save-strategy-btns-container {
+    .strategy-builder-save-strategy-btn {
+      height: 40px;
+      width: 100px;
+      border-radius: 8px;
+      &:hover {
+        background-color: unset;
+      }
+    }
+  }
+}

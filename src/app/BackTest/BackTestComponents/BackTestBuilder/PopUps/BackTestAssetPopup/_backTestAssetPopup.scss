@@ -5,16 +5,55 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(-10.5rem, 1rem);
+    transform: translate(-9.8rem, calc(16px));
     padding: 1rem;
     box-shadow: var(--boxShadowMd);
     border-radius: 12px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    // gap: 8px;
+    gap: 8px;
     z-index: 2;
     border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+    .back-test-asset-popup-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 40rem;
+      width: 100%;
+      .back-test-asset-popup-header-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+        gap: 4px;
+        .back-test-asset-popup-header-text-icon {
+          height: 15px;
+        }
+      }
+      .back-test-asset-popup-header-close {
+        cursor: pointer;
+        background-color: var(--greyCardBackgroud);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 24px;
+        width: 24px;
+        border-radius: 6px;
+        .back-test-asset-popup-header-close-icon {
+          height: 12px;
+          width: 12px;
+          filter: var(--invertColor);
+        }
+        &:hover {
+          background-color: var(--primaryTextColor);
+          .back-test-asset-popup-header-close-icon {
+            filter: var(--invertColorHover);
+          }
+        }
+      }
+    }
     .back-test-asset-popup-search-close-container {
       display: flex;
       align-items: center;
@@ -33,27 +72,10 @@
           width: 100%;
         }
         &:hover {
-          border: 1px solid var(--blockOneHeaderGradSecondary);
-        }
-      }
-      .back-test-asset-popup-close {
-        cursor: pointer;
-        background-color: var(--strategyBuilderLightGrey);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 4rem;
-        width: 4rem;
-        border-radius: 10px;
-        .back-test-asset-popup-close-icon {
-          height: 13px;
-          width: 13px;
-          filter: var(--invertColor);
-        }
-        &:hover {
-          background-color: var(--primaryTextColor);
-          .back-test-asset-popup-close-icon {
-            filter: var(--invertColorHover);
+          .back-test-asset-popup-search-input {
+            &::placeholder {
+              color: var(--primaryTextColor);
+            }
           }
         }
       }

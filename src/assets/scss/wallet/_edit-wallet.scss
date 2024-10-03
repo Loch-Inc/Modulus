@@ -40,7 +40,7 @@
       cursor: pointer;
       transition: all 0.4s ease;
 
-      img{
+      img {
         filter: var(--invertColor);
       }
 
@@ -159,7 +159,7 @@
       // form {
       .form-group {
         label {
-          font-family: Inter-Medium;
+          font-family: Inter;
           line-height: 1.6rem;
           font-size: 1.3rem;
           color: var(--grey313);
@@ -207,9 +207,8 @@
           background-color: var(--cardBackgroud);
           .custom-select__menu-list {
             height: 16rem;
-            .custom-select__option{
+            .custom-select__option {
               color: var(--black191);
-
             }
           }
           .custom-select__menu-list::-webkit-scrollbar {
@@ -225,8 +224,6 @@
             // background: transparent;
             background-color: $grey-E5E;
             border-radius: 0.8rem;
-
-            
           }
         }
       }
@@ -256,9 +253,10 @@
             // color: $black-191;
             // background-color: $secondary;
             border-color: $secondary;
-                    box-shadow: 0px 0.4rem 1rem rgba(0, 0, 0, 0.04), 0px 1rem 1rem rgba(0, 0, 0, 0.04);
-                    color: $black-191;
-                    background-color: $secondary;
+            box-shadow: 0px 0.4rem 1rem rgba(0, 0, 0, 0.04),
+              0px 1rem 1rem rgba(0, 0, 0, 0.04);
+            color: $black-191;
+            background-color: $secondary;
           }
         }
       }

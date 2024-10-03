@@ -1,0 +1,117 @@
+.sign-in-up-functionality {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0 5.5rem;
+  .sign-in-up-functionality-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .sign-in-up-functionality-logo-image {
+      height: 8rem;
+      width: 8rem;
+    }
+  }
+  .sign-in-up-functionality-title {
+    width: 100%;
+    text-align: left;
+    font-size: 31px;
+    font-weight: 500;
+    color: var(--primaryTextColor);
+    text-shadow: 0.6px 0 var(--primaryTextColor);
+    line-height: 37.2px;
+  }
+  .sign-in-up-functionality-sub-text {
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    color: var(--currenyConvertorText);
+    text-shadow: 0.1px 0 var(--currenyConvertorText);
+  }
+  .sign-in-up-functionality-input-btn-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sign-in-up-functionality-input {
+    width: 100%;
+    border: 1.5px solid var(--strategyBuilderGraphGrid);
+    outline: none;
+    padding: 0rem 1.5rem;
+    height: 51px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: var(--boxShadowLg) !important;
+    color: var(--primaryTextColor);
+    text-shadow: 0.2px 0 var(--primaryTextColor);
+    &::placeholder {
+      color: var(--secondaryLightColor);
+      text-shadow: 0.2px 0 var(--secondaryLightColor);
+    }
+    &:hover,
+    &:focus {
+      &::placeholder {
+        color: var(--primaryTextColor);
+      }
+    }
+  }
+  .otp-input-container {
+    display: flex;
+    gap: 1.4rem;
+    .otp-input {
+      text-align: center;
+      height: 7rem;
+    }
+  }
+
+  .sign-in-up-functionality-button {
+    width: 100%;
+    border: 1.5px solid var(--strategySignUpBtnBorder);
+    outline: none;
+    height: 55px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: var(--strategySignUpBtn);
+    box-shadow: var(--boxShadowLg);
+    color: var(--primaryTextColor);
+    .btn-primary {
+      outline: transparent !important;
+    }
+    &:hover {
+      border-color: var(--primaryTextColor);
+      background-color: var(--primaryTextColor);
+      color: var(--strategySignUpBtn);
+    }
+    &:active {
+      opacity: 0.8;
+    }
+  }
+  .sign-in-up-functionality-button-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .sign-in-up-functionality-bottom-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--signUpBottomText);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--primaryTextColor);
+    }
+  }
+  .sign-in-up-functionality-bottom-text-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

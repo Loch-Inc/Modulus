@@ -13,24 +13,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 25px;
-    width: 25px;
-    border-radius: 6px;
-    background-color: var(--strategyBuilderLightGrey);
+    height: 31px;
+    width: 31px;
+    border-radius: 8px;
+    background-color: var(--cardBackgroud);
+    border: 1px solid var(--strategyBuilderSaveStrategyBorder);
     cursor: pointer;
     .sbb-edit-delete-options-block-image {
-      width: 13px;
-      height: 13px;
+      width: 15px;
+      height: 15px;
     }
     &:hover {
       background-color: var(--strategyBuilderDarkGrey);
+      border-color: transparent;
     }
   }
   .sbb-edit-delete-options-delete {
     background-color: var(--strategyBuilderLightRed);
-
+    border-color: var(--strategyBuilderSaveStrategyRedBorder);
     &:hover {
       background-color: var(--strategyBuilderDarkRed);
+    }
+  }
+  .sbb-edit-delete-options-add {
+    background-color: var(--strategyBuilderLightNeon);
+    border-color: var(--strategyBuilderSaveStrategyNeonBorder);
+    &:hover {
+      background-color: var(--strategyBuilderDarkNeon);
     }
   }
 }

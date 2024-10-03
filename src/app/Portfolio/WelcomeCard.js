@@ -421,6 +421,20 @@ export default function WelcomeCard(props) {
               // </div>
               null}
             </div>
+            <div
+              style={{
+                fontSize: "1.5rem",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                resetUser();
+                setTimeout(() => {
+                  props.history.push("/sign-in");
+                }, 500);
+              }}
+            >
+              Sign out
+            </div>
             {props.showNetworth && (
               <div
                 className="row-div"

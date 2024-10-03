@@ -1,28 +1,29 @@
-import React from "react";
-
 import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
+import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   mobileCheck,
   numToCurrency,
-  strategyByilderChartLineColorByIndex,
-  strategyByilderChartLineColorByIndexLowOpacity,
+  strategyBuilderChartLineColorByIndex,
+  strategyBuilderChartLineColorByIndexLowOpacity,
 } from "../../utils/ReusableFunctions";
 import MobileLayout from "../layout/MobileLayout";
-import WelcomeCard from "../Portfolio/WelcomeCard";
+import TopBar from "../TopBar/TopBar";
 import "./_backTest.scss";
 import { getBackTestChart, getBackTestTable } from "./Api/BackTestApi";
 import BackTestPageContent from "./BackTestPageContent";
 import BackTestPageMobile from "./BackTestPageMobile";
-import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
+import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 
 class BackTestPage extends BaseReactComponent {
   constructor(props) {
     super(props);
 
     this.state = {
+      isExistingStrategy: false,
+      saveStrategyName: DEFAULT_STRATEGY_NAME,
       passedStrategyList: [],
       passedUserList: [],
       isFromCalendar: false,
@@ -33,7 +34,6 @@ class BackTestPage extends BaseReactComponent {
       isSaveInvestStrategy: false,
       saveStrategyCheck: false,
       loadingSaveInvestStrategyBtn: false,
-      saveStrategyName: "",
       strategiesOptions: [
         {
           label: "BTC",
@@ -57,10 +57,9 @@ class BackTestPage extends BaseReactComponent {
               className="history-table-header-col no-hover history-table-header-col-curve-left"
               id="time"
             >
-              <span className="inter-display-medium f-s-12 zeroOpacity">
-                Strategy
+              <span className="inter-display-medium f-s-12">
+                Asset
                 <br />
-                name
               </span>
             </div>
           ),
@@ -86,11 +85,11 @@ class BackTestPage extends BaseReactComponent {
                     <div
                       style={{
                         backgroundColor:
-                          strategyByilderChartLineColorByIndexLowOpacity(
+                          strategyBuilderChartLineColorByIndexLowOpacity(
                             dataIndex
                           ),
                       }}
-                      className="strategy-builder-table-strategy-name dotDotText inter-display-medium text-uppercase f-s-12"
+                      className="strategy-builder-table-strategy-name dotDotText inter-display-medium text-uppercase f-s-14"
                     >
                       <svg
                         width="5"
@@ -104,7 +103,7 @@ class BackTestPage extends BaseReactComponent {
                           cx="2.5"
                           cy="3"
                           r="2.5"
-                          fill={strategyByilderChartLineColorByIndex(dataIndex)}
+                          fill={strategyBuilderChartLineColorByIndex(dataIndex)}
                         />
                       </svg>
 
@@ -135,7 +134,7 @@ class BackTestPage extends BaseReactComponent {
           cell: (rowData, dataKey) => {
             if (dataKey === "cumret") {
               return (
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.cumulative_return ? (
                     <span>
                       {rowData.cumulative_return < 0 ? "-" : ""}
@@ -180,7 +179,7 @@ class BackTestPage extends BaseReactComponent {
                 //       : "0.00%"
                 //   }
                 // >
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.annual_return ? (
                     <span>
                       {rowData.annual_return < 0 ? "-" : ""}
@@ -226,7 +225,7 @@ class BackTestPage extends BaseReactComponent {
                 //       : "0.00%"
                 //   }
                 // >
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.max_1d_drawdown ? (
                     <span>
                       {rowData.max_1d_drawdown < 0 ? "-" : ""}
@@ -272,7 +271,7 @@ class BackTestPage extends BaseReactComponent {
                 //       : "0.00%"
                 //   }
                 // >
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.max_1w_drawdown ? (
                     <span>
                       {rowData.max_1w_drawdown < 0 ? "-" : ""}
@@ -318,7 +317,7 @@ class BackTestPage extends BaseReactComponent {
                 //       : "0.00%"
                 //   }
                 // >
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.max_1m_drawdown ? (
                     <span>
                       {rowData.max_1m_drawdown < 0 ? "-" : ""}
@@ -365,7 +364,7 @@ class BackTestPage extends BaseReactComponent {
                 //     rowData.sharpe_ratio ? rowData.sharpe_ratio + "%" : "0.00%"
                 //   }
                 // >
-                <div className="inter-display-medium f-s-12">
+                <div className="inter-display-medium f-s-14">
                   {rowData.sharpe_ratio ? (
                     <span>
                       {rowData.sharpe_ratio < 0 ? "-" : ""}
@@ -405,11 +404,9 @@ class BackTestPage extends BaseReactComponent {
     });
   };
   hideSaveStrategy = () => {
-    if (this.state.isSaveInvestStrategy) {
-      this.setState({
-        isSaveInvestStrategy: false,
-      });
-    }
+    this.setState({
+      isSaveInvestStrategy: false,
+    });
   };
   addCurrentQuery = (passedQueryId) => {};
   hideToCalendar = () => {
@@ -519,10 +516,13 @@ class BackTestPage extends BaseReactComponent {
 
   componentDidMount() {
     const { state } = this.props.location;
+
     if (state && state.passedStrategyId) {
       this.setState(
         {
+          isExistingStrategy: true,
           passedStrategyList: [state.passedStrategyId],
+          saveStrategyName: [state.passedStrategyName],
           passedUserList: [state.passedUserId],
         },
         () => {
@@ -789,7 +789,7 @@ class BackTestPage extends BaseReactComponent {
                 //           [1, "transparent"],
                 //         ],
                 //       },
-                color: strategyByilderChartLineColorByIndex(curIndex),
+                color: strategyBuilderChartLineColorByIndex(curIndex),
               };
               allGraphListItems.push(tempGraphOptions);
               tempRangeDateHolder = tempRangeDate;
@@ -905,41 +905,14 @@ class BackTestPage extends BaseReactComponent {
     return (
       <div className="back-test-page">
         {/* topbar */}
-        <div className="portfolio-page-section">
-          <div
-            className="portfolio-container page"
-            style={{ overflow: "visible" }}
-          >
-            <div className="portfolio-section">
-              {/* welcome card */}
-              <WelcomeCard
-                loadingSaveInvestStrategyBtn={
-                  this.state.loadingSaveInvestStrategyBtn
-                }
-                saveStrategyClicked={this.saveStrategyClicked}
-                isSaveInvestStrategy={this.state.isSaveInvestStrategy}
-                openConnectWallet={this.props.openConnectWallet}
-                connectedWalletAddress={this.props.connectedWalletAddress}
-                connectedWalletevents={this.props.connectedWalletevents}
-                disconnectWallet={this.props.disconnectWallet}
-                handleShare={this.handleShare}
-                isSidebarClosed={this.props.isSidebarClosed}
-                apiResponse={(e) => this.CheckApiResponse(e)}
-                // history
-                history={this.props.history}
-                // add wallet address modal
-                handleAddModal={this.handleAddModal}
-                hideButton={false}
-                updateOnFollow={this.callApi}
-                hideShare
-              />
-            </div>
-          </div>
-        </div>
+        <TopBar history={this.props.history} />
         <div className="page">
           <div className=" page-scroll">
-            <div className="page-scroll-child page-scroll-child-full-width">
+            <div className="page-scroll-child ">
               <BackTestPageContent
+                isSaveInvestStrategy={this.state.isSaveInvestStrategy}
+                isExistingStrategy={this.state.isExistingStrategy}
+                saveStrategyClicked={this.saveStrategyClicked}
                 passedStrategyList={this.state.passedStrategyList}
                 passedUserList={this.state.passedUserList}
                 saveStrategyName={this.state.saveStrategyName}

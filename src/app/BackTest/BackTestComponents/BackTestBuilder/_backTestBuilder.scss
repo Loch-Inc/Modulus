@@ -6,11 +6,16 @@
   overflow-y: scroll;
   // overflow-x: scroll;
   padding: 2rem;
+  padding-bottom: calc(400px + 0.4rem);
+  padding-right: 2.4rem;
+
   &::-webkit-scrollbar {
     width: 0rem;
     height: 0rem;
   }
   &:hover {
+    padding-right: 2rem;
+    padding-bottom: 400px;
     &::-webkit-scrollbar {
       width: 0.4rem;
       height: 0.4rem;
@@ -75,6 +80,8 @@
   padding: 2rem;
   padding-bottom: 0rem;
   &:hover {
+    padding: 2rem;
+    padding-bottom: 0rem;
     &::-webkit-scrollbar {
       width: 0rem;
       height: 0rem;
@@ -86,26 +93,42 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  .btpcb-builder-title-undo-redo-icon {
+  z-index: 101;
+  position: absolute;
+  right: 0;
+  transform: translateY(calc(100% + 1.4rem)) translateX(-2rem);
+  .btpcb-builder-title-undo-redo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    background-color: var(--cardBackgroud);
+    border-radius: 8px;
     cursor: pointer;
-    height: 22px;
-    width: 22px;
-    filter: var(--invertColor);
-    &:hover {
-      opacity: 0.8;
+    user-select: none;
+    box-shadow: var(--boxShadowMd);
+
+    .btpcb-builder-title-undo-redo-icon {
+      cursor: pointer;
+      height: 14px;
+      width: 14px;
+      filter: var(--invertColor);
     }
-    &:active {
-      opacity: 0.6;
+    &:hover {
+      background-color: var(--primaryTextColor);
+      .btpcb-builder-title-undo-redo-icon {
+        filter: var(--invertColorHover);
+      }
     }
   }
-  .btpcb-builder-title-undo-redo-icon-disabled {
-    opacity: 0.5;
+  .btpcb-builder-title-undo-redo-item-disabled {
     cursor: default;
-    &:hover {
-      opacity: 0.5;
-    }
-    &:active {
-      opacity: 0.5;
+    background-color: var(--primaryDropdownBackground);
+    pointer-events: none;
+
+    .btpcb-builder-title-undo-redo-icon {
+      opacity: 0.4;
     }
   }
 }

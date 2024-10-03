@@ -1,35 +1,60 @@
-import { Route } from "react-router-dom";
-import Login from "./app/common/Login";
-
 import BackTestPage from "./app/BackTest/BackTestPage";
+import LeaderboardPage from "./app/LeaderboardPage/LeaderboardPage";
+import ModulusHome from "./app/ModulusHome/ModulusHome";
+import ProfilePage from "./app/ProfilePage/ProfilePage";
+import SignInPage from "./app/SignInUpPage/SignInPage/SignInPage";
+import SignUpPage from "./app/SignInUpPage/SignUpPage/SignUpPage";
 import StrategyDiscovery from "./app/StrategyDiscovery/StrategyDiscovery";
-import PublicSidebarRoute from "./utils/PublicSidebarRoute";
-import SignUpPage from "./app/SignUpPage/SignUpPage";
+import PrivateRoute from "./utils/PrivateRoute";
+import PublicRoute from "./utils/PublicRoute";
 const routes = [
   {
     path: "/",
-    name: "Login",
-    type: Route,
-    component: Login,
+    name: "Modulus Home",
+    type: PrivateRoute,
+    component: ModulusHome,
   },
-
   {
-    path: "/strategy-builder",
+    path: "/home",
+    name: "Modulus Home",
+    type: PrivateRoute,
+    component: ModulusHome,
+  },
+  {
+    path: "/discover",
+    name: "Strategy Discovery Page",
+    type: PrivateRoute,
+    component: StrategyDiscovery,
+  },
+  {
+    path: "/builder",
     name: "Strategy Builder Page",
-    type: PublicSidebarRoute,
+    type: PrivateRoute,
     component: BackTestPage,
   },
   {
     path: "/sign-up",
     name: "Sign Up Page",
-    type: PublicSidebarRoute,
+    type: PublicRoute,
     component: SignUpPage,
   },
   {
-    path: "/home",
-    name: "Strategy Discovery Page",
-    type: PublicSidebarRoute,
-    component: StrategyDiscovery,
+    path: "/sign-in",
+    name: "Sign In Page",
+    type: PublicRoute,
+    component: SignInPage,
+  },
+  {
+    path: "/profile",
+    name: "Profile Page",
+    type: PrivateRoute,
+    component: ProfilePage,
+  },
+  {
+    path: "/leaderboard",
+    name: "Leaderboard Page",
+    type: PublicRoute,
+    component: LeaderboardPage,
   },
 ];
 export default routes;

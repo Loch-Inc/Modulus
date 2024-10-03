@@ -1,12 +1,13 @@
 import { Image } from "react-bootstrap";
 import {
-  CheckIcon,
+  CheckBoldIcon,
+  StrategyBuilderAssetIcon,
   StrategyBuilderPopUpCloseIcon,
 } from "../../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import {
   mobileCheck,
-  strategyByilderAssetList,
+  strategyBuilderAssetListriod,
 } from "../../../../../../utils/ReusableFunctions";
 import "./_backTestAssetPopup.scss";
 
@@ -15,7 +16,7 @@ class BackTestAssetPopup extends BaseReactComponent {
     super(props);
 
     this.state = {
-      assetList: strategyByilderAssetList(),
+      assetList: strategyBuilderAssetListriod(),
       searchOptions: [],
       searchAssetList: [],
       searchVal: "",
@@ -52,22 +53,31 @@ class BackTestAssetPopup extends BaseReactComponent {
         }`}
       >
         <div className="back-test-asset-popup">
-          <div className="back-test-asset-popup-search-close-container">
-            <div className="back-test-asset-popup-search">
-              <input
-                placeholder="Search for assets to add"
-                className="back-test-asset-popup-search-input"
-                value={this.state.searchVal}
-                onChange={this.setSearchValue}
+          <div className="back-test-asset-popup-header-container">
+            <div className="back-test-asset-popup-header-text">
+              <Image
+                className="back-test-asset-popup-header-text-icon"
+                src={StrategyBuilderAssetIcon}
               />
+              <div>Add asset</div>
             </div>
             <div
               onClick={this.props.closePopUp}
-              className="back-test-asset-popup-close"
+              className="back-test-asset-popup-header-close"
             >
               <Image
                 src={StrategyBuilderPopUpCloseIcon}
-                className="back-test-asset-popup-close-icon "
+                className="back-test-asset-popup-header-close-icon "
+              />
+            </div>
+          </div>
+          <div className="back-test-asset-popup-search-close-container">
+            <div className="back-test-asset-popup-search">
+              <input
+                placeholder="Search for asset to add"
+                className="back-test-asset-popup-search-input"
+                value={this.state.searchVal}
+                onChange={this.setSearchValue}
               />
             </div>
           </div>
@@ -84,9 +94,6 @@ class BackTestAssetPopup extends BaseReactComponent {
                           ? "back-test-asset-popup-item-selected"
                           : ""
                       }`}
-                      style={{
-                        marginTop: index === 0 ? "8px" : "0px",
-                      }}
                     >
                       <div className="back-test-asset-popup-item-content">
                         <div
@@ -105,10 +112,7 @@ class BackTestAssetPopup extends BaseReactComponent {
                         </div>
                       </div>
                       {asset.name === this.props.selectedOption ? (
-                        <Image
-                          className="back-test-asset-popup-item-check-icon"
-                          src={CheckIcon}
-                        />
+                        <CheckBoldIcon className="back-test-asset-popup-item-check-icon" />
                       ) : null}
                     </div>
                   );
@@ -124,9 +128,6 @@ class BackTestAssetPopup extends BaseReactComponent {
                           ? "back-test-asset-popup-item-selected"
                           : ""
                       }`}
-                      style={{
-                        marginTop: index === 0 ? "8px" : "0px",
-                      }}
                     >
                       <div className="back-test-asset-popup-item-content">
                         <div
@@ -145,10 +146,7 @@ class BackTestAssetPopup extends BaseReactComponent {
                         </div>
                       </div>
                       {asset.name === this.props.selectedOption ? (
-                        <Image
-                          className="back-test-asset-popup-item-check-icon"
-                          src={CheckIcon}
-                        />
+                        <CheckBoldIcon className="back-test-asset-popup-item-check-icon" />
                       ) : null}
                     </div>
                   );

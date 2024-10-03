@@ -44,11 +44,6 @@ import Breadcrums from "../common/Breadcrums.js";
 import PaywallModal from "../common/PaywallModal.js";
 import Footer from "../common/footer";
 import { setHeaderReducer } from "../header/HeaderAction";
-import TopWalletAddressList from "../header/TopWalletAddressList.js";
-import LoginMobile from "../home/NewAuth/LoginMobile.js";
-import RedirectMobile from "../home/NewAuth/RedirectMobile.js";
-import SignUpMobile from "../home/NewAuth/SignUpMobile.js";
-import VerifyMobile from "../home/NewAuth/VerifyMobile.js";
 import NewHomeInputBlock from "../home/NewHomeInputBlock";
 import {
   createAnonymousUserApi,
@@ -914,66 +909,7 @@ class MobileLayout extends BaseReactComponent {
             isMobile
           />
         ) : null}
-        {this.state.authmodal === "login" ? (
-          <LoginMobile
-            popupAnimation={this.state.popupAnimation}
-            toggleModal={this.toggleAuthModal}
-            isMobile
-            email={this.state.email}
-            handleChangeEmail={(val) => {
-              this.setState({
-                email: val,
-              });
-            }}
-            handleSubmitEmail={this.handleSubmitEmail}
-            show={this.state.authmodal === "login"}
-          />
-        ) : // </SmartMoneyMobileModalContainer>
-        this.state.authmodal === "verify" ? (
-          <VerifyMobile
-            isMobile
-            toggleModal={this.toggleAuthModal}
-            show={this.state.authmodal === "verify"}
-            handleSubmitEmail={this.handleSubmitEmail}
-            otp={this.state.otp}
-            handleChangeOTP={(val) => {
-              this.setState({
-                otp: val,
-              });
-            }}
-            handleSubmitOTP={this.handleSubmitOTP}
-            showOtpError={this.state.isOptInValid}
-          />
-        ) : this.state.authmodal === "signup" ? (
-          <SignUpMobile
-            isHome
-            toggleModal={this.toggleAuthModal}
-            isMobile
-            email={this.state.emailSignup}
-            show={this.state.authmodal === "signup"}
-            handleChangeEmail={(val) => {
-              this.setState({
-                emailSignup: val,
-              });
-            }}
-            handleChangeReferralCode={(val) => {
-              this.setState({
-                referralCode: val,
-              });
-            }}
-            isReferralCodeStep={this.state.isReferralCodeStep}
-            referralCode={this.state.referralCode}
-            isReferralCodeLoading={this.state.isReferralCodeLoading}
-            checkReferralCode={this.checkReferralCode}
-            handleGoToReferral={this.handleGoToReferral}
-            handleGoBackToSignUp={this.handleGoBackToSignUp}
-          />
-        ) : this.state.authmodal === "redirect" ? (
-          <RedirectMobile
-            toggleModal={this.toggleAuthModal}
-            show={this.state.authmodal === "redirect"}
-          />
-        ) : null}
+
         {this.props.blurredElement ? (
           <div
             className="blurredElement blurredElementMobile"

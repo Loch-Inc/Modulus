@@ -50,7 +50,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
 
         return (
           <>
-            <BackTestBuilderBlock
+            {/* <BackTestBuilderBlock
               openCollapse={this.openCollapseWeight}
               //WEIGHT
               weightPath={tempWeightPath}
@@ -72,7 +72,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               )}
               isItemCollapsed={this.state.isItemCollapsedWeight}
               toggleCollapse={this.toggleCollapseWeight}
-            ></BackTestBuilderBlock>
+            ></BackTestBuilderBlock> */}
             {this.props.blocks?.weight?.weight_item?.map(
               (curItem, curItemIndex) => (
                 <div
@@ -86,12 +86,18 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   <BackTestBuilderBlock
                     //WEIGHT
                     weightPath={tempWeightPath}
-                    weightIndex={this.props.weightIndex}
+                    weightIndex={curItemIndex}
                     //WEIGHT
                     passedClass="strategy-builder-block-container-weight"
-                    blockLevel={this.props.blockLevel + 1}
+                    blockLevel={this.props.blockLevel}
                     blockType="weight percentage"
-                    path={[...this.props.path]}
+                    showDropDown
+                    path={[
+                      ...this.props.path,
+                      key,
+                      "weight_item",
+                      curItemIndex,
+                    ]}
                     strategyBuilderString={this.props.strategyBuilderString}
                     changeStrategyBuilderString={
                       this.props.changeStrategyBuilderString
@@ -113,6 +119,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   </BackTestBuilderBlock>
                   {/* ) : null} */}
                   <BackTestBuilderMainBlock
+                    saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
                     strategyBuilderString={this.props.strategyBuilderString}
@@ -129,7 +136,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                       curItemIndex,
                       "item",
                     ]}
-                    blockLevel={this.props.blockLevel + 2}
+                    blockLevel={this.props.blockLevel + 1}
                     weightPath={tempWeightPath}
                     weightIndex={curItemIndex}
                   />
@@ -169,6 +176,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
             tokenList={block.tokenList}
           >
             <BackTestAssetBuilderBlock
+              saveStrategyName={this.props.saveStrategyName}
               tokenList={block.tokenList}
               strategyBuilderString={this.props.strategyBuilderString}
               changeStrategyBuilderString={
@@ -206,11 +214,16 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 toggleCollapse={this.toggleCollapseIf}
               >
                 <BackTestConditionBuilderBlock
+                  saveStrategyName={this.props.saveStrategyName}
+                  compare_type={block.compare_type}
                   amount={block.amount}
                   operator={block.operator}
                   time_period={block.time_period}
                   token={block.token}
                   type={block.type}
+                  function_type={block.compare_function.type}
+                  function_time_period={block.compare_function.time_period}
+                  function_token={block.compare_function.token}
                   path={[...this.props.path, key]}
                   strategyBuilderString={this.props.strategyBuilderString}
                   changeStrategyBuilderString={
@@ -229,6 +242,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   }`}
                 >
                   <BackTestBuilderMainBlock
+                    saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
                     strategyBuilderString={this.props.strategyBuilderString}
@@ -281,6 +295,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   }`}
                 >
                   <BackTestBuilderMainBlock
+                    saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
                     strategyBuilderString={this.props.strategyBuilderString}

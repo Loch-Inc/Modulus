@@ -57,6 +57,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
       });
     } else if (this.props.blockType === "weight percentage") {
       this.setState({
+        titleName: "WEIGHT",
         titleIcon: StrategyBuilderWeightIcon,
         titleClassName: "sbb-title-weight",
       });
@@ -104,9 +105,18 @@ class BackTestBuilderBlock extends BaseReactComponent {
           }
         );
         weightItemToBeChanged.splice(0, weightItemToBeChanged.length);
-        tempWeightItemToBeChanged.forEach((item) => {
-          weightItemToBeChanged.push(item);
-        });
+        console.log("weightPath i s", this.props.weightPath);
+        if (
+          weightItemToBeChanged.length === 0 &&
+          tempWeightItemToBeChanged.length === 0 &&
+          this.props.weightPath.length === 0
+        ) {
+          itemToBeChangedOriginal = {};
+        } else {
+          tempWeightItemToBeChanged.forEach((item) => {
+            weightItemToBeChanged.push(item);
+          });
+        }
       }
     } else if (this.props.blockType === "weight") {
       delete itemToBeChanged.weight;
@@ -178,17 +188,16 @@ class BackTestBuilderBlock extends BaseReactComponent {
                 className="sbb-title-image-container"
               >
                 <Image className="sbb-title-image" src={this.state.titleIcon} />
+                {this.state.titleName ? (
+                  <div className="sbb-title-text">{this.state.titleName}</div>
+                ) : null}
               </div>
-              {this.state.titleName ? (
-                <div className="sbb-title-text">{this.state.titleName}</div>
-              ) : null}
             </div>
             {ChildrenWithProps ? (
               <div className="sbb-dropdown-children">{ChildrenWithProps}</div>
             ) : null}
             {this.props.showDropDown ? (
               <div className="sbb-dropdown-container">
-                <div>:</div>
                 <div
                   onClick={this.props.toggleCollapse}
                   className="sbb-dropdown"
@@ -213,8 +222,8 @@ class BackTestBuilderBlock extends BaseReactComponent {
               this.props.blockType === "weight" ||
               this.props.blockType === "condition else"
             }
-            hideAddBtn={this.props.blockType === "weight percentage"}
-            hideDeleteBtn={this.props.blockType === "weight percentage"}
+            // hideAddBtn={this.props.blockType === "weight percentage"}
+            // hideDeleteBtn={this.props.blockType === "weight percentage"}
           />
         </>
 

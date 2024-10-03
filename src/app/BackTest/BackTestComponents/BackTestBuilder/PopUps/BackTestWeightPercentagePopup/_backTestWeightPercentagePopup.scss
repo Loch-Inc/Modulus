@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(-4rem, 1rem);
+    transform: translate(-9.1rem, calc(16px));
     padding: 1rem;
     box-shadow: var(--boxShadowMd);
     border-radius: 12px;
@@ -26,6 +26,7 @@
         align-items: center;
         justify-content: center;
         font-size: 14px;
+        font-weight: 500;
         gap: 4px;
         .back-test-weight-percentage-popup-header-text-icon {
           height: 15px;
@@ -33,16 +34,16 @@
       }
       .back-test-weight-percentage-popup-header-close {
         cursor: pointer;
-        background-color: var(--strategyBuilderLightGrey);
+        background-color: var(--greyCardBackgroud);
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 4rem;
-        width: 4rem;
-        border-radius: 10px;
+        height: 24px;
+        width: 24px;
+        border-radius: 6px;
         .back-test-weight-percentage-popup-header-close-icon {
-          height: 1.5rem;
-          width: 1.5rem;
+          height: 12px;
+          width: 12px;
           filter: var(--invertColor);
         }
         &:hover {
@@ -67,7 +68,7 @@
         text-shadow: 0.1px 0 var(--primaryTextColor);
         width: 100%;
         .back-test-weight-percentage-popup-body-colored-block {
-          padding: 0.8rem 1rem;
+          padding: 0.6rem 1rem;
           border: 1px solid var(--strategyBuilderLightGrey);
           border-radius: 6px;
           background-color: var(--strategyBuilderLightGrey);

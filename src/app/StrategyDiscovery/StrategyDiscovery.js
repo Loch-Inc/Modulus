@@ -1,5 +1,3 @@
-import React from "react";
-
 import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 
@@ -7,10 +5,9 @@ import moment from "moment";
 import {
   mobileCheck,
   numToCurrency,
-  strategyByilderChartLineColorByIndex,
+  strategyBuilderChartLineColorByIndex,
 } from "../../utils/ReusableFunctions";
 import MobileLayout from "../layout/MobileLayout";
-import WelcomeCard from "../Portfolio/WelcomeCard";
 import "./_strategyDiscovery.scss";
 import { getStrategyDiscoveryTable } from "./Api/StrategyDiscoveryApi";
 import StrategyDiscoveryContent from "./StrategyDiscoveryContent";
@@ -21,13 +18,14 @@ import {
   StrategyDiscoveryDownRedArrowIcon,
 } from "../../assets/images/icons";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
+import TopBar from "../TopBar/TopBar";
 
 class StrategyDiscovery extends BaseReactComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      toDate: new Date(),
+      toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
       fromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
       strategiesOptions: [
         {
@@ -46,7 +44,7 @@ class StrategyDiscovery extends BaseReactComponent {
               className="history-table-header-col no-hover history-table-header-col-curve-left"
               id="time"
             >
-              <span className="inter-display-medium f-s-12 ">Title</span>
+              <span className="inter-display-medium f-s-10 ">Title</span>
             </div>
           ),
           dataKey: "strategy",
@@ -89,7 +87,7 @@ class StrategyDiscovery extends BaseReactComponent {
                             width="8"
                             height="8"
                             transform="rotate(45 5.65686 0.343262)"
-                            fill={strategyByilderChartLineColorByIndex(
+                            fill={strategyBuilderChartLineColorByIndex(
                               rowIndex
                             )}
                           />
@@ -118,7 +116,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Cumulative
                 <br />
                 Return
@@ -138,7 +136,7 @@ class StrategyDiscovery extends BaseReactComponent {
                   }}
                   className="full-table-row-col-width"
                 >
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.cumulative_return ? (
                       <span>
                         {rowData.cumulative_return < 0 ? "-" : ""}
@@ -159,7 +157,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Annual
                 <br />
                 Return
@@ -179,7 +177,7 @@ class StrategyDiscovery extends BaseReactComponent {
                   }}
                   className="full-table-row-col-width"
                 >
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.annual_return ? (
                       <span>
                         {rowData.annual_return < 0 ? "-" : ""}
@@ -200,7 +198,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Max 1d
                 <br />
                 Drawdown
@@ -231,7 +229,7 @@ class StrategyDiscovery extends BaseReactComponent {
                       src={StrategyDiscoveryDownGreenArrowIcon}
                     />
                   )}
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.max_1d_drawdown ? (
                       <span>
                         {rowData.max_1d_drawdown < 0 ? "-" : ""}
@@ -252,7 +250,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Max 1w
                 <br />
                 Drawdown
@@ -283,7 +281,7 @@ class StrategyDiscovery extends BaseReactComponent {
                       src={StrategyDiscoveryDownGreenArrowIcon}
                     />
                   )}
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.max_1w_drawdown ? (
                       <span>
                         {rowData.max_1w_drawdown < 0 ? "-" : ""}
@@ -304,7 +302,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Max 1m
                 <br />
                 Drawdown
@@ -335,7 +333,7 @@ class StrategyDiscovery extends BaseReactComponent {
                       src={StrategyDiscoveryDownGreenArrowIcon}
                     />
                   )}
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.max_1m_drawdown ? (
                       <span>
                         {rowData.max_1m_drawdown < 0 ? "-" : ""}
@@ -356,7 +354,7 @@ class StrategyDiscovery extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Sharpe
                 <br />
                 Ratio
@@ -376,7 +374,7 @@ class StrategyDiscovery extends BaseReactComponent {
                   }}
                   className="full-table-row-col-width"
                 >
-                  <div className="inter-display-medium f-s-12">
+                  <div className="inter-display-medium f-s-13">
                     {rowData.sharpe_ratio ? (
                       <span>
                         {rowData.sharpe_ratio < 0 ? "-" : ""}
@@ -399,7 +397,7 @@ class StrategyDiscovery extends BaseReactComponent {
               className="history-table-header-col no-hover history-table-header-col-curve-right"
               id="time"
             >
-              <span className="inter-display-medium f-s-12 ">
+              <span className="inter-display-medium f-s-10 ">
                 Visualization
               </span>
             </div>
@@ -410,7 +408,7 @@ class StrategyDiscovery extends BaseReactComponent {
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "visualization") {
-              const curColor = strategyByilderChartLineColorByIndex(rowIndex);
+              const curColor = strategyBuilderChartLineColorByIndex(rowIndex);
 
               return (
                 <div className="full-table-row-col-width">
@@ -549,14 +547,15 @@ class StrategyDiscovery extends BaseReactComponent {
   goToStrategyBuilderPage = (passedItem) => {
     if (passedItem.strategy_id) {
       this.props.history.push({
-        pathname: "/strategy-builder",
+        pathname: "/builder",
         state: {
           passedStrategyId: passedItem.strategy_id,
+          passedStrategyName: passedItem.strategy_name,
           passedUserId: passedItem.user_id,
         },
       });
     } else {
-      this.props.history.push("/strategy-builder");
+      this.props.history.push("/builder");
     }
   };
   render() {
@@ -609,38 +608,7 @@ class StrategyDiscovery extends BaseReactComponent {
     }
     return (
       <div className="strategy-discovery-page">
-        {/* topbar */}
-        <div className="portfolio-page-section">
-          <div
-            className="portfolio-container page"
-            style={{ overflow: "visible" }}
-          >
-            <div className="portfolio-section">
-              {/* welcome card */}
-              <WelcomeCard
-                loadingSaveInvestStrategyBtn={
-                  this.state.loadingSaveInvestStrategyBtn
-                }
-                saveStrategyClicked={this.saveStrategyClicked}
-                isSaveInvestStrategy={this.state.isSaveInvestStrategy}
-                openConnectWallet={this.props.openConnectWallet}
-                connectedWalletAddress={this.props.connectedWalletAddress}
-                connectedWalletevents={this.props.connectedWalletevents}
-                disconnectWallet={this.props.disconnectWallet}
-                handleShare={this.handleShare}
-                isSidebarClosed={this.props.isSidebarClosed}
-                apiResponse={(e) => this.CheckApiResponse(e)}
-                // history
-                history={this.props.history}
-                // add wallet address modal
-                handleAddModal={this.handleAddModal}
-                hideButton={false}
-                updateOnFollow={this.callApi}
-                hideShare
-              />
-            </div>
-          </div>
-        </div>
+        <TopBar history={this.props.history} />
         <div className="page">
           <div className=" page-scroll">
             <div className="page-scroll-child">

@@ -1,17 +1,20 @@
 import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import {
+  CheckBoldWhiteIcon,
   StrategyBuilderConditionIcon,
   StrategyBuilderPopUpCloseIcon,
 } from "../../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../../utils/form";
-import BackTestPopupDropdown from "../BackTestPopupDropdown/BackTestPopupDropdown";
-import "./_backTestConditionPopup.scss";
-import BackTestPopupInput from "../BackTestPopupInput/BackTestPopupInput";
 import {
   mobileCheck,
-  strategyByilderAssetList,
+  strategyBuilderAssetListriod,
+  strategyBuilderLimitAmountTo,
+  strategyBuilderTypeConvertorTextToSymbol,
 } from "../../../../../../utils/ReusableFunctions";
+import BackTestPopupDropdown from "../BackTestPopupDropdown/BackTestPopupDropdown";
+import BackTestPopupInput from "../BackTestPopupInput/BackTestPopupInput";
+import "./_backTestConditionPopup.scss";
 
 class BackTestConditionPopup extends BaseReactComponent {
   constructor(props) {
@@ -36,11 +39,22 @@ class BackTestConditionPopup extends BaseReactComponent {
       selectedPriceConditions: this.props.selectedPriceConditions
         ? this.props.selectedPriceConditions
         : "",
+      selectedFunctionPriceConditions: this.props
+        .selectedFunctionPriceConditions
+        ? this.props.selectedFunctionPriceConditions
+        : "",
+      selectedFunctionDaysConditions: this.props.selectedFunctionDaysConditions
+        ? this.props.selectedFunctionDaysConditions
+        : "",
 
       //Asset condition
       allAssetConditions: ["BTC", "ETH"],
       selectedAssetConditions: this.props.selectedAssetConditions
         ? this.props.selectedAssetConditions
+        : "",
+      selectedFunctionAssetConditions: this.props
+        .selectedFunctionAssetConditions
+        ? this.props.selectedFunctionAssetConditions
         : "",
 
       // Operator condition
@@ -57,9 +71,30 @@ class BackTestConditionPopup extends BaseReactComponent {
       selectedDaysConditions: this.props.selectedDaysConditions
         ? this.props.selectedDaysConditions
         : "",
+      selectedFunctionAmountConditions: this.props
+        .selectedFunctionAmountConditions
+        ? this.props.selectedFunctionAmountConditions
+        : "",
       shouldUpdateText: false,
     };
   }
+  // Function type
+  changeFunctionPriceConditions = (item, index) => {
+    this.setState({
+      selectedFunctionPriceConditions: item,
+      selectedFunctionAmountConditions: 100,
+    });
+    this.props.changeFunctionPriceConditions(item);
+  };
+  changeFunctionAssetConditions = (item, index) => {
+    this.setState({ selectedFunctionAssetConditions: item });
+    this.props.changeFunctionAssetConditions(item);
+  };
+  changeFunctionDaysConditions = (item, index) => {
+    this.setState({ selectedFunctionDaysConditions: item });
+    this.props.changeFunctionDaysConditions(item);
+  };
+  // Function type
   changePriceConditions = (item, index) => {
     this.setState({
       selectedPriceConditions: item,
@@ -86,6 +121,32 @@ class BackTestConditionPopup extends BaseReactComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (
+      prevProps.selectedPriceConditions !==
+        this.props.selectedPriceConditions ||
+      prevProps.selectedAssetConditions !==
+        this.props.selectedAssetConditions ||
+      prevProps.selectedOperatorConditions !==
+        this.props.selectedOperatorConditions ||
+      prevProps.selectedFunctionPriceConditions !==
+        this.props.selectedFunctionPriceConditions ||
+      prevProps.selectedFunctionAssetConditions !==
+        this.props.selectedFunctionAssetConditions ||
+      prevProps.selectedFunctionDaysConditions !==
+        this.props.selectedFunctionDaysConditions
+    ) {
+      this.setState({
+        selectedPriceConditions: this.props.selectedPriceConditions,
+        selectedAssetConditions: this.props.selectedAssetConditions,
+        selectedOperatorConditions: this.props.selectedOperatorConditions,
+        selectedFunctionPriceConditions:
+          this.props.selectedFunctionPriceConditions,
+        selectedFunctionAssetConditions:
+          this.props.selectedFunctionAssetConditions,
+        selectedFunctionDaysConditions:
+          this.props.selectedFunctionDaysConditions,
+      });
+    }
+    if (
       prevState.selectedPriceConditions !== this.state.selectedPriceConditions
     ) {
       this.setState({
@@ -93,8 +154,15 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
   }
+  switchFunctionFixedToggle = () => {
+    if (this.props.isFunction) {
+      this.props.changeFunctionFixedToggle("fixed");
+    } else {
+      this.props.changeFunctionFixedToggle("function");
+    }
+  };
   componentDidMount() {
-    let tempItem = strategyByilderAssetList();
+    let tempItem = strategyBuilderAssetListriod();
     let tempHolder = [];
     for (let i = 0; i < tempItem.length; i++) {
       tempHolder.push(tempItem[i].name);
@@ -147,12 +215,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                       onOptionSelect={this.changeDaysConditions}
                     />
                     <div className="back-test-condition-popup-body-colored-text ">
-                      {this.state.selectedPriceConditions ===
-                      "Market capitalization"
-                        ? this.state.selectedDaysConditions === "1"
-                          ? "outstanding share for"
-                          : "outstanding shares for"
-                        : this.state.selectedDaysConditions === "1"
+                      {this.state.selectedDaysConditions === "1"
                         ? "day"
                         : "days"}
                     </div>
@@ -181,17 +244,79 @@ class BackTestConditionPopup extends BaseReactComponent {
                   selectedOption={this.state.selectedOperatorConditions}
                   onOptionSelect={this.changeOperatorConditions}
                 />
-
-                <BackTestPopupInput
-                  limitAmounTo={
-                    this.props.selectedAmountSymbol === "%" ? 100 : null
-                  }
-                  updatedText={this.state.shouldUpdateText}
-                  selectedOption={this.state.selectedAmountConditions}
-                  isInputDropDown
-                  selectedAmountSymbol={this.props.selectedAmountSymbol}
-                  onOptionSelect={this.changeAmountConditions}
-                />
+                <div
+                  onClick={this.switchFunctionFixedToggle}
+                  className="back-test-condition-popup-body-toggle"
+                >
+                  <div
+                    className={`back-test-condition-popup-body-toggle-switch ${
+                      this.props.isFunction
+                        ? ""
+                        : "back-test-condition-popup-body-toggle-switch-on"
+                    }`}
+                  >
+                    <CheckBoldWhiteIcon />
+                  </div>
+                  <div className="back-test-condition-popup-body-toggle-text">
+                    Fixed value
+                  </div>
+                </div>
+              </div>
+              <div className="back-test-condition-popup-body-row">
+                <div className="back-test-condition-popup-body-colored-block zeroOpacity">
+                  is
+                </div>
+                {this.props.isFunction ? (
+                  <>
+                    {this.props.shouldShowFunctionDays ? (
+                      <>
+                        <BackTestPopupInput
+                          smallerInput
+                          selectedOption={
+                            this.state.selectedFunctionDaysConditions
+                          }
+                          isInputDropDown
+                          onOptionSelect={this.changeFunctionDaysConditions}
+                        />
+                        <div className="back-test-condition-popup-body-colored-text ">
+                          {this.state.selectedDaysConditions === "1"
+                            ? "day"
+                            : "days"}
+                        </div>
+                      </>
+                    ) : null}
+                    <BackTestPopupDropdown
+                      allOptions={this.state.allPriceConditions}
+                      selectedOption={
+                        this.state.selectedFunctionPriceConditions
+                      }
+                      onOptionSelect={this.changeFunctionPriceConditions}
+                    />
+                    <div className="back-test-condition-popup-body-colored-text">
+                      of
+                    </div>
+                    <BackTestPopupDropdown
+                      allOptions={this.state.allAssetConditions}
+                      selectedOption={
+                        this.state.selectedFunctionAssetConditions
+                      }
+                      onOptionSelect={this.changeFunctionAssetConditions}
+                    />
+                  </>
+                ) : (
+                  <BackTestPopupInput
+                    limitAmounTo={strategyBuilderLimitAmountTo(
+                      strategyBuilderTypeConvertorTextToSymbol(
+                        this.state.selectedPriceConditions
+                      )
+                    )}
+                    updatedText={this.state.shouldUpdateText}
+                    selectedOption={this.state.selectedAmountConditions}
+                    isInputDropDown
+                    selectedAmountSymbol={this.props.selectedAmountSymbol}
+                    onOptionSelect={this.changeAmountConditions}
+                  />
+                )}
               </div>
             </div>
           </div>

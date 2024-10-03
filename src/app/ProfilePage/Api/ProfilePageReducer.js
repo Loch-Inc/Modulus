@@ -1,0 +1,39 @@
+import {
+  GET_STRATEGIES_CREATED_TABLE_DATA,
+  GET_REFERRAL_CODES_MODULUS,
+  GET_TOTAL_USER_CREATED_STRATEGY_COUNT,
+} from "./ProfilePageActionTypes";
+
+const INITIAL_STATE = {};
+
+export const TotalUserCreatedStrategyCountReducer = (
+  state = INITIAL_STATE,
+  action
+) => {
+  switch (action.type) {
+    case GET_TOTAL_USER_CREATED_STRATEGY_COUNT:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const StrategiesCreatedTableReducer = (
+  state = INITIAL_STATE,
+  action
+) => {
+  switch (action.type) {
+    case GET_STRATEGIES_CREATED_TABLE_DATA:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const ReferralCodesModulusReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case GET_REFERRAL_CODES_MODULUS:
+      return action.payload;
+    default:
+      return state;
+  }
+};

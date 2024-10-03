@@ -50,23 +50,44 @@
     &:hover {
       text {
         fill: var(--cardBorder) !important;
-        font-family: "Inter-Medium", Arial, Helvetica, sans-serif !important;
+        font-family: "Inter", Arial, Helvetica, sans-serif !important;
       }
     }
   }
   .highcharts-legend-item path {
     display: none;
   }
-  .strategy-builder-chart-legend-text {
-    text-transform: uppercase;
+  .strategy-builder-chart-legend {
+    border-radius: 6px;
+    padding: 4px;
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    // justify-content: center;
+    .strategy-builder-chart-legend-circle {
+      height: 6px;
+      width: 6px;
+      min-height: 6px;
+      min-width: 6px;
+    }
+    .strategy-builder-chart-legend-text {
+      color: var(--primaryTextColor);
+      font-weight: 500;
+      text-shadow: 0.3px 0 var(--primaryTextColor);
+    }
     &:hover {
       opacity: 0.5 !important;
     }
   }
   .highcharts-legend-item-hidden {
-    .strategy-builder-chart-legend-text {
-      &:hover {
-        opacity: 1 !important;
+    .strategy-builder-chart-legend {
+      background-color: var(--strategyBuilderSaveStrategyBackground) !important;
+      border-color: transparent !important;
+      .strategy-builder-chart-legend-circle {
+        circle {
+          fill: var(--greyCac) !important;
+        }
       }
     }
   }
@@ -81,7 +102,7 @@
     justify-content: center;
     gap: 5px;
     text-shadow: 0.1px 0 var(--primaryTextColor);
-    font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
     .back-test-chart-tool-tip-amount {
       color: var(--greyb0b);
       text-shadow: 0.1px 0 var(--greyb0b);

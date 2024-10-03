@@ -305,7 +305,7 @@
       margin: 0;
     }
     input {
-      @include font($primary, "Inter-Regular", 1.3rem, normal, 1.5rem);
+      @include font($primary, "Inter", 1.3rem, normal, 1.5rem);
       padding: 1rem !important;
       min-height: 3rem;
       width: 100%;
@@ -436,7 +436,7 @@
 
         .dropdown-item {
           padding: 0.8rem;
-          @include font($grey-313, "Inter-Medium", 1.3rem, 500, 1.6rem);
+          @include font($grey-313, "Inter", 1.3rem, 500, 1.6rem);
         }
       }
 

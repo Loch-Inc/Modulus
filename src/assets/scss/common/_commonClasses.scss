@@ -1,5 +1,5 @@
 .interDisplayMediumText {
-  font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
   color: var(--primaryTextColor);
@@ -35,10 +35,10 @@
 .secondaryText {
   color: var(--secondaryTextColor);
 }
-.primaryText{
+.primaryText {
   color: var(--primaryTextColor);
 }
-.primaryTextGrey{
+.primaryTextGrey {
   color: var(--primaryTextColorGrey);
 }
 .secondaryTextLighter {
@@ -46,13 +46,11 @@
 }
 .secondaryDarkText {
   color: var(--secondaryDarkTextColorNew);
-  &:hover{
+  &:hover {
     color: var(--primaryTextColor);
-  
   }
-  &.secondaryDarkText-nohover{
+  &.secondaryDarkText-nohover {
     color: var(--secondaryDarkTextColorNew);
-  
   }
 }
 .invertFilter {
@@ -63,7 +61,7 @@
     filter: var(--hoverBrightness);
   }
 }
-.footerLine{
+.footerLine {
   border-top: 1px solid var(--cardBorder);
 }
 
@@ -71,65 +69,65 @@
   box-shadow: none !important;
 }
 
-.w-transaparent-b-w{
+.w-transaparent-b-w {
   border: 1px solid var(--whiteTransparentBlackE5e5e6) !important;
 }
-.btn-bg-white-outline-black{
-    color: var(--black191);
-    border: 1px solid var(--black191) !important;
-    background-color: transparent !important;
+.btn-bg-white-outline-black {
+  color: var(--black191);
+  border: 1px solid var(--black191) !important;
+  background-color: transparent !important;
 }
 
-.hover-bg-black{
-  &:hover{
+.hover-bg-black {
+  &:hover {
     background-color: var(--backColor) !important;
     color: var(--sameModeColor) !important;
     border: 1px solid var(--black191) !important;
   }
 }
 
-.btn-bg-black{
+.btn-bg-black {
   background-color: var(--backColor) !important;
-    color: var(--sameModeColor) !important;
-    border: 1px solid var(--black191) !important;
+  color: var(--sameModeColor) !important;
+  border: 1px solid var(--black191) !important;
 }
 
-.hover-bg-white-outline-black{
-  &:hover{
+.hover-bg-white-outline-black {
+  &:hover {
     background-color: var(--sameModeColor) !important;
     color: var(--black191) !important;
     border: 1px solid var(--black191) !important;
   }
 }
 
-.btn-tirtiarary{
+.btn-tirtiarary {
   background-color: var(--primaryFilter) !important;
-    border: 0.1rem solid var(--primaryFilter);
-    color: var(--primaryTextColor);
+  border: 0.1rem solid var(--primaryFilter);
+  color: var(--primaryTextColor);
 
-    &:hover{
-      border: 0.1rem solid var(--primaryFilter);
-      background-color: var(--backColor) !important;
+  &:hover {
+    border: 0.1rem solid var(--primaryFilter);
+    background-color: var(--backColor) !important;
     color: var(--sameModeColor);
-    }
+  }
 }
 
-.black-191{
+.black-191 {
   color: var(--black191);
 }
-.grey-233{
+.grey-233 {
   color: var(--grey313);
 }
 
-.text-same-mode-color{
+.text-same-mode-color {
   color: var(--sameModeColor) !important;
 }
-.invertTextColor{
+.invertTextColor {
   color: var(--invertMode);
 }
-.bg-card-main{
+.bg-card-main {
   background-color: var(--cardBackgroud);
 }
-.BorderNew{
+.BorderNew {
   border-color: var(--topbarBackgroud) !important;
 }

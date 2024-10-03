@@ -95,6 +95,7 @@
   --tableCostCommonColor: #313233;
   --tableCostCommonBg: rgba(229, 229, 230, 0.5);
   --InActiveToggleBg: #636467;
+  --tableHeaderColor: #636467;
   --tableDataColor: #313233;
 
   //Sidebar
@@ -133,9 +134,12 @@
   //Box shadow color
   --boxShadowColorMd: rgba(0, 0, 0, 0.04);
   --boxShadowColorLg: rgba(0, 0, 0, 0.04);
+  --boxShadowColorInset: #00000033;
   --profileHideMultiWallet: #f2f2f2;
 
   --boxShadowMd: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --boxShadowLg: 0px 1px 1px 0px #0000000a, 0px 4px 10px 0px #0000000a;
+
   --topBarShadow: 0 0 10px 4px #e5e5e680;
   --inputShadow: 0 0 0 30px #fff inset;
   --custmCheckboxShadow: 0px 0px 0px 3px rgba(0, 113, 227, 0.1);
@@ -299,9 +303,16 @@
   --strategyBuilderBackGround: #ebebeb;
   --strategyBuilderTableHeader: #f2f2f2;
   --strategyBuilderGraphGrid: #e5e5e6;
+  --strategyBuilderSaveStrategyBackground: #e5e5e680;
+  --strategyBuilderSaveStrategyRedBorder: #ed404733;
+  --strategyBuilderSaveStrategyNeonBorder: #cbf45880;
+  --strategyBuilderSaveStrategyBorder: #e5e5e6;
+  --strategyBuilderSaveStrategyRenameBackground: #e5e5e6;
+  --strategyBuilderSaveStrategyRenameBorder: #cacbcc96;
   --strategyBuilderGraphNavigatorOuline: #b3b4b7;
   --strategyBuilderGraphNavigatorMaskFill: #cacbcc80;
   --strategyBuilderGraphNavigatorMaskBackground: #e5e5e680;
+  --strategyBuilderTableRowBackground: #e5e5e680;
 
   --strategyBuilderGraph1: rgb(247, 147, 26);
   --strategyBuilderGraph2: rgb(128, 67, 243);
@@ -336,8 +347,14 @@
 
   --strategyBuilderLightGrey: #f3f3f3;
   --strategyBuilderDarkGrey: #d9d9d9;
-  --strategyBuilderLightRed: #fef2f2;
+  --strategyBuilderLightRed: #fdecec;
+  --strategyBuilderLightRedBorder: #facacb;
   --strategyBuilderDarkRed: #fac5c5;
+  --strategyBuilderDarkerRed: #ed4047;
+  --strategyBuilderLightNeon: #f5fdde;
+  --strategyBuilderDarkNeon: #cbf458;
+  --strategyBuilderDarkerNeon: #b8dc4e;
+  --strategyBuilderLighterNeon: #faffee;
 
   --strategyBuilderPopUpAssetBorder: #f1f1f1;
 
@@ -356,6 +373,26 @@
 
   --strategySignUpBtn: #cbf458;
   --strategySignUpBtnBorder: #19191a1a;
+
+  // Sign in / Up
+  --signUpBottomText: #7c7d81;
+
+  // Top Bar
+  --topBarText: #96979a;
+  --toBarBackgroundHover: #e9ffad66;
+  --toBarSelectedBackground: #cbf45866;
+  --toBarSelectedText: #00000080;
+
+  // Profile Page
+  --profilePageBioEmail: #7c7d81;
+  --profilePageStrategyDate: #b0b1b3;
+
+  // Modulust Leaderboard
+  --modulusLeaderbardTableHeader: #f5fdde;
+  --modulusLeaderbardTableHeaderBorder: #c7e870;
+  --modulusLeaderbardTableHighlighter: #f5fdde;
+
+  --strategyBuilderFixedCheckBox: #c1e854;
 }
 [data-theme="dark"] {
   --w3m-z-index: 1000 !important;

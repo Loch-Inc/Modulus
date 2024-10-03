@@ -47,9 +47,20 @@ class BackTestPopupInput extends BaseReactComponent {
 
   changeInputValue = (passedInput) => {
     let tempText = passedInput.target.value;
-
+    let trimLast = false;
+    if (
+      this.props.selectedAmountSymbol === "%" &&
+      tempText.charAt(tempText.length - 1) !== "%" &&
+      tempText.length < this.state.inputValue.length
+    ) {
+      trimLast = true;
+    }
     tempText = tempText.replace(this.props.selectedAmountSymbol, "");
     tempText = tempText.trim();
+
+    if (trimLast) {
+      tempText = tempText.slice(0, -1);
+    }
 
     let finalItem = tempText;
     if (tempText === "") {

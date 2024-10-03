@@ -107,7 +107,7 @@
                   opacity: 1;
                 }
                 .dropdown-item {
-                  @include font($grey-313, "Inter-Medium", 1.3rem, 500, 1.6rem);
+                  @include font($grey-313, "Inter", 1.3rem, 500, 1.6rem);
                   padding: 1rem;
                   position: relative;
                   border-radius: 10px;
@@ -129,7 +129,7 @@
                 cursor: pointer;
               }
               .topbar-btn {
-                font-family: "Inter-Regular" !important;
+                font-family: "Inter" !important;
                 font-weight: 600;
                 display: flex;
                 align-items: center;
@@ -884,7 +884,7 @@
     }
 
     .highcharts-xaxis-labels {
-      font-family: "Inter-Regular";
+      font-family: "Inter";
       font-weight: 400;
       font-size: 1.2rem;
       line-height: 2rem;
@@ -892,7 +892,7 @@
     }
 
     .highcharts-yaxis-labels {
-      font-family: "Inter-Regular";
+      font-family: "Inter";
       font-weight: 400;
       font-size: 1.2rem;
       line-height: 2rem;

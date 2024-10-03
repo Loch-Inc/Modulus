@@ -1,67 +1,4 @@
 @include font-face(
-  Inter-Regular,
-  "/assets/fonts/Inter/Inter-Regular",
-  normal,
-  normal,
-  ttf
-);
-@include font-face(
-  Inter-Black,
-  "/assets/fonts/Inter/Inter-Black",
-  900,
-  bold,
-  ttf
-);
-@include font-face(
-  Inter-Bold,
-  "/assets/fonts/Inter/Inter-Bold",
-  bold,
-  bold,
-  ttf
-);
-@include font-face(
-  Inter-Medium,
-  "/assets/fonts/Inter/Inter-Medium",
-  500,
-  normal,
-  ttf
-);
-@include font-face(
-  Inter-SemiBold,
-  "/assets/fonts/Inter/Inter-SemiBold",
-  600,
-  bold,
-  ttf
-);
-@include font-face(
-  Inter-ExtraBold,
-  "/assets/fonts/Inter/Inter-ExtraBold",
-  900,
-  bold,
-  ttf
-); //Need to change values
-@include font-face(
-  Inter-Thin,
-  "/assets/fonts/Inter/Inter-Thin",
-  400,
-  normal,
-  ttf
-); //Need to change values
-@include font-face(
-  Inter-Light,
-  "/assets/fonts/Inter/Inter-Light",
-  500,
-  normal,
-  ttf
-); //Need to change values
-@include font-face(
-  Inter-ExtraLight,
-  "/assets/fonts/Inter/Inter-ExtraLight",
-  500,
-  normal,
-  ttf
-); //Need to change values
-@include font-face(
   SpaceGrotesk-Bold,
   "/assets/fonts/Space-Grotesk/SpaceGrotesk-Bold",
   bold,
@@ -154,39 +91,39 @@ body {
 
 //Fonts
 .inter-display-black {
-  @include font($primary, "Inter-Black", 1.2rem, 900, normal);
+  @include font($primary, "Inter", 1.2rem, 900, normal);
 }
 
 .inter-display-bold {
-  @include font($primary, "Inter-Bold", 1.2rem, bold, normal);
+  @include font($primary, "Inter", 1.2rem, bold, normal);
 }
 
 .inter-display-regular {
-  @include font($primary, "Inter-Regular", 1.2rem, normal, normal);
+  @include font($primary, "Inter", 1.2rem, normal, normal);
 }
 
 .inter-display-medium {
-  @include font(var(--primaryTextColor), "Inter-Medium", 1.2rem, 500, normal);
+  @include font(var(--primaryTextColor), "Inter", 1.2rem, 500, normal);
 }
 
 .inter-display-extra-bold {
-  @include font($primary, "Inter-ExtraBold", 1.2rem, bold, normal);
+  @include font($primary, "Inter", 1.2rem, bold, normal);
 }
 
 .inter-display-semi-bold {
-  @include font($primary, "Inter-SemiBold", 1.2rem, 600, normal);
+  @include font($primary, "Inter", 1.2rem, 600, normal);
 }
 
 .inter-display-thin {
-  @include font($primary, "Inter-Regular", 1.2rem, normal, normal);
+  @include font($primary, "Inter", 1.2rem, normal, normal);
 }
 
 .inter-display-extra-light {
-  @include font($primary, "Inter-Regular", 1.2rem, normal, normal);
+  @include font($primary, "Inter", 1.2rem, normal, normal);
 }
 
 .inter-display-light {
-  @include font($primary, "Inter-Regular", 1.2rem, normal, normal);
+  @include font($primary, "Inter", 1.2rem, normal, normal);
 }
 
 .space-grotesk-bold {
@@ -686,7 +623,7 @@ body {
     gap: 10px;
     margin: 0;
     padding: 0;
-    @include font(var(--black191), "Inter-SemiBold", 1.6rem, 600, 19px);
+    @include font(var(--black191), "Inter", 1.6rem, 600, 19px);
     font-size: 16px;
 
     .Toastify__toast-icon {
@@ -813,7 +750,7 @@ form {
     max-width: 100%;
     margin-bottom: 8px;
     font-weight: 500;
-    font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
     color: $grey-868;
   }
@@ -824,7 +761,7 @@ form {
 
     .form-control,
     .custom-select__control {
-      @include font($black-191, "Inter-Regular", 1.6rem, normal, 19px);
+      @include font($black-191, "Inter", 1.6rem, normal, 19px);
       padding: 1.6rem;
       min-height: 5.1rem;
       border-radius: 8px;
@@ -866,7 +803,7 @@ form {
         // padding: 1rem;
         // padding: 0.4rem;
         .custom-select__option {
-          @include font($grey-313, "Inter-Medium", 1.3rem, 500, 1.6);
+          @include font($grey-313, "Inter", 1.3rem, 500, 1.6);
           padding: 0.8rem;
           border-radius: 0.2rem;
 
@@ -932,7 +869,7 @@ form {
 
     // .form-control::placeholder {
     //   color: $grey-B6B;
-    //   font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+    //   font-family: "Inter", Arial, Helvetica, sans-serif;
     //   line-height: 24px;
     //   font-weight: 500;
     //   font-size: 1.4rem;
@@ -940,7 +877,7 @@ form {
 
     .form-control::placeholder {
       color: $grey-D4D;
-      font-family: "Inter-Regular", Arial, Helvetica, sans-serif;
+      font-family: "Inter", Arial, Helvetica, sans-serif;
       line-height: 1.9rem;
       font-weight: 400;
       font-size: 1.6rem;
@@ -954,14 +891,14 @@ form {
         padding-left: 0.9rem;
 
         .custom-select__single-value {
-          @include font(var(--grey313), "Inter-Medium", 1.3rem, 500, 1.6);
+          @include font(var(--grey313), "Inter", 1.3rem, 500, 1.6);
           color: var(--grey313);
         }
 
         .custom-select__placeholder {
           padding: 0;
           color: $grey-B6B;
-          font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+          font-family: "Inter", Arial, Helvetica, sans-serif;
           font-weight: 500;
           font-size: 1.4rem;
         }
@@ -976,7 +913,7 @@ form {
         font-size: 1.4rem;
         font-weight: 500;
         color: $grey-B6B;
-        font-family: "Inter-Medium", Arial, Helvetica, sans-serif;
+        font-family: "Inter", Arial, Helvetica, sans-serif;
         line-height: 24px;
       }
     }
@@ -990,7 +927,7 @@ form {
     }
 
     .has-error {
-      @include font($red, "Inter-Regular", 1rem, normal, 19px);
+      @include font($red, "Inter", 1rem, normal, 19px);
 
       .custom-select__control {
         // CUSTOM ERROR STYLE ADDED WITH ERROR ICON FOR REACT-SELECT
@@ -1145,8 +1082,8 @@ form {
     // border: 0;
 
     .dropdown-item {
-      // @include font($primary, "Inter-Medium", 1.3rem, 500, 1.6rem);
-      @include font($grey-313, "Inter-Medium", 1.3rem, 500, 1.6rem);
+      // @include font($primary, "Inter", 1.3rem, 500, 1.6rem);
+      @include font($grey-313, "Inter", 1.3rem, 500, 1.6rem);
       padding: 0.8rem;
       // border-radius: 4px;
       border-radius: 0.2rem;
@@ -1210,7 +1147,7 @@ form {
 
   .ReactVirtualized__Table__headerColumn {
     text-transform: none;
-    @include font($grey-999, "Inter-Medium", 1.3rem, 500, normal);
+    @include font($grey-999, "Inter", 1.3rem, 500, normal);
 
     .ReactVirtualized__Table__headerTruncatedText {
       margin-top: 0.8rem;
@@ -1252,7 +1189,7 @@ form {
   }
 
   .ReactVirtualized__Table__row {
-    @include font($grey-565, "Inter-Medium", 1.4rem, 500, 21px);
+    @include font($grey-565, "Inter", 1.4rem, 500, 21px);
     border-bottom: 1px solid $grey-F2F;
 
     .inter-bold {
@@ -1369,7 +1306,7 @@ form {
 
 // btn
 .primary-btn {
-  @include font($secondary, "Inter-SemiBold", 1.6rem, 600, normal);
+  @include font($secondary, "Inter", 1.6rem, 600, normal);
   border-radius: 8px;
   background-color: $black-191;
   border: 1px solid $black-191;
@@ -1434,7 +1371,7 @@ form {
 }
 
 .secondary-btn {
-  @include font(var(--sameModeColor), "Inter-SemiBold", 1.6rem, 600, normal);
+  @include font(var(--sameModeColor), "Inter", 1.6rem, 600, normal);
   border-radius: 8px;
   background-color: var(--backColor);
   border: 1px solid var(--black191);
@@ -1468,7 +1405,7 @@ form {
 }
 
 .grey-btn {
-  @include font($grey-7C7, "Inter-Medium", 1.3rem, 500, normal);
+  @include font($grey-7C7, "Inter", 1.3rem, 500, normal);
   border-radius: 8px;
   background-color: rgba(229, 229, 230, 0.5);
   border: 1px solid $grey-D4D;
@@ -1596,7 +1533,7 @@ form {
 .react-datepicker__input-container {
   input {
     // @include font($primary, "ProximaNova-Medium", 1.6rem, 400, 22px);
-    @include font($primary, "Inter-Medium", 1.6rem, 500, 22px);
+    @include font($primary, "Inter", 1.6rem, 500, 22px);
   }
 }
 
@@ -2007,11 +1944,10 @@ form {
   opacity: 0 !important;
 }
 .page-scroll {
-  margin-top: 9rem;
-  padding-top: 3rem;
   padding-bottom: 4rem;
   width: 100%;
-  height: calc(118vh - 9.3rem);
+  height: calc(100vh - 83px);
+
   display: flex;
   align-items: center;
   overflow-x: scroll;
@@ -2147,7 +2083,7 @@ form {
         background: #ffffff;
       }
 
-      @include font($black-191, "Inter-SemiBold", 1.3rem, 600, 16px);
+      @include font($black-191, "Inter", 1.3rem, 600, 16px);
       &:active {
         border: 0 !important;
         color: $black-191 !important;
@@ -2432,8 +2368,8 @@ form {
   max-height: 2rem;
   overflow: hidden;
   line-height: 120%;
-  // font-family: Inter-Medium, Arial, Helvetica, sans-serif;
-  @include font($grey-555, "Inter-Medium", 1.6rem, 500, normal);
+  // font-family: Inter, Arial, Helvetica, sans-serif;
+  @include font($grey-555, "Inter", 1.6rem, 500, normal);
   color: #55575a;
   background: blur(3px);
   align-items: center;
@@ -2508,7 +2444,7 @@ textarea {
   }
 
   label {
-    @include font($primary, "Inter-Medium", 0.9rem, 500, 15px);
+    @include font($primary, "Inter", 0.9rem, 500, 15px);
   }
 }
 
@@ -2783,7 +2719,7 @@ textarea {
     height: 4rem;
     border: none;
     outline: none;
-    @include font($black-191, "Inter-Medium", 1.6rem, 500, 1.9rem);
+    @include font($black-191, "Inter", 1.6rem, 500, 1.9rem);
     //   box-shadow: 0px 8px 22px -6px rgba(24, 39, 75, 0.12), 0px 14px 64px -4px rgba(24, 39, 75, 0.12);
     border-radius: 8px;
     padding: 1rem 1rem 1rem 4rem;
@@ -2797,7 +2733,7 @@ textarea {
 
     ::placeholder {
       // color: $grey-B0B;
-      @include font("#FDFDFD", "Inter-Medium", 1.6rem, 500, 1.9rem);
+      @include font("#FDFDFD", "Inter", 1.6rem, 500, 1.9rem);
       opacity: 0.3;
     }
 
@@ -2866,13 +2802,7 @@ textarea {
     width: 100%;
 
     input {
-      @include font(
-        var(--primaryTextColor),
-        "Inter-Regular",
-        1.3rem,
-        normal,
-        1.5rem
-      );
+      @include font(var(--primaryTextColor), "Inter", 1.3rem, normal, 1.5rem);
       // padding: 1rem !important;
       min-height: 3rem;
       width: 100%;

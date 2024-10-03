@@ -61,7 +61,7 @@ function App(props) {
   //   <MobileDevice />
   // ) : (
   return (
-    <div className={isMobile ? "" : "zoomedElements"}>
+    <div>
       <BrowserRouter>
         <Switch>
           {routes.map((prop, key) => {

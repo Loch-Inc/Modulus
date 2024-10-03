@@ -404,11 +404,11 @@
             align-items: start;
 
             h3 {
-              @include font($primary, "Inter-Medium", 2.5rem, 500, normal);
+              @include font($primary, "Inter", 2.5rem, 500, normal);
               margin-bottom: 1.9rem;
             }
             h4 {
-              @include font($black-191, "Inter-Medium", 1.3rem, 500, normal);
+              @include font($black-191, "Inter", 1.3rem, 500, normal);
               opacity: 0.8;
             }
 
@@ -418,7 +418,7 @@
               flex-direction: column;
               align-items: end;
               h4 {
-                @include font($black-191, "Inter-Medium", 1.3rem, 500, 1.5rem);
+                @include font($black-191, "Inter", 1.3rem, 500, 1.5rem);
                 opacity: 0.8;
               }
               p {
@@ -461,13 +461,7 @@
                   filter: brightness(0);
                 }
                 h3 {
-                  @include font(
-                    $black-191,
-                    "Inter-Medium",
-                    1.3rem,
-                    500,
-                    normal
-                  );
+                  @include font($black-191, "Inter", 1.3rem, 500, normal);
                   margin-right: 0.5rem;
                   white-space: nowrap;
                   overflow: hidden;
@@ -476,7 +470,7 @@
               }
 
               h4 {
-                @include font($black-191, "Inter-Medium", 1.3rem, 500, normal);
+                @include font($black-191, "Inter", 1.3rem, 500, normal);
               }
             }
 
@@ -726,13 +720,7 @@
           }
           .form-group {
             label {
-              @include font(
-                var(--grey313),
-                "Inter-Medium",
-                1.3rem,
-                500,
-                1.6rem
-              );
+              @include font(var(--grey313), "Inter", 1.3rem, 500, 1.6rem);
               margin-bottom: 1.2rem;
               span {
                 display: none;
@@ -797,10 +785,10 @@
             padding: 1.6rem;
 
             h3 {
-              @include font($primary, "Inter-Medium", 2rem, 500, normal);
+              @include font($primary, "Inter", 2rem, 500, normal);
             }
             h4 {
-              @include font($black-191, "Inter-Medium", 1.3rem, 500, normal);
+              @include font($black-191, "Inter", 1.3rem, 500, normal);
               opacity: 0.5;
             }
 
@@ -814,10 +802,10 @@
               margin: 0rem 0.2rem;
 
               h3 {
-                @include font(#ffffff, "Inter-Medium", 2.5rem, 500, 3rem);
+                @include font(#ffffff, "Inter", 2.5rem, 500, 3rem);
               }
               h4 {
-                @include font(#ffffff, "Inter-Medium", 1.3rem, 500, 1.5rem);
+                @include font(#ffffff, "Inter", 1.3rem, 500, 1.5rem);
                 opacity: 0.8;
               }
 
@@ -827,7 +815,7 @@
                 flex-direction: column;
                 align-items: end;
                 h4 {
-                  @include font(#ffffff, "Inter-Medium", 1.3rem, 500, 1.5rem);
+                  @include font(#ffffff, "Inter", 1.3rem, 500, 1.5rem);
                   opacity: 0.8;
                 }
                 p {
@@ -846,10 +834,10 @@
               margin: 0rem 0.2rem;
 
               h3 {
-                @include font(#ffffff, "Inter-Medium", 2.5rem, 500, 3rem);
+                @include font(#ffffff, "Inter", 2.5rem, 500, 3rem);
               }
               h4 {
-                @include font(#ffffff, "Inter-Medium", 1.3rem, 500, 1.5rem);
+                @include font(#ffffff, "Inter", 1.3rem, 500, 1.5rem);
                 opacity: 0.8;
               }
 
@@ -859,7 +847,7 @@
                 flex-direction: column;
                 align-items: end;
                 h4 {
-                  @include font(#ffffff, "Inter-Medium", 1.3rem, 500, 1.5rem);
+                  @include font(#ffffff, "Inter", 1.3rem, 500, 1.5rem);
                   opacity: 0.8;
                 }
                 p {
@@ -885,13 +873,13 @@
                   margin-right: 1rem;
                 }
                 h3 {
-                  @include font($grey-969, "Inter-Medium", 1.3rem, 500, normal);
+                  @include font($grey-969, "Inter", 1.3rem, 500, normal);
                   margin-right: 0.5rem;
                 }
               }
 
               h4 {
-                @include font($primary, "Inter-Medium", 1.3rem, 500, normal);
+                @include font($primary, "Inter", 1.3rem, 500, normal);
               }
 
               &.free-plan {

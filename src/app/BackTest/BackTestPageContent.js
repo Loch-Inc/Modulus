@@ -13,6 +13,9 @@ import { mobileCheck } from "../../utils/ReusableFunctions";
 import TransactionTable from "../intelligence/TransactionTable";
 import BackTestBuilder from "./BackTestComponents/BackTestBuilder/BackTestBuilder";
 import BackTestChart from "./BackTestComponents/BackTestChart/BackTestChart";
+import BackTestSaveStrategy from "./BackTestComponents/BackTestBuilder/Components/BackTestSaveStrategy/BackTestSaveStrategy";
+import { StrategyBuilderPencilLightIcon } from "src/assets/images/icons";
+import { Image } from "react-bootstrap";
 
 class BackTestPageContent extends BaseReactComponent {
   constructor(props) {
@@ -52,19 +55,27 @@ class BackTestPageContent extends BaseReactComponent {
   render() {
     return (
       <div className="back-test-page-content">
-        <div
-          id="back-test-page-content-block-left"
-          className="back-test-page-content-block back-test-page-content-block-left"
-        >
-          <BackTestBuilder
-            passedStrategyList={this.props.passedStrategyList}
-            passedUserList={this.props.passedUserList}
-            saveStrategyName={this.props.saveStrategyName}
-            saveStrategyCheck={this.props.saveStrategyCheck}
-            showSaveStrategy={this.props.showSaveStrategy}
-            hideSaveStrategy={this.props.hideSaveStrategy}
-          />
-          {/* <Image
+        <BackTestSaveStrategy
+          saveStrategyName={this.props.saveStrategyName}
+          changeStrategyName={this.props.changeStrategyNames}
+          isSaveInvestStrategy={this.props.isSaveInvestStrategy}
+          isExistingStrategy={this.props.isExistingStrategy}
+          saveStrategyClicked={this.props.saveStrategyClicked}
+        />
+        <div className="back-test-page-content-blocks-container">
+          <div
+            id="back-test-page-content-block-left"
+            className="back-test-page-content-block back-test-page-content-block-left"
+          >
+            <BackTestBuilder
+              passedUserList={this.props.passedUserList}
+              passedStrategyList={this.props.passedStrategyList}
+              saveStrategyName={this.props.saveStrategyName}
+              saveStrategyCheck={this.props.saveStrategyCheck}
+              showSaveStrategy={this.props.showSaveStrategy}
+              hideSaveStrategy={this.props.hideSaveStrategy}
+            />
+            {/* <Image
               className="btpcb-left-block-items"
               src={FakeStrategy6Image}
             />
@@ -72,155 +83,149 @@ class BackTestPageContent extends BaseReactComponent {
               className="btpcb-left-block-background"
               src={FakeStrategyBackground2Image}
             /> */}
-        </div>
-        <div
-          id="back-test-page-content-block-right"
-          className="back-test-page-content-block"
-        >
-          <BackTestChart
-            calcChartData={this.props.calcChartData}
-            performanceVisualizationGraphLoading={
-              this.props.performanceVisualizationGraphLoading
-            }
-            strategiesOptions={this.props.strategiesOptions}
-            selectedStrategiesOptions={this.props.selectedStrategiesOptions}
-            selectStrategies={this.props.selectStrategies}
-            performanceVisualizationGraphData={
-              this.props.performanceVisualizationGraphData
-            }
-            performanceVisualizationGraphDataOriginal={
-              this.props.performanceVisualizationGraphDataOriginal
-            }
-            hideToCalendar={this.props.hideToCalendar}
-            hideFromCalendar={this.props.hideFromCalendar}
-            showFromCalendar={this.props.showFromCalendar}
-            showToCalendar={this.props.showToCalendar}
-            isFromCalendar={this.props.isFromCalendar}
-            isToCalendar={this.props.isToCalendar}
-            changeFromDate={this.props.changeFromDate}
-            changeToDate={this.props.changeToDate}
-            fromDate={this.props.fromDate}
-            toDate={this.props.toDate}
-          />
+          </div>
           <div
-            style={{
-              marginTop: "2rem",
-              display: "flex",
-              alignItems: this.state.isMobile ? "flex-start" : "center",
-              justifyContent: "flex-start",
-              flexDirection: this.state.isMobile ? "column" : "row",
-              gap: this.state.isMobile ? "5px" : "10px",
-            }}
-            className="btpcb-title"
+            id="back-test-page-content-block-right"
+            className="back-test-page-content-block"
           >
-            <div>Performance Metrics</div>
+            <BackTestChart
+              calcChartData={this.props.calcChartData}
+              performanceVisualizationGraphLoading={
+                this.props.performanceVisualizationGraphLoading
+              }
+              strategiesOptions={this.props.strategiesOptions}
+              selectedStrategiesOptions={this.props.selectedStrategiesOptions}
+              selectStrategies={this.props.selectStrategies}
+              performanceVisualizationGraphData={
+                this.props.performanceVisualizationGraphData
+              }
+              performanceVisualizationGraphDataOriginal={
+                this.props.performanceVisualizationGraphDataOriginal
+              }
+              hideToCalendar={this.props.hideToCalendar}
+              hideFromCalendar={this.props.hideFromCalendar}
+              showFromCalendar={this.props.showFromCalendar}
+              showToCalendar={this.props.showToCalendar}
+              isFromCalendar={this.props.isFromCalendar}
+              isToCalendar={this.props.isToCalendar}
+              changeFromDate={this.props.changeFromDate}
+              changeToDate={this.props.changeToDate}
+              fromDate={this.props.fromDate}
+              toDate={this.props.toDate}
+            />
+            <div className="btpcb-title btpcb-title-per-met">
+              <div>Performance Metrics</div>
 
-            <div
-              class={`btpcb-chart-time-range-table ${
-                this.props.performanceMetricTableLoading
-                  ? "btpcb-chart-time-range-table-hidden"
-                  : ""
-              }`}
-            >
-              <div>(</div>
               <div
-                id="1"
-                class="inter-display-medium f-s-13 lh-16 time-cal-badge"
+                class={`btpcb-chart-time-range-table ${
+                  this.props.performanceMetricTableLoading
+                    ? "btpcb-chart-time-range-table-hidden"
+                    : ""
+                }`}
               >
+                <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
+                  From
+                </div>
                 <OutsideClickHandler
                   onOutsideClick={this.props.hideFromCalendar}
                 >
-                  <div className="btpcb-chart-calendar-Container">
-                    <div
-                      className="btpcb-chart-calendar-Text"
-                      onClick={this.props.showFromCalendar}
-                    >
-                      {this.props.fromDate
-                        ? moment(this.props.fromDate).format("D MMM YYYY")
-                        : ""}
-                    </div>
-                    {this.props.isFromCalendar ? (
-                      <div className="intelligenceCalendar">
-                        <Calendar
-                          date={this.props.fromDate}
-                          className={
-                            "calendar-select inter-display-medium f-s-13 lh-16"
-                          }
-                          onChange={this.props.changeFromDate}
-                          maxDate={this.props.toDate}
-                          defaultValue={this.props.fromDate}
-                        />
+                  <div
+                    id="1"
+                    class="inter-display-medium f-s-13 lh-16 time-cal-badge"
+                    onClick={this.props.showFromCalendar}
+                  >
+                    <div className="btpcb-chart-calendar-Container">
+                      <div className="btpcb-chart-calendar-Text">
+                        {this.props.fromDate
+                          ? moment(this.props.fromDate).format("D MMM YYYY")
+                          : ""}
                       </div>
-                    ) : null}
+                      {this.props.isFromCalendar ? (
+                        <div className="intelligenceCalendar">
+                          <Calendar
+                            date={this.props.fromDate}
+                            className={
+                              "calendar-select inter-display-medium f-s-13 lh-16"
+                            }
+                            onChange={this.props.changeFromDate}
+                            maxDate={this.props.toDate}
+                            defaultValue={this.props.fromDate}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                    <Image
+                      className="btpcb-chart-calendar-icon"
+                      src={StrategyBuilderPencilLightIcon}
+                    />
+                  </div>
+                </OutsideClickHandler>
+                <div
+                  id="2"
+                  class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
+                >
+                  To
+                </div>
+                <OutsideClickHandler onOutsideClick={this.props.hideToCalendar}>
+                  <div
+                    id="3"
+                    class={`inter-display-medium f-s-13 lh-16 time-cal-badge time-cal-badge-right-cal`}
+                    onClick={this.props.showToCalendar}
+                  >
+                    <div className="btpcb-chart-calendar-Container">
+                      <div className="btpcb-chart-calendar-Text">
+                        {this.props.toDate
+                          ? moment(this.props.toDate).format("D MMM YYYY")
+                          : ""}
+                      </div>
+                      {this.props.isToCalendar ? (
+                        <div className="intelligenceCalendar">
+                          <Calendar
+                            date={this.props.toDate}
+                            className={
+                              "calendar-select inter-display-medium f-s-13 lh-16"
+                            }
+                            onChange={this.props.changeToDate}
+                            minDate={this.props.fromDate}
+                            maxDate={this.state.todayDate}
+                            defaultValue={this.props.toDate}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                    <Image
+                      className="btpcb-chart-calendar-icon"
+                      src={StrategyBuilderPencilLightIcon}
+                    />
                   </div>
                 </OutsideClickHandler>
               </div>
+            </div>
+
+            <div className="btpcb-right-table-container">
               <div
-                id="2"
-                class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
-              >
-                To
-              </div>
-              <div
-                id="3"
-                class={`inter-display-medium f-s-13 lh-16 time-cal-badge ${
-                  this.state.isMobile ? "time-cal-badge-right-cal" : ""
+                style={{
+                  overflowX: this.state.isMobile ? "scroll" : "",
+                }}
+                className={`${
+                  this.state.isMobile
+                    ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
+                    : "cost-table-section"
                 }`}
               >
-                <OutsideClickHandler onOutsideClick={this.props.hideToCalendar}>
-                  <div className="btpcb-chart-calendar-Container">
-                    <div
-                      className="btpcb-chart-calendar-Text"
-                      onClick={this.props.showToCalendar}
-                    >
-                      {this.props.toDate
-                        ? moment(this.props.toDate).format("D MMM YYYY")
-                        : ""}
-                    </div>
-                    {this.props.isToCalendar ? (
-                      <div className="intelligenceCalendar">
-                        <Calendar
-                          date={this.props.toDate}
-                          className={
-                            "calendar-select inter-display-medium f-s-13 lh-16"
-                          }
-                          onChange={this.props.changeToDate}
-                          minDate={this.props.fromDate}
-                          maxDate={this.state.todayDate}
-                          defaultValue={this.props.toDate}
-                        />
-                      </div>
-                    ) : null}
-                  </div>
-                </OutsideClickHandler>
+                <TransactionTable
+                  message="No performance metric found"
+                  tableData={this.props.performanceMetricTableData}
+                  columnList={this.props.performanceMetricColumnList}
+                  isLoading={this.props.performanceMetricTableLoading}
+                  yAxisScrollable
+                  addWatermark={!this.state.isMobile}
+                  fakeWatermark={this.state.isMobile}
+                  xAxisScrollable={this.state.isMobile}
+                  xAxisScrollableColumnWidth={3.5}
+                  isMiniversion={this.state.isMobile}
+                />
               </div>
-              <div>)</div>
-            </div>
-          </div>
-
-          <div className="btpcb-right-table-container">
-            <div
-              style={{
-                overflowX: this.state.isMobile ? "scroll" : "",
-              }}
-              className={`${
-                this.state.isMobile
-                  ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
-                  : "cost-table-section"
-              }`}
-            >
-              <TransactionTable
-                message="No performance metric found"
-                tableData={this.props.performanceMetricTableData}
-                columnList={this.props.performanceMetricColumnList}
-                isLoading={this.props.performanceMetricTableLoading}
-                yAxisScrollable
-                addWatermark={!this.state.isMobile}
-                fakeWatermark={this.state.isMobile}
-                xAxisScrollable={this.state.isMobile}
-                xAxisScrollableColumnWidth={3.5}
-                isMiniversion={this.state.isMobile}
-              />
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
 .overlayContainer {
   position: relative;
   .overLayHeader {
-    font-family: "Inter-Medium";
+    font-family: "Inter", sans-serif;
     z-index: 2147483647;
     position: fixed;
     top: 0;
@@ -695,10 +695,10 @@
         right: 1rem;
         top: 1rem;
         color: #da2f58;
-        font-family: "Inter-Medium";
+        font-family: "Inter", sans-serif;
         font-size: 1.6rem;
         line-height: 19px;
-        // @include font(#B00020, "Inter-Medium", 1.6rem, 500, 19px);
+        // @include font(#B00020, "Inter", 1.6rem, 500, 19px);
       }
     }
   }

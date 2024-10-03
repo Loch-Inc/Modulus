@@ -1,16 +1,15 @@
-import React from "react";
 import { connect } from "react-redux";
+import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
-import "./_backTestNameSave.scss";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
-import moment from "moment";
+import "./_backTestNameSave.scss";
 
 class BackTestNameSave extends BaseReactComponent {
   constructor(props) {
     super(props);
     this.state = {
       welcomeAddBtnLoading: false,
-      strategyName: "Strategy - " + moment(new Date()).format("DD MMM YYYY"),
+      strategyName: DEFAULT_STRATEGY_NAME,
       isMobile: mobileCheck(),
     };
   }

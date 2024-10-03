@@ -10,6 +10,8 @@ import {
   amountFormat,
   CurrencyType,
   mobileCheck,
+  strategyBuilderChartLineColorByIndex,
+  strategyBuilderChartLineColorByIndexLowOpacity,
 } from "../../../../utils/ReusableFunctions";
 import Loading from "../../../common/Loading";
 import "./_backTestChart.scss";
@@ -28,7 +30,7 @@ class BackTestChart extends BaseReactComponent {
     };
   }
   graphContainerSetting = {
-    style: { height: "40rem" },
+    style: { height: "35rem" },
   };
   render() {
     let parent = this;
@@ -170,16 +172,44 @@ class BackTestChart extends BaseReactComponent {
                   legend: {
                     enabled: true,
                     verticalAlign: "bottom",
+                    // align: "left",
                     symbolWidth: 0,
                     symbolHeight: 0,
                     symbolRadius: 0,
                     useHTML: true,
+                    padding: 0,
+
                     labelFormatter: function () {
-                      return `<span class="strategy-builder-chart-legend-text" style="color: ${
-                        this.color
-                      }; opacity:${this.visible ? 1 : 0.5}">${
-                        this.name
-                      }</span>`;
+                      return `<div
+                      style="backgroundColor:${strategyBuilderChartLineColorByIndexLowOpacity(
+                        this.symbolIndex
+                      )};borderColor:${strategyBuilderChartLineColorByIndexLowOpacity(
+                        this.symbolIndex
+                      )}"
+                      class="strategy-builder-chart-legend dotDotText inter-display-medium text-uppercase f-s-13"
+                    >
+                      <svg
+                        width="5"
+                        height="6"
+                        viewBox="0 0 5 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="strategy-builder-chart-legend-circle"
+                      >
+                        <circle
+                          cx="2.5"
+                          cy="3"
+                          r="2.5"
+                          fill=${strategyBuilderChartLineColorByIndex(
+                            this.symbolIndex
+                          )}
+                        />
+                      </svg>
+
+                      <div className="strategy-builder-chart-legend-text dotDotText">
+                        ${this.name}
+                      </div>
+                    </div>`;
                     },
                   },
                   title: {
@@ -366,7 +396,7 @@ class BackTestChart extends BaseReactComponent {
                     },
                     zoomType: "x",
                     style: {
-                      fontFamily: "Inter-Medium, Arial, Helvetica, sans-serif",
+                      fontFamily: "Inter, Arial, Helvetica, sans-serif",
                       fontSize: "12px",
                     },
                   },

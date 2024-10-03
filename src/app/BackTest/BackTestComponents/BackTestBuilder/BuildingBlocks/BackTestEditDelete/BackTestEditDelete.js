@@ -4,7 +4,7 @@ import "./_backTestEditDelete.scss";
 import {
   StrategyBuilderDeleteIcon,
   StrategyBuilderPencilIcon,
-  StrategyBuilderAddIcon,
+  StrategyBuilderAddCircleIcon,
 } from "../../../../../../assets/images/icons";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 
@@ -23,6 +23,17 @@ class BackTestEditDelete extends BaseReactComponent {
           this.state.isMobile ? "sbb-edit-delete-options-mobile" : ""
         }`}
       >
+        {this.props.hideAddBtn ? null : (
+          <div
+            onClick={this.props.onAddClick}
+            className="sbb-edit-delete-options-block sbb-edit-delete-options-add"
+          >
+            <Image
+              className="sbb-edit-delete-options-block-image sbb-edit-delete-options-edit-image"
+              src={StrategyBuilderAddCircleIcon}
+            />
+          </div>
+        )}
         {this.props.hideEditBtn ? null : (
           <div
             onClick={this.props.onEditClick}
@@ -42,17 +53,6 @@ class BackTestEditDelete extends BaseReactComponent {
             <Image
               className="sbb-edit-delete-options-block-image sbb-edit-delete-options-delete-image"
               src={StrategyBuilderDeleteIcon}
-            />
-          </div>
-        )}
-        {this.props.hideAddBtn ? null : (
-          <div
-            onClick={this.props.onAddClick}
-            className="sbb-edit-delete-options-block "
-          >
-            <Image
-              className="sbb-edit-delete-options-block-image sbb-edit-delete-options-edit-image"
-              src={StrategyBuilderAddIcon}
             />
           </div>
         )}

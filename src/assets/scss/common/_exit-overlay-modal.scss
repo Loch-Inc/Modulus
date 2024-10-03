@@ -530,7 +530,7 @@
               // }
 
               // label {
-              //   @include font(var(--primaryTextColor), "Inter-Medium", 0.9rem, 500, 15px);
+              //   @include font(var(--primaryTextColor), "Inter", 0.9rem, 500, 15px);
               // }
             }
           }
@@ -575,7 +575,7 @@
 
             .form-group {
               label {
-                font-family: Inter-Medium;
+                font-family: Inter;
                 line-height: 1.6rem;
                 font-size: 1.3rem;
                 color: $grey-313;

@@ -844,7 +844,7 @@ class CustomTable extends BaseReactComponent {
           this.props.minimalPagination ? (
             tableData &&
             tableData.length >= 1 &&
-            totalPage >= 1 &&
+            totalPage > 1 &&
             !isLoading ? (
               <SmartMoneyPagination
                 openSignInOnclickModal={this.props.openSignInOnclickModal}

@@ -1,15 +1,17 @@
 import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import { BaseReactComponent } from "../../../../../../utils/form";
-import { strategyByilderAssetDetailFromName } from "../../../../../../utils/ReusableFunctions";
+import { strategyBuilderAssetDetailFromName } from "../../../../../../utils/ReusableFunctions";
 import BackTestAssetPopup from "../../PopUps/BackTestAssetPopup/BackTestAssetPopup";
 import "./_backTestAssetBuilderBlock.scss";
+import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 
 class BackTestAssetBuilderBlock extends BaseReactComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isPopUpOpen: false,
+      isPopUpOpen:
+        props.saveStrategyName === DEFAULT_STRATEGY_NAME ? true : false,
       curAsset: {
         name: "",
         icon: "",
@@ -18,7 +20,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     };
   }
   setCurAsset = () => {
-    let tempHolder = strategyByilderAssetDetailFromName(
+    let tempHolder = strategyBuilderAssetDetailFromName(
       this.props.selectedAsset
     );
 

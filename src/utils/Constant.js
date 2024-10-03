@@ -1,9 +1,17 @@
+import moment from "moment";
+
 export const API_LIMIT = 10;
 export const MAX_LIMIT = 1000;
 export const START_INDEX = 0;
 export const GOOGLE_API_KEY = "";
+export const DEFAULT_STRATEGY_NAME =
+  "Strategy - " + moment(new Date()).format("DD MMM YYYY");
 // export const API_URL = "https://sapi-float.ebikego.com/api/"
 export const API_BASE_URL = process.env.REACT_APP_API_BASEURL;
+export const API_BASE_URL_LOGGED_OUT =
+  process.env.REACT_APP_API_BASEURL_LOGGED_OUT;
+export const AXIOS_API_KEY = process.env.REACT_APP_AXIOS_API_KEY;
+export const AXIOS_AUTH_KEY = process.env.REACT_APP_AXIOS_AUTH_KEY;
 // export const MEDIA_URL = "https://d1r1yzhyzim0p1.cloudfront.net/"
 export const DEFAULT_PRICE = 0;
 export const DEFAULT_COLOR = "#2c2c2c";

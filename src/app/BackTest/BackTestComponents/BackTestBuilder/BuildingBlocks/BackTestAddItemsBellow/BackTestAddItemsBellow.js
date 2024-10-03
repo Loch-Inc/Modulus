@@ -29,7 +29,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       itemToBeChanged = itemToBeChanged[element];
     });
 
-    if (this.props.blockType === "asset" || this.props.blockType === "weight") {
+    if (
+      this.props.blockType === "asset" ||
+      this.props.blockType === "weight percentage"
+    ) {
       let itemToBeChanged = itemToBeChangedOriginal;
       this.props.weightPath.forEach((element) => {
         itemToBeChanged = itemToBeChanged[element];
@@ -166,7 +169,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       itemToBeChanged = itemToBeChanged[element];
     });
 
-    if (this.props.blockType === "asset" || this.props.blockType === "weight") {
+    if (
+      this.props.blockType === "asset" ||
+      this.props.blockType === "weight percentage"
+    ) {
       let itemToBeChanged = itemToBeChangedOriginal;
       this.props.weightPath.forEach((element) => {
         itemToBeChanged = itemToBeChanged[element];
@@ -191,10 +197,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               type: "CURRENT_PRICE",
               token: "BTC",
               operator: ">",
-              amount: "10000",
+              amount: "100",
               time_period: "4",
               success: {},
               failed: {},
+              compare_type: "function",
+              compare_function: {
+                type: "CURRENT_PRICE",
+                time_period: "4",
+                token: "ETH",
+              },
             },
           },
           percentage: equalWeight,
@@ -206,10 +218,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               type: "CURRENT_PRICE",
               token: "BTC",
               operator: ">",
-              amount: "10000",
+              amount: "100",
               time_period: "4",
               success: {},
               failed: {},
+              compare_type: "function",
+              compare_function: {
+                type: "CURRENT_PRICE",
+                time_period: "4",
+                token: "ETH",
+              },
             },
           },
           percentage: equalWeight,
@@ -238,10 +256,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
                     type: "CURRENT_PRICE",
                     token: "BTC",
                     operator: ">",
-                    amount: "10000",
+                    amount: "100",
                     time_period: "4",
                     success: {},
                     failed: {},
+                    compare_type: "function",
+                    compare_function: {
+                      type: "CURRENT_PRICE",
+                      time_period: "4",
+                      token: "ETH",
+                    },
                   },
                 },
               },
@@ -266,10 +290,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               type: "CURRENT_PRICE",
               token: "BTC",
               operator: ">",
-              amount: "10000",
+              amount: "100",
               time_period: "4",
               success: {},
               failed: {},
+              compare_type: "function",
+              compare_function: {
+                type: "CURRENT_PRICE",
+                time_period: "4",
+                token: "ETH",
+              },
             },
           },
           percentage: equalWeight,
@@ -298,10 +328,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
                     type: "CURRENT_PRICE",
                     token: "BTC",
                     operator: ">",
-                    amount: "10000",
+                    amount: "100",
                     time_period: "4",
                     success: {},
                     failed: {},
+                    compare_type: "function",
+                    compare_function: {
+                      type: "CURRENT_PRICE",
+                      time_period: "4",
+                      token: "ETH",
+                    },
                   },
                 },
               },
@@ -326,10 +362,16 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               type: "CURRENT_PRICE",
               token: "BTC",
               operator: ">",
-              amount: "10000",
+              amount: "100",
               time_period: "4",
               success: {},
               failed: {},
+              compare_type: "function",
+              compare_function: {
+                type: "CURRENT_PRICE",
+                time_period: "4",
+                token: "ETH",
+              },
             },
           },
           percentage: equalWeight,
@@ -356,13 +398,14 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   }
 
   render() {
-    return (
-      <div
-        className={`sbb-add-options-bellow ${
-          this.state.isMobile ? "sbb-add-options-bellow-mobile" : ""
-        }`}
-      >
-        {/* <div className="sbb-add-options-bar">
+    if (this.state.isOptionsOpen) {
+      return (
+        <div
+          className={`sbb-add-options-bellow ${
+            this.state.isMobile ? "sbb-add-options-bellow-mobile" : ""
+          }`}
+        >
+          {/* <div className="sbb-add-options-bar">
           <div
             onClick={this.toggleOptions}
             className="sbb-add-options-bar-add-container"
@@ -373,7 +416,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
             />
           </div>
         </div> */}
-        {this.state.isOptionsOpen ? (
+
           <div className={`sbb-add-options-bellow-items `}>
             <BackTestAddingOptions
               closeOptions={this.closeOptions}
@@ -382,9 +425,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               blockType={this.props.blockType}
             />
           </div>
-        ) : null}
-      </div>
-    );
+        </div>
+      );
+    }
+    return null;
   }
 }
 

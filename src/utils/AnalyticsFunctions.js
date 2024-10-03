@@ -80,7 +80,7 @@ export const signUpProperties = ({
 };
 
 export const resetUser = (notCurrencyRates) => {
-  Mixpanel.reset();
+  // Mixpanel.reset();
   deleteToken(notCurrencyRates);
   // console.log("reset");
 };

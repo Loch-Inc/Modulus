@@ -1,0 +1,95 @@
+.top-bar-parent {
+  width: 100vw;
+  padding: 0rem 5rem;
+  .top-bar-container {
+    overflow-x: scroll;
+    z-index: 102;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    &::-webkit-scrollbar {
+      display: none; /* WebKit */
+    }
+    .top-bar {
+      min-width: 120rem;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--primaryBackgroud);
+
+      .top-bar-content {
+        min-width: 120rem;
+        width: 120rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        .top-bar-content-left {
+          position: absolute;
+          left: 0;
+          .top-bar-content-left-logo {
+            height: 20px;
+            cursor: pointer;
+          }
+        }
+        .top-bar-content-middle {
+          background-color: var(--cardBackgroud);
+          padding: 4px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          box-shadow: var(--boxShadowLg);
+
+          .top-bar-content-middle-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+
+            .top-bar-content-middle-item-icon {
+              height: 14px;
+              width: 14px;
+            }
+            .top-bar-content-middle-item-text {
+              font-size: 13px;
+              font-weight: 500;
+              color: var(--topBarText);
+            }
+            &:hover {
+              background-color: var(--toBarBackgroundHover);
+              .top-bar-content-middle-item-text {
+                color: var(--toBarSelectedText);
+              }
+            }
+          }
+          .top-bar-content-middle-item-selected {
+            background-color: var(--toBarSelectedBackground);
+            pointer-events: none;
+            .top-bar-content-middle-item-icon {
+              path {
+                fill: var(--toBarSelectedText);
+              }
+            }
+            .top-bar-content-middle-item-text {
+              color: var(--toBarSelectedText);
+            }
+          }
+        }
+        .top-bar-content-right {
+          position: absolute;
+          right: 0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          cursor: pointer;
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

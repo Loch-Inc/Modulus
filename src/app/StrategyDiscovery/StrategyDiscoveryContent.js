@@ -31,10 +31,10 @@ class StrategyDiscoveryContent extends BaseReactComponent {
         >
           <div className="strategy-discovery-page-heading-text">
             <div className="strategy-discovery-page-heading-text-subheading">
-              Get started with
+              Create your own
             </div>
             <div className="strategy-discovery-page-heading-text-heading">
-              <div>Strategy Builder</div>
+              <div>Algorithmic Strategy</div>
               <Image
                 src={StrategyDiscoveryHeadingArrowIcon}
                 className="strategy-discovery-page-heading-text-heading-icon"
