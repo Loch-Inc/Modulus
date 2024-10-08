@@ -5,6 +5,7 @@ import {
   copyText,
   mobileCheck,
   numToCurrency,
+  scrollToBottomAfterPageChange,
   strategyBuilderChartLineColorByIndex,
 } from "../../utils/ReusableFunctions";
 import MobileLayout from "../layout/MobileLayout";
@@ -12,10 +13,13 @@ import "./_profilePage.scss";
 import {
   getTotalUserCreatedStrategyCount,
   getUserCreatedStrategies,
+  getUserProfileData,
   getUserReferralCodes,
 } from "./Api/ProfilePageApi";
-// import BackTestPageMobile from "./BackTestPageMobile";
+import moment from "moment";
 import { Image } from "react-bootstrap";
+import { resetUser } from "src/utils/AnalyticsFunctions";
+import { API_LIMIT, START_INDEX } from "src/utils/Constant";
 import {
   StrategyDiscoveryDownGreenArrowIcon,
   StrategyDiscoveryDownRedArrowIcon,
@@ -23,9 +27,7 @@ import {
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import TopBar from "../TopBar/TopBar";
 import ProfilePageContent from "./ProfilePageContent";
-import { API_LIMIT, START_INDEX } from "src/utils/Constant";
-import moment from "moment";
-import { resetUser } from "src/utils/AnalyticsFunctions";
+import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
 
 class ProfilePage extends BaseReactComponent {
   constructor(props) {
@@ -34,6 +36,15 @@ class ProfilePage extends BaseReactComponent {
     const params = new URLSearchParams(search);
     const page = params.get("p");
     this.state = {
+      firstLoad: true,
+      userData: {
+        created_on: "",
+        email: "",
+        modified_on: "",
+        source: "",
+        _id: "",
+      },
+      showConfirmLeaveModal: false,
       currentPage: page ? parseInt(page, 10) : START_INDEX,
       totalPages: 0,
       isReferralCodeBlockOpen: false,
@@ -54,6 +65,9 @@ class ProfilePage extends BaseReactComponent {
         {
           labelName: (
             <div
+              style={{
+                justifyContent: "flex-start",
+              }}
               className="history-table-header-col no-hover history-table-header-col-curve-left"
               id="time"
             >
@@ -477,7 +491,16 @@ class ProfilePage extends BaseReactComponent {
       ],
     };
   }
-
+  openLeaveModal = () => {
+    this.setState({
+      showConfirmLeaveModal: true,
+    });
+  };
+  closeLeaveModal = () => {
+    this.setState({
+      showConfirmLeaveModal: false,
+    });
+  };
   getUserReferralCodesPass = () => {
     this.props.getUserReferralCodes(this);
   };
@@ -503,16 +526,20 @@ class ProfilePage extends BaseReactComponent {
       totalPages: 0,
     });
   };
+  getUserProfileDataPass = () => {
+    this.props.getUserProfileData();
+  };
   componentDidMount() {
     this.getUserCreatedStrategiesPass();
     this.getTotalUserCreatedStrategyCountPass();
     this.getUserReferralCodesPass();
+    this.getUserProfileDataPass();
 
     this.props.history.replace({
       search: `?p=${this.state.currentPage}`,
     });
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const prevParams = new URLSearchParams(prevProps.location.search);
     const prevPage = parseInt(prevParams.get("p") || START_INDEX, 10);
 
@@ -602,6 +629,31 @@ class ProfilePage extends BaseReactComponent {
         referralCodes: tempCodes,
       });
     }
+    if (
+      prevProps.GetUserProfileDataState !== this.props.GetUserProfileDataState
+    ) {
+      const tempHolder = this.props.GetUserProfileDataState;
+      if (tempHolder) {
+        this.setState({
+          userData: tempHolder,
+        });
+      }
+    }
+    if (
+      this.state.strategiesCreatedTableLoading !==
+        prevState.strategiesCreatedTableLoading &&
+      !this.state.strategiesCreatedTableLoading
+    ) {
+      if (this.state.firstLoad) {
+        this.setState({
+          firstLoad: false,
+        });
+      } else {
+        setTimeout(() => {
+          scrollToBottomAfterPageChange();
+        }, 100);
+      }
+    }
   }
   openReferralCodeBlock = () => {
     this.setState({ isReferralCodeBlockOpen: true });
@@ -633,7 +685,7 @@ class ProfilePage extends BaseReactComponent {
       this.props.history.push("/builder");
     }
   };
-  tempSignOut = () => {
+  signOutFun = () => {
     resetUser();
     setTimeout(() => {
       window.location.href = "/sign-in";
@@ -689,6 +741,14 @@ class ProfilePage extends BaseReactComponent {
     }
     return (
       <div className="profile-page">
+        {this.state.showConfirmLeaveModal ? (
+          <ConfirmLeaveModal
+            show
+            history={this.props.history}
+            handleClose={this.closeLeaveModal}
+            handleAccept={this.signOutFun}
+          />
+        ) : null}
         <TopBar history={this.props.history} />
         <div className="page">
           <div
@@ -699,11 +759,12 @@ class ProfilePage extends BaseReactComponent {
           >
             <div className="page-scroll-child">
               <ProfilePageContent
+                userData={this.state.userData}
                 totalPage={this.state.totalPages}
+                page={this.state.currentPage}
                 history={this.props.history}
                 location={this.props.location}
-                page={this.state.currentPage}
-                tempSignOut={this.tempSignOut}
+                signOutFun={this.openLeaveModal}
                 copyAllReferralCodes={this.copyAllReferralCodes}
                 openReferralCodeBlock={this.openReferralCodeBlock}
                 closeReferralCodeBlock={this.closeReferralCodeBlock}
@@ -731,11 +792,13 @@ const mapStateToProps = (state) => ({
   StrategiesCreatedTableState: state.StrategiesCreatedTableState,
   ReferralCodesModulusState: state.ReferralCodesModulusState,
   TotalUserCreatedStrategyCountState: state.TotalUserCreatedStrategyCountState,
+  GetUserProfileDataState: state.GetUserProfileDataState,
 });
 const mapDispatchToProps = {
   getUserCreatedStrategies,
   getUserReferralCodes,
   getTotalUserCreatedStrategyCount,
+  getUserProfileData,
 };
 
 ProfilePage.propTypes = {};

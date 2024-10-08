@@ -58,10 +58,16 @@ class BackTestWeightBuilderBlock extends BaseReactComponent {
     //   this.setCurAsset();
     // }
   }
-  closePopUp = () => {
+  closePopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: false });
   };
-  togglePopUp = () => {
+  togglePopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: !this.state.isPopUpOpen });
   };
 

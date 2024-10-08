@@ -12,10 +12,19 @@ import {
   StrategyBuilderAssetSolIcon,
   StrategyBuilderAssetTonIcon,
   StrategyBuilderAssetTrxIcon,
+  StrategyBuilderAssetUsdcIcon,
+  StrategyBuilderAssetUsdtIcon,
   StrategyBuilderAssetXrpIcon,
 } from "../assets/images/icons";
 import { API_LIMIT, BASE_URL_S3 } from "./Constant";
 import { getCurrentUser, getToken } from "./ManageToken";
+
+export const roundNumber = (number) => {
+  const roundedNumber = Math.round(number * 100) / 100;
+  return roundedNumber % 1 === 0
+    ? roundedNumber.toFixed(0)
+    : roundedNumber.toFixed(2);
+};
 
 export const strategyBuilderWeightTypeToEnum = (passedItem) => {
   console.log("passedItem is ", passedItem);
@@ -89,6 +98,14 @@ export const strategyBuilderChartLineColorByIndexLowOpacity = (passedIndex) => {
   // return "black";
   return `var(--strategyBuilderGraphLowOpacity${passedIndex + 1})`;
 };
+export const getRandomLightColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
 export const strategyBuilderChartLineColorByIndex = (passedIndex) => {
   return `var(--strategyBuilderGraph${passedIndex + 1})`;
 };
@@ -105,6 +122,18 @@ export const strategyBuilderAssetListriod = () => {
       name: "ETH",
       fullName: "Ethereum",
       icon: StrategyBuilderAssetEthIcon,
+      color: "#627EEA",
+    },
+    {
+      name: "USDT",
+      fullName: "Tether",
+      icon: StrategyBuilderAssetUsdtIcon,
+      color: "#26A17B",
+    },
+    {
+      name: "USDC",
+      fullName: "USD Coin",
+      icon: StrategyBuilderAssetUsdcIcon,
       color: "#627EEA",
     },
     {
@@ -267,7 +296,17 @@ export const scrollToBottomAfterPageChange = () => {
       window.scroll(0, itemItem.clientHeight);
     }
   } else {
-    window.scroll(0, document.body.scrollHeight);
+    const scrollableElement = document.querySelector(".page-scroll");
+    if (scrollableElement) {
+      scrollableElement.scrollTop = scrollableElement.scrollHeight;
+
+      if (
+        scrollableElement.scrollTop + scrollableElement.clientHeight <
+        scrollableElement.scrollHeight
+      ) {
+        setTimeout(scrollToBottomAfterPageChange, 100);
+      }
+    }
   }
 };
 

@@ -17,7 +17,8 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   closeOptions = () => {
     this.setState({ isOptionsOpen: false });
   };
-  onAddAssetClick = () => {
+  onAddAssetClick = (passedAsset = "BTC") => {
+    console.log("passedAsset? ", passedAsset);
     if (this.props.openCollapse) {
       this.props.openCollapse();
     }
@@ -50,12 +51,12 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       });
       if (this.props.weightIndex !== undefined) {
         tempItemToBeChanged.splice(this.props.weightIndex + 1, 0, {
-          item: { asset: "BTC" },
+          item: { asset: passedAsset },
           percentage: equalWeight,
         });
       } else {
         tempItemToBeChanged.push({
-          item: { asset: "BTC" },
+          item: { asset: passedAsset },
           percentage: equalWeight,
         });
       }
@@ -78,7 +79,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               {
                 percentage: "100",
                 item: {
-                  asset: "BTC",
+                  asset: passedAsset,
                 },
               },
             ],
@@ -97,7 +98,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
           };
         });
         tempItemToBeChanged.push({
-          item: { asset: "BTC" },
+          item: { asset: passedAsset },
           percentage: equalWeight,
         });
         itemToBeChanged.splice(0, itemToBeChanged.length);
@@ -120,7 +121,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
               {
                 percentage: "100",
                 item: {
-                  asset: "BTC",
+                  asset: passedAsset,
                 },
               },
             ],
@@ -139,7 +140,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
           };
         });
         tempItemToBeChanged.push({
-          item: { asset: "BTC" },
+          item: { asset: passedAsset },
           percentage: equalWeight,
         });
         itemToBeChanged.splice(0, itemToBeChanged.length);
@@ -157,7 +158,25 @@ class BackTestAddItemsBellow extends BaseReactComponent {
     }
     this.closeOptions();
   };
-  onAddConditionClick = () => {
+  onAddConditionClick = (
+    passedCondition = {
+      condition: {
+        type: "CURRENT_PRICE",
+        token: "BTC",
+        operator: ">",
+        amount: "100",
+        time_period: "4",
+        success: {},
+        failed: {},
+        compare_type: "function",
+        compare_function: {
+          type: "CURRENT_PRICE",
+          time_period: "4",
+          token: "ETH",
+        },
+      },
+    }
+  ) => {
     if (this.props.openCollapse) {
       this.props.openCollapse();
     }
@@ -177,7 +196,6 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       this.props.weightPath.forEach((element) => {
         itemToBeChanged = itemToBeChanged[element];
       });
-
       itemToBeChanged = itemToBeChanged.weight.weight_item;
       let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
       arrLength = arrLength + 1;
@@ -192,44 +210,12 @@ class BackTestAddItemsBellow extends BaseReactComponent {
 
       if (this.props.weightIndex !== undefined) {
         tempItemToBeChanged.splice(this.props.weightIndex + 1, 0, {
-          item: {
-            condition: {
-              type: "CURRENT_PRICE",
-              token: "BTC",
-              operator: ">",
-              amount: "100",
-              time_period: "4",
-              success: {},
-              failed: {},
-              compare_type: "function",
-              compare_function: {
-                type: "CURRENT_PRICE",
-                time_period: "4",
-                token: "ETH",
-              },
-            },
-          },
+          item: passedCondition,
           percentage: equalWeight,
         });
       } else {
         tempItemToBeChanged.push({
-          item: {
-            condition: {
-              type: "CURRENT_PRICE",
-              token: "BTC",
-              operator: ">",
-              amount: "100",
-              time_period: "4",
-              success: {},
-              failed: {},
-              compare_type: "function",
-              compare_function: {
-                type: "CURRENT_PRICE",
-                time_period: "4",
-                token: "ETH",
-              },
-            },
-          },
+          item: passedCondition,
           percentage: equalWeight,
         });
       }
@@ -251,23 +237,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
             weight_item: [
               {
                 percentage: "100",
-                item: {
-                  condition: {
-                    type: "CURRENT_PRICE",
-                    token: "BTC",
-                    operator: ">",
-                    amount: "100",
-                    time_period: "4",
-                    success: {},
-                    failed: {},
-                    compare_type: "function",
-                    compare_function: {
-                      type: "CURRENT_PRICE",
-                      time_period: "4",
-                      token: "ETH",
-                    },
-                  },
-                },
+                item: passedCondition,
               },
             ],
           },
@@ -285,23 +255,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
           };
         });
         tempItemToBeChanged.push({
-          item: {
-            condition: {
-              type: "CURRENT_PRICE",
-              token: "BTC",
-              operator: ">",
-              amount: "100",
-              time_period: "4",
-              success: {},
-              failed: {},
-              compare_type: "function",
-              compare_function: {
-                type: "CURRENT_PRICE",
-                time_period: "4",
-                token: "ETH",
-              },
-            },
-          },
+          item: passedCondition,
           percentage: equalWeight,
         });
         itemToBeChanged.splice(0, itemToBeChanged.length);
@@ -323,23 +277,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
             weight_item: [
               {
                 percentage: "100",
-                item: {
-                  condition: {
-                    type: "CURRENT_PRICE",
-                    token: "BTC",
-                    operator: ">",
-                    amount: "100",
-                    time_period: "4",
-                    success: {},
-                    failed: {},
-                    compare_type: "function",
-                    compare_function: {
-                      type: "CURRENT_PRICE",
-                      time_period: "4",
-                      token: "ETH",
-                    },
-                  },
-                },
+                item: passedCondition,
               },
             ],
           },
@@ -357,23 +295,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
           };
         });
         tempItemToBeChanged.push({
-          item: {
-            condition: {
-              type: "CURRENT_PRICE",
-              token: "BTC",
-              operator: ">",
-              amount: "100",
-              time_period: "4",
-              success: {},
-              failed: {},
-              compare_type: "function",
-              compare_function: {
-                type: "CURRENT_PRICE",
-                time_period: "4",
-                token: "ETH",
-              },
-            },
-          },
+          item: passedCondition,
           percentage: equalWeight,
         });
         itemToBeChanged.splice(0, itemToBeChanged.length);
@@ -391,6 +313,19 @@ class BackTestAddItemsBellow extends BaseReactComponent {
     }
     this.closeOptions();
   };
+  onAddPasteClick = () => {
+    if (this.props.copiedItem) {
+      if (this.props.copiedItem.itemType === "asset") {
+        console.log(
+          "this.props.copiedItem.item ? ",
+          this.props.copiedItem.item
+        );
+        this.onAddAssetClick(this.props.copiedItem.item);
+      } else if (this.props.copiedItem.itemType === "condition if") {
+        this.onAddConditionClick(this.props.copiedItem.item);
+      }
+    }
+  };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.isOptionsOpenToggle !== this.props.isOptionsOpenToggle) {
       this.toggleOptions();
@@ -401,6 +336,9 @@ class BackTestAddItemsBellow extends BaseReactComponent {
     if (this.state.isOptionsOpen) {
       return (
         <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           className={`sbb-add-options-bellow ${
             this.state.isMobile ? "sbb-add-options-bellow-mobile" : ""
           }`}
@@ -419,9 +357,12 @@ class BackTestAddItemsBellow extends BaseReactComponent {
 
           <div className={`sbb-add-options-bellow-items `}>
             <BackTestAddingOptions
+              copiedItem={this.props.copiedItem}
+              setCopiedItem={this.props.setCopiedItem}
               closeOptions={this.closeOptions}
               onAddAssetClick={this.onAddAssetClick}
               onAddConditionClick={this.onAddConditionClick}
+              onAddPasteClick={this.onAddPasteClick}
               blockType={this.props.blockType}
             />
           </div>

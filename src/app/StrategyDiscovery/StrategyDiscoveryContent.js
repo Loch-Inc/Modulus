@@ -63,6 +63,13 @@ class StrategyDiscoveryContent extends BaseReactComponent {
               }`}
             >
               <TransactionTable
+                totalPage={this.props.totalPage}
+                history={this.props.history}
+                location={this.props.location}
+                page={this.props.page}
+                paginationNew
+                hidePaginationRecords
+                // Old
                 message="No strategies found"
                 tableData={this.props.performanceMetricTableData}
                 columnList={this.props.performanceMetricColumnList}

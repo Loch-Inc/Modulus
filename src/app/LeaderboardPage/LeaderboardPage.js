@@ -20,9 +20,9 @@ class LeaderboardPage extends BaseReactComponent {
     super(props);
 
     this.state = {
-      lastUpdated: "20 August",
-      totalStrategiesCreated: 113000,
-      totalUsers: 2300000,
+      lastUpdated: "",
+      totalStrategiesCreated: 0,
+      totalUsers: 0,
       leaderboardTableData: [],
       leaderboardTableDataLoading: false,
       leaderboardTableColumnList: [
@@ -202,10 +202,11 @@ class LeaderboardPage extends BaseReactComponent {
       }
 
       let tempTableData = [];
+
       tempHolder.forEach((item) => {
         tempTableData.push({
           rank: item.rank ? item.rank : "",
-          name: item.user_email ? item.user_email : "",
+          name: item.username ? item.username : "-",
           strategies_created: item.strategies_count
             ? item.strategies_count
             : "",
@@ -240,42 +241,7 @@ class LeaderboardPage extends BaseReactComponent {
           hideFooter
           hideAddresses
           hideShare
-        >
-          {/* <BackTestPageMobile
-            saveStrategyName={this.state.saveStrategyName}
-            saveStrategyCheck={this.state.saveStrategyCheck}
-            showSaveStrategy={this.showSaveStrategy}
-            hideSaveStrategy={this.hideSaveStrategy}
-            fromAndToDate={this.state.fromAndToDate}
-            performanceVisualizationGraphLoading={
-              this.state.performanceVisualizationGraphLoading
-            }
-            leaderboardTableDataLoading={
-              this.state.leaderboardTableDataLoading
-            }
-            selectStrategies={this.selectStrategies}
-            strategiesOptions={this.state.strategiesOptions}
-            selectedStrategiesOptions={this.state.selectedStrategiesOptions}
-            leaderboardTableColumnList={this.state.leaderboardTableColumnList}
-            leaderboardTableData={this.state.leaderboardTableData}
-            performanceVisualizationGraphData={
-              this.state.performanceVisualizationGraphData
-            }
-            performanceVisualizationGraphDataOriginal={
-              this.state.performanceVisualizationGraphDataOriginal
-            }
-            hideToCalendar={this.hideToCalendar}
-            hideFromCalendar={this.hideFromCalendar}
-            showFromCalendar={this.showFromCalendar}
-            showToCalendar={this.showToCalendar}
-            isFromCalendar={this.state.isFromCalendar}
-            isToCalendar={this.state.isToCalendar}
-            changeFromDate={this.changeFromDate}
-            changeToDate={this.changeToDate}
-            fromDate={this.state.fromDate}
-            toDate={this.state.toDate}
-          /> */}
-        </MobileLayout>
+        ></MobileLayout>
       );
     }
     return (

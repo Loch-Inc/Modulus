@@ -15,6 +15,7 @@
     flex-direction: column;
     gap: 8px;
     border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+    z-index: 2;
     .back-test-condition-popup-header-container {
       display: flex;
       align-items: center;
@@ -32,25 +33,34 @@
           height: 15px;
         }
       }
-      .back-test-condition-popup-header-close {
-        cursor: pointer;
-        background-color: var(--greyCardBackgroud);
+      .back-test-condition-popup-header-btns {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 24px;
-        width: 24px;
-        border-radius: 6px;
-        .back-test-condition-popup-header-close-icon {
-          height: 12px;
-          width: 12px;
-          filter: var(--invertColor);
-        }
-        &:hover {
-          background-color: var(--primaryTextColor);
-          .back-test-condition-popup-header-close-icon {
-            filter: var(--invertColorHover);
+        gap: 5px;
+        .back-test-condition-popup-header-btn {
+          cursor: pointer;
+          background-color: var(--greyCardBackgroud);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 24px;
+          width: 24px;
+          border-radius: 6px;
+          .back-test-condition-popup-header-btn-icon {
+            height: 12px;
+            width: 12px;
+            filter: var(--invertColor);
           }
+          &:hover {
+            background-color: var(--primaryTextColor);
+            .back-test-condition-popup-header-btn-icon {
+              filter: var(--invertColorHover);
+            }
+          }
+        }
+        .back-test-condition-popup-header-btn-highlighted {
+          background-color: var(--strategyBuilderPopUpHighlight);
         }
       }
     }

@@ -3,6 +3,7 @@ import moment from "moment";
 export const API_LIMIT = 10;
 export const MAX_LIMIT = 1000;
 export const START_INDEX = 0;
+export const START_PAGE = 1;
 export const GOOGLE_API_KEY = "";
 export const DEFAULT_STRATEGY_NAME =
   "Strategy - " + moment(new Date()).format("DD MMM YYYY");

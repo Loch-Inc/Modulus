@@ -7,6 +7,7 @@
   padding: 0px 7px;
   right: 0;
   opacity: 0;
+  z-index: 1;
   // pointer-events: none;
 
   .sbb-edit-delete-options-block {
@@ -26,6 +27,12 @@
     &:hover {
       background-color: var(--strategyBuilderDarkGrey);
       border-color: transparent;
+    }
+  }
+  .sbb-edit-delete-options-copy {
+    .sbb-edit-delete-options-copy-image {
+      width: 14px;
+      height: 14px;
     }
   }
   .sbb-edit-delete-options-delete {

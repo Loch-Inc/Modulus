@@ -1,6 +1,7 @@
 import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import {
+  CopyClipboardIcon,
   StrategyBuilderAssetIcon,
   StrategyBuilderConditionIcon,
 } from "../../../../../../assets/images/icons";
@@ -22,6 +23,8 @@ class BackTestAddingOptions extends BaseReactComponent {
     // ) {
     //   this.setState({ isCondition: true });
     // }
+    // copiedItem={this.props.copiedItem}
+    //           setCopiedItem={this.props.setCopiedItem}
   }
 
   render() {
@@ -33,7 +36,9 @@ class BackTestAddingOptions extends BaseReactComponent {
         <div className="sbc-header">
           {this.state.isAssets ? (
             <div
-              onClick={this.props.onAddAssetClick}
+              onClick={() => {
+                this.props.onAddAssetClick();
+              }}
               className="sbc-main-blocks sbc-main-blocks-asset"
             >
               <div className="sbc-main-blocks-image-container">
@@ -56,7 +61,9 @@ class BackTestAddingOptions extends BaseReactComponent {
         </div> */}
           {this.state.isCondition ? (
             <div
-              onClick={this.props.onAddConditionClick}
+              onClick={() => {
+                this.props.onAddConditionClick();
+              }}
               className="sbc-main-blocks sbc-main-blocks-condition"
             >
               <div className="sbc-main-blocks-image-container">
@@ -66,6 +73,24 @@ class BackTestAddingOptions extends BaseReactComponent {
                 />
               </div>
               <div>Conditions</div>
+            </div>
+          ) : null}
+          {this.props.copiedItem?.itemType ? (
+            <div
+              onClick={
+                this.props.onAddPasteClick
+                  ? this.props.onAddPasteClick
+                  : () => null
+              }
+              className="sbc-main-blocks sbc-main-blocks-paste"
+            >
+              <div className="sbc-main-blocks-image-container">
+                <Image
+                  src={CopyClipboardIcon}
+                  className="sbc-main-blocks-image"
+                />
+              </div>
+              <div>Paste</div>
             </div>
           ) : null}
           {/* <div className="sbc-main-blocks sbc-main-blocks-sort">

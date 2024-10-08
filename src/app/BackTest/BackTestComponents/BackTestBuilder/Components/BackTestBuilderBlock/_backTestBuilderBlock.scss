@@ -1,7 +1,20 @@
 .strategy-builder-block-container {
   display: flex;
-  width: 100%;
   position: relative;
+  flex-grow: 1;
+  flex: 1;
+
+  .strategy-builder-block-container-error {
+    background-color: var(--strategyBuilderErrorBlock);
+    border: 1px solid var(--strategyBuilderErrorBlockBorder);
+    // border-radius: 8px;
+    // width: 100%;
+    height: calc(100% + 8px);
+    transform: translateY(-4px);
+    position: absolute;
+    left: 0;
+    position: absolute;
+  }
   .strategy-builder-sub-block {
     min-width: 4rem;
     width: 4rem;
@@ -17,6 +30,7 @@
     padding-left: 5px;
     padding-right: 8px;
     position: relative;
+    cursor: pointer;
 
     .sbb-content {
       flex: 1;
@@ -95,6 +109,15 @@
         background-color: var(--strategyBuilderLighterYellow);
       }
     }
+    &:hover {
+      background-color: var(--primaryBackgroud);
+    }
+  }
+  .strategy-builder-block-no-click-to-edit {
+    cursor: unset;
+    &:hover {
+      background-color: var(--cardBackgroud);
+    }
   }
   .strategy-builder-block-no-hover {
     &:hover {
@@ -133,10 +156,7 @@
     }
   }
 }
-.strategy-builder-block-container-error {
-  background-color: var(--strategyBuilderDarkRed);
-  border-radius: 8px;
-}
+
 .strategy-builder-block-container-condition-if {
   &:hover {
     .sbb-edit-delete-options {

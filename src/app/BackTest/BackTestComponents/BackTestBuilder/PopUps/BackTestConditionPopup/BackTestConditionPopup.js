@@ -3,6 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import {
   CheckBoldWhiteIcon,
   StrategyBuilderConditionIcon,
+  StrategyBuilderPopUpAcceptIcon,
   StrategyBuilderPopUpCloseIcon,
 } from "../../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../../utils/form";
@@ -144,6 +145,9 @@ class BackTestConditionPopup extends BaseReactComponent {
           this.props.selectedFunctionAssetConditions,
         selectedFunctionDaysConditions:
           this.props.selectedFunctionDaysConditions,
+        selectedDaysConditions: this.props.selectedDaysConditions
+          ? this.props.selectedDaysConditions
+          : "",
       });
     }
     if (
@@ -191,14 +195,25 @@ class BackTestConditionPopup extends BaseReactComponent {
                 />
                 <div>Adjust condition</div>
               </div>
-              <div
-                onClick={this.props.closePopUp}
-                className="back-test-condition-popup-header-close"
-              >
-                <Image
-                  src={StrategyBuilderPopUpCloseIcon}
-                  className="back-test-condition-popup-header-close-icon "
-                />
+              <div className="back-test-condition-popup-header-btns">
+                <div
+                  onClick={this.props.closePopUp}
+                  className="back-test-condition-popup-header-btn back-test-condition-popup-header-btn-highlighted"
+                >
+                  <Image
+                    src={StrategyBuilderPopUpAcceptIcon}
+                    className="back-test-condition-popup-header-btn-icon "
+                  />
+                </div>
+                <div
+                  onClick={this.props.closePopUp}
+                  className="back-test-condition-popup-header-btn"
+                >
+                  <Image
+                    src={StrategyBuilderPopUpCloseIcon}
+                    className="back-test-condition-popup-header-btn-icon "
+                  />
+                </div>
               </div>
             </div>
             <div className="back-test-condition-popup-body">
@@ -215,9 +230,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                       onOptionSelect={this.changeDaysConditions}
                     />
                     <div className="back-test-condition-popup-body-colored-text ">
-                      {this.state.selectedDaysConditions === "1"
-                        ? "day"
-                        : "days"}
+                      day
                     </div>
                   </>
                 ) : null}
@@ -279,9 +292,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                           onOptionSelect={this.changeFunctionDaysConditions}
                         />
                         <div className="back-test-condition-popup-body-colored-text ">
-                          {this.state.selectedDaysConditions === "1"
-                            ? "day"
-                            : "days"}
+                          day
                         </div>
                       </>
                     ) : null}

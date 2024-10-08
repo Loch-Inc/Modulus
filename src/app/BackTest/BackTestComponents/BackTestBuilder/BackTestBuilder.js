@@ -8,6 +8,7 @@ import {
 import "./_backTestBuilder.scss";
 
 import { cloneDeep } from "lodash";
+import React from "react";
 import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -25,8 +26,11 @@ require("highcharts/modules/annotations")(Highcharts);
 class BackTestBuilder extends BaseReactComponent {
   constructor(props) {
     super(props);
+    this.scrollableRef = React.createRef();
 
     this.state = {
+      shouldOpenPopUpBlocks: true,
+      innerWidth: 650,
       emptyItems: [],
       isMobile: mobileCheck(),
       canUpdateBuilder: false,
@@ -194,16 +198,28 @@ class BackTestBuilder extends BaseReactComponent {
         //   strategyBuilderString: passedQueryData[0].strategy,
         // });
         this.updateStrategyBuilderString(passedQueryData[0].strategy);
+        this.setState({
+          shouldOpenPopUpBlocks: false,
+        });
+        setTimeout(() => {
+          this.setState({
+            shouldOpenPopUpBlocks: true,
+          });
+        }, 1000);
       }
     }
     if (prevProps.passedStrategyList !== this.props.passedStrategyList) {
       this.getStrategiesQueries();
     }
     if (prevState.strategyBuilderString !== this.state.strategyBuilderString) {
+      this.updateWidth();
       if (
         this.state.strategyBuilderString &&
         Object.keys(this.state.strategyBuilderString).length === 0
       ) {
+        if (this.props.changeIsStrategyEmpty) {
+          this.props.changeIsStrategyEmpty(true);
+        }
         this.setState({
           isStrategyEmpty: true,
         });
@@ -211,6 +227,9 @@ class BackTestBuilder extends BaseReactComponent {
           this.props.hideSaveStrategy();
         }
       } else {
+        if (this.props.changeIsStrategyEmpty) {
+          this.props.changeIsStrategyEmpty(false);
+        }
         this.setState({
           isStrategyEmpty: false,
         });
@@ -265,7 +284,17 @@ class BackTestBuilder extends BaseReactComponent {
       );
     }
   }
+  updateWidth = () => {
+    if (this.scrollableRef.current) {
+      this.setState({
+        innerWidth: this.scrollableRef.current.scrollWidth,
+      });
+    }
+  };
   componentDidMount() {
+    setTimeout(() => {
+      this.updateWidth();
+    }, 500);
     setTimeout(() => {
       this.setState({
         canUpdateBuilder: true,
@@ -371,9 +400,6 @@ class BackTestBuilder extends BaseReactComponent {
     if (this.state.isStrategyEmpty) {
       return (
         <>
-          <div className="btpcb-title btpcb-builder-title">
-            {/* <div>Strategy Builder</div> */}
-          </div>
           <div className="btpcb-left-block">
             <div className="strategy-builder-container strategy-builder-container-empty">
               <div className="sbc-empty-container">
@@ -437,9 +463,13 @@ class BackTestBuilder extends BaseReactComponent {
           </div>
         </div>
         <div className="btpcb-left-block">
-          <div className="strategy-builder-container">
+          <div ref={this.scrollableRef} className="strategy-builder-container">
             <div className="sbc-logic-container">
               <BackTestBuilderMainBlock
+                copiedItem={this.props.copiedItem}
+                setCopiedItem={this.props.setCopiedItem}
+                shouldOpenPopUpBlocks={this.state.shouldOpenPopUpBlocks}
+                innerWidth={this.state.innerWidth}
                 saveStrategyName={this.props.saveStrategyName}
                 emptyItems={this.state.emptyItems}
                 strategyBuilderString={this.state.strategyBuilderString}

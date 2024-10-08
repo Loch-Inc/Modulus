@@ -1,14 +1,14 @@
 import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import {
+  StrategyBuilderPopUpAcceptIcon,
   StrategyBuilderPopUpCloseIcon,
   StrategyBuilderWeightIcon,
 } from "../../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../../utils/form";
-import BackTestPopupDropdown from "../BackTestPopupDropdown/BackTestPopupDropdown";
-import "./_backTestWeightPercentagePopup.scss";
-import BackTestPopupInput from "../BackTestPopupInput/BackTestPopupInput";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
+import BackTestPopupInput from "../BackTestPopupInput/BackTestPopupInput";
+import "./_backTestWeightPercentagePopup.scss";
 
 class BackTestWeightPercentagePopup extends BaseReactComponent {
   constructor(props) {
@@ -32,6 +32,9 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
   render() {
     return (
       <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         className={`back-test-weight-percentage-popup-container ${
           this.state.isMobile
             ? "back-test-weight-percentage-popup-container-mobile"
@@ -48,14 +51,25 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
                 />
                 <div>Adjust weight percentage</div>
               </div>
-              <div
-                onClick={this.props.closePopUp}
-                className="back-test-weight-percentage-popup-header-close"
-              >
-                <Image
-                  src={StrategyBuilderPopUpCloseIcon}
-                  className="back-test-weight-percentage-popup-header-close-icon "
-                />
+              <div className="back-test-weight-percentage-popup-header-btns">
+                <div
+                  onClick={this.props.closePopUp}
+                  className="back-test-weight-percentage-popup-header-btn back-test-weight-percentage-popup-header-btn-highlighted"
+                >
+                  <Image
+                    src={StrategyBuilderPopUpAcceptIcon}
+                    className="back-test-weight-percentage-popup-header-btn-icon "
+                  />
+                </div>
+                <div
+                  onClick={this.props.closePopUp}
+                  className="back-test-weight-percentage-popup-header-btn"
+                >
+                  <Image
+                    src={StrategyBuilderPopUpCloseIcon}
+                    className="back-test-weight-percentage-popup-header-btn-icon "
+                  />
+                </div>
               </div>
             </div>
             <div className="back-test-weight-percentage-popup-body">

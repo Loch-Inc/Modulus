@@ -5,11 +5,10 @@ import {
   StrategyBuilderPencilLightIcon,
   StrategyBuilderTitleDiamondIcon,
 } from "src/assets/images/icons";
+import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 import "./_backTestSaveStrategy.scss";
-import moment from "moment";
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 
 class BackTestSaveStrategy extends BaseReactComponent {
   constructor(props) {
@@ -36,6 +35,14 @@ class BackTestSaveStrategy extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.strategyName !== this.state.strategyName &&
+      !this.props.isStrategyEmpty
+    ) {
+      this.setState({
+        disableBtn: false,
+      });
+    }
     if (this.props.isSaveInvestStrategy !== prevProps.isSaveInvestStrategy) {
       // if (this.props.isSaveInvestStrategy) {
       this.setState({
@@ -68,9 +75,6 @@ class BackTestSaveStrategy extends BaseReactComponent {
   hideInputBox = () => {
     this.setState({
       isInputOpen: false,
-      strategyName: this.props.saveStrategyName
-        ? this.props.saveStrategyName
-        : "",
     });
   };
 

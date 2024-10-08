@@ -61,6 +61,7 @@ class BackTestPageContent extends BaseReactComponent {
           isSaveInvestStrategy={this.props.isSaveInvestStrategy}
           isExistingStrategy={this.props.isExistingStrategy}
           saveStrategyClicked={this.props.saveStrategyClicked}
+          isStrategyEmpty={this.props.isStrategyEmpty}
         />
         <div className="back-test-page-content-blocks-container">
           <div
@@ -68,6 +69,9 @@ class BackTestPageContent extends BaseReactComponent {
             className="back-test-page-content-block back-test-page-content-block-left"
           >
             <BackTestBuilder
+              copiedItem={this.props.copiedItem}
+              setCopiedItem={this.props.setCopiedItem}
+              changeIsStrategyEmpty={this.props.changeIsStrategyEmpty}
               passedUserList={this.props.passedUserList}
               passedStrategyList={this.props.passedStrategyList}
               saveStrategyName={this.props.saveStrategyName}
@@ -104,7 +108,6 @@ class BackTestPageContent extends BaseReactComponent {
               }
               hideToCalendar={this.props.hideToCalendar}
               hideFromCalendar={this.props.hideFromCalendar}
-              showFromCalendar={this.props.showFromCalendar}
               showToCalendar={this.props.showToCalendar}
               isFromCalendar={this.props.isFromCalendar}
               isToCalendar={this.props.isToCalendar}
@@ -141,15 +144,20 @@ class BackTestPageContent extends BaseReactComponent {
                           : ""}
                       </div>
                       {this.props.isFromCalendar ? (
-                        <div className="intelligenceCalendar">
+                        <div
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="intelligenceCalendar"
+                        >
                           <Calendar
-                            date={this.props.fromDate}
+                            selectRange
                             className={
                               "calendar-select inter-display-medium f-s-13 lh-16"
                             }
                             onChange={this.props.changeFromDate}
-                            maxDate={this.props.toDate}
-                            defaultValue={this.props.fromDate}
+                            maxDate={this.state.todayDate}
+                            defaultActiveStartDate={this.props.fromDate}
                           />
                         </div>
                       ) : null}
@@ -179,16 +187,20 @@ class BackTestPageContent extends BaseReactComponent {
                           : ""}
                       </div>
                       {this.props.isToCalendar ? (
-                        <div className="intelligenceCalendar">
+                        <div
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="intelligenceCalendar"
+                        >
                           <Calendar
-                            date={this.props.toDate}
+                            selectRange
                             className={
                               "calendar-select inter-display-medium f-s-13 lh-16"
                             }
-                            onChange={this.props.changeToDate}
-                            minDate={this.props.fromDate}
+                            onChange={this.props.changeFromDate}
                             maxDate={this.state.todayDate}
-                            defaultValue={this.props.toDate}
+                            defaultActiveStartDate={this.props.toDate}
                           />
                         </div>
                       ) : null}

@@ -9,7 +9,7 @@ const PostLoginNoModulusAxios = axios.create({
   // baseURL: 'http://127.0.0.1:5000/api', // Url for Local
   // baseURL: 'http://3.7.185.1/api/',  // Url for Production
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
   },
 });
 // SET THE AUTH TOKEN FOR ANY REQUEST

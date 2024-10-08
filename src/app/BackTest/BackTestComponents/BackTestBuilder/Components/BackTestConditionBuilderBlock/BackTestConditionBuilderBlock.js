@@ -1,4 +1,3 @@
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import {
   strategyBuilderChartShouldShowDate,
@@ -27,8 +26,7 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       selectedAmountConditions: 0,
       shouldShowDays: false,
       shouldShowFunctionDays: false,
-      isPopUpOpen:
-        props.saveStrategyName === DEFAULT_STRATEGY_NAME ? true : false,
+      isPopUpOpen: props.shouldOpenPopUpBlocks ? true : false,
       selectedAmountSymbol: "",
 
       // inside function
@@ -110,10 +108,16 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       });
     }
   }
-  closePopUp = () => {
+  closePopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: false });
   };
-  openPopUp = () => {
+  openPopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: true });
   };
   // Inside function
@@ -247,7 +251,6 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
   };
 
   render() {
-    console.log("props.saveStrategyName ", this.props.saveStrategyName);
     return (
       <>
         <div className="sbb-content">

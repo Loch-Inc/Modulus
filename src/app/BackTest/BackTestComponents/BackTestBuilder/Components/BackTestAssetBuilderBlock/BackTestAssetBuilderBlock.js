@@ -4,14 +4,12 @@ import { BaseReactComponent } from "../../../../../../utils/form";
 import { strategyBuilderAssetDetailFromName } from "../../../../../../utils/ReusableFunctions";
 import BackTestAssetPopup from "../../PopUps/BackTestAssetPopup/BackTestAssetPopup";
 import "./_backTestAssetBuilderBlock.scss";
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 
 class BackTestAssetBuilderBlock extends BaseReactComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isPopUpOpen:
-        props.saveStrategyName === DEFAULT_STRATEGY_NAME ? true : false,
+      isPopUpOpen: props.shouldOpenPopUpBlocks ? true : false,
       curAsset: {
         name: "",
         icon: "",
@@ -37,10 +35,16 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
       this.setCurAsset();
     }
   }
-  closePopUp = () => {
+  closePopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: false });
   };
-  togglePopUp = () => {
+  togglePopUp = (e) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     this.setState({ isPopUpOpen: !this.state.isPopUpOpen });
   };
   changeAsset = (passedItem) => {
@@ -60,7 +64,12 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
   render() {
     return (
       <>
-        <div className="sbb-content">
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className="sbb-content"
+        >
           <div className="back-test-asset-builder">
             <div className="back-test-asset-popup-item-content">
               <div

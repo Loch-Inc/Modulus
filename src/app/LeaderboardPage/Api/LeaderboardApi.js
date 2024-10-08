@@ -7,10 +7,10 @@ export const getLeaderboardData = (ctx, stopLoading) => {
       .post("strategy/backtest/get-strategy-leaderboard")
       .then((res) => {
         if (!res.data.error) {
-          if (res.data.data) {
+          if (res.data?.data?.leaderboard) {
             dispatch({
               type: GET_LEADERBOARD_DATA,
-              payload: res.data.data,
+              payload: res.data.data.leaderboard,
             });
           } else {
             if (stopLoading) {

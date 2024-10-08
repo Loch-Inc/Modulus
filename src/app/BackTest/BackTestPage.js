@@ -16,12 +16,18 @@ import { getBackTestChart, getBackTestTable } from "./Api/BackTestApi";
 import BackTestPageContent from "./BackTestPageContent";
 import BackTestPageMobile from "./BackTestPageMobile";
 import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
+import { toast } from "react-toastify";
 
 class BackTestPage extends BaseReactComponent {
   constructor(props) {
     super(props);
 
     this.state = {
+      copiedItem: {
+        item: {},
+        itemType: "",
+      },
+      isStrategyEmpty: true,
       isExistingStrategy: false,
       saveStrategyName: DEFAULT_STRATEGY_NAME,
       passedStrategyList: [],
@@ -384,6 +390,20 @@ class BackTestPage extends BaseReactComponent {
       ],
     };
   }
+  setCopiedItem = (itemBlock, itemType) => {
+    this.setState({
+      copiedItem: {
+        item: itemBlock,
+        itemType: itemType,
+      },
+    });
+    toast.success("Copied");
+  };
+  changeIsStrategyEmpty = (passedValue) => {
+    this.setState({
+      isStrategyEmpty: passedValue,
+    });
+  };
   saveStrategyClicked = (passedName) => {
     this.setState(
       {
@@ -457,7 +477,7 @@ class BackTestPage extends BaseReactComponent {
   getDataForGraph = async (passedAssets, passedColor) => {
     let tempToDate = new Date();
     let tempFromDate = new Date(
-      new Date().setFullYear(new Date().getFullYear() - 10)
+      new Date().setFullYear(new Date().getFullYear() - 1)
     );
     let tempApiData = new URLSearchParams();
     let tempTokenList = [];
@@ -825,22 +845,16 @@ class BackTestPage extends BaseReactComponent {
       }
     }
   };
-  changeToDate = (date) => {
+
+  changeFromToDate = (date) => {
+    let fromDate = date[0];
+    let toDate = date[1];
+    this.hideFromCalendar();
     this.hideToCalendar();
     this.setState(
       {
-        toDate: date,
-      },
-      () => {
-        this.afterChangeDate();
-      }
-    );
-  };
-  changeFromDate = (date) => {
-    this.hideFromCalendar();
-    this.setState(
-      {
-        fromDate: date,
+        fromDate: fromDate,
+        toDate: toDate,
       },
       () => {
         this.afterChangeDate();
@@ -893,8 +907,8 @@ class BackTestPage extends BaseReactComponent {
             showToCalendar={this.showToCalendar}
             isFromCalendar={this.state.isFromCalendar}
             isToCalendar={this.state.isToCalendar}
-            changeFromDate={this.changeFromDate}
-            changeToDate={this.changeToDate}
+            changeFromDate={this.changeFromToDate}
+            changeToDate={this.changeFromToDate}
             calcChartData={this.calcChartData}
             fromDate={this.state.fromDate}
             toDate={this.state.toDate}
@@ -947,11 +961,16 @@ class BackTestPage extends BaseReactComponent {
                 showToCalendar={this.showToCalendar}
                 isFromCalendar={this.state.isFromCalendar}
                 isToCalendar={this.state.isToCalendar}
-                changeFromDate={this.changeFromDate}
-                changeToDate={this.changeToDate}
+                changeFromDate={this.changeFromToDate}
+                changeToDate={this.changeFromToDate}
                 calcChartData={this.calcChartData}
+                changeIsStrategyEmpty={this.changeIsStrategyEmpty}
+                isStrategyEmpty={this.state.isStrategyEmpty}
                 fromDate={this.state.fromDate}
                 toDate={this.state.toDate}
+                // Copy Paste
+                copiedItem={this.state.copiedItem}
+                setCopiedItem={this.setCopiedItem}
               />
             </div>
           </div>

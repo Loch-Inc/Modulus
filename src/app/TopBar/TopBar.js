@@ -4,13 +4,10 @@ import { connect } from "react-redux";
 import {
   LochModulusLogoIcon,
   TopBarBuilderIcon,
-  TopBarConnectIcon,
   TopBarDiscoverIcon,
-  TopBarFeedbackIcon,
   TopBarLeaderboardIcon,
   TopBarProfileIcon,
 } from "src/assets/images/icons";
-import { resetUser } from "src/utils/AnalyticsFunctions";
 import "./_topBar.scss";
 
 class TopBar extends React.Component {
@@ -34,11 +31,7 @@ class TopBar extends React.Component {
           text: "Leaderboard",
           link: "/leaderboard",
         },
-        {
-          icon: TopBarFeedbackIcon,
-          text: "Feedback",
-          link: "/feedback",
-        },
+
         {
           icon: TopBarProfileIcon,
           text: "Profile",
@@ -106,6 +99,13 @@ class TopBar extends React.Component {
                     </div>
                   );
                 })}
+              </div>
+              <div className="top-bar-content-right">
+                <div className="top-bar-content-right-green-dot"></div>
+                <div className="top-bar-content-right-title">
+                  Cumulative Return
+                </div>
+                <div className="top-bar-content-right-amount">3.32M USD</div>
               </div>
             </div>
           </div>

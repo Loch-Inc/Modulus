@@ -181,8 +181,10 @@ export { default as StrategyBuilderDeleteIcon } from "./StrategyBuilderDelete.sv
 export { default as StrategyBuilderPencilIcon } from "./StrategyBuilderPencil.svg";
 export { default as StrategyBuilderPencilLightIcon } from "./StrategyBuilderPencilLight.svg";
 export { default as StrategyBuilderPopUpCloseIcon } from "./StrategyBuilderPopUpClose.svg";
+export { default as StrategyBuilderPopUpAcceptIcon } from "./StrategyBuilderPopUpAccept.svg";
 export { default as StrategyBuilderDropdownArrowIcon } from "./StrategyBuilderDropdownArrow.svg";
 export { default as StrategyBuilderAssetUsdtIcon } from "./StrategyBuilderAssetUsdt.svg";
+export { default as StrategyBuilderAssetUsdcIcon } from "./StrategyBuilderAssetUsdc.svg";
 export { default as StrategyBuilderAssetEthIcon } from "./StrategyBuilderAssetEth.svg";
 export { default as StrategyBuilderAssetBtcIcon } from "./StrategyBuilderAssetBtc.svg";
 export { default as StrategyBuilderBackgroundDotIcon } from "./strategyBuilderBackgroundDot.svg";
@@ -212,6 +214,7 @@ export { default as FooterQuestionMarkIcon } from "./FooterQuestionMark.svg";
 export { default as LochLogoBlackThinIcon } from "./lochLogoBlackThin.svg";
 export { default as StrategyBuilderTitleDiamondIcon } from "./StrategyBuilderTitleDiamond.svg";
 export { default as LochModulusLogoIcon } from "./LochModulusLogo.svg";
+export { default as CopyClipboardIcon } from "./CopyClipboard.svg";
 export { ReactComponent as TopBarBuilderIcon } from "./TopBarBuilder.svg";
 export { ReactComponent as TopBarProfileIcon } from "./TopBarProfile.svg";
 export { ReactComponent as TopBarConnectIcon } from "./TopBarConnect.svg";

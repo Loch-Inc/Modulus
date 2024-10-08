@@ -64,6 +64,39 @@
       // align-self: stretch;
       display: flex;
       flex-direction: column;
+      .discover-strategy-table-name-container {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        overflow: hidden;
+        width: 100%;
+        padding-left: 6px;
+        .discover-strategy-table-name {
+          padding: 4px;
+          gap: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          .discover-strategy-table-name-circle {
+            height: 15px;
+            width: 15px;
+            min-height: 15px;
+            min-width: 15px;
+          }
+        }
+        .discover-strategy-table-name-title {
+          font-size: 15px;
+          color: var(--strategyDiscoveryTableTitleColor);
+          text-shadow: 0.01px 0 var(--strategyDiscoveryTableTitleColor);
+        }
+        .discover-strategy-table-date {
+          color: var(--profilePageStrategyDate);
+          font-size: 10px;
+          font-weight: 500;
+          padding: 0px 4px;
+        }
+      }
       .btpcb-title {
         font-weight: 600;
         font-size: 16px;
@@ -315,6 +348,11 @@
           }
         }
         .table-wrapper {
+          .transaction-table-loading-wrapper {
+            .animation-wrapper {
+              height: 670px;
+            }
+          }
           .not-found-wrapper {
             height: 20rem;
           }

@@ -1,7 +1,7 @@
 .back-test-weight-percentage-popup-container {
   position: relative;
+  z-index: 101;
   .back-test-weight-percentage-popup {
-    z-index: 1;
     background-color: var(--cardBackgroud);
     position: absolute;
     top: 0;
@@ -32,25 +32,34 @@
           height: 15px;
         }
       }
-      .back-test-weight-percentage-popup-header-close {
-        cursor: pointer;
-        background-color: var(--greyCardBackgroud);
+      .back-test-weight-percentage-popup-header-btns {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 24px;
-        width: 24px;
-        border-radius: 6px;
-        .back-test-weight-percentage-popup-header-close-icon {
-          height: 12px;
-          width: 12px;
-          filter: var(--invertColor);
-        }
-        &:hover {
-          background-color: var(--primaryTextColor);
-          .back-test-weight-percentage-popup-header-close-icon {
-            filter: var(--invertColorHover);
+        gap: 5px;
+        .back-test-weight-percentage-popup-header-btn {
+          cursor: pointer;
+          background-color: var(--greyCardBackgroud);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 24px;
+          width: 24px;
+          border-radius: 6px;
+          .back-test-weight-percentage-popup-header-btn-icon {
+            height: 12px;
+            width: 12px;
+            filter: var(--invertColor);
           }
+          &:hover {
+            background-color: var(--primaryTextColor);
+            .back-test-weight-percentage-popup-header-btn-icon {
+              filter: var(--invertColorHover);
+            }
+          }
+        }
+        .back-test-weight-percentage-popup-header-btn-highlighted {
+          background-color: var(--strategyBuilderPopUpHighlight);
         }
       }
     }

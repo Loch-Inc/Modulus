@@ -6,6 +6,7 @@ import { Image } from "react-bootstrap";
 import { ProfilePageTempDP } from "src/assets/images";
 import { CopyIcon, PasswordIcon, SignOutIcon } from "src/assets/images/icons";
 import OutsideClickHandler from "react-outside-click-handler";
+import { editUserNameProfile } from "./Api/ProfilePageApi";
 
 class ProfilePageContent extends BaseReactComponent {
   constructor(props) {
@@ -17,8 +18,14 @@ class ProfilePageContent extends BaseReactComponent {
   }
 
   componentDidMount() {}
-
+  // editUserName = () => {
+  //   const tempApiData = {
+  //     username: "siradityakumar",
+  //   };
+  //   this.props.editUserNameProfile(tempApiData);
+  // };
   render() {
+    console.log("userData? ", this.props.userData);
     return (
       <div className="profile-page-content">
         <div className="profile-page-left-block">
@@ -30,10 +37,16 @@ class ProfilePageContent extends BaseReactComponent {
               />
             </div>
             <div className="profile-page-left-block-bio-name-mail">
-              <div className="profile-page-left-block-name">@Prithvir12</div>
-              <div className="profile-page-left-block-email">
-                prithvir12@gmail.com
-              </div>
+              {this.props.userData?.username ? (
+                <div className="profile-page-left-block-name">
+                  {this.props.userData.username}
+                </div>
+              ) : null}
+              {this.props.userData?.email ? (
+                <div className="profile-page-left-block-email">
+                  {this.props.userData.email}
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="profile-page-left-block-action-btns">
@@ -111,7 +124,7 @@ class ProfilePageContent extends BaseReactComponent {
                   ? "profile-page-left-block-action-btn-selected"
                   : ""
               }`}
-              onClick={this.props.tempSignOut}
+              onClick={this.props.signOutFun}
             >
               <SignOutIcon className="profile-page-left-block-action-btn-icon" />
               <div className="profile-page-left-block-action-btn-text">
@@ -166,7 +179,9 @@ class ProfilePageContent extends BaseReactComponent {
 }
 
 const mapStateToProps = (state) => ({});
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  editUserNameProfile,
+};
 
 ProfilePageContent.propTypes = {};
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePageContent);

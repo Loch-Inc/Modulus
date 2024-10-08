@@ -79,6 +79,23 @@
       color: var(--cardBackgroud);
     }
   }
+  .sbc-main-blocks-paste {
+    .sbc-main-blocks-image-container {
+      background-color: var(--strategyBuilderLighterGreen);
+
+      .sbc-main-blocks-image {
+        height: 1.25rem;
+        width: 1.25rem;
+      }
+    }
+    &:hover {
+      background-color: var(--strategyBuilderLightGreenHover);
+    }
+    &:active {
+      background-color: var(--primaryTextColor);
+      color: var(--cardBackgroud);
+    }
+  }
   .sbc-main-blocks-sort {
     .sbc-main-blocks-image-container {
       background-color: var(--strategyBuilderLightGreen);

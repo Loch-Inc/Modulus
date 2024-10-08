@@ -1,12 +1,13 @@
 import { Image } from "react-bootstrap";
-import { BaseReactComponent } from "../../../../../../utils/form";
-import "./_backTestEditDelete.scss";
 import {
+  CopyClipboardIcon,
+  StrategyBuilderAddCircleIcon,
   StrategyBuilderDeleteIcon,
   StrategyBuilderPencilIcon,
-  StrategyBuilderAddCircleIcon,
 } from "../../../../../../assets/images/icons";
+import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
+import "./_backTestEditDelete.scss";
 
 class BackTestEditDelete extends BaseReactComponent {
   constructor(props) {
@@ -42,6 +43,17 @@ class BackTestEditDelete extends BaseReactComponent {
             <Image
               className="sbb-edit-delete-options-block-image sbb-edit-delete-options-edit-image"
               src={StrategyBuilderPencilIcon}
+            />
+          </div>
+        )}
+        {this.props.hideCopyBtn ? null : (
+          <div
+            onClick={this.props.onCopyClick}
+            className="sbb-edit-delete-options-block sbb-edit-delete-options-copy"
+          >
+            <Image
+              className="sbb-edit-delete-options-block-image sbb-edit-delete-options-copy-image"
+              src={CopyClipboardIcon}
             />
           </div>
         )}

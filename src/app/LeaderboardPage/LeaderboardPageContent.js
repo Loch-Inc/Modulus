@@ -77,7 +77,7 @@ class LeaderboardContent extends BaseReactComponent {
                       Last Updated
                     </p>
                     <p className="leaderboard-page-content-header-block-text-subheading-bold">
-                      {moment(this.props.lastUpdated).format("DD MMMM")}
+                      {moment(this.props.lastUpdated).format("D MMMM")}
                     </p>
                   </p>
                 ) : null}

@@ -4,6 +4,7 @@ import {
   GET_REFERRAL_CODES_MODULUS,
   GET_STRATEGIES_CREATED_TABLE_DATA,
   GET_TOTAL_USER_CREATED_STRATEGY_COUNT,
+  GET_USER_PROFILE_DATA,
 } from "./ProfilePageActionTypes";
 
 export const getTotalUserCreatedStrategyCount = () => {
@@ -35,7 +36,6 @@ export const getUserCreatedStrategies = (data, stopLoading) => {
         if (!res.data.error) {
           if (res.data.data) {
             if (res?.data?.data?.strategies) {
-              console.log("res.data.data? ", res.data.data);
               const tempArrHolder = res.data.data.strategies;
 
               dispatch({
@@ -79,5 +79,38 @@ export const getUserReferralCodes = (passedData, ctx) => {
           performanceMetricTableLoading: false,
         });
       });
+  };
+};
+export const getUserProfileData = () => {
+  return async function (dispatch, getState) {
+    PostLoginNoModulusAxios.get("users-api/users/profile")
+      .then((res) => {
+        if (!res.data.error) {
+          if (res.data?.data?.user) {
+            dispatch({
+              type: GET_USER_PROFILE_DATA,
+              payload: res.data.data.user,
+            });
+          }
+        }
+      })
+      .catch((err) => {});
+  };
+};
+export const editUserNameProfile = (passedData) => {
+  return async function (dispatch, getState) {
+    PostLoginNoModulusAxios.post("users-api/users/username/update", passedData)
+      .then((res) => {
+        if (!res.data.error) {
+          console.log("res.data?.data ", res.data.data);
+          if (res.data?.data?.user) {
+            dispatch({
+              type: GET_USER_PROFILE_DATA,
+              payload: res.data.data.user,
+            });
+          }
+        }
+      })
+      .catch((err) => {});
   };
 };

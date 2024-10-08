@@ -8,8 +8,8 @@ import { connect } from "react-redux";
 import { createBackTestQuery } from "../../../Api/BackTestApi";
 import BackTestAssetBuilderBlock from "../Components/BackTestAssetBuilderBlock/BackTestAssetBuilderBlock";
 import BackTestConditionBuilderBlock from "../Components/BackTestConditionBuilderBlock/BackTestConditionBuilderBlock";
-import BackTestWeightPercentageBlock from "../Components/BackTestWeightPercentageBlock/BackTestWeightPercentageBlock";
 import "./_backTestBuilderMainBlock.scss";
+import BackTestBuildeWeightItem from "./BackTestBuildeWeightItem";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -23,13 +23,16 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
       isItemCollapsedElse: false,
     };
   }
-  toggleCollapseWeight = () => {
+  toggleCollapseWeight = (e) => {
+    e.stopPropagation();
     this.setState({ isItemCollapsedWeight: !this.state.isItemCollapsedWeight });
   };
-  toggleCollapseIf = () => {
+  toggleCollapseIf = (e) => {
+    e.stopPropagation();
     this.setState({ isItemCollapsedIf: !this.state.isItemCollapsedIf });
   };
-  toggleCollapseElse = () => {
+  toggleCollapseElse = (e) => {
+    e.stopPropagation();
     this.setState({ isItemCollapsedElse: !this.state.isItemCollapsedElse });
   };
   openCollapseWeight = () => {
@@ -51,6 +54,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
         return (
           <>
             {/* <BackTestBuilderBlock
+            innerWidth={this.props.innerWidth}
               openCollapse={this.openCollapseWeight}
               //WEIGHT
               weightPath={tempWeightPath}
@@ -73,77 +77,100 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               isItemCollapsed={this.state.isItemCollapsedWeight}
               toggleCollapse={this.toggleCollapseWeight}
             ></BackTestBuilderBlock> */}
+
             {this.props.blocks?.weight?.weight_item?.map(
               (curItem, curItemIndex) => (
-                <div
-                  className={`strategy-builder-block-container-parent ${
-                    this.state.isItemCollapsedWeight
-                      ? "strategy-builder-block-container-parent-collapsed"
-                      : ""
-                  }`}
-                >
-                  {/* {block.weight_type === "SPECIFIED" ? ( */}
-                  <BackTestBuilderBlock
-                    //WEIGHT
-                    weightPath={tempWeightPath}
-                    weightIndex={curItemIndex}
-                    //WEIGHT
-                    passedClass="strategy-builder-block-container-weight"
-                    blockLevel={this.props.blockLevel}
-                    blockType="weight percentage"
-                    showDropDown
-                    path={[
-                      ...this.props.path,
-                      key,
-                      "weight_item",
-                      curItemIndex,
-                    ]}
-                    strategyBuilderString={this.props.strategyBuilderString}
-                    changeStrategyBuilderString={
-                      this.props.changeStrategyBuilderString
-                    }
-                  >
-                    <BackTestWeightPercentageBlock
-                      path={[
-                        ...this.props.path,
-                        key,
-                        "weight_item",
-                        curItemIndex,
-                      ]}
-                      strategyBuilderString={this.props.strategyBuilderString}
-                      changeStrategyBuilderString={
-                        this.props.changeStrategyBuilderString
-                      }
-                      weightPercentage={curItem.percentage}
-                    />
-                  </BackTestBuilderBlock>
-                  {/* ) : null} */}
-                  <BackTestBuilderMainBlock
-                    saveStrategyName={this.props.saveStrategyName}
-                    // FIXED
-                    emptyItems={this.props.emptyItems}
-                    strategyBuilderString={this.props.strategyBuilderString}
-                    changeStrategyBuilderString={
-                      this.props.changeStrategyBuilderString
-                    }
-                    // FIXED
+                <BackTestBuildeWeightItem
+                  copiedItem={this.props.copiedItem}
+                  setCopiedItem={this.props.setCopiedItem}
+                  shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
+                  curItem={curItem}
+                  key={key}
+                  passedKey={key}
+                  path={this.props.path}
+                  strategyBuilderString={this.props.strategyBuilderString}
+                  changeStrategyBuilderString={
+                    this.props.changeStrategyBuilderString
+                  }
+                  tempWeightPath={tempWeightPath}
+                  curItemIndex={curItemIndex}
+                  blockLevel={this.props.blockLevel}
+                  innerWidth={this.props.innerWidth}
+                  saveStrategyName={this.props.saveStrategyName}
+                  emptyItems={this.props.emptyItems}
+                />
+                // <div
+                //   className={`strategy-builder-block-container-parent ${
+                //     this.state.isItemCollapsedWeight
+                //       ? "strategy-builder-block-container-parent-collapsed"
+                //       : ""
+                //   }`}
+                // >
+                //   {/* {block.weight_type === "SPECIFIED" ? ( */}
+                //   <BackTestBuilderBlock
+                //     innerWidth={this.props.innerWidth}
+                //     //WEIGHT
+                //     weightPath={tempWeightPath}
+                //     weightIndex={curItemIndex}
+                //     //WEIGHT
+                //     passedClass="strategy-builder-block-container-weight"
+                //     blockLevel={this.props.blockLevel}
+                //     blockType="weight percentage"
+                //     showDropDown
+                //     path={[
+                //       ...this.props.path,
+                //       key,
+                //       "weight_item",
+                //       curItemIndex,
+                //     ]}
+                //     strategyBuilderString={this.props.strategyBuilderString}
+                //     changeStrategyBuilderString={
+                //       this.props.changeStrategyBuilderString
+                //     }
+                //   >
+                //     <BackTestWeightPercentageBlock
+                //       path={[
+                //         ...this.props.path,
+                //         key,
+                //         "weight_item",
+                //         curItemIndex,
+                //       ]}
+                //       strategyBuilderString={this.props.strategyBuilderString}
+                //       changeStrategyBuilderString={
+                //         this.props.changeStrategyBuilderString
+                //       }
+                //       weightPercentage={curItem.percentage}
+                //     />
+                //   </BackTestBuilderBlock>
+                //   {/* ) : null} */}
+                //   <BackTestBuilderMainBlock
+                //     innerWidth={this.props.innerWidth}
+                //     saveStrategyName={this.props.saveStrategyName}
+                //     // FIXED
+                //     emptyItems={this.props.emptyItems}
+                //     strategyBuilderString={this.props.strategyBuilderString}
+                //     changeStrategyBuilderString={
+                //       this.props.changeStrategyBuilderString
+                //     }
+                //     // FIXED
 
-                    blocks={curItem.item}
-                    path={[
-                      ...this.props.path,
-                      key,
-                      "weight_item",
-                      curItemIndex,
-                      "item",
-                    ]}
-                    blockLevel={this.props.blockLevel + 1}
-                    weightPath={tempWeightPath}
-                    weightIndex={curItemIndex}
-                  />
-                </div>
+                //     blocks={curItem.item}
+                //     path={[
+                //       ...this.props.path,
+                //       key,
+                //       "weight_item",
+                //       curItemIndex,
+                //       "item",
+                //     ]}
+                //     blockLevel={this.props.blockLevel + 1}
+                //     weightPath={tempWeightPath}
+                //     weightIndex={curItemIndex}
+                //   />
+                // </div>
               )
             )}
             {/* <BackTestBuilderBlock
+            innerWidth={this.props.innerWidth}
               //WEIGHT
               weightPath={tempWeightPath}
               weightIndex={weightIndex}
@@ -161,6 +188,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
       } else if (key === "asset") {
         return (
           <BackTestBuilderBlock
+            copiedItem={this.props.copiedItem}
+            setCopiedItem={this.props.setCopiedItem}
+            innerWidth={this.props.innerWidth}
             //WEIGHT
             weightPath={this.props.weightPath}
             weightIndex={this.props.weightIndex}
@@ -176,6 +206,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
             tokenList={block.tokenList}
           >
             <BackTestAssetBuilderBlock
+              shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
               saveStrategyName={this.props.saveStrategyName}
               tokenList={block.tokenList}
               strategyBuilderString={this.props.strategyBuilderString}
@@ -192,6 +223,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
           <>
             <>
               <BackTestBuilderBlock
+                copiedItem={this.props.copiedItem}
+                setCopiedItem={this.props.setCopiedItem}
+                innerWidth={this.props.innerWidth}
                 openCollapse={this.openCollapseIf}
                 //WEIGHT
                 weightPath={this.props.weightPath}
@@ -214,6 +248,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 toggleCollapse={this.toggleCollapseIf}
               >
                 <BackTestConditionBuilderBlock
+                  shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
                   saveStrategyName={this.props.saveStrategyName}
                   compare_type={block.compare_type}
                   amount={block.amount}
@@ -221,9 +256,21 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   time_period={block.time_period}
                   token={block.token}
                   type={block.type}
-                  function_type={block.compare_function.type}
-                  function_time_period={block.compare_function.time_period}
-                  function_token={block.compare_function.token}
+                  function_type={
+                    block.compare_function?.type
+                      ? block.compare_function?.type
+                      : "Function"
+                  }
+                  function_time_period={
+                    block.compare_function?.time_period
+                      ? block.compare_function?.time_period
+                      : "5"
+                  }
+                  function_token={
+                    block.compare_function?.token
+                      ? block.compare_function?.token
+                      : "BTC"
+                  }
                   path={[...this.props.path, key]}
                   strategyBuilderString={this.props.strategyBuilderString}
                   changeStrategyBuilderString={
@@ -242,6 +289,10 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   }`}
                 >
                   <BackTestBuilderMainBlock
+                    copiedItem={this.props.copiedItem}
+                    setCopiedItem={this.props.setCopiedItem}
+                    shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
+                    innerWidth={this.props.innerWidth}
                     saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
@@ -263,6 +314,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
 
             <>
               <BackTestBuilderBlock
+                copiedItem={this.props.copiedItem}
+                setCopiedItem={this.props.setCopiedItem}
+                innerWidth={this.props.innerWidth}
                 openCollapse={this.openCollapseElse}
                 //WEIGHT
                 weightPath={tempWeightPath}
@@ -295,6 +349,10 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   }`}
                 >
                   <BackTestBuilderMainBlock
+                    copiedItem={this.props.copiedItem}
+                    setCopiedItem={this.props.setCopiedItem}
+                    shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
+                    innerWidth={this.props.innerWidth}
                     saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}

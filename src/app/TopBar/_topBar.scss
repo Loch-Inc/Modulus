@@ -1,6 +1,6 @@
 .top-bar-parent {
   width: 100vw;
-  padding: 0rem 5rem;
+  padding: 0rem;
   .top-bar-container {
     overflow-x: scroll;
     z-index: 102;
@@ -87,7 +87,29 @@
           align-items: center;
           justify-content: flex-end;
           cursor: pointer;
-          opacity: 0;
+          gap: 5px;
+          .top-bar-content-right-green-dot {
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            border: 1px solid var(--strategyTopBarDotBorder);
+            background-color: var(--strategyBuilderDarkNeon);
+          }
+          .top-bar-content-right-title {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 15.6px;
+            color: var(--profilePageBioEmail);
+          }
+          .top-bar-content-right-amount {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 16px;
+            text-align: center;
+            border-bottom: 2px solid var(--strategyBuilderDarkerNeon);
+            color: var(--primaryTextColor);
+          }
         }
       }
     }

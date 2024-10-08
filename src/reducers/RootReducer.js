@@ -34,9 +34,13 @@ import {
 } from "../app/BackTest/Api/BackTestReducer";
 import DarkModeReducer from "../app/intelligence/darkMode";
 import { ReferralCodesReducer } from "../app/ReferralCodes/ReferralCodesReducer";
-import { StrategyDiscoveryTableReducer } from "../app/StrategyDiscovery/Api/StrategyDiscoveryReducer";
+import {
+  StrategyDiscoveryTableCountReducer,
+  StrategyDiscoveryTableReducer,
+} from "../app/StrategyDiscovery/Api/StrategyDiscoveryReducer";
 import WalletReducer from "../app/wallet/WalletReducer";
 import {
+  GetUserProfileDataReducer,
   ReferralCodesModulusReducer,
   StrategiesCreatedTableReducer,
   TotalUserCreatedStrategyCountReducer,
@@ -75,4 +79,6 @@ export default combineReducers({
   ReferralCodesModulusState: ReferralCodesModulusReducer,
   TotalUserCreatedStrategyCountState: TotalUserCreatedStrategyCountReducer,
   LeaderboardDataState: LeaderboardDataReducer,
+  StrategyDiscoveryTableCountState: StrategyDiscoveryTableCountReducer,
+  GetUserProfileDataState: GetUserProfileDataReducer,
 });

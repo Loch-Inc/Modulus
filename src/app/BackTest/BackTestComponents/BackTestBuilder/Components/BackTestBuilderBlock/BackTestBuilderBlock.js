@@ -105,13 +105,20 @@ class BackTestBuilderBlock extends BaseReactComponent {
           }
         );
         weightItemToBeChanged.splice(0, weightItemToBeChanged.length);
-        console.log("weightPath i s", this.props.weightPath);
         if (
           weightItemToBeChanged.length === 0 &&
-          tempWeightItemToBeChanged.length === 0 &&
-          this.props.weightPath.length === 0
+          tempWeightItemToBeChanged.length === 0
         ) {
-          itemToBeChangedOriginal = {};
+          if (this.props.weightPath.length === 0) {
+            itemToBeChangedOriginal = {};
+          } else if (this.props.blockType === "weight percentage") {
+            let newWeightItem = itemToBeChangedOriginal;
+            this.props.weightPath.forEach((element) => {
+              newWeightItem = newWeightItem[element];
+            });
+
+            delete newWeightItem.weight;
+          }
         } else {
           tempWeightItemToBeChanged.forEach((item) => {
             weightItemToBeChanged.push(item);
@@ -123,6 +130,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
     } else if (this.props.blockType === "condition else") {
       itemToBeChanged.failed = {};
     }
+
     if (this.props.changeStrategyBuilderString) {
       this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
     }
@@ -136,6 +144,55 @@ class BackTestBuilderBlock extends BaseReactComponent {
     this.setState({
       isOptionsOpenToggleBellow: !this.state.isOptionsOpenToggleBellow,
     });
+  };
+  onCopyClick = () => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let itemToBeChanged = itemToBeChangedOriginal;
+    this.props.path.forEach((element) => {
+      itemToBeChanged = itemToBeChanged[element];
+    });
+
+    if (
+      this.props.blockType === "asset" ||
+      this.props.blockType === "condition if"
+    ) {
+      console.log("itemToBeChanged? ", itemToBeChanged);
+      if (this.props.weightPath.length >= 0 && this.props.weightIndex !== -1) {
+        if (this.props.setCopiedItem) {
+          this.props.setCopiedItem(itemToBeChanged, this.props.blockType);
+        }
+      }
+    } else if (this.props.blockType === "weight percentage") {
+      itemToBeChanged = itemToBeChanged.item;
+      console.log("itemToBeChanged ", itemToBeChanged);
+      if (itemToBeChanged.asset) {
+        console.log("itemToBeChanged? ", itemToBeChanged.asset);
+        if (
+          this.props.weightPath.length >= 0 &&
+          this.props.weightIndex !== -1
+        ) {
+          if (this.props.setCopiedItem) {
+            console.log("HERE?");
+            this.props.setCopiedItem(itemToBeChanged.asset, "asset");
+          }
+        }
+      } else if (itemToBeChanged.condition) {
+        console.log("itemToBeChanged? ", itemToBeChanged);
+        if (
+          this.props.weightPath.length >= 0 &&
+          this.props.weightIndex !== -1
+        ) {
+          if (this.props.setCopiedItem) {
+            this.props.setCopiedItem(itemToBeChanged, "condition if");
+          }
+        }
+      }
+      // if (this.props.setCopiedItem) {
+      //   this.props.setCopiedItem(itemToBeChanged, this.props.blockType);
+      // }
+    }
   };
   onEditClick = () => {
     this.setState({ editBtnClicked: !this.state.editBtnClicked });
@@ -152,21 +209,38 @@ class BackTestBuilderBlock extends BaseReactComponent {
     );
     return (
       <div
-        className={`strategy-builder-block-container ${
-          this.props.isError ? "strategy-builder-block-container-error" : ""
-        } ${this.props.passedClass} ${
+        className={`strategy-builder-block-container  ${
+          this.props.passedClass
+        } ${
           this.state.isMobile ? "strategy-builder-block-container-mobile" : ""
         }`}
         style={{
           // transform: `translateX(${this.props.blockLevel * 4}rem)`,
-          marginLeft: this.props.blockLevel * 4 + "rem",
+          paddingLeft: this.props.blockLevel * 4 + "rem",
         }}
       >
-        <div />
+        {this.props.isError ? (
+          <div
+            style={{
+              marginLeft: "-2rem",
+              width: this.props.innerWidth ? this.props.innerWidth : 0,
+            }}
+            className="strategy-builder-block-container-error"
+          />
+        ) : null}
 
         <>
-          <div className={`strategy-builder-block `}>
+          <div
+            onClick={this.onEditClick}
+            className={`strategy-builder-block ${
+              this.props.blockType === "condition else"
+                ? "strategy-builder-block-no-click-to-edit"
+                : ""
+            }`}
+          >
             <BackTestAddItemsBellow
+              copiedItem={this.props.copiedItem}
+              setCopiedItem={this.props.setCopiedItem}
               openCollapse={this.props.openCollapse}
               //WEIGHT
               weightPath={this.props.weightPath}
@@ -183,10 +257,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
             />
 
             <div className={`sbb-title ${this.state.titleClassName}`}>
-              <div
-                onClick={this.onAddClick}
-                className="sbb-title-image-container"
-              >
+              <div className="sbb-title-image-container">
                 <Image className="sbb-title-image" src={this.state.titleIcon} />
                 {this.state.titleName ? (
                   <div className="sbb-title-text">{this.state.titleName}</div>
@@ -218,9 +289,15 @@ class BackTestBuilderBlock extends BaseReactComponent {
             onEditClick={this.onEditClick}
             onDeleteClick={this.onDeleteClick}
             onAddClick={this.onAddBellowClick}
+            onCopyClick={this.onCopyClick}
             hideEditBtn={
               this.props.blockType === "weight" ||
               this.props.blockType === "condition else"
+            }
+            hideCopyBtn={
+              // this.props.blockType === "weight percentage" ||
+              this.props.blockType === "condition else" ||
+              this.props.blockType === "add item"
             }
             // hideAddBtn={this.props.blockType === "weight percentage"}
             // hideDeleteBtn={this.props.blockType === "weight percentage"}
@@ -228,6 +305,8 @@ class BackTestBuilderBlock extends BaseReactComponent {
         </>
 
         <BackTestAddItems
+          copiedItem={this.props.copiedItem}
+          setCopiedItem={this.props.setCopiedItem}
           //WEIGHT
           weightPath={this.props.weightPath}
           weightIndex={this.props.weightIndex}

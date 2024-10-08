@@ -2,6 +2,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import BackTestWeightPercentagePopup from "../../PopUps/BackTestWeightPercentagePopup/BackTestWeightPercentagePopup";
 import "./_backTestWeightPercentageBlock.scss";
+import { roundNumber } from "src/utils/ReusableFunctions";
 
 class BackTestWeightPercentageBlock extends BaseReactComponent {
   constructor(props) {
@@ -59,7 +60,7 @@ class BackTestWeightPercentageBlock extends BaseReactComponent {
         <div className="sbb-content">
           <div className="back-test-weight-percentage">
             <div className="back-test-weight-percentage-title">
-              {this.state.weightPercentage}%
+              {roundNumber(this.state.weightPercentage)}%
             </div>
             {this.state.isPopUpOpen ? (
               <OutsideClickHandler onOutsideClick={this.closePopUp}>

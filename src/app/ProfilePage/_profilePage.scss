@@ -242,6 +242,7 @@
             flex-direction: column;
             overflow: hidden;
             width: 100%;
+            padding-left: 6px;
             .profile-page-table-strategy-name {
               padding: 4px;
               gap: 4px;
@@ -269,6 +270,11 @@
             }
           }
           .table-wrapper {
+            .transaction-table-loading-wrapper {
+              .animation-wrapper {
+                height: 670px;
+              }
+            }
             .not-found-wrapper {
               height: 20rem;
             }
@@ -321,6 +327,7 @@
               gap: 5px;
               .ReactVirtualized__Table__row {
                 cursor: pointer;
+                border-radius: 12px;
 
                 .ReactVirtualized__Table__rowColumn {
                   height: 100%;
@@ -345,7 +352,6 @@
                   }
                 }
                 &:hover {
-                  border-radius: 12px;
                   background-color: var(--strategyDiscoveryTableColHover);
                   border-bottom-color: transparent;
                 }

@@ -166,6 +166,8 @@ class BackTestAddItems extends BaseReactComponent {
         <div className={`sbb-add-options`}>
           <div className={`sbb-add-options-items `}>
             <BackTestAddingOptions
+              copiedItem={this.props.copiedItem}
+              setCopiedItem={this.props.setCopiedItem}
               closeOptions={this.closeOptions}
               onAddAssetClick={this.onAddAssetClick}
               onAddConditionClick={this.onAddConditionClick}
