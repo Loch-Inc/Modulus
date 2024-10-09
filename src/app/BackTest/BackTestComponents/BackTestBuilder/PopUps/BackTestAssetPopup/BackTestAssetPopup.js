@@ -45,9 +45,16 @@ class BackTestAssetPopup extends BaseReactComponent {
       this.setState({ searchAssetList });
     }
   }
+  closePopUpPass = () => {
+    this.props.removePopUpFromString();
+    this.props.closePopUp();
+  };
   render() {
     return (
       <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         className={`back-test-asset-popup-container ${
           this.state.isMobile ? "back-test-asset-popup-container-mobile" : ""
         }`}
@@ -62,7 +69,7 @@ class BackTestAssetPopup extends BaseReactComponent {
               <div>Add asset</div>
             </div>
             <div
-              onClick={this.props.closePopUp}
+              onClick={this.closePopUpPass}
               className="back-test-asset-popup-header-close"
             >
               <Image
@@ -78,6 +85,7 @@ class BackTestAssetPopup extends BaseReactComponent {
                 className="back-test-asset-popup-search-input"
                 value={this.state.searchVal}
                 onChange={this.setSearchValue}
+                autoFocus
               />
             </div>
           </div>

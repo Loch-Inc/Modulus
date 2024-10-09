@@ -17,8 +17,13 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   closeOptions = () => {
     this.setState({ isOptionsOpen: false });
   };
-  onAddAssetClick = (passedAsset = "BTC") => {
-    console.log("passedAsset? ", passedAsset);
+  onAddAssetClick = (passedItem) => {
+    let passedAsset = "BTC";
+    let addPopUpOpen = true;
+    if (passedItem) {
+      passedAsset = passedItem;
+      addPopUpOpen = false;
+    }
     if (this.props.openCollapse) {
       this.props.openCollapse();
     }
@@ -42,7 +47,12 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
       arrLength = arrLength + 1;
       let equalWeight = 100 / arrLength;
-      equalWeight = Math.round(equalWeight * 100) / 100;
+
+      if (equalWeight % 1 !== 0) {
+        equalWeight = equalWeight.toFixed(4);
+        equalWeight = parseFloat(equalWeight);
+      }
+
       let tempItemToBeChanged = itemToBeChanged.map((item, itemIndex) => {
         return {
           ...item,
@@ -50,15 +60,31 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         };
       });
       if (this.props.weightIndex !== undefined) {
-        tempItemToBeChanged.splice(this.props.weightIndex + 1, 0, {
-          item: { asset: passedAsset },
-          percentage: equalWeight,
-        });
+        if (addPopUpOpen) {
+          tempItemToBeChanged.splice(this.props.weightIndex + 1, 0, {
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+            openPopup: true,
+          });
+        } else {
+          tempItemToBeChanged.splice(this.props.weightIndex + 1, 0, {
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+          });
+        }
       } else {
-        tempItemToBeChanged.push({
-          item: { asset: passedAsset },
-          percentage: equalWeight,
-        });
+        if (addPopUpOpen) {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+            openPopup: true,
+          });
+        } else {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+          });
+        }
       }
       itemToBeChanged.splice(0, itemToBeChanged.length);
       tempItemToBeChanged.forEach((item) => {
@@ -72,35 +98,63 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         itemToBeChanged.condition.success &&
         Object.keys(itemToBeChanged.condition.success).length === 0
       ) {
-        itemToBeChanged.condition.success = {
-          weight: {
-            weight_type: "SPECIFIED",
-            weight_item: [
-              {
-                percentage: "100",
-                item: {
-                  asset: passedAsset,
+        if (addPopUpOpen) {
+          itemToBeChanged.condition.success = {
+            weight: {
+              weight_type: "SPECIFIED",
+              weight_item: [
+                {
+                  percentage: "100",
+                  item: {
+                    asset: passedAsset,
+                  },
+                  openPopup: true,
                 },
-              },
-            ],
-          },
-        };
+              ],
+            },
+          };
+        } else {
+          itemToBeChanged.condition.success = {
+            weight: {
+              weight_type: "SPECIFIED",
+              weight_item: [
+                {
+                  percentage: "100",
+                  item: {
+                    asset: passedAsset,
+                  },
+                },
+              ],
+            },
+          };
+        }
       } else {
         itemToBeChanged = itemToBeChanged.condition.success.weight.weight_item;
         let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
         arrLength = arrLength + 1;
         let equalWeight = 100 / arrLength;
-        equalWeight = Math.round(equalWeight * 100) / 100;
+        if (equalWeight % 1 !== 0) {
+          equalWeight = equalWeight.toFixed(4);
+          equalWeight = parseFloat(equalWeight);
+        }
         let tempItemToBeChanged = itemToBeChanged.map((item) => {
           return {
             ...item,
             percentage: equalWeight,
           };
         });
-        tempItemToBeChanged.push({
-          item: { asset: passedAsset },
-          percentage: equalWeight,
-        });
+        if (addPopUpOpen) {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+            openPopup: true,
+          });
+        } else {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+          });
+        }
         itemToBeChanged.splice(0, itemToBeChanged.length);
         tempItemToBeChanged.forEach((item) => {
           itemToBeChanged.push({
@@ -114,35 +168,63 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         itemToBeChanged.failed &&
         Object.keys(itemToBeChanged.failed).length === 0
       ) {
-        itemToBeChanged.failed = {
-          weight: {
-            weight_type: "SPECIFIED",
-            weight_item: [
-              {
-                percentage: "100",
-                item: {
-                  asset: passedAsset,
+        if (addPopUpOpen) {
+          itemToBeChanged.failed = {
+            weight: {
+              weight_type: "SPECIFIED",
+              weight_item: [
+                {
+                  percentage: "100",
+                  item: {
+                    asset: passedAsset,
+                  },
+                  openPopup: true,
                 },
-              },
-            ],
-          },
-        };
+              ],
+            },
+          };
+        } else {
+          itemToBeChanged.failed = {
+            weight: {
+              weight_type: "SPECIFIED",
+              weight_item: [
+                {
+                  percentage: "100",
+                  item: {
+                    asset: passedAsset,
+                  },
+                },
+              ],
+            },
+          };
+        }
       } else {
         itemToBeChanged = itemToBeChanged.failed.weight.weight_item;
         let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
         arrLength = arrLength + 1;
         let equalWeight = 100 / arrLength;
-        equalWeight = Math.round(equalWeight * 100) / 100;
+        if (equalWeight % 1 !== 0) {
+          equalWeight = equalWeight.toFixed(4);
+          equalWeight = parseFloat(equalWeight);
+        }
         let tempItemToBeChanged = itemToBeChanged.map((item) => {
           return {
             ...item,
             percentage: equalWeight,
           };
         });
-        tempItemToBeChanged.push({
-          item: { asset: passedAsset },
-          percentage: equalWeight,
-        });
+        if (addPopUpOpen) {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+            openPopup: true,
+          });
+        } else {
+          tempItemToBeChanged.push({
+            item: { asset: passedAsset },
+            percentage: equalWeight,
+          });
+        }
         itemToBeChanged.splice(0, itemToBeChanged.length);
         tempItemToBeChanged.forEach((item) => {
           itemToBeChanged.push({
@@ -158,8 +240,8 @@ class BackTestAddItemsBellow extends BaseReactComponent {
     }
     this.closeOptions();
   };
-  onAddConditionClick = (
-    passedCondition = {
+  onAddConditionClick = (passedItem) => {
+    let passedCondition = {
       condition: {
         type: "CURRENT_PRICE",
         token: "BTC",
@@ -168,15 +250,36 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         time_period: "4",
         success: {},
         failed: {},
-        compare_type: "function",
+        compare_type: "FUNCTION",
         compare_function: {
           type: "CURRENT_PRICE",
           time_period: "4",
           token: "ETH",
         },
       },
+    };
+    if (passedItem) {
+      passedCondition = passedItem;
+    } else {
+      passedCondition = {
+        condition: {
+          type: "CURRENT_PRICE",
+          token: "BTC",
+          operator: ">",
+          amount: "100",
+          time_period: "4",
+          success: {},
+          failed: {},
+          compare_type: "FUNCTION",
+          compare_function: {
+            type: "CURRENT_PRICE",
+            time_period: "4",
+            token: "ETH",
+          },
+          openPopup: true,
+        },
+      };
     }
-  ) => {
     if (this.props.openCollapse) {
       this.props.openCollapse();
     }
@@ -200,7 +303,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
       arrLength = arrLength + 1;
       let equalWeight = 100 / arrLength;
-      equalWeight = Math.round(equalWeight * 100) / 100;
+      if (equalWeight % 1 !== 0) {
+        equalWeight = equalWeight.toFixed(4);
+        equalWeight = parseFloat(equalWeight);
+      }
       let tempItemToBeChanged = itemToBeChanged.map((item) => {
         return {
           ...item,
@@ -247,7 +353,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
         arrLength = arrLength + 1;
         let equalWeight = 100 / arrLength;
-        equalWeight = Math.round(equalWeight * 100) / 100;
+        if (equalWeight % 1 !== 0) {
+          equalWeight = equalWeight.toFixed(4);
+          equalWeight = parseFloat(equalWeight);
+        }
         let tempItemToBeChanged = itemToBeChanged.map((item) => {
           return {
             ...item,
@@ -287,7 +396,10 @@ class BackTestAddItemsBellow extends BaseReactComponent {
         let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
         arrLength = arrLength + 1;
         let equalWeight = 100 / arrLength;
-        equalWeight = Math.round(equalWeight * 100) / 100;
+        if (equalWeight % 1 !== 0) {
+          equalWeight = equalWeight.toFixed(4);
+          equalWeight = parseFloat(equalWeight);
+        }
         let tempItemToBeChanged = itemToBeChanged.map((item) => {
           return {
             ...item,

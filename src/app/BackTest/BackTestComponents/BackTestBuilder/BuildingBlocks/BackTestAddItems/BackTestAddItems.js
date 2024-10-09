@@ -27,7 +27,10 @@ class BackTestAddItems extends BaseReactComponent {
       let arrLength = itemToBeChanged.length ? itemToBeChanged.length : 0;
       arrLength = arrLength + 1;
       let equalWeight = 100 / arrLength;
-      equalWeight = Math.round(equalWeight * 100) / 100;
+      if (equalWeight % 1 !== 0) {
+        equalWeight = equalWeight.toFixed(4);
+        equalWeight = parseFloat(equalWeight);
+      }
       let tempItemToBeChanged = itemToBeChanged.map((item) => {
         return {
           ...item,
@@ -80,7 +83,10 @@ class BackTestAddItems extends BaseReactComponent {
       let arrLength = itemToBeChanged.length;
       arrLength = arrLength + 1;
       let equalWeight = 100 / arrLength;
-      equalWeight = Math.round(equalWeight * 100) / 100;
+      if (equalWeight % 1 !== 0) {
+        equalWeight = equalWeight.toFixed(4);
+        equalWeight = parseFloat(equalWeight);
+      }
       let tempWeightItemToBeChanged = itemToBeChanged.map((item, index) => {
         return {
           ...item,
@@ -116,7 +122,11 @@ class BackTestAddItems extends BaseReactComponent {
       let arrLength = itemToBeChanged.length;
       arrLength = arrLength + 1;
       let equalWeight = 100 / arrLength;
-      equalWeight = Math.round(equalWeight * 100) / 100;
+      if (equalWeight % 1 !== 0) {
+        equalWeight = equalWeight.toFixed(4);
+        equalWeight = parseFloat(equalWeight);
+      }
+
       let tempWeightItemToBeChanged = itemToBeChanged.map((item, index) => {
         return {
           ...item,
@@ -139,7 +149,7 @@ class BackTestAddItems extends BaseReactComponent {
             time_period: "4",
             success: {},
             failed: {},
-            compare_type: "function",
+            compare_type: "FUNCTION",
             compare_function: {
               type: "CURRENT_PRICE",
               time_period: "4",

@@ -23,6 +23,7 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
       <div className={`strategy-builder-block-container-parent`}>
         {/* {block.weight_type === "SPECIFIED" ? ( */}
         <BackTestBuilderBlock
+          isError={this.props.isError}
           copiedItem={this.props.copiedItem}
           setCopiedItem={this.props.setCopiedItem}
           innerWidth={this.props.innerWidth}

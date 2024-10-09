@@ -27,8 +27,10 @@ class BackTestWeightBuilderBlock extends BaseReactComponent {
         itemToBeChanged = itemToBeChanged.weight_item;
         let arrLength = itemToBeChanged.length;
         let equalWeight = 100 / arrLength;
-        equalWeight = Math.round(equalWeight * 100) / 100;
-
+        if (equalWeight % 1 !== 0) {
+          equalWeight = equalWeight.toFixed(4);
+          equalWeight = parseFloat(equalWeight);
+        }
         let tempWeightItemToBeChanged = itemToBeChanged.map((item, index) => {
           return {
             ...item,

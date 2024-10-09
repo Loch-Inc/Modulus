@@ -9,7 +9,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isPopUpOpen: props.shouldOpenPopUpBlocks ? true : false,
+      isPopUpOpen: false,
       curAsset: {
         name: "",
         icon: "",
@@ -26,7 +26,25 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
   };
   componentDidMount() {
     this.setCurAsset();
+    this.checkPopUp();
   }
+  removePopUpFromString = () => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let weightItemToBeChanged = itemToBeChangedOriginal;
+    this.props.weightPath.forEach((element) => {
+      weightItemToBeChanged = weightItemToBeChanged[element];
+    });
+    weightItemToBeChanged = weightItemToBeChanged.weight.weight_item;
+    weightItemToBeChanged = weightItemToBeChanged[this.props.weightIndex];
+    if (weightItemToBeChanged && weightItemToBeChanged.openPopup) {
+      delete weightItemToBeChanged.openPopup;
+    }
+    if (this.props.changeStrategyBuilderString) {
+      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+    }
+  };
   componentDidUpdate(prevProps) {
     if (prevProps.editBtnClicked !== this.props.editBtnClicked) {
       this.togglePopUp();
@@ -34,7 +52,26 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     if (prevProps.selectedAsset !== this.props.selectedAsset) {
       this.setCurAsset();
     }
+    if (prevProps.strategyBuilderString !== this.props.strategyBuilderString) {
+      this.checkPopUp();
+    }
   }
+  checkPopUp = () => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let weightItemToBeChanged = itemToBeChangedOriginal;
+    this.props.weightPath.forEach((element) => {
+      weightItemToBeChanged = weightItemToBeChanged[element];
+    });
+    weightItemToBeChanged = weightItemToBeChanged.weight.weight_item;
+    weightItemToBeChanged = weightItemToBeChanged[this.props.weightIndex];
+    if (weightItemToBeChanged && weightItemToBeChanged.openPopup) {
+      this.setState({
+        isPopUpOpen: true,
+      });
+    }
+  };
   closePopUp = (e) => {
     if (e && e.stopPropagation) {
       e.stopPropagation();
@@ -64,12 +101,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
   render() {
     return (
       <>
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          className="sbb-content"
-        >
+        <div className="sbb-content">
           <div className="back-test-asset-builder">
             <div className="back-test-asset-popup-item-content">
               <div
@@ -88,11 +120,17 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
               </div>
             </div>
             {this.state.isPopUpOpen ? (
-              <OutsideClickHandler onOutsideClick={this.closePopUp}>
+              <OutsideClickHandler
+                onOutsideClick={() => {
+                  this.removePopUpFromString();
+                  this.closePopUp();
+                }}
+              >
                 <BackTestAssetPopup
                   selectedOption={this.props.selectedAsset}
                   onOptionSelect={this.changeAsset}
                   closePopUp={this.closePopUp}
+                  removePopUpFromString={this.removePopUpFromString}
                 />
               </OutsideClickHandler>
             ) : null}

@@ -124,6 +124,10 @@ class BackTestPopupInput extends BaseReactComponent {
             className="back-test-popup-search-input"
             value={this.state.inputValue}
             onChange={this.changeInputValue}
+            onKeyDown={
+              this.props.handleKeyDown ? this.props.handleKeyDown : () => null
+            }
+            autoFocus
           />
         </div>
       </div>

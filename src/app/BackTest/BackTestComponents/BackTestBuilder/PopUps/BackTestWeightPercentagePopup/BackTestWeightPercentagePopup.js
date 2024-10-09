@@ -25,6 +25,11 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
     this.setState({ selectedWeightPercentage: item });
     this.props.onOptionSelect(item);
   };
+  handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      this.props.closePopUp();
+    }
+  };
   componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {}
@@ -84,6 +89,7 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
                   selectedAmountSymbol="%"
                   onOptionSelect={this.changeWeightPercentage}
                   limitAmounTo={100}
+                  handleKeyDown={this.handleKeyDown}
                 />
               </div>
             </div>

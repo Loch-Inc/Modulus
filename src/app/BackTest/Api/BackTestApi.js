@@ -139,7 +139,10 @@ export const createBackTestQuery = (passedData, ctx, afterQueryCreation) => {
             });
           }
           if (afterQueryCreation) {
-            // afterQueryCreation(true);
+            afterQueryCreation(true);
+          }
+        } else {
+          if (afterQueryCreation) {
             afterQueryCreation(false);
           }
         }

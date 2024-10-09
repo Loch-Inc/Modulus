@@ -24,18 +24,30 @@ class BackTestConditionPopup extends BaseReactComponent {
       //Price condition
       isMobile: mobileCheck(),
       allPriceConditions: [
-        "Current price",
-        "Cumulative return",
-        "Exponential moving average",
-        "Max drawdown",
-        "Moving average price",
-        "Moving average return",
-        "Relative strength index",
-        "Standard deviation of price",
-        "Standard deviation of return",
-        "Moving average convergence divergence",
-        "Volume",
-        "Market capitalization",
+        { name: "Current price", alt: "Current price" },
+        { name: "Cumulative return", alt: "Cumulative return" },
+        {
+          name: "Exponential moving average",
+          alt: "Exponential moving average",
+        },
+        { name: "Max drawdown", alt: "Max drawdown" },
+        { name: "Moving average price", alt: "Moving average price" },
+        { name: "Moving average return", alt: "Moving average return" },
+        { name: "Relative strength index", alt: "Relative strength index" },
+        {
+          name: "Standard deviation of price",
+          alt: "Standard deviation of price",
+        },
+        {
+          name: "Standard deviation of return",
+          alt: "Standard deviation of return",
+        },
+        {
+          name: "Moving average convergence divergence",
+          alt: "Moving average convergence divergence",
+        },
+        { name: "Volume", alt: "Volume" },
+        { name: "Market capitalization", alt: "Market capitalization" },
       ],
       selectedPriceConditions: this.props.selectedPriceConditions
         ? this.props.selectedPriceConditions
@@ -49,7 +61,16 @@ class BackTestConditionPopup extends BaseReactComponent {
         : "",
 
       //Asset condition
-      allAssetConditions: ["BTC", "ETH"],
+      allAssetConditions: [
+        {
+          name: "BTC",
+          alt: "Bitcoin",
+        },
+        {
+          name: "ETH",
+          alt: "Ethereum",
+        },
+      ],
       selectedAssetConditions: this.props.selectedAssetConditions
         ? this.props.selectedAssetConditions
         : "",
@@ -59,7 +80,11 @@ class BackTestConditionPopup extends BaseReactComponent {
         : "",
 
       // Operator condition
-      allOperatorConditions: ["greater than", "less than", "equals to"],
+      allOperatorConditions: [
+        { name: "greater than", alt: ">" },
+        { name: "less than", alt: "<" },
+        { name: "equals to", alt: "=" },
+      ],
       selectedOperatorConditions: this.props.selectedOperatorConditions
         ? this.props.selectedOperatorConditions
         : "",
@@ -133,7 +158,8 @@ class BackTestConditionPopup extends BaseReactComponent {
       prevProps.selectedFunctionAssetConditions !==
         this.props.selectedFunctionAssetConditions ||
       prevProps.selectedFunctionDaysConditions !==
-        this.props.selectedFunctionDaysConditions
+        this.props.selectedFunctionDaysConditions ||
+      prevProps.selectedAmountConditions !== this.props.selectedAmountConditions
     ) {
       this.setState({
         selectedPriceConditions: this.props.selectedPriceConditions,
@@ -148,6 +174,9 @@ class BackTestConditionPopup extends BaseReactComponent {
         selectedDaysConditions: this.props.selectedDaysConditions
           ? this.props.selectedDaysConditions
           : "",
+        selectedAmountConditions: this.props.selectedAmountConditions
+          ? this.props.selectedAmountConditions
+          : "",
       });
     }
     if (
@@ -160,22 +189,34 @@ class BackTestConditionPopup extends BaseReactComponent {
   }
   switchFunctionFixedToggle = () => {
     if (this.props.isFunction) {
-      this.props.changeFunctionFixedToggle("fixed");
+      this.props.changeFunctionFixedToggle("FIXED");
     } else {
-      this.props.changeFunctionFixedToggle("function");
+      this.props.changeFunctionFixedToggle("FUNCTION");
     }
   };
   componentDidMount() {
     let tempItem = strategyBuilderAssetListriod();
     let tempHolder = [];
     for (let i = 0; i < tempItem.length; i++) {
-      tempHolder.push(tempItem[i].name);
+      let tempObj = {
+        name: tempItem[i].name,
+        alt: tempItem[i].fullName,
+      };
+      tempHolder.push(tempObj);
     }
     this.setState({
       allAssetConditions: tempHolder,
     });
   }
-
+  handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      this.closePopUpPass();
+    }
+  };
+  closePopUpPass = () => {
+    this.props.removePopUpFromString();
+    this.props.closePopUp();
+  };
   render() {
     return (
       <div
@@ -185,7 +226,7 @@ class BackTestConditionPopup extends BaseReactComponent {
             : ""
         }`}
       >
-        <OutsideClickHandler onOutsideClick={this.props.closePopUp}>
+        <OutsideClickHandler onOutsideClick={this.closePopUpPass}>
           <div className="back-test-condition-popup">
             <div className="back-test-condition-popup-header-container">
               <div className="back-test-condition-popup-header-text">
@@ -197,7 +238,7 @@ class BackTestConditionPopup extends BaseReactComponent {
               </div>
               <div className="back-test-condition-popup-header-btns">
                 <div
-                  onClick={this.props.closePopUp}
+                  onClick={this.closePopUpPass}
                   className="back-test-condition-popup-header-btn back-test-condition-popup-header-btn-highlighted"
                 >
                   <Image
@@ -206,7 +247,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                   />
                 </div>
                 <div
-                  onClick={this.props.closePopUp}
+                  onClick={this.closePopUpPass}
                   className="back-test-condition-popup-header-btn"
                 >
                   <Image
@@ -228,6 +269,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                       selectedOption={this.state.selectedDaysConditions}
                       isInputDropDown
                       onOptionSelect={this.changeDaysConditions}
+                      handleKeyDown={this.handleKeyDown}
                     />
                     <div className="back-test-condition-popup-body-colored-text ">
                       day
@@ -290,6 +332,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                           }
                           isInputDropDown
                           onOptionSelect={this.changeFunctionDaysConditions}
+                          handleKeyDown={this.handleKeyDown}
                         />
                         <div className="back-test-condition-popup-body-colored-text ">
                           day
@@ -326,6 +369,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                     isInputDropDown
                     selectedAmountSymbol={this.props.selectedAmountSymbol}
                     onOptionSelect={this.changeAmountConditions}
+                    handleKeyDown={this.handleKeyDown}
                   />
                 )}
               </div>

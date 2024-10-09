@@ -391,11 +391,13 @@ class BackTestPage extends BaseReactComponent {
     };
   }
   setCopiedItem = (itemBlock, itemType) => {
+    let tempHolder = {
+      item: itemBlock,
+      itemType: itemType,
+    };
+    sessionStorage.setItem("copiedStrategyItem", JSON.stringify(tempHolder));
     this.setState({
-      copiedItem: {
-        item: itemBlock,
-        itemType: itemType,
-      },
+      copiedItem: tempHolder,
     });
     toast.success("Copied");
   };
@@ -536,7 +538,12 @@ class BackTestPage extends BaseReactComponent {
 
   componentDidMount() {
     const { state } = this.props.location;
-
+    const tempHolder = sessionStorage.getItem("copiedStrategyItem");
+    if (tempHolder) {
+      this.setState({
+        copiedItem: JSON.parse(tempHolder),
+      });
+    }
     if (state && state.passedStrategyId) {
       this.setState(
         {

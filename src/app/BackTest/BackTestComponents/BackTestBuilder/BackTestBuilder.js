@@ -133,9 +133,14 @@ class BackTestBuilder extends BaseReactComponent {
   afterQueryCreation = (isApiPassed) => {
     if (isApiPassed) {
       this.getStrategiesQueries();
-    }
-    if (this.props.hideSaveStrategy) {
-      this.props.hideSaveStrategy();
+      if (this.props.hideSaveStrategy) {
+        this.props.hideSaveStrategy();
+      }
+    } else {
+      toast.error("An error has occurred. Please try again");
+      if (this.props.showSaveStrategy) {
+        this.props.showSaveStrategy();
+      }
     }
   };
   strategyBuilderIsQueryValid = (obj, path, emptyHolderArr) => {
@@ -143,13 +148,15 @@ class BackTestBuilder extends BaseReactComponent {
       let totalWeight = 0;
       if (obj.weight && obj.weight.weight_item) {
         obj.weight.weight_item.forEach((curItem, curIndex) => {
-          totalWeight = totalWeight + parseFloat(curItem.percentage);
+          totalWeight = totalWeight + curItem.percentage;
+          console.log("totalWeight? ", totalWeight);
           this.strategyBuilderIsQueryValid(
             curItem,
             [...path, "weight", "weight_item", curIndex],
             emptyHolderArr
           );
         });
+        totalWeight = Math.round(totalWeight);
         if (!(totalWeight >= 99.8 && totalWeight <= 100)) {
           emptyHolderArr.push([...path, "weight"]);
         }
@@ -212,6 +219,7 @@ class BackTestBuilder extends BaseReactComponent {
       this.getStrategiesQueries();
     }
     if (prevState.strategyBuilderString !== this.state.strategyBuilderString) {
+      console.log("strategyBuilderString? ", this.state.strategyBuilderString);
       this.updateWidth();
       if (
         this.state.strategyBuilderString &&
@@ -358,6 +366,7 @@ class BackTestBuilder extends BaseReactComponent {
         weight_type: "SPECIFIED",
         weight_item: [
           {
+            openPopup: true,
             percentage: "100",
             item: {
               asset: "BTC",
@@ -376,6 +385,7 @@ class BackTestBuilder extends BaseReactComponent {
             percentage: "100",
             item: {
               condition: {
+                openPopup: true,
                 type: "CURRENT_PRICE",
                 token: "BTC",
                 operator: ">",
@@ -383,7 +393,7 @@ class BackTestBuilder extends BaseReactComponent {
                 time_period: "4",
                 success: {},
                 failed: {},
-                compare_type: "function",
+                compare_type: "FUNCTION",
                 compare_function: {
                   type: "CURRENT_PRICE",
                   time_period: "4",

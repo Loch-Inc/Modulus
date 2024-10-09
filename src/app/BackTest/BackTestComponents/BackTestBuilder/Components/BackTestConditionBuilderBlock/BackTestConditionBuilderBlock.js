@@ -26,7 +26,7 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       selectedAmountConditions: 0,
       shouldShowDays: false,
       shouldShowFunctionDays: false,
-      isPopUpOpen: props.shouldOpenPopUpBlocks ? true : false,
+      isPopUpOpen: false,
       selectedAmountSymbol: "",
 
       // inside function
@@ -35,7 +35,38 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       selectedFunctionDaysConditions: "",
     };
   }
+  removePopUpFromString = () => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let itemToBeChanged = itemToBeChangedOriginal;
+    this.props.path.forEach((element) => {
+      itemToBeChanged = itemToBeChanged[element];
+    });
+    if (itemToBeChanged && itemToBeChanged.openPopup) {
+      delete itemToBeChanged.openPopup;
+    }
+    if (this.props.changeStrategyBuilderString) {
+      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+    }
+  };
+  checkPopUp = () => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let itemToBeChanged = itemToBeChangedOriginal;
+    this.props.path.forEach((element) => {
+      itemToBeChanged = itemToBeChanged[element];
+    });
+
+    if (itemToBeChanged && itemToBeChanged.openPopup) {
+      this.setState({
+        isPopUpOpen: true,
+      });
+    }
+  };
   componentDidMount() {
+    this.checkPopUp();
     this.setState({
       selectedPriceConditions: strategyBuilderTypeConvertorSymbolToText(
         this.props.type
@@ -59,6 +90,9 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
     });
   }
   componentDidUpdate(prevProps) {
+    if (prevProps.strategyBuilderString !== this.props.strategyBuilderString) {
+      this.checkPopUp();
+    }
     if (prevProps.editBtnClicked !== this.props.editBtnClicked) {
       this.openPopUp();
     }
@@ -272,7 +306,8 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
               <span className="back-test-condition-builder-grey-text">
                 {this.state.selectedOperatorConditions}
               </span>{" "}
-              {this.props.compare_type === "function" ? (
+              {this.props.compare_type &&
+              this.props.compare_type.toLowerCase() === "function" ? (
                 <span>
                   {this.state.shouldShowFunctionDays ? (
                     <>
@@ -300,6 +335,7 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
             </div>
             {this.state.isPopUpOpen ? (
               <BackTestConditionPopup
+                removePopUpFromString={this.removePopUpFromString}
                 changeFunctionFixedToggle={this.changeFunctionFixedToggle}
                 changePriceConditions={this.changePriceConditions}
                 changeAssetConditions={this.changeAssetConditions}
@@ -324,7 +360,10 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
                 selectedAmountConditions={this.state.selectedAmountConditions}
                 selectedAmountSymbol={this.state.selectedAmountSymbol}
                 closePopUp={this.closePopUp}
-                isFunction={this.props.compare_type === "function"}
+                isFunction={
+                  this.props.compare_type &&
+                  this.props.compare_type.toLowerCase() === "function"
+                }
                 // Inside function
                 selectedFunctionPriceConditions={
                   this.state.selectedFunctionPriceConditions

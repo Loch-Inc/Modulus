@@ -98,6 +98,10 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   innerWidth={this.props.innerWidth}
                   saveStrategyName={this.props.saveStrategyName}
                   emptyItems={this.props.emptyItems}
+                  isError={isArrayInArrayOfArrays(
+                    [...this.props.path, key],
+                    this.props.emptyItems
+                  )}
                 />
                 // <div
                 //   className={`strategy-builder-block-container-parent ${
@@ -215,6 +219,10 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               }
               path={[...this.props.path]}
               selectedAsset={this.props.blocks.asset}
+              //WEIGHT
+              weightPath={this.props.weightPath}
+              weightIndex={this.props.weightIndex}
+              //WEIGHT
             />
           </BackTestBuilderBlock>
         );
@@ -276,6 +284,10 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   changeStrategyBuilderString={
                     this.props.changeStrategyBuilderString
                   }
+                  //WEIGHT
+                  weightPath={this.props.weightPath}
+                  weightIndex={this.props.weightIndex}
+                  //WEIGHT
                 />
               </BackTestBuilderBlock>
               {block.success &&
