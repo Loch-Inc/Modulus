@@ -4,9 +4,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { SwitchDarkMode } from "./app/common/Api";
 import routes from "./routes";
-import { DarkModeDefaltView } from "./utils/AnalyticsFunctions";
 import {
   mobileCheck,
   switchToDarkMode,
@@ -41,19 +39,9 @@ function App(props) {
     if (isDarkTheme && isDarkTheme === "true") {
       document.documentElement.style.backgroundColor = "#141414";
       switchToDarkMode();
-      props.SwitchDarkMode(true);
-      DarkModeDefaltView({
-        mode: "Dark",
-        isMobile: mobileCheck(),
-      });
     } else {
       document.documentElement.style.backgroundColor = "#f2f2f2";
       switchToLightMode();
-      props.SwitchDarkMode(false);
-      DarkModeDefaltView({
-        mode: "Light",
-        isMobile: mobileCheck(),
-      });
     }
   }, []);
 
@@ -95,9 +83,7 @@ function App(props) {
   );
   // );
 }
-const mapDispatchToProps = {
-  SwitchDarkMode,
-};
+const mapDispatchToProps = {};
 
 const mapStateToProps = (state) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(App);

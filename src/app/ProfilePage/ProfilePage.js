@@ -3,8 +3,8 @@ import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
 import { toast } from "react-toastify";
-import { resetUser } from "src/utils/AnalyticsFunctions";
 import { API_LIMIT, START_INDEX } from "src/utils/Constant";
+import { deleteToken } from "src/utils/ManageToken";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   copyText,
@@ -14,7 +14,6 @@ import {
   strategyBuilderChartLineColorByIndex,
 } from "../../utils/ReusableFunctions";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
-import MobileLayout from "../layout/MobileLayout";
 import TopBar from "../TopBar/TopBar";
 import "./_profilePage.scss";
 import {
@@ -588,7 +587,7 @@ class ProfilePage extends BaseReactComponent {
     }
   };
   signOutFun = () => {
-    resetUser();
+    deleteToken();
     setTimeout(() => {
       window.location.href = "/sign-in";
     }, 500);
@@ -639,51 +638,7 @@ class ProfilePage extends BaseReactComponent {
   };
   render() {
     if (mobileCheck()) {
-      return (
-        <MobileLayout
-          handleShare={this.handleShare}
-          isSidebarClosed={this.props.isSidebarClosed}
-          history={this.props.history}
-          hideFooter
-          hideAddresses
-          hideShare
-        >
-          {/* <BackTestPageMobile
-            saveStrategyName={this.state.saveStrategyName}
-            saveStrategyCheck={this.state.saveStrategyCheck}
-            showSaveStrategy={this.showSaveStrategy}
-            hideSaveStrategy={this.hideSaveStrategy}
-            fromAndToDate={this.state.fromAndToDate}
-            performanceVisualizationGraphLoading={
-              this.state.performanceVisualizationGraphLoading
-            }
-            strategiesCreatedTableLoading={
-              this.state.strategiesCreatedTableLoading
-            }
-            selectStrategies={this.selectStrategies}
-            strategiesOptions={this.state.strategiesOptions}
-            selectedStrategiesOptions={this.state.selectedStrategiesOptions}
-            strategiesCreatedColumnList={this.state.strategiesCreatedColumnList}
-            strategiesCreatedTableData={this.state.strategiesCreatedTableData}
-            performanceVisualizationGraphData={
-              this.state.performanceVisualizationGraphData
-            }
-            performanceVisualizationGraphDataOriginal={
-              this.state.performanceVisualizationGraphDataOriginal
-            }
-            hideToCalendar={this.hideToCalendar}
-            hideFromCalendar={this.hideFromCalendar}
-            showFromCalendar={this.showFromCalendar}
-            showToCalendar={this.showToCalendar}
-            isFromCalendar={this.state.isFromCalendar}
-            isToCalendar={this.state.isToCalendar}
-            changeFromDate={this.changeFromDate}
-            changeToDate={this.changeToDate}
-            fromDate={this.state.fromDate}
-            toDate={this.state.toDate}
-          /> */}
-        </MobileLayout>
-      );
+      return null;
     }
     return (
       <div className="profile-page">

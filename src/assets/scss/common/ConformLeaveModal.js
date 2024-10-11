@@ -1,10 +1,9 @@
-import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
-import { resetUser } from "../../utils/AnalyticsFunctions";
-import BaseReactComponent from "./../../utils/form/BaseReactComponent";
+import { deleteToken } from "src/utils/ManageToken";
 import { mobileCheck } from "../../utils/ReusableFunctions";
 import { reserWalletList } from "../wallet/Api";
+import BaseReactComponent from "./../../utils/form/BaseReactComponent";
 
 class ConfirmLeaveModal extends BaseReactComponent {
   constructor(props) {
@@ -51,11 +50,11 @@ class ConfirmLeaveModal extends BaseReactComponent {
                 onClick={() => {
                   if (this.props.handleSignOutWelcome) {
                     this.props.reserWalletList();
-                    resetUser(true);
+                    deleteToken(true);
                     this.props.handleSignOutWelcome();
                   } else {
                     this.props.reserWalletList();
-                    resetUser();
+                    deleteToken();
                     window.localStorage.setItem("refresh", false);
                     this.props.history.push("/welcome");
                   }

@@ -12,7 +12,6 @@ import {
   scrollToBottomAfterPageChange,
   strategyBuilderChartLineColorByIndex,
 } from "../../utils/ReusableFunctions";
-import MobileLayout from "../layout/MobileLayout";
 import TopBar from "../TopBar/TopBar";
 import "./_strategyDiscovery.scss";
 import { getDiscoverStrategyApi } from "./Api/StrategyDiscoveryApi";
@@ -659,16 +658,7 @@ class StrategyDiscovery extends BaseReactComponent {
       },
     ];
     if (mobileCheck()) {
-      return (
-        <MobileLayout
-          handleShare={this.handleShare}
-          isSidebarClosed={this.props.isSidebarClosed}
-          history={this.props.history}
-          hideFooter
-          hideAddresses
-          hideShare
-        ></MobileLayout>
-      );
+      return null;
     }
     return (
       <div className="strategy-discovery-page">

@@ -7,10 +7,7 @@ import {
 } from "../../assets/images/icons";
 import ArrowRight from "../../assets/images/icons/ArrowRight.svg";
 import LinkIcon from "../../assets/images/icons/link.svg";
-import {
-  TitleAssetValueHover,
-  TransactionHistoryHover,
-} from "../../utils/AnalyticsFunctions";
+
 import { getCurrentUser } from "../../utils/ManageToken";
 import { openSignInModalFromAnywhere } from "../../utils/ReusableFunctions";
 export const GraphHeader = (props) => {
@@ -78,17 +75,9 @@ export const GraphHeader = (props) => {
                 onClick={handleClickPass}
                 onMouseEnter={() => {
                   if (props.isAnalytics === "Asset Value") {
-                    TitleAssetValueHover({
-                      session_id: getCurrentUser().id,
-                      email_address: getCurrentUser().email,
-                    });
                   }
 
                   if (props.isAnalytics === "Transaction Table") {
-                    TransactionHistoryHover({
-                      session_id: getCurrentUser().id,
-                      email_address: getCurrentUser().email,
-                    });
                   }
                 }}
               >

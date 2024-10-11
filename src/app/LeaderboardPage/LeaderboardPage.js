@@ -2,14 +2,7 @@ import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 
 import CustomOverlay from "src/utils/commonComponent/CustomOverlay";
-import {
-  ModulusLeaderboardAnualReturn,
-  ModulusLeaderboardName,
-  ModulusLeaderboardRank,
-  ModulusLeaderboardStrategies,
-} from "../../assets/images/icons";
 import { mobileCheck } from "../../utils/ReusableFunctions";
-import MobileLayout from "../layout/MobileLayout";
 import TopBar from "../TopBar/TopBar";
 import "./_leaderboard.scss";
 import { getLeaderboardData } from "./Api/LeaderboardApi";
@@ -233,16 +226,7 @@ class LeaderboardPage extends BaseReactComponent {
 
   render() {
     if (mobileCheck()) {
-      return (
-        <MobileLayout
-          handleShare={this.handleShare}
-          isSidebarClosed={this.props.isSidebarClosed}
-          history={this.props.history}
-          hideFooter
-          hideAddresses
-          hideShare
-        ></MobileLayout>
-      );
+      return null;
     }
     return (
       <div className="leaderboard-page">

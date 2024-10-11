@@ -2,7 +2,6 @@ import { Button, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import BaseReactComponent from "../../utils/form/BaseReactComponent";
 import { mobileCheck } from "../../utils/ReusableFunctions";
-import { reserWalletList } from "../wallet/Api";
 
 class ConfirmLeaveModal extends BaseReactComponent {
   constructor(props) {
@@ -51,6 +50,6 @@ class ConfirmLeaveModal extends BaseReactComponent {
 }
 
 const mapStateToProps = (state) => ({});
-const mapDispatchToProps = { reserWalletList };
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmLeaveModal);

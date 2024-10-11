@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
+import { toast } from "react-toastify";
+import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   mobileCheck,
@@ -10,14 +12,10 @@ import {
   strategyBuilderChartLineColorByIndex,
   strategyBuilderChartLineColorByIndexLowOpacity,
 } from "../../utils/ReusableFunctions";
-import MobileLayout from "../layout/MobileLayout";
 import TopBar from "../TopBar/TopBar";
 import "./_backTest.scss";
 import { getBackTestChart, getBackTestTable } from "./Api/BackTestApi";
 import BackTestPageContent from "./BackTestPageContent";
-import BackTestPageMobile from "./BackTestPageMobile";
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
-import { toast } from "react-toastify";
 
 class BackTestPage extends BaseReactComponent {
   constructor(props) {
@@ -865,58 +863,7 @@ class BackTestPage extends BaseReactComponent {
   };
   render() {
     if (mobileCheck()) {
-      return (
-        <MobileLayout
-          handleShare={this.handleShare}
-          isSidebarClosed={this.props.isSidebarClosed}
-          history={this.props.history}
-          hideFooter
-          hideAddresses
-          hideShare
-          // showTopSearchBar
-          // Save Invest
-          loadingSaveInvestStrategyBtn={this.state.loadingSaveInvestStrategyBtn}
-          saveStrategyClicked={this.saveStrategyClicked}
-          isSaveInvestStrategy={this.state.isSaveInvestStrategy}
-          // Save Invest
-        >
-          <BackTestPageMobile
-            saveStrategyName={this.state.saveStrategyName}
-            saveStrategyCheck={this.state.saveStrategyCheck}
-            showSaveStrategy={this.showSaveStrategy}
-            hideSaveStrategy={this.hideSaveStrategy}
-            fromAndToDate={this.state.fromAndToDate}
-            performanceVisualizationGraphLoading={
-              this.state.performanceVisualizationGraphLoading
-            }
-            performanceMetricTableLoading={
-              this.state.performanceMetricTableLoading
-            }
-            selectStrategies={this.selectStrategies}
-            strategiesOptions={this.state.strategiesOptions}
-            selectedStrategiesOptions={this.state.selectedStrategiesOptions}
-            performanceMetricColumnList={this.state.performanceMetricColumnList}
-            performanceMetricTableData={this.state.performanceMetricTableData}
-            performanceVisualizationGraphData={
-              this.state.performanceVisualizationGraphData
-            }
-            performanceVisualizationGraphDataOriginal={
-              this.state.performanceVisualizationGraphDataOriginal
-            }
-            hideToCalendar={this.hideToCalendar}
-            hideFromCalendar={this.hideFromCalendar}
-            showFromCalendar={this.showFromCalendar}
-            showToCalendar={this.showToCalendar}
-            isFromCalendar={this.state.isFromCalendar}
-            isToCalendar={this.state.isToCalendar}
-            changeFromDate={this.changeFromToDate}
-            changeToDate={this.changeFromToDate}
-            calcChartData={this.calcChartData}
-            fromDate={this.state.fromDate}
-            toDate={this.state.toDate}
-          />
-        </MobileLayout>
-      );
+      return null;
     }
     return (
       <div className="back-test-page">

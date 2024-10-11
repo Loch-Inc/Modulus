@@ -11,10 +11,9 @@ import {
   TopBarProfileIcon,
   TopBarSignInOutIcon,
 } from "src/assets/images/icons";
-import "./_topBar.scss";
-import { getToken } from "src/utils/ManageToken";
-import { resetUser } from "src/utils/AnalyticsFunctions";
+import { deleteToken, getToken } from "src/utils/ManageToken";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
+import "./_topBar.scss";
 
 class TopBar extends React.Component {
   constructor(props) {
@@ -177,7 +176,7 @@ class TopBar extends React.Component {
     });
   };
   signOutFun = () => {
-    resetUser();
+    deleteToken();
     setTimeout(() => {
       window.location.href = "/sign-in";
     }, 500);
