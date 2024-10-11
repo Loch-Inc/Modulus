@@ -10,6 +10,7 @@ import {
   StrategyDiscoveryHeadingArrowIcon,
   StrategyDiscoveryHeadingFloatingBlocks,
 } from "../../assets/images/icons";
+import moment from "moment";
 
 class StrategyDiscoveryContent extends BaseReactComponent {
   constructor(props) {
@@ -47,8 +48,44 @@ class StrategyDiscoveryContent extends BaseReactComponent {
           />
         </div>
         <div className="strategy-discovery-page-content-block">
-          <div className="btpcb-title">
-            <div>Discover</div>
+          <div className="btpcb-title-discovery-container">
+            <div className="btpcb-title">
+              <div>Discover</div>
+            </div>
+            {this.props.toDate && this.props.fromDate ? (
+              <div class={`btpcb-discover-time-range-table`}>
+                <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
+                  From
+                </div>
+                <div
+                  id="1"
+                  class="inter-display-medium f-s-13 lh-16 time-cal-badge"
+                >
+                  <div className="btpcb-discover-calendar-Container">
+                    <div className="btpcb-discover-calendar-Text">
+                      {moment(this.props.fromDate).format("D MMM YYYY")}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="2"
+                  class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
+                >
+                  To
+                </div>
+
+                <div
+                  id="3"
+                  class={`inter-display-medium f-s-13 lh-16 time-cal-badge time-cal-badge-right-cal`}
+                >
+                  <div className="btpcb-discover-calendar-Container">
+                    <div className="btpcb-discover-calendar-Text">
+                      {moment(this.props.toDate).format("D MMM YYYY")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="btpcb-right-table-container">

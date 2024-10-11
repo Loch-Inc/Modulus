@@ -409,7 +409,6 @@ class CustomDropdown extends Component {
         () => {
           this.copyToFilteredItems();
           const tempSelectedHolder = this.getSelected();
-          console.log("tempSelectedHolder ", tempSelectedHolder);
           if (tempSelectedHolder.length === 0) {
             this.setState({
               disableApplyBtn: true,

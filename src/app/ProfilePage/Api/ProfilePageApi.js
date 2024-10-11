@@ -3,31 +3,10 @@ import { postLoginInstance } from "../../../utils";
 import {
   GET_REFERRAL_CODES_MODULUS,
   GET_STRATEGIES_CREATED_TABLE_DATA,
-  GET_TOTAL_USER_CREATED_STRATEGY_COUNT,
   GET_USER_PROFILE_DATA,
 } from "./ProfilePageActionTypes";
+import { toast } from "react-toastify";
 
-export const getTotalUserCreatedStrategyCount = () => {
-  return async function (dispatch, getState) {
-    postLoginInstance
-      .post("strategy/backtest/get-total-performance-count")
-      .then((res) => {
-        if (!res.data.error) {
-          if (res.data.data) {
-            let total = 0;
-            if (res.data.data) {
-              total = res.data.data;
-            }
-            dispatch({
-              type: GET_TOTAL_USER_CREATED_STRATEGY_COUNT,
-              payload: total,
-            });
-          }
-        }
-      })
-      .catch((err) => {});
-  };
-};
 export const getUserCreatedStrategies = (data, stopLoading) => {
   return async function (dispatch, getState) {
     postLoginInstance
@@ -36,7 +15,7 @@ export const getUserCreatedStrategies = (data, stopLoading) => {
         if (!res.data.error) {
           if (res.data.data) {
             if (res?.data?.data?.strategies) {
-              const tempArrHolder = res.data.data.strategies;
+              const tempArrHolder = res.data.data;
 
               dispatch({
                 type: GET_STRATEGIES_CREATED_TABLE_DATA,
@@ -97,20 +76,34 @@ export const getUserProfileData = () => {
       .catch((err) => {});
   };
 };
-export const editUserNameProfile = (passedData) => {
+export const editUserNameProfile = (
+  passedData,
+  successCallback,
+  errorCallback
+) => {
   return async function (dispatch, getState) {
     PostLoginNoModulusAxios.post("users-api/users/username/update", passedData)
       .then((res) => {
         if (!res.data.error) {
-          console.log("res.data?.data ", res.data.data);
-          if (res.data?.data?.user) {
-            dispatch({
-              type: GET_USER_PROFILE_DATA,
-              payload: res.data.data.user,
-            });
+          if (res.data.success) {
+            if (successCallback) {
+              successCallback();
+            }
+          } else {
+            if (errorCallback) {
+              errorCallback();
+            }
+          }
+        } else {
+          if (errorCallback) {
+            errorCallback();
           }
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (errorCallback) {
+          errorCallback();
+        }
+      });
   };
 };

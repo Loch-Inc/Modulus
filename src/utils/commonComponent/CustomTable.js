@@ -206,14 +206,24 @@ class CustomTable extends BaseReactComponent {
                           height={
                             (this.props.showDataAtBottom && this.props.moreData
                               ? 58
+                              : this.props.tableColHeight
+                              ? this.props.tableColHeight
                               : 60) *
                               (tableData ? tableData.length + 1 : 1) -
                             10
                           }
-                          headerHeight={headerHeight ? headerHeight : 80}
+                          headerHeight={
+                            this.props.tableColHeight
+                              ? this.props.tableColHeight
+                              : headerHeight
+                              ? headerHeight
+                              : 80
+                          }
                           rowHeight={
                             this.props.showDataAtBottom && this.props.moreData
                               ? 58
+                              : this.props.tableColHeight
+                              ? this.props.tableColHeight
                               : 60
                           }
                           rowCount={tableData ? tableData.length : 0}
@@ -318,14 +328,24 @@ class CustomTable extends BaseReactComponent {
                           height={
                             (this.props.showDataAtBottom && this.props.moreData
                               ? 58
+                              : this.props.tableColHeight
+                              ? this.props.tableColHeight
                               : 60) *
                               (tableData ? tableData.length + 1 : 1) -
                             10
                           }
-                          headerHeight={headerHeight ? headerHeight : 80}
+                          headerHeight={
+                            this.props.tableColHeight
+                              ? this.props.tableColHeight
+                              : headerHeight
+                              ? headerHeight
+                              : 80
+                          }
                           rowHeight={
                             this.props.showDataAtBottom && this.props.moreData
                               ? 58
+                              : this.props.tableColHeight
+                              ? this.props.tableColHeight
                               : 60
                           }
                           rowCount={tableData ? tableData.length : 0}

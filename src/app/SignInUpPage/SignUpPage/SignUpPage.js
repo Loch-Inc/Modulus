@@ -202,6 +202,9 @@ class SignUpPage extends React.Component {
   afterVerifyOtpCallError = () => {
     this.setState({ disableButton: false });
   };
+  goToTermsAndConditions = () => {
+    window.open("/terms-and-conditions", "_blank");
+  };
 
   render() {
     return (
@@ -225,6 +228,8 @@ class SignUpPage extends React.Component {
           onBottomTextClick={this.onBottomTextClick}
           showBackButton={this.state.screenPosition > 1}
           onBackButtonClick={this.onBackButtonClick}
+          goToTermsAndConditions={this.goToTermsAndConditions}
+          isTermsAndConditions={this.state.screenPosition === 1}
         />
       </div>
     );

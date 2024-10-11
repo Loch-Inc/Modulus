@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Image } from "react-bootstrap";
 import arrowUpRight from "../../assets/images/icons/green-arrow.svg";
 import LinkIcon from "../../assets/images/icons/link.svg";
@@ -24,11 +24,11 @@ import {
   resetUser,
 } from "../../utils/AnalyticsFunctions";
 import { getCurrentUser } from "../../utils/ManageToken";
+import BackTestNameSave from "../BackTest/BackTestComponents/BackTestBuilder/Components/BackTestNameSave/BackTestNameSave";
 import AuthModal from "../common/AuthModal";
 import ConnectModal from "../common/ConnectModal";
 import ExitOverlay from "../common/ExitOverlay";
 import { TopWalletExchangeBar } from "../header";
-import BackTestNameSave from "../BackTest/BackTestComponents/BackTestBuilder/Components/BackTestNameSave/BackTestNameSave";
 export default function WelcomeCard(props) {
   const buttonRef = useRef(null);
   const [manageWallet, setManageWallet] = React.useState(true);

@@ -215,6 +215,7 @@ export { default as LochLogoBlackThinIcon } from "./lochLogoBlackThin.svg";
 export { default as StrategyBuilderTitleDiamondIcon } from "./StrategyBuilderTitleDiamond.svg";
 export { default as LochModulusLogoIcon } from "./LochModulusLogo.svg";
 export { default as CopyClipboardIcon } from "./CopyClipboard.svg";
+export { default as SortByIcon } from "./sortBy.svg";
 export { ReactComponent as TopBarBuilderIcon } from "./TopBarBuilder.svg";
 export { ReactComponent as TopBarProfileIcon } from "./TopBarProfile.svg";
 export { ReactComponent as TopBarConnectIcon } from "./TopBarConnect.svg";
@@ -230,3 +231,6 @@ export { ReactComponent as ModulusLeaderboardAnualReturn } from "./ModulusLeader
 export { ReactComponent as CheckBoldIcon } from "./checkBold.svg";
 export { ReactComponent as CheckBoldWhiteIcon } from "./checkBoldWhite.svg";
 export { ReactComponent as SignOutIcon } from "./SignOut.svg";
+export { ReactComponent as ConnectedWalletIcon } from "./wallet_icon.svg";
+export { ReactComponent as TopBarSignInOutIcon } from "./topBarSignInOut.svg";
+export { ReactComponent as LeaderboardTrophyIcon } from "./leaderboardTrophy.svg";

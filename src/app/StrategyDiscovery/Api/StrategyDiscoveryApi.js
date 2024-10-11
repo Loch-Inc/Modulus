@@ -1,32 +1,5 @@
 import { postLoginInstance } from "../../../utils";
-import {
-  GET_STRATEGY_DISCOVERY_TABLE_DATA,
-  GET_STRATEGY_DISCOVERY_TABLE_DATA_COUNT,
-} from "./StrategyDiscoveryActionTypes";
-
-export const getDiscoverStrategyCountApi = (ctx) => {
-  return async function (dispatch, getState) {
-    postLoginInstance
-      .post("strategy/backtest/get-strategy-count")
-      .then((res) => {
-        if (!res.data.error) {
-          if (!res.data.error) {
-            if (res.data.data) {
-              let total = 0;
-              if (res.data.data) {
-                total = res.data.data;
-              }
-              dispatch({
-                type: GET_STRATEGY_DISCOVERY_TABLE_DATA_COUNT,
-                payload: total,
-              });
-            }
-          }
-        }
-      })
-      .catch((err) => {});
-  };
-};
+import { GET_STRATEGY_DISCOVERY_TABLE_DATA } from "./StrategyDiscoveryActionTypes";
 
 export const getDiscoverStrategyApi = (passedData, stopLoading) => {
   return async function (dispatch, getState) {
@@ -36,11 +9,9 @@ export const getDiscoverStrategyApi = (passedData, stopLoading) => {
       .then((res) => {
         if (!res.data.error) {
           if (res.data.data) {
-            const tempArrHolder = [...res.data.data.strategies];
-
             dispatch({
               type: GET_STRATEGY_DISCOVERY_TABLE_DATA,
-              payload: tempArrHolder,
+              payload: res.data.data,
             });
           } else {
             if (stopLoading) {

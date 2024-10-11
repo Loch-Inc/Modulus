@@ -1,12 +1,23 @@
 import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
-import { copyText, mobileCheck } from "../../utils/ReusableFunctions";
+import {
+  copyText,
+  mobileCheck,
+  TruncateText,
+} from "../../utils/ReusableFunctions";
 import TransactionTable from "../intelligence/TransactionTable";
 import { Image } from "react-bootstrap";
 import { ProfilePageTempDP } from "src/assets/images";
-import { CopyIcon, PasswordIcon, SignOutIcon } from "src/assets/images/icons";
+import {
+  CopyIcon,
+  PasswordIcon,
+  SignOutIcon,
+  ConnectedWalletIcon,
+  StrategyBuilderPencilIcon,
+} from "src/assets/images/icons";
 import OutsideClickHandler from "react-outside-click-handler";
 import { editUserNameProfile } from "./Api/ProfilePageApi";
+import { toast } from "react-toastify";
 
 class ProfilePageContent extends BaseReactComponent {
   constructor(props) {
@@ -18,14 +29,9 @@ class ProfilePageContent extends BaseReactComponent {
   }
 
   componentDidMount() {}
-  // editUserName = () => {
-  //   const tempApiData = {
-  //     username: "siradityakumar",
-  //   };
-  //   this.props.editUserNameProfile(tempApiData);
-  // };
+  componentDidUpdate(prevProps, prevState) {}
+
   render() {
-    console.log("userData? ", this.props.userData);
     return (
       <div className="profile-page-content">
         <div className="profile-page-left-block">
@@ -39,12 +45,54 @@ class ProfilePageContent extends BaseReactComponent {
             <div className="profile-page-left-block-bio-name-mail">
               {this.props.userData?.username ? (
                 <div className="profile-page-left-block-name">
-                  {this.props.userData.username}
+                  {this.props.isEditName ? (
+                    <OutsideClickHandler
+                      display="contents"
+                      onOutsideClick={this.props.hideEditName}
+                    >
+                      <div className="profile-page-left-block-name-input-container">
+                        <input
+                          className="profile-page-left-block-name-input"
+                          value={this.props.inputValue}
+                          onKeyDown={this.props.onInputKeyDown}
+                          onChange={this.props.changeInputValue}
+                          placeholder="Username"
+                          autoFocus
+                        />
+                        <div
+                          onClick={this.props.editUserName}
+                          className={`profile-page-left-block-name-input-save-btn ${
+                            this.props.isInputBtnDisabled ||
+                            this.props.inputValue === ""
+                              ? "profile-page-left-block-name-input-save-btn-disabled"
+                              : ""
+                          }`}
+                        >
+                          Save
+                        </div>
+                      </div>
+                    </OutsideClickHandler>
+                  ) : (
+                    <div className="profile-page-left-block-name-title-container">
+                      {this.props.userData.username}
+                      <Image
+                        onClick={this.props.showEditName}
+                        src={StrategyBuilderPencilIcon}
+                        className="profile-page-left-block-name-pencil-icon"
+                      />
+                    </div>
+                  )}
                 </div>
               ) : null}
               {this.props.userData?.email ? (
                 <div className="profile-page-left-block-email">
                   {this.props.userData.email}
+                </div>
+              ) : null}
+              {this.props.isWalletConnected ? (
+                <div className="profile-page-left-block-wallet">
+                  <ConnectedWalletIcon className="profile-page-left-block-wallet-icon" />
+                  <div>{TruncateText(this.props.connectedWalletAddress)}</div>
                 </div>
               ) : null}
             </div>

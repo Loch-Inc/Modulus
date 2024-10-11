@@ -15,6 +15,7 @@ import {
 } from "../../../../utils/ReusableFunctions";
 import Loading from "../../../common/Loading";
 import "./_backTestChart.scss";
+import BackTestStrategyDropdown from "./BackTestStrategyDropdown/BackTestStrategyDropdown";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -39,23 +40,34 @@ class BackTestChart extends BaseReactComponent {
         <div className="btpcb-title btpcb-chart-header">
           <div>Performance Visualization</div>
 
-          {/* <div
+          <div
             className={`btpcb-chart-dropdown ${
               this.props.performanceVisualizationGraphLoading
                 ? "btpcb-chart-dropdown-hidden"
                 : ""
             }`}
           >
-            <CustomDropdown
-              placeholderName="Strategy"
+            <BackTestStrategyDropdown
+              allOptions={this.props.strategiesOptions}
+              selectedOption={this.props.selectedStrategiesOptions}
+              onOptionSelect={this.props.selectStrategies}
+            />
+            {/* <CustomDropdown
+              // Limit Select
               filtername="Strategies selected"
               options={this.props.strategiesOptions}
+              action={null}
+              // selectedTokens={[]}
               selectedTokens={this.props.selectedStrategiesOptions}
               handleClick={this.props.selectStrategies}
-              singleSelectedItemName="Strategy"
-              multipleSelectedItemName="Strategies"
-            />
-          </div> */}
+              isLineChart
+              getObject={true}
+              // Limit Select
+              // placeholderName="Strategy"
+              // singleSelectedItemName="Strategy"
+              // multipleSelectedItemName="Strategies"
+            /> */}
+          </div>
         </div>
         {this.props.performanceVisualizationGraphLoading ? (
           <div className="btpcb-right-chart-container">
@@ -180,6 +192,10 @@ class BackTestChart extends BaseReactComponent {
                     padding: 0,
 
                     labelFormatter: function () {
+                      let curName = this.name;
+                      if (curName.length > 4) {
+                        curName = curName.substring(0, 3) + "...";
+                      }
                       return `<div
                       style="backgroundColor:${strategyBuilderChartLineColorByIndexLowOpacity(
                         this.symbolIndex
@@ -207,7 +223,7 @@ class BackTestChart extends BaseReactComponent {
                       </svg>
 
                       <div className="strategy-builder-chart-legend-text dotDotText">
-                        ${this.name}
+                        ${curName}
                       </div>
                     </div>`;
                     },

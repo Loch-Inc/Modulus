@@ -6,6 +6,7 @@ import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   mobileCheck,
   numToCurrency,
+  strategyBuilderAssetList,
   strategyBuilderChartLineColorByIndex,
   strategyBuilderChartLineColorByIndexLowOpacity,
 } from "../../utils/ReusableFunctions";
@@ -42,13 +43,16 @@ class BackTestPage extends BaseReactComponent {
       loadingSaveInvestStrategyBtn: false,
       strategiesOptions: [
         {
-          label: "BTC",
-          value: "btc",
-          color: "gold",
+          name: "BTC",
+          alt: "Bitcoin",
         },
-        { label: "ETH", value: "eth", color: "blue" },
+
+        {
+          name: "ETH",
+          alt: "Ethereum",
+        },
       ],
-      selectedStrategiesOptions: [],
+      selectedStrategiesOptions: ["BTC", "ETH"],
 
       performanceVisualizationGraphData: [],
       performanceVisualizationGraphDataOriginal: {},
@@ -454,11 +458,20 @@ class BackTestPage extends BaseReactComponent {
   getDataForTable = async (passedAssets) => {
     let tempApiData = new URLSearchParams();
     let tempTokenList = [];
-    passedAssets.forEach((item) => {
-      if (item === "eth" || item === "btc") {
-        tempTokenList.push(item);
+    passedAssets.forEach((curAsset) => {
+      let isAnAsset = false;
+      this.state.strategiesOptions.forEach((item) => {
+        if (item.name.toLowerCase() === curAsset.toLowerCase()) {
+          isAnAsset = true;
+        }
+      });
+      if (isAnAsset) {
+        tempTokenList.push(curAsset.toLowerCase());
       } else {
-        tempApiData.append("strategy_list", JSON.stringify([item]));
+        tempApiData.append(
+          "strategy_list",
+          JSON.stringify([curAsset.toLowerCase()])
+        );
         tempApiData.append("current_portfolio_balance", 20000);
       }
     });
@@ -477,18 +490,23 @@ class BackTestPage extends BaseReactComponent {
     this.props.getBackTestTable(tempApiData, this);
   };
   getDataForGraph = async (passedAssets, passedColor) => {
-    let tempToDate = new Date();
+    let tempToDate = new Date(new Date().setDate(new Date().getDate() - 1));
     let tempFromDate = new Date(
       new Date().setFullYear(new Date().getFullYear() - 1)
     );
     let tempApiData = new URLSearchParams();
     let tempTokenList = [];
-
-    passedAssets.forEach((item) => {
-      if (item === "eth" || item === "btc") {
-        tempTokenList.push(item);
+    passedAssets.forEach((curAsset) => {
+      let isAnAsset = false;
+      this.state.strategiesOptions.forEach((item) => {
+        if (item.name.toLowerCase() === curAsset.toLowerCase()) {
+          isAnAsset = true;
+        }
+      });
+      if (isAnAsset) {
+        tempTokenList.push(curAsset.toLowerCase());
       } else {
-        tempApiData.append("strategy_id", item);
+        tempApiData.append("strategy_id", curAsset);
         tempApiData.append("current_portfolio_balance", 20000);
       }
     });
@@ -498,31 +516,54 @@ class BackTestPage extends BaseReactComponent {
     this.props.getBackTestChart(tempApiData, this);
   };
   selectStrategies = (passedData) => {
-    if (passedData === "all") {
-      this.setState({
-        selectedStrategiesOptions: [],
-      });
+    if (passedData.length === 0) {
+      this.setState(
+        {
+          selectedStrategiesOptions: ["BTC", "ETH"],
+        },
+        () => {
+          if (
+            this.state.passedStrategyList &&
+            this.state.passedStrategyList.length > 0
+          ) {
+            this.getAssetData([
+              ...this.state.selectedStrategiesOptions,
+              ...this.state.passedStrategyList,
+            ]);
+          } else {
+            this.getAssetData(this.state.selectedStrategiesOptions);
+          }
+        }
+      );
     } else {
-      this.setState({
-        selectedStrategiesOptions: passedData,
-      });
+      this.setState(
+        {
+          selectedStrategiesOptions: [...passedData],
+        },
+        () => {
+          if (
+            this.state.passedStrategyList &&
+            this.state.passedStrategyList.length > 0
+          ) {
+            this.getAssetData([
+              ...this.state.selectedStrategiesOptions,
+              ...this.state.passedStrategyList,
+            ]);
+          } else {
+            this.getAssetData(this.state.selectedStrategiesOptions);
+          }
+        }
+      );
     }
   };
 
   getAssetData = (passedSelectedAssets, notForChart = false) => {
-    const allItemArr = [];
-
-    passedSelectedAssets.forEach((item) => {
-      if (item.value !== "all") {
-        allItemArr.push(item.value);
-      }
-    });
     if (notForChart) {
       this.setState({
         performanceMetricTableData: [],
         performanceMetricTableLoading: true,
       });
-      this.getDataForTable(allItemArr);
+      this.getDataForTable(passedSelectedAssets);
     } else {
       this.setState({
         performanceVisualizationGraphData: [],
@@ -531,20 +572,61 @@ class BackTestPage extends BaseReactComponent {
         performanceVisualizationGraphLoading: true,
         performanceMetricTableLoading: true,
       });
-      this.getDataForGraph(allItemArr);
-      this.getDataForTable(allItemArr);
+      this.getDataForGraph(passedSelectedAssets);
+      this.getDataForTable(passedSelectedAssets);
     }
+  };
+  setSessionPassedStrategyId = (passedId) => {
+    let tempHolderObj = {
+      id: passedId,
+      name: this.state.saveStrategyName,
+    };
+    sessionStorage.setItem(
+      "savedStrategyIdName",
+      JSON.stringify(tempHolderObj)
+    );
   };
 
   componentDidMount() {
+    let builderList = strategyBuilderAssetList();
+    let tempArrHolder = [];
+    for (let i = 0; i < builderList.length; i++) {
+      let tempObj = {
+        name: builderList[i].name,
+        alt: builderList[i].fullName,
+      };
+      tempArrHolder.push(tempObj);
+    }
+    this.setState({
+      strategiesOptions: tempArrHolder,
+    });
     const { state } = this.props.location;
-    const tempHolder = sessionStorage.getItem("copiedStrategyItem");
+    let tempHolder = sessionStorage.getItem("copiedStrategyItem");
     if (tempHolder) {
+      tempHolder = tempHolder ? JSON.parse(tempHolder) : null;
       this.setState({
-        copiedItem: JSON.parse(tempHolder),
+        copiedItem: tempHolder.id,
+        saveStrategyName: tempHolder.name,
       });
     }
-    if (state && state.passedStrategyId) {
+    let tempIdNameHolder = sessionStorage.getItem("savedStrategyIdName");
+    tempIdNameHolder = tempIdNameHolder ? JSON.parse(tempIdNameHolder) : "";
+    if (tempIdNameHolder) {
+      this.setState(
+        {
+          isExistingStrategy: true,
+          passedStrategyList: [tempIdNameHolder.id],
+          saveStrategyName: tempIdNameHolder.name,
+        },
+        () => {
+          const tempItem = [
+            ...this.state.selectedStrategiesOptions,
+            tempIdNameHolder.id,
+          ];
+          this.getAssetData(tempItem);
+        }
+      );
+    } else if (state && state.passedStrategyId) {
       this.setState(
         {
           isExistingStrategy: true,
@@ -554,115 +636,35 @@ class BackTestPage extends BaseReactComponent {
         },
         () => {
           const tempItem = [
-            ...this.state.strategiesOptions,
-            { label: "strategy", value: state.passedStrategyId },
+            ...this.state.selectedStrategiesOptions,
+            state.passedStrategyId,
           ];
           this.getAssetData(tempItem);
         }
       );
     } else {
-      this.getAssetData(this.state.strategiesOptions);
+      this.getAssetData(this.state.selectedStrategiesOptions);
     }
-
-    // const lastStrategy = window.localStorage.getItem("lastStrategyId");
-    // if (lastStrategy) {
-    //   let tempStrategiesOption = {
-    //     label: "Strategy",
-    //     value: lastStrategy,
-    //   };
-
-    //   this.setState(
-    //     {
-    //       strategiesOptions: [
-    //         {
-    //           label: "All",
-    //           value: "all",
-    //         },
-    //         {
-    //           label: "BTC",
-    //           value: "btc",
-    //           color: "gold",
-    //         },
-    //         { label: "ETH", value: "eth", color: "blue" },
-    //         tempStrategiesOption,
-    //       ],
-    //     },
-    //     () => {
-    //       this.getAssetData(this.state.strategiesOptions);
-    //     }
-    //   );
-    // } else {
-    // }
   }
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.BackTestLatestStrategyState !==
       this.props.BackTestLatestStrategyState
     ) {
-      let tempStrategiesOption = {
-        label: "Strategy",
-        value: this.props.BackTestLatestStrategyState,
-      };
+      this.setSessionPassedStrategyId(this.props.BackTestLatestStrategyState);
       this.setState(
         {
-          strategiesOptions: [
-            {
-              label: "BTC",
-              value: "btc",
-              color: "gold",
-            },
-            { label: "ETH", value: "eth", color: "blue" },
-            tempStrategiesOption,
-          ],
-          selectedStrategiesOptions: [],
+          passedStrategyList: [this.props.BackTestLatestStrategyState],
         },
         () => {
-          this.getAssetData(this.state.strategiesOptions);
+          this.getAssetData([
+            ...this.state.selectedStrategiesOptions,
+            this.props.BackTestLatestStrategyState,
+          ]);
         }
       );
     }
-    // if (prevProps.BackTestQueryState !== this.props.BackTestQueryState) {
-    //   let currentQueryItem = 0;
-    //   if (this.props.BackTestQueryState.length > 0) {
-    //     currentQueryItem =
-    //       this.props.BackTestQueryState[
-    //         this.props.BackTestQueryState.length - 1
-    //       ].id;
-    //     let tempStrategiesOption = {
-    //       label: "Strategy",
-    //       value: currentQueryItem,
-    //     };
-    //     const previousLastStrategyId = window.localStorage.getItem(
-    //       "lastStrategyId",
-    //       currentQueryItem
-    //     );
-    //     if (previousLastStrategyId !== currentQueryItem) {
-    //       window.localStorage.setItem("lastStrategyId", currentQueryItem);
 
-    //       this.setState(
-    //         {
-    //           strategiesOptions: [
-    //             {
-    //               label: "All",
-    //               value: "all",
-    //             },
-    //             {
-    //               label: "BTC",
-    //               value: "btc",
-    //               color: "gold",
-    //             },
-    //             { label: "ETH", value: "eth", color: "blue" },
-    //             tempStrategiesOption,
-    //           ],
-    //           selectedStrategiesOptions: [],
-    //         },
-    //         () => {
-    //           this.getAssetData(this.state.strategiesOptions);
-    //         }
-    //       );
-    //     }
-    //   }
-    // }
     if (prevProps.BackTestTableState !== this.props.BackTestTableState) {
       let tempBtTableData = this.props.BackTestTableState;
 
@@ -833,23 +835,16 @@ class BackTestPage extends BaseReactComponent {
     }
   };
   afterChangeDate = () => {
-    if (this.state.strategiesOptions.length > 2) {
-      let filteredAssets = [];
-      this.state.strategiesOptions.forEach((item) => {
-        filteredAssets.push(item);
-      });
-      this.getAssetData(filteredAssets, true);
+    if (
+      this.state.passedStrategyList &&
+      this.state.passedStrategyList.length > 0
+    ) {
+      this.getAssetData([
+        ...this.state.selectedStrategiesOptions,
+        ...this.state.passedStrategyList,
+      ]);
     } else {
-      const { state } = this.props.location;
-      if (state && state.passedStrategyId) {
-        const tempItem = [
-          ...this.state.strategiesOptions,
-          { label: "strategy", value: state.passedStrategyId },
-        ];
-        this.getAssetData(tempItem, true);
-      } else {
-        this.getAssetData(this.state.strategiesOptions, true);
-      }
+      this.getAssetData(this.state.selectedStrategiesOptions);
     }
   };
 
@@ -926,7 +921,14 @@ class BackTestPage extends BaseReactComponent {
     return (
       <div className="back-test-page">
         {/* topbar */}
-        <TopBar history={this.props.history} />
+        <TopBar
+          isWalletConnected={this.props.isWalletConnected}
+          connectedWalletAddress={this.props.connectedWalletAddress}
+          connectedWalletevents={this.props.connectedWalletevents}
+          openConnectWallet={this.props.openConnectWallet}
+          disconnectWallet={this.props.disconnectWallet}
+          history={this.props.history}
+        />
         <div className="page">
           <div className=" page-scroll">
             <div className="page-scroll-child ">

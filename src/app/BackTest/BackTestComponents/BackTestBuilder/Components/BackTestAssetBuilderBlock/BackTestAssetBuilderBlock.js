@@ -44,6 +44,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     if (this.props.changeStrategyBuilderString) {
       this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
     }
+    return true;
   };
   componentDidUpdate(prevProps) {
     if (prevProps.editBtnClicked !== this.props.editBtnClicked) {
@@ -85,18 +86,21 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     this.setState({ isPopUpOpen: !this.state.isPopUpOpen });
   };
   changeAsset = (passedItem) => {
-    let itemToBeChangedOriginal = structuredClone(
-      this.props.strategyBuilderString
-    );
-    let itemToBeChanged = itemToBeChangedOriginal;
-    this.props.path.forEach((element) => {
-      itemToBeChanged = itemToBeChanged[element];
-    });
-    itemToBeChanged.asset = passedItem.name;
-    if (this.props.changeStrategyBuilderString) {
-      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
-      this.closePopUp();
-    }
+    this.removePopUpFromString();
+    setTimeout(() => {
+      let itemToBeChangedOriginal = structuredClone(
+        this.props.strategyBuilderString
+      );
+      let itemToBeChanged = itemToBeChangedOriginal;
+      this.props.path.forEach((element) => {
+        itemToBeChanged = itemToBeChanged[element];
+      });
+      itemToBeChanged.asset = passedItem.name;
+      if (this.props.changeStrategyBuilderString) {
+        this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+        this.closePopUp();
+      }
+    }, 100);
   };
   render() {
     return (

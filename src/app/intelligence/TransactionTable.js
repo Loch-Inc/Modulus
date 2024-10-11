@@ -37,6 +37,7 @@ function TransactionTable(props) {
         ""
       )}
       <CustomTable
+        tableColHeight={props.tableColHeight}
         showImageForEmpty={props.showImageForEmpty}
         passedWrapperClass={props.passedWrapperClass}
         passedWrapperId={props.passedWrapperId}

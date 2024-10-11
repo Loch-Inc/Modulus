@@ -7,7 +7,7 @@ import {
 import { BaseReactComponent } from "../../../../../../utils/form";
 import {
   mobileCheck,
-  strategyBuilderAssetListriod,
+  strategyBuilderAssetList,
 } from "../../../../../../utils/ReusableFunctions";
 import "./_backTestAssetPopup.scss";
 
@@ -16,7 +16,7 @@ class BackTestAssetPopup extends BaseReactComponent {
     super(props);
 
     this.state = {
-      assetList: strategyBuilderAssetListriod(),
+      assetList: strategyBuilderAssetList(),
       searchOptions: [],
       searchAssetList: [],
       searchVal: "",
@@ -45,7 +45,8 @@ class BackTestAssetPopup extends BaseReactComponent {
       this.setState({ searchAssetList });
     }
   }
-  closePopUpPass = () => {
+  closePopUpPass = (e) => {
+    e.stopPropagation();
     this.props.removePopUpFromString();
     this.props.closePopUp();
   };

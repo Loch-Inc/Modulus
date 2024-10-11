@@ -26,6 +26,9 @@ export const roundNumber = (number) => {
     : roundedNumber.toFixed(2);
 };
 
+export const removeSessionSavedStrategyId = () => {
+  sessionStorage.removeItem("savedStrategyIdName");
+};
 export const strategyBuilderWeightTypeToEnum = (passedItem) => {
   console.log("passedItem is ", passedItem);
 
@@ -110,7 +113,7 @@ export const strategyBuilderChartLineColorByIndex = (passedIndex) => {
   return `var(--strategyBuilderGraph${passedIndex + 1})`;
 };
 
-export const strategyBuilderAssetListriod = () => {
+export const strategyBuilderAssetList = () => {
   return [
     {
       name: "BTC",
@@ -187,7 +190,7 @@ export const strategyBuilderAssetListriod = () => {
   ];
 };
 export const strategyBuilderAssetDetailFromName = (passedItem) => {
-  const curAssetList = strategyBuilderAssetListriod();
+  const curAssetList = strategyBuilderAssetList();
   return curAssetList.find((element) => element.name === passedItem);
 };
 export const strategyBuilderTypeConvertorSymbolToText = (passedItem) => {
@@ -659,6 +662,17 @@ export const isSameDateAs = function (dateOne, dateTwo) {
     dateOne.getFullYear() === dateTwo.getFullYear() &&
     dateOne.getMonth() === dateTwo.getMonth() &&
     dateOne.getDate() === dateTwo.getDate()
+  );
+};
+export const compareTwoArrayOfStrings = (
+  first_array_of_strings,
+  second_array_of_strings
+) => {
+  return (
+    first_array_of_strings.length === second_array_of_strings.length &&
+    first_array_of_strings.every((element_1) =>
+      second_array_of_strings.some((element_2) => element_1 === element_2)
+    )
   );
 };
 export const compareTwoArrayOfObjects = (

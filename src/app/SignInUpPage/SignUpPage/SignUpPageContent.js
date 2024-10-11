@@ -40,6 +40,8 @@ class SignUpPageContent extends React.Component {
           </div>
           <div className="sign-up-page-content-right-data">
             <SignInUpFunctionality
+              isTermsAndConditions={this.props.isTermsAndConditions}
+              goToTermsAndConditions={this.props.goToTermsAndConditions}
               disableButton={this.props.disableButton}
               titleOne={this.props.titleOne}
               titleTwo={this.props.titleTwo}

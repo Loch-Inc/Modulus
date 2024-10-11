@@ -110,6 +110,19 @@
       color: var(--primaryTextColor);
     }
   }
+  .sign-in-up-functionality-bottom-text-light {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--signUpBottomText);
+
+    .sign-in-up-functionality-bottom-text-light-highlighted {
+      cursor: pointer;
+      color: var(--strategyBuilderDarkerNeon);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
   .sign-in-up-functionality-bottom-text-disabled {
     opacity: 0.5;
     pointer-events: none;

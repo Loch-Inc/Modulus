@@ -1,0 +1,15 @@
+.terms-and-conditions-page {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--primaryTextColor);
+  .page-scroll-child {
+    gap: 10px;
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    ul {
+      margin-left: 40px;
+    }
+  }
+}

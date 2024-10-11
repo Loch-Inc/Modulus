@@ -168,6 +168,7 @@ class SignInUpFunctionality extends React.Component {
               onKeyDown={this.onInputKeyDownPass}
             />
           )}
+
           <button
             disabled={this.props.disableButton}
             onClick={this.onButtonClickPass}
@@ -180,6 +181,17 @@ class SignInUpFunctionality extends React.Component {
             {this.props.buttonText}
           </button>
         </div>
+        {this.props.isTermsAndConditions ? (
+          <div className="sign-in-up-functionality-bottom-text-light">
+            By signing up, you agree to the{" "}
+            <span
+              onClick={this.props.goToTermsAndConditions}
+              className="sign-in-up-functionality-bottom-text-light-highlighted"
+            >
+              Terms and Conditions
+            </span>
+          </div>
+        ) : null}
         {this.props.isOtp ? (
           <div
             onClick={this.resendCode}

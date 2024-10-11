@@ -1,10 +1,12 @@
 import BackTestPage from "./app/BackTest/BackTestPage";
+import InAppTelegramChat from "./app/IntegratedTelegramChat/IntegratedTelegramChat";
 import LeaderboardPage from "./app/LeaderboardPage/LeaderboardPage";
 import ModulusHome from "./app/ModulusHome/ModulusHome";
 import ProfilePage from "./app/ProfilePage/ProfilePage";
 import SignInPage from "./app/SignInUpPage/SignInPage/SignInPage";
 import SignUpPage from "./app/SignInUpPage/SignUpPage/SignUpPage";
 import StrategyDiscovery from "./app/StrategyDiscovery/StrategyDiscovery";
+import TermsAndConditionsPage from "./app/TermsAndConditions/TermsAndConditions";
 import PrivateRoute from "./utils/PrivateRoute";
 import PublicRoute from "./utils/PublicRoute";
 const routes = [
@@ -55,6 +57,18 @@ const routes = [
     name: "Leaderboard Page",
     type: PublicRoute,
     component: LeaderboardPage,
+  },
+  {
+    path: "/terms-and-conditions",
+    name: "Leaderboard Page",
+    type: PublicRoute,
+    component: TermsAndConditionsPage,
+  },
+  {
+    path: "/telegram-chat",
+    name: "Telegram Chat",
+    type: PrivateRoute,
+    component: InAppTelegramChat,
   },
 ];
 export default routes;

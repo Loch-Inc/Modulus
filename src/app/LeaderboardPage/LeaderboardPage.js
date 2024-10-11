@@ -32,7 +32,7 @@ class LeaderboardPage extends BaseReactComponent {
               className="history-table-header-col no-hover history-table-header-col-curve-left"
               id="time"
             >
-              <ModulusLeaderboardRank className="leaderboard-page-content-header-block-icon" />
+              {/* <ModulusLeaderboardRank className="leaderboard-page-content-header-block-icon" /> */}
               <span className="inter-display-medium ">Rank</span>
             </div>
           ),
@@ -57,7 +57,7 @@ class LeaderboardPage extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <ModulusLeaderboardName className="leaderboard-page-content-header-block-icon" />
+              {/* <ModulusLeaderboardName className="leaderboard-page-content-header-block-icon" /> */}
               <span className="inter-display-medium  ">Name</span>
             </div>
           ),
@@ -101,7 +101,7 @@ class LeaderboardPage extends BaseReactComponent {
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
-              <ModulusLeaderboardStrategies className="leaderboard-page-content-header-block-icon" />
+              {/* <ModulusLeaderboardStrategies className="leaderboard-page-content-header-block-icon" /> */}
               <span className="inter-display-medium  ">Strategies Created</span>
             </div>
           ),
@@ -127,7 +127,7 @@ class LeaderboardPage extends BaseReactComponent {
               className="history-table-header-col no-hover history-table-header-col-curve-right"
               id="time"
             >
-              <ModulusLeaderboardAnualReturn className="leaderboard-page-content-header-block-icon" />
+              {/* <ModulusLeaderboardAnualReturn className="leaderboard-page-content-header-block-icon" /> */}
               <span className="inter-display-medium  ">Best Annual Return</span>
             </div>
           ),
@@ -246,7 +246,16 @@ class LeaderboardPage extends BaseReactComponent {
     }
     return (
       <div className="leaderboard-page">
-        <TopBar history={this.props.history} />
+        <div className="leaderboard-page-topbar">
+          <TopBar
+            isWalletConnected={this.props.isWalletConnected}
+            connectedWalletAddress={this.props.connectedWalletAddress}
+            connectedWalletevents={this.props.connectedWalletevents}
+            openConnectWallet={this.props.openConnectWallet}
+            disconnectWallet={this.props.disconnectWallet}
+            history={this.props.history}
+          />
+        </div>
         <LeaderboardPageContent
           leaderboardTableData={this.state.leaderboardTableData}
           leaderboardTableDataLoading={this.state.leaderboardTableDataLoading}

@@ -9,7 +9,7 @@ import {
 import { BaseReactComponent } from "../../../../../../utils/form";
 import {
   mobileCheck,
-  strategyBuilderAssetListriod,
+  strategyBuilderAssetList,
   strategyBuilderLimitAmountTo,
   strategyBuilderTypeConvertorTextToSymbol,
 } from "../../../../../../utils/ReusableFunctions";
@@ -195,7 +195,7 @@ class BackTestConditionPopup extends BaseReactComponent {
     }
   };
   componentDidMount() {
-    let tempItem = strategyBuilderAssetListriod();
+    let tempItem = strategyBuilderAssetList();
     let tempHolder = [];
     for (let i = 0; i < tempItem.length; i++) {
       let tempObj = {
@@ -213,9 +213,10 @@ class BackTestConditionPopup extends BaseReactComponent {
       this.closePopUpPass();
     }
   };
-  closePopUpPass = () => {
-    this.props.removePopUpFromString();
+  closePopUpPass = (e) => {
+    e.stopPropagation();
     this.props.closePopUp();
+    this.props.removePopUpFromString();
   };
   render() {
     return (

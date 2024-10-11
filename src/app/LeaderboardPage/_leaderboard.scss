@@ -3,9 +3,18 @@
 
   font-size: 12px;
   color: var(--primaryTextColor);
+  max-height: 100vh;
 
+  .leaderboard-page-topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
   .leaderboard-page-content {
-    height: calc(100vh - 83px);
+    height: calc(100vh - 3px);
+
     overflow-y: scroll;
     padding-bottom: 10px;
     &::-webkit-scrollbar {
@@ -14,6 +23,7 @@
     }
     .leaderboard-page-content-header-parent {
       background-image: var(--strategyBuilderBackGroundImage);
+      padding-top: 80px;
       background-position: center;
       background-repeat: space;
       height: 500px;
@@ -22,6 +32,7 @@
       width: 100%;
       min-width: 105rem;
       background-size: 12px;
+      position: absolute;
       &::before {
         content: "";
         position: absolute;
@@ -45,11 +56,11 @@
         left: 0;
         width: 100%;
         height: 20%;
-        background: linear-gradient(
-          to top,
-          transparent 0%,
-          var(--primaryBackgroud) 100%
-        );
+        // background: linear-gradient(
+        //   to top,
+        //   transparent 0%,
+        //   var(--primaryBackgroud) 100%
+        // );
         pointer-events: none;
         z-index: 1;
       }
@@ -74,107 +85,126 @@
           width: 95rem;
           overflow-x: scroll;
           width: 95rem;
-          padding-bottom: 90px;
+          padding-bottom: 60px;
           display: flex;
           align-items: flex-end;
-          .leaderboard-page-content-header-block {
+          .leaderboard-page-content-header-block-new-parent {
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            align-items: flex-end;
-            .leaderboard-page-content-header-block-text {
+            justify-content: center;
+            margin-bottom: 2rem;
+            z-index: 0;
+            .leaderboard-page-content-header-block {
+              min-width: 95rem;
+              max-width: 95rem;
+              width: 95rem;
               display: flex;
-              align-items: flex-start;
-              flex-direction: column;
-              gap: 8px;
-              justify-content: flex-start;
-              color: var(--primaryTextColor);
-              .leaderboard-page-content-header-block-text-heading {
-                font-weight: 300;
-                line-height: 28.8px;
-                text-align: left;
+              align-items: center;
+              justify-content: space-between;
+              align-items: flex-end;
+              .leaderboard-page-content-header-block-text {
                 display: flex;
                 align-items: flex-start;
-                justify-content: center;
-                gap: 6px;
                 flex-direction: column;
-                padding-bottom: 5px;
-                .leaderboard-page-content-header-block-text-heading-thin {
-                  font-weight: 400;
-                  font-size: 24px;
-                  line-height: 22px;
+                gap: 8px;
+                justify-content: flex-start;
+                color: var(--primaryTextColor);
+                .leaderboard-page-content-header-block-text-heading {
+                  font-weight: 300;
+                  line-height: 28.8px;
+                  text-align: left;
+                  display: flex;
+                  align-items: flex-start;
+                  justify-content: center;
+                  gap: 6px;
+                  flex-direction: column;
+                  padding-bottom: 5px;
+                  .leaderboard-page-content-header-block-text-heading-thin {
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: 22px;
+                  }
+                  .leaderboard-page-content-header-block-text-heading-bold {
+                    font-weight: 500;
+                    font-size: 24px;
+                    line-height: 22px;
+                    text-shadow: 0.1px 0 var(--primaryTextColor);
+                  }
                 }
-                .leaderboard-page-content-header-block-text-heading-bold {
-                  font-weight: 500;
-                  font-size: 24px;
-                  line-height: 22px;
-                  text-shadow: 0.1px 0 var(--primaryTextColor);
+              }
+              .leaderboard-illustration-container {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%) translateY(125px);
+                .leaderboard-illustration {
+                  width: 350px;
+                  height: 350px;
                 }
               }
-            }
-            .leaderboard-page-content-header-block-text-subheading {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-align: left;
-              gap: 5px;
-              .leaderboard-page-content-header-block-text-subheading-thin {
-                font-weight: 600;
-                font-size: 10px;
-                line-height: 12px;
-                opacity: 0.5;
-              }
-              .leaderboard-page-content-header-block-text-subheading-bold {
-                font-weight: 600;
-                font-size: 13px;
-                line-height: 15.6px;
-                opacity: 0.8;
-              }
-            }
-            .leaderboard-page-content-header-block-total {
-              background-color: var(--cardBackgroud);
-              border: 1px solid var(--cardBackgroud);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 15px;
-              padding: 8px 10px;
-              border-radius: 8px;
-
-              .leaderboard-page-content-header-block-total-block {
+              .leaderboard-page-content-header-block-text-subheading {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 8px;
-                .leaderboard-page-content-header-block-total-block-image {
-                  height: 20px;
-                  width: 20px;
+                text-align: left;
+                gap: 5px;
+                .leaderboard-page-content-header-block-text-subheading-thin {
+                  font-weight: 600;
+                  font-size: 10px;
+                  line-height: 12px;
+                  opacity: 0.5;
                 }
-                .leaderboard-page-content-header-block-total-block-text {
+                .leaderboard-page-content-header-block-text-subheading-bold {
+                  font-weight: 600;
+                  font-size: 13px;
+                  line-height: 15.6px;
+                  opacity: 0.8;
+                }
+              }
+              .leaderboard-page-content-header-block-total {
+                background-color: var(--cardBackgroud);
+                border: 1px solid var(--cardBackgroud);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                padding: 8px 10px;
+                border-radius: 8px;
+
+                .leaderboard-page-content-header-block-total-block {
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  gap: 6px;
-                  color: var(--tableData);
-
-                  .leaderboard-page-content-header-block-total-block-text-heading {
-                    font-size: 13px;
-                    font-weight: 600;
+                  gap: 8px;
+                  .leaderboard-page-content-header-block-total-block-image {
+                    height: 20px;
+                    width: 20px;
                   }
-                  .leaderboard-page-content-header-block-total-block-text-subheading {
-                    font-size: 13px;
-                    font-weight: 700;
+                  .leaderboard-page-content-header-block-total-block-text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    color: var(--tableData);
+
+                    .leaderboard-page-content-header-block-total-block-text-heading {
+                      font-size: 13px;
+                      font-weight: 600;
+                    }
+                    .leaderboard-page-content-header-block-total-block-text-subheading {
+                      font-size: 13px;
+                      font-weight: 700;
+                    }
                   }
                 }
               }
-            }
-            .leaderboard-page-content-header-block-image {
-              height: 190%;
-              transform: translateY(23.5%);
-              .leaderboard-page-content-header-block-image-img {
-                height: 100%;
-                object-fit: cover;
+              .leaderboard-page-content-header-block-image {
+                height: 190%;
+                transform: translateY(23.5%);
+                .leaderboard-page-content-header-block-image-img {
+                  height: 100%;
+                  object-fit: cover;
+                }
               }
             }
           }
@@ -183,12 +213,13 @@
     }
     .leaderboard-page-right-block-content-table-container-parent {
       margin: auto;
-      transform: translateY(-318px);
-      margin-bottom: -318px;
+      transform: translateY(277px);
+      margin-bottom: -277px;
       z-index: 2;
       position: relative;
 
       padding: 0rem 5rem;
+      padding-bottom: 2rem;
 
       .leaderboard-page-right-block-content-table-container {
         min-width: 95rem;
@@ -200,6 +231,8 @@
         border: 2px solid var(--strategyBuilderBorder);
         width: 100%;
         margin: auto;
+        z-index: 2;
+        position: relative;
 
         .leaderboard-page-table-strategy-name-container {
           display: flex;
@@ -233,7 +266,6 @@
             height: 40rem;
           }
           .ReactVirtualized__Table__headerRow {
-            height: 60px !important;
             border-bottom: 2px solid var(--strategyBuilderBorder);
 
             border-top-left-radius: 8px;
@@ -260,7 +292,7 @@
                   pointer-events: none;
                   gap: 8px;
                   .inter-display-medium {
-                    color: var(--tableData);
+                    color: var(--leaderboardTableHeader);
                     font-size: 13px;
                     font-weight: 600;
                   }
@@ -285,10 +317,10 @@
             gap: 5px;
             .ReactVirtualized__Table__row {
               // cursor: pointer;
-
               .ReactVirtualized__Table__rowColumn {
                 height: 100%;
                 padding: 0rem;
+
                 .inter-display-medium {
                   color: var(--strategyDiscoveryTableTitleColor);
                   font-size: 13px;

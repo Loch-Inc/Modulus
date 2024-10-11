@@ -1,7 +1,6 @@
 .top-bar-parent {
   width: 100vw;
   padding: 0rem;
-  line-height: unset;
   .top-bar-container {
     overflow-x: scroll;
     z-index: 102;
@@ -16,7 +15,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      // background-color: var(--primaryBackgroud);
+      background-color: var(--primaryBackgroud);
 
       .top-bar-content {
         min-width: 120rem;
@@ -89,37 +88,6 @@
           justify-content: flex-end;
           cursor: pointer;
           gap: 5px;
-          .top-bar-content-right-sign-in-out {
-            background-color: var(--cardBackgroud);
-            padding: 10px 18px;
-            border-radius: 12px;
-            gap: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--boxShadowLg);
-            .top-bar-content-right-sign-in-out-icon {
-              height: 15px;
-              width: 15px;
-            }
-            .top-bar-content-right-sign-in-out-text {
-              font-size: 13px;
-              font-weight: 600;
-              color: var(--primaryTextColor);
-              line-height: 15.6px;
-            }
-            &:hover {
-              background-color: var(--primaryTextColor);
-              .top-bar-content-right-sign-in-out-text {
-                color: var(--primaryBackgroud);
-              }
-              .top-bar-content-right-sign-in-out-icon {
-                path {
-                  stroke: var(--primaryBackgroud);
-                }
-              }
-            }
-          }
           .top-bar-content-right-green-dot {
             height: 6px;
             width: 6px;

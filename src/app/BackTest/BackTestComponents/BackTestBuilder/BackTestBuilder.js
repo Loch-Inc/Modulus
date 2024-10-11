@@ -96,8 +96,6 @@ class BackTestBuilder extends BaseReactComponent {
 
   getStrategiesQueries = () => {
     if (
-      this.props.passedUserList &&
-      this.props.passedUserList.length > 0 &&
       this.props.passedStrategyList &&
       this.props.passedStrategyList.length > 0
     ) {
