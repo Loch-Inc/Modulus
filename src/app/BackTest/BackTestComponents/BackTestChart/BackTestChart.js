@@ -4,6 +4,7 @@ import moment from "moment";
 import {
   BackTestGraphHandleIcon,
   GraphLogoDark,
+  InfoIcon,
 } from "../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../utils/form";
 import {
@@ -16,6 +17,7 @@ import {
 import Loading from "../../../common/Loading";
 import "./_backTestChart.scss";
 import BackTestStrategyDropdown from "./BackTestStrategyDropdown/BackTestStrategyDropdown";
+import CustomOverlay from "src/utils/commonComponent/CustomOverlay";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -33,12 +35,28 @@ class BackTestChart extends BaseReactComponent {
   graphContainerSetting = {
     style: { height: "35rem" },
   };
+
   render() {
     let parent = this;
     return (
       <>
         <div className="btpcb-title btpcb-chart-header">
-          <div>Performance Visualization</div>
+          <div className="btpcb-chart-header-title">
+            <div>Performance Visualization</div>
+            <CustomOverlay
+              position="top"
+              isIcon={false}
+              isInfo={true}
+              isText={true}
+              className={"fix-width"}
+              text="We assume an initial investment of $100,000."
+            >
+              <InfoIcon
+                onMouseEnter={this.props.hoverInfo}
+                className="btpcb-chart-header-info-icon"
+              />
+            </CustomOverlay>
+          </div>
 
           <div
             className={`btpcb-chart-dropdown ${

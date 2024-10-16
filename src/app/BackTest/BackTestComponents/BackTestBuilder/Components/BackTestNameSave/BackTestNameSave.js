@@ -50,6 +50,17 @@ class BackTestNameSave extends BaseReactComponent {
                 : ""
             }`}
           >
+            Share
+          </div>
+          <div
+            onClick={this.saveStrategyClickedPass}
+            className={`strategy-builder-name-save-btn ${
+              this.props.loadingSaveInvestStrategyBtn ||
+              this.state.strategyName === ""
+                ? "strategy-builder-name-save-btn-loading"
+                : ""
+            }`}
+          >
             Save
           </div>
           {/* <div

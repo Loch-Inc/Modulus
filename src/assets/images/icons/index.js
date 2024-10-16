@@ -29,7 +29,7 @@ export { default as EyeThinIcon } from "./eyeThinIcon.svg";
 export { default as FeedbackCreditIcon } from "./feedbackCredit.svg";
 export { default as FollowTopBarIcon } from "./followTopBar.svg";
 export { default as GreyManIcon } from "./greyMan.svg";
-export { default as InfoIconI } from "./icon-info-i.svg";
+
 export { default as InfoIconIBlack } from "./icons-info-i-black.svg";
 export { default as InflowOutflowIcon } from "./inflowOutflow.svg";
 export { default as InfoCircleSmartMoneyIcon } from "./infoCircleSmartMoney.svg";
@@ -234,3 +234,4 @@ export { ReactComponent as SignOutIcon } from "./SignOut.svg";
 export { ReactComponent as ConnectedWalletIcon } from "./wallet_icon.svg";
 export { ReactComponent as TopBarSignInOutIcon } from "./topBarSignInOut.svg";
 export { ReactComponent as LeaderboardTrophyIcon } from "./leaderboardTrophy.svg";
+export { ReactComponent as InfoIcon } from "./icon-info-i.svg";

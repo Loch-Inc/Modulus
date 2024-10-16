@@ -15,15 +15,19 @@ export const signInApi = (passedData, successCallback, errorCallback) => {
         }
       })
       .catch((err) => {
-        if (errorCallback) {
-          errorCallback();
-        }
         if (err?.response?.data?.message) {
           let message = err.response.data.message;
           if (message.endsWith(".")) {
             message = message.slice(0, -1);
           }
           toast.error(message);
+          if (errorCallback) {
+            errorCallback(message);
+          }
+        } else {
+          if (errorCallback) {
+            errorCallback();
+          }
         }
       });
   };
@@ -42,15 +46,19 @@ export const signUpApi = (passedData, successCallback, errorCallback) => {
         }
       })
       .catch((err) => {
-        if (errorCallback) {
-          errorCallback();
-        }
         if (err?.response?.data?.message) {
           let message = err.response.data.message;
           if (message.endsWith(".")) {
             message = message.slice(0, -1);
           }
           toast.error(message);
+          if (errorCallback) {
+            errorCallback(message);
+          }
+        } else {
+          if (errorCallback) {
+            errorCallback();
+          }
         }
       });
   };

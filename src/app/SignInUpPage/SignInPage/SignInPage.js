@@ -6,6 +6,15 @@ import { signInApi } from "../Api/SignInUpApi";
 import validator from "validator";
 import { toast } from "react-toastify";
 import { getToken, setToken } from "src/utils/ManageToken";
+import {
+  SignedIn,
+  SignInApiCallFailed,
+  SignInPageView,
+  SignInVerifyAccountGoBack,
+  SignInVerifyAccountPageView,
+  SignInVerifyAccountSendCodeAgainClicked,
+  SignInVerifyOtpApiCallFailed,
+} from "src/utils/AnalyticsFunctions";
 
 class SignInPage extends React.Component {
   constructor(props) {
@@ -36,10 +45,14 @@ class SignInPage extends React.Component {
     if (token) {
       this.props.history.push("/");
     }
+    SignInPageView();
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isOtpScreen !== this.state.isOtpScreen) {
       if (this.state.isOtpScreen) {
+        SignInVerifyAccountPageView({
+          email_address: this.state.email,
+        });
         this.setState({
           titleOne: "Verify your account",
           titleTwo: "",
@@ -85,6 +98,9 @@ class SignInPage extends React.Component {
   };
   onBottomTextClick = () => {
     if (this.state.isOtpScreen) {
+      SignInVerifyAccountSendCodeAgainClicked({
+        email_address: this.state.email,
+      });
       this.signInApiCall();
     } else {
       this.goToSignUpPage();
@@ -92,6 +108,9 @@ class SignInPage extends React.Component {
   };
   onBackButtonClick = () => {
     this.goToSignInScreen();
+    SignInVerifyAccountGoBack({
+      email_address: this.state.email,
+    });
   };
 
   // Sign in API call
@@ -111,14 +130,21 @@ class SignInPage extends React.Component {
     }
   };
   afterSignInApiCallSuccess = () => {
+    SignedIn({
+      email_address: this.state.email,
+    });
     this.setState({
       disableButton: false,
       isOtpScreen: true,
       isBackButton: true,
     });
   };
-  afterSignInApiCallError = () => {
+  afterSignInApiCallError = (errorMessage = "") => {
     this.setState({ disableButton: false });
+    SignInApiCallFailed({
+      email_address: this.state.email,
+      error_message: errorMessage,
+    });
   };
 
   // Verify OTP API call
@@ -148,8 +174,12 @@ class SignInPage extends React.Component {
       this.props.history.push("/");
     }
   };
-  afterVerifyOtpCallError = () => {
+  afterVerifyOtpCallError = (errorMessage = "") => {
     this.setState({ disableButton: false });
+    SignInVerifyOtpApiCallFailed({
+      email_address: this.state.email,
+      error_message: errorMessage,
+    });
   };
 
   render() {

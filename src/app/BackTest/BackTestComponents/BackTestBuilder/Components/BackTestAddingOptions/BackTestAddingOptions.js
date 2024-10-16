@@ -37,7 +37,16 @@ class BackTestAddingOptions extends BaseReactComponent {
           {this.state.isAssets ? (
             <div
               onClick={() => {
-                this.props.onAddAssetClick();
+                this.props.onAddAssetClick(
+                  this.props.changeStrategyBuilderString,
+                  undefined,
+                  false
+                );
+                this.props.onAddAssetClick(
+                  this.props.changeStrategyBuilderPopUpString,
+                  undefined,
+                  true
+                );
               }}
               className="sbc-main-blocks sbc-main-blocks-asset"
             >
@@ -62,7 +71,16 @@ class BackTestAddingOptions extends BaseReactComponent {
           {this.state.isCondition ? (
             <div
               onClick={() => {
-                this.props.onAddConditionClick();
+                this.props.onAddConditionClick(
+                  this.props.changeStrategyBuilderString,
+                  undefined,
+                  false
+                );
+                this.props.onAddConditionClick(
+                  this.props.changeStrategyBuilderPopUpString,
+                  undefined,
+                  true
+                );
               }}
               className="sbc-main-blocks sbc-main-blocks-condition"
             >

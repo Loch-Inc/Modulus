@@ -7,6 +7,8 @@ import TopBar from "../TopBar/TopBar";
 import "./_leaderboard.scss";
 import { getLeaderboardData } from "./Api/LeaderboardApi";
 import LeaderboardPageContent from "./LeaderboardPageContent";
+import { LeaderboardPageView } from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class LeaderboardPage extends BaseReactComponent {
   constructor(props) {
@@ -172,6 +174,16 @@ class LeaderboardPage extends BaseReactComponent {
   };
   componentDidMount() {
     this.getLeaderboardDataPass();
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      LeaderboardPageView({
+        email_address: modulusUser.email,
+      });
+    } else {
+      LeaderboardPageView({
+        email_address: "",
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -232,6 +244,7 @@ class LeaderboardPage extends BaseReactComponent {
       <div className="leaderboard-page">
         <div className="leaderboard-page-topbar">
           <TopBar
+            connectedWalletBalance={this.props.connectedWalletBalance}
             isWalletConnected={this.props.isWalletConnected}
             connectedWalletAddress={this.props.connectedWalletAddress}
             connectedWalletevents={this.props.connectedWalletevents}

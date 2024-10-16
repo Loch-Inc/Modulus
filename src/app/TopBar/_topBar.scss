@@ -11,7 +11,7 @@
       display: none; /* WebKit */
     }
     .top-bar {
-      min-width: 120rem;
+      min-width: 125rem;
       height: 80px;
       display: flex;
       justify-content: center;
@@ -19,8 +19,8 @@
       // background-color: var(--primaryBackgroud);
 
       .top-bar-content {
-        min-width: 120rem;
-        width: 120rem;
+        min-width: 125rem;
+        width: 125rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -132,6 +132,18 @@
             font-weight: 500;
             line-height: 15.6px;
             color: var(--profilePageBioEmail);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            .top-bar-content-right-title-icon {
+              height: 10px;
+              width: 10px;
+              transform: translateY(-0.5px);
+              path {
+                stroke: var(--profilePageBioEmail);
+              }
+            }
           }
           .top-bar-content-right-amount {
             font-family: "Space Grotesk", sans-serif;

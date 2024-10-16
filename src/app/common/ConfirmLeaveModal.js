@@ -22,7 +22,7 @@ class ConfirmLeaveModal extends BaseReactComponent {
         // backdrop="static"
         onHide={this.props.handleClose}
         centered
-        backdropClassName="ConfirmLeaveModal"
+        backdropClassName="confirmLeaveModal"
       >
         <Modal.Body>
           <div className="leave-modal-body">

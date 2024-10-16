@@ -31,6 +31,13 @@ const setToken = (token) => {
   window.localStorage.setItem("lochModulusToken", token);
 };
 
+const getModulusUser = () => {
+  const modulusUser = sessionStorage.getItem("decoded-token");
+  if (modulusUser) {
+    return JSON.parse(modulusUser);
+  }
+  return {};
+};
 const getCurrentUser = () => {
   // const lochUser = window.localStorage.getItem("lochUser");
   const lochUser = JSON.parse(window.localStorage.getItem("lochUser"));
@@ -100,4 +107,5 @@ export {
   setLocalStoraage,
   resetPreviewAddress,
   deleteAddWallet,
+  getModulusUser,
 };

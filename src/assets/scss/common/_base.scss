@@ -1960,13 +1960,13 @@ form {
     margin: auto;
     display: flex;
     flex-direction: column;
-    min-width: 120rem;
-    width: 120rem;
+    min-width: 125rem;
+    width: 125rem;
     min-height: 100%;
   }
   .page-scroll-child-full-width {
     width: 100%;
-    min-width: 120rem;
+    min-width: 125rem;
   }
 }
 .page {
@@ -2953,7 +2953,11 @@ input {
     }
   }
 }
-
+.btn-bg-white-outline-black {
+  color: var(--black191);
+  border: 1px solid var(--black191) !important;
+  background-color: transparent !important;
+}
 .input-noshadow-dark {
   input {
     box-shadow: var(--inputShadow) !important;

@@ -2,6 +2,7 @@ import React from "react";
 import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
+  ConnectedWalletIcon,
   LochModulusLogoIcon,
   TopBarBuilderIcon,
   TopBarConnectIcon,
@@ -11,9 +12,26 @@ import {
   TopBarProfileIcon,
   TopBarSignInOutIcon,
 } from "src/assets/images/icons";
-import { deleteToken, getToken } from "src/utils/ManageToken";
+import {
+  TopBarBuilderClicked,
+  TopBarConnectClicked,
+  TopBarDiscoverClicked,
+  TopBarFeedbackClicked,
+  TopBarHomeClicked,
+  TopBarLeaderboardClicked,
+  TopBarProfileClicked,
+  TopBarSignedOut,
+  TopBarSignInClicked,
+  TopBarSignOutClicked,
+} from "src/utils/AnalyticsFunctions";
+import { deleteToken, getModulusUser, getToken } from "src/utils/ManageToken";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
 import "./_topBar.scss";
+import {
+  CurrencyType,
+  numToCurrency,
+  TruncateText,
+} from "src/utils/ReusableFunctions";
 
 class TopBar extends React.Component {
   constructor(props) {
@@ -120,11 +138,40 @@ class TopBar extends React.Component {
     this.setTopBarItems();
   }
   gotoPage = (page) => {
+    const modulusUser = getModulusUser();
+    let userEmail = "";
+    if (modulusUser) {
+      userEmail = modulusUser.email;
+    }
     if (page === "/connect") {
+      sessionStorage.setItem("connect_wallet_initiated", "true");
+      TopBarConnectClicked({
+        email_address: userEmail,
+      });
       this.connectDisconnectWalletEthers();
     } else if (page === "/feedback") {
+      TopBarFeedbackClicked({
+        email_address: userEmail,
+      });
       window.open("https://t.me/prithvir1", "_blank");
     } else {
+      if (page !== "/discover") {
+        TopBarDiscoverClicked({
+          email_address: userEmail,
+        });
+      } else if (page === "/leaderboard") {
+        TopBarLeaderboardClicked({
+          email_address: userEmail,
+        });
+      } else if (page === "/builder") {
+        TopBarBuilderClicked({
+          email_address: userEmail,
+        });
+      } else if (page === "/profile") {
+        TopBarProfileClicked({
+          email_address: userEmail,
+        });
+      }
       this.props.history.push(page);
     }
   };
@@ -158,10 +205,21 @@ class TopBar extends React.Component {
   };
   // Connect Disconnect Wallet
   onclickSignInOut = () => {
+    const modulusUser = getModulusUser();
+    let userEmail = "";
+    if (modulusUser) {
+      userEmail = modulusUser.email;
+    }
     if (this.state.isSignnedIn) {
+      TopBarSignOutClicked({
+        email_address: userEmail,
+      });
       this.openLeaveModal();
       // this.setState({ isSignnedIn: false });
     } else {
+      TopBarSignInClicked({
+        email_address: userEmail,
+      });
       this.props.history.push("/sign-in");
     }
   };
@@ -176,10 +234,29 @@ class TopBar extends React.Component {
     });
   };
   signOutFun = () => {
+    const modulusUser = getModulusUser();
+    let userEmail = "";
+    if (modulusUser) {
+      userEmail = modulusUser.email;
+    }
+    TopBarSignedOut({
+      email_address: userEmail,
+    });
     deleteToken();
     setTimeout(() => {
       window.location.href = "/sign-in";
     }, 500);
+  };
+  goToHome = () => {
+    const modulusUser = getModulusUser();
+    let userEmail = "";
+    if (modulusUser) {
+      userEmail = modulusUser.email;
+    }
+    TopBarHomeClicked({
+      email_address: userEmail,
+    });
+    this.gotoPage("/discover");
   };
   render() {
     return (
@@ -206,7 +283,7 @@ class TopBar extends React.Component {
             <div className="top-bar-content">
               <div className="top-bar-content-left">
                 <Image
-                  onClick={() => this.gotoPage("/discover")}
+                  onClick={this.goToHome}
                   className={`top-bar-content-left-logo ${
                     this.state.selectedItem === "Discover"
                       ? "no-pointer-event"
@@ -240,25 +317,35 @@ class TopBar extends React.Component {
                 // onClick={this.connectWalletEthers}
                 className="top-bar-content-right"
               >
-                <div
-                  onClick={this.onclickSignInOut}
-                  className="top-bar-content-right-sign-in-out"
-                >
-                  <TopBarSignInOutIcon className="top-bar-content-right-sign-in-out-icon" />
-                  <div className="top-bar-content-right-sign-in-out-text">
-                    {this.state.isSignnedIn ? "Sign out" : "Sign in"}
+                {this.props.isWalletConnected ? (
+                  <>
+                    <div className="top-bar-content-right-title">
+                      <ConnectedWalletIcon className="top-bar-content-right-title-icon" />
+                      <div>
+                        {TruncateText(this.props.connectedWalletAddress)}
+                      </div>
+                    </div>
+                    <div className="top-bar-content-right-amount">
+                      {this.props.connectedWalletBalance
+                        ? numToCurrency(
+                            this.props.connectedWalletBalance.toFixed(2)
+                          ).toLocaleString("en-US") + " USD"
+                        : // : "0.00 USD"}
+                          ""}
+                      {/* {this.props.connectedWalletBalance} USD */}
+                    </div>
+                  </>
+                ) : (
+                  <div
+                    onClick={this.onclickSignInOut}
+                    className="top-bar-content-right-sign-in-out"
+                  >
+                    <TopBarSignInOutIcon className="top-bar-content-right-sign-in-out-icon" />
+                    <div className="top-bar-content-right-sign-in-out-text">
+                      {this.state.isSignnedIn ? "Sign out" : "Sign in"}
+                    </div>
                   </div>
-                </div>
-                {/* <div className="top-bar-content-right-green-dot"></div>
-                <div className="top-bar-content-right-title">
-                  {this.props.isWalletConnected
-                    ? "Connected Wallet"
-                    : "Connect Wallet"}
-                </div>
-                <div className="top-bar-content-right-title">
-                  Cumulative Return
-                </div>
-                <div className="top-bar-content-right-amount">3.32M USD</div> */}
+                )}
               </div>
             </div>
           </div>

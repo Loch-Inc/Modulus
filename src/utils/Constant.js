@@ -1,5 +1,6 @@
 import moment from "moment";
 
+export const CURRENT_PORTFOLIO_BALANCE = 100000;
 export const API_LIMIT = 10;
 export const MAX_LIMIT = 1000;
 export const START_INDEX = 0;

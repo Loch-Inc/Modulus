@@ -1,13 +1,8 @@
 import React from "react";
 import { Image } from "react-bootstrap";
 import { SignUpIllustration } from "src/assets/images";
-import {
-  BackArrowSmartMoneyIcon,
-  FooterQuestionMarkIcon,
-  LockIcon,
-} from "src/assets/images/icons";
+import { BackArrowSmartMoneyIcon } from "src/assets/images/icons";
 
-import CustomOverlay from "src/utils/commonComponent/CustomOverlay";
 import SignInUpFunctionality from "../Components/SignInUpFunctionality";
 
 class SignInPageContent extends React.Component {

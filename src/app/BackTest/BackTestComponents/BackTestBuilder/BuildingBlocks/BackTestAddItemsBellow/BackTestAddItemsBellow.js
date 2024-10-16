@@ -1,7 +1,13 @@
+import {
+  BuilderAddBellowAssetClicked,
+  BuilderAddBellowConditionClicked,
+  BuilderAddBellowPasteClicked,
+} from "src/utils/AnalyticsFunctions";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 import BackTestAddingOptions from "../../Components/BackTestAddingOptions/BackTestAddingOptions";
 import "./_backTestAddItemsBellow.scss";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestAddItemsBellow extends BaseReactComponent {
   constructor(props) {
@@ -17,12 +23,20 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   closeOptions = () => {
     this.setState({ isOptionsOpen: false });
   };
-  onAddAssetClick = (passedItem) => {
+  onAddAssetClick = (passedFunction, passedItem, openPopUp) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderAddBellowAssetClicked({
+        email_address: modulusUser.email,
+      });
+    }
     let passedAsset = "BTC";
     let addPopUpOpen = true;
+    if (!openPopUp) {
+      addPopUpOpen = false;
+    }
     if (passedItem) {
       passedAsset = passedItem;
-      addPopUpOpen = false;
     }
     if (this.props.openCollapse) {
       this.props.openCollapse();
@@ -235,51 +249,62 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       }
     }
 
-    if (this.props.changeStrategyBuilderString) {
-      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+    if (passedFunction) {
+      passedFunction(itemToBeChangedOriginal);
     }
     this.closeOptions();
   };
-  onAddConditionClick = (passedItem) => {
+  onAddConditionClick = (passedFunction, passedItem, openPopUp) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderAddBellowConditionClicked({
+        email_address: modulusUser.email,
+      });
+    }
     let passedCondition = {
       condition: {
         type: "CURRENT_PRICE",
         token: "BTC",
         operator: ">",
         amount: "100",
-        time_period: "4",
+        time_period: "10",
         success: {},
         failed: {},
         compare_type: "FUNCTION",
         compare_function: {
-          type: "CURRENT_PRICE",
-          time_period: "4",
-          token: "ETH",
+          type: "MOVING_AVERAGE_PRICE",
+          time_period: "10",
+          token: "BTC",
         },
       },
     };
+    let addPopUpOpen = true;
+    if (!openPopUp) {
+      addPopUpOpen = false;
+    }
     if (passedItem) {
       passedCondition = passedItem;
-    } else {
+    } else if (addPopUpOpen) {
       passedCondition = {
         condition: {
           type: "CURRENT_PRICE",
           token: "BTC",
           operator: ">",
           amount: "100",
-          time_period: "4",
+          time_period: "10",
           success: {},
           failed: {},
           compare_type: "FUNCTION",
           compare_function: {
-            type: "CURRENT_PRICE",
-            time_period: "4",
-            token: "ETH",
+            type: "MOVING_AVERAGE_PRICE",
+            time_period: "10",
+            token: "BTC",
           },
           openPopup: true,
         },
       };
     }
+
     if (this.props.openCollapse) {
       this.props.openCollapse();
     }
@@ -420,21 +445,33 @@ class BackTestAddItemsBellow extends BaseReactComponent {
       }
     }
 
-    if (this.props.changeStrategyBuilderString) {
-      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+    if (passedFunction) {
+      passedFunction(itemToBeChangedOriginal);
     }
     this.closeOptions();
   };
   onAddPasteClick = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderAddBellowPasteClicked({
+        email_address: modulusUser.email,
+      });
+    }
     if (this.props.copiedItem) {
       if (this.props.copiedItem.itemType === "asset") {
-        console.log(
-          "this.props.copiedItem.item ? ",
-          this.props.copiedItem.item
+        this.onAddAssetClick(
+          this.props.changeStrategyBuilderString,
+          this.props.copiedItem.item,
+          false
         );
-        this.onAddAssetClick(this.props.copiedItem.item);
+        this.props.changeStrategyBuilderPopUpString({});
       } else if (this.props.copiedItem.itemType === "condition if") {
-        this.onAddConditionClick(this.props.copiedItem.item);
+        this.onAddConditionClick(
+          this.props.changeStrategyBuilderString,
+          this.props.copiedItem.item,
+          false
+        );
+        this.props.changeStrategyBuilderPopUpString({});
       }
     }
   };
@@ -469,6 +506,12 @@ class BackTestAddItemsBellow extends BaseReactComponent {
 
           <div className={`sbb-add-options-bellow-items `}>
             <BackTestAddingOptions
+              changeStrategyBuilderString={
+                this.props.changeStrategyBuilderString
+              }
+              changeStrategyBuilderPopUpString={
+                this.props.changeStrategyBuilderPopUpString
+              }
               copiedItem={this.props.copiedItem}
               setCopiedItem={this.props.setCopiedItem}
               closeOptions={this.closeOptions}

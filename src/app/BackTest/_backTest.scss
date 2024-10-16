@@ -231,7 +231,7 @@
               // width: 100%;
               background-color: transparent;
               color: var(--tableHeaderColor);
-              cursor: default;
+              // cursor: default;
               text-align: center;
               // padding: 1.125rem 1rem;
               font-weight: 600;
@@ -347,10 +347,29 @@
                     box-sizing: border-box !important;
                     overflow: hidden;
                     text-align: center;
-                    pointer-events: none;
+                    // pointer-events: none;
                     span {
                       color: var(--tableHeaderColor);
                       font-weight: 600;
+                    }
+                    .table-sort-icon-container {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      padding-left: 2px;
+                      pointer-events: all;
+                      cursor: pointer;
+                      &:hover {
+                        .table-sort-icon {
+                          filter: var(--hoverBrightnessValue);
+                        }
+                      }
+                      .table-sort-icon-rotateDown {
+                        transform: rotate(0deg);
+                      }
+                      .table-sort-icon-rotateUp {
+                        transform: rotate(180deg);
+                      }
                     }
                   }
 

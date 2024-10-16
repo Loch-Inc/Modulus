@@ -2,8 +2,23 @@ import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
+import { Image } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
+import { SortByIcon } from "src/assets/images/icons";
+import {
+  BuilderChartAddAssets,
+  BuilderChartInfoHover,
+  BuilderPageView,
+  BuilderPerformanceMetricsTableSorted,
+  BuilderTableChangeDate,
+  PerformanceMetricsApiCallFailed,
+  PerformanceVisualizationApiCallFailed,
+} from "src/utils/AnalyticsFunctions";
+import {
+  CURRENT_PORTFOLIO_BALANCE,
+  DEFAULT_STRATEGY_NAME,
+} from "src/utils/Constant";
+import { getModulusUser } from "src/utils/ManageToken";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   mobileCheck,
@@ -22,6 +37,16 @@ class BackTestPage extends BaseReactComponent {
     super(props);
 
     this.state = {
+      sortOption: { column: 1, value: false },
+      tableSortOption: [
+        "strategy_name",
+        "cumulative_return",
+        "annual_return",
+        "sharpe_ratio",
+        "max_1d_drawdown",
+        "max_1w_drawdown",
+        "max_1m_drawdown",
+      ],
       copiedItem: {
         item: {},
         itemType: "",
@@ -34,7 +59,9 @@ class BackTestPage extends BaseReactComponent {
       isFromCalendar: false,
       isToCalendar: false,
       toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
-      fromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+      fromDate: new Date(
+        new Date().setMonth(new Date().getMonth() - 3, new Date().getDate() - 1)
+      ),
       fromAndToDate: "",
       isSaveInvestStrategy: false,
       saveStrategyCheck: false,
@@ -58,341 +85,72 @@ class BackTestPage extends BaseReactComponent {
       performanceMetricTableData: [],
       performanceVisualizationGraphLoading: false,
       performanceMetricTableLoading: false,
-      performanceMetricColumnList: [
-        {
-          labelName: (
-            <div
-              className="history-table-header-col no-hover history-table-header-col-curve-left"
-              id="time"
-            >
-              <span className="inter-display-medium f-s-12">
-                Asset
-                <br />
-              </span>
-            </div>
-          ),
-          dataKey: "strategy",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey, dataIndex) => {
-            if (dataKey === "strategy") {
-              return (
-                <div className="strategy-builder-table-strategy-name-container">
-                  <CustomOverlay
-                    position="top"
-                    isIcon={false}
-                    isInfo={true}
-                    isText={true}
-                    text={
-                      rowData.strategy_name
-                        ? rowData.strategy_name.toUpperCase()
-                        : ""
-                    }
-                  >
-                    <div
-                      style={{
-                        backgroundColor:
-                          strategyBuilderChartLineColorByIndexLowOpacity(
-                            dataIndex
-                          ),
-                      }}
-                      className="strategy-builder-table-strategy-name dotDotText inter-display-medium text-uppercase f-s-14"
-                    >
-                      <svg
-                        width="5"
-                        height="6"
-                        viewBox="0 0 5 6"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="strategy-builder-table-strategy-name-circle"
-                      >
-                        <circle
-                          cx="2.5"
-                          cy="3"
-                          r="2.5"
-                          fill={strategyBuilderChartLineColorByIndex(dataIndex)}
-                        />
-                      </svg>
-
-                      <div className="strategy-builder-table-strategy-name-text dotDotText">
-                        {rowData.strategy_name}
-                      </div>
-                    </div>
-                  </CustomOverlay>
-                </div>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
-                Cumulative
-                <br />
-                Return
-              </span>
-            </div>
-          ),
-          dataKey: "cumret",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "cumret") {
-              return (
-                <div className="inter-display-medium f-s-14">
-                  {rowData.cumulative_return ? (
-                    <span>
-                      {rowData.cumulative_return < 0 ? "-" : ""}
-                      {numToCurrency(rowData.cumulative_return).toLocaleString(
-                        "en-US"
-                      )}
-                      %
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
-                Annual
-                <br />
-                Return
-              </span>
-            </div>
-          ),
-          dataKey: "anuret",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "anuret") {
-              return (
-                // <CustomOverlay
-                //   position="top"
-                //   isIcon={false}
-                //   isInfo={true}
-                //   isText={true}
-                //   text={
-                //     rowData.annual_return
-                //       ? rowData.annual_return + "%"
-                //       : "0.00%"
-                //   }
-                // >
-                <div className="inter-display-medium f-s-14">
-                  {rowData.annual_return ? (
-                    <span>
-                      {rowData.annual_return < 0 ? "-" : ""}
-                      {numToCurrency(rowData.annual_return).toLocaleString(
-                        "en-US"
-                      )}
-                      %
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-                //  </CustomOverlay>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
-                Max 1d
-                <br />
-                Drawdown
-              </span>
-            </div>
-          ),
-          dataKey: "max1ddd",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "max1ddd") {
-              return (
-                // <CustomOverlay
-                //   position="top"
-                //   isIcon={false}
-                //   isInfo={true}
-                //   isText={true}
-                //   text={
-                //     rowData.max_1d_drawdown
-                //       ? rowData.max_1d_drawdown + "%"
-                //       : "0.00%"
-                //   }
-                // >
-                <div className="inter-display-medium f-s-14">
-                  {rowData.max_1d_drawdown ? (
-                    <span>
-                      {rowData.max_1d_drawdown < 0 ? "-" : ""}
-                      {numToCurrency(rowData.max_1d_drawdown).toLocaleString(
-                        "en-US"
-                      )}
-                      %
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-                //  </CustomOverlay>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
-                Max 1w
-                <br />
-                Drawdown
-              </span>
-            </div>
-          ),
-          dataKey: "max1wdd",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "max1wdd") {
-              return (
-                // <CustomOverlay
-                //   position="top"
-                //   isIcon={false}
-                //   isInfo={true}
-                //   isText={true}
-                //   text={
-                //     rowData.max_1w_drawdown
-                //       ? rowData.max_1w_drawdown + "%"
-                //       : "0.00%"
-                //   }
-                // >
-                <div className="inter-display-medium f-s-14">
-                  {rowData.max_1w_drawdown ? (
-                    <span>
-                      {rowData.max_1w_drawdown < 0 ? "-" : ""}
-                      {numToCurrency(rowData.max_1w_drawdown).toLocaleString(
-                        "en-US"
-                      )}
-                      %
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-                //  </CustomOverlay>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-12 ">
-                Max 1m
-                <br />
-                Drawdown
-              </span>
-            </div>
-          ),
-          dataKey: "max1mdd",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "max1mdd") {
-              return (
-                // <CustomOverlay
-                //   position="top"
-                //   isIcon={false}
-                //   isInfo={true}
-                //   isText={true}
-                //   text={
-                //     rowData.max_1m_drawdown
-                //       ? rowData.max_1m_drawdown + "%"
-                //       : "0.00%"
-                //   }
-                // >
-                <div className="inter-display-medium f-s-14">
-                  {rowData.max_1m_drawdown ? (
-                    <span>
-                      {rowData.max_1m_drawdown < 0 ? "-" : ""}
-                      {numToCurrency(rowData.max_1m_drawdown).toLocaleString(
-                        "en-US"
-                      )}
-                      %
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-                //  </CustomOverlay>
-              );
-            }
-          },
-        },
-        {
-          labelName: (
-            <div
-              className="history-table-header-col no-hover history-table-header-col-curve-right"
-              id="time"
-            >
-              <span className="inter-display-medium f-s-12 ">
-                Sharpe
-                <br />
-                Ratio
-              </span>
-            </div>
-          ),
-          dataKey: "sharpeRatio",
-
-          coumnWidth: 0.14285714,
-          isCell: true,
-          cell: (rowData, dataKey) => {
-            if (dataKey === "sharpeRatio") {
-              return (
-                // <CustomOverlay
-                //   position="top"
-                //   isIcon={false}
-                //   isInfo={true}
-                //   isText={true}
-                //   text={
-                //     rowData.sharpe_ratio ? rowData.sharpe_ratio + "%" : "0.00%"
-                //   }
-                // >
-                <div className="inter-display-medium f-s-14">
-                  {rowData.sharpe_ratio ? (
-                    <span>
-                      {rowData.sharpe_ratio < 0 ? "-" : ""}
-                      {numToCurrency(rowData.sharpe_ratio).toLocaleString(
-                        "en-US"
-                      )}
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-                //  </CustomOverlay>
-              );
-            }
-          },
-        },
-      ],
     };
   }
+  handleTableSort = (column) => {
+    console.log("One ");
+
+    if (column === this.state.sortOption.column) {
+      this.setState({
+        sortOption: { column: column, value: !this.state.sortOption.value },
+      });
+    } else {
+      this.setState({
+        sortOption: { column: column, value: false },
+      });
+    }
+  };
+  sortPerformanceMetricTableData = () => {
+    const sortedData = this.state.performanceMetricTableData.sort((a, b) => {
+      if (this.state.sortOption.column === 0) {
+        return a.strategy_name.localeCompare(b.strategy_name);
+      } else if (this.state.sortOption.column === 1) {
+        if (this.state.sortOption.value) {
+          return a.cumulative_return - b.cumulative_return;
+        } else {
+          return b.cumulative_return - a.cumulative_return;
+        }
+      } else if (this.state.sortOption.column === 2) {
+        if (this.state.sortOption.value) {
+          return a.annual_return - b.annual_return;
+        } else {
+          return b.annual_return - a.annual_return;
+        }
+      } else if (this.state.sortOption.column === 3) {
+        if (this.state.sortOption.value) {
+          return a.sharpe_ratio - b.sharpe_ratio;
+        } else {
+          return b.sharpe_ratio - a.sharpe_ratio;
+        }
+      } else if (this.state.sortOption.column === 4) {
+        if (this.state.sortOption.value) {
+          return a.max_1d_drawdown - b.max_1d_drawdown;
+        } else {
+          return b.max_1d_drawdown - a.max_1d_drawdown;
+        }
+      } else if (this.state.sortOption.column === 5) {
+        if (this.state.sortOption.value) {
+          return a.max_1w_drawdown - b.max_1w_drawdown;
+        } else {
+          return b.max_1w_drawdown - a.max_1w_drawdown;
+        }
+      } else if (this.state.sortOption.column === 6) {
+        if (this.state.sortOption.value) {
+          return a.max_1m_drawdown - b.max_1m_drawdown;
+        } else {
+          return b.max_1m_drawdown - a.max_1m_drawdown;
+        }
+      }
+      return 0;
+    });
+
+    this.setState({
+      performanceMetricTableData: sortedData,
+    });
+  };
   setCopiedItem = (itemBlock, itemType) => {
+    console.log("Coming here?");
+
     let tempHolder = {
       item: itemBlock,
       itemType: itemType,
@@ -470,7 +228,10 @@ class BackTestPage extends BaseReactComponent {
           "strategy_list",
           JSON.stringify([curAsset.toLowerCase()])
         );
-        tempApiData.append("current_portfolio_balance", 20000);
+        tempApiData.append(
+          "current_portfolio_balance",
+          CURRENT_PORTFOLIO_BALANCE
+        );
       }
     });
     // if (this.state.passedStrategyList.length > 0) {
@@ -485,7 +246,7 @@ class BackTestPage extends BaseReactComponent {
       moment(this.state.fromDate).format("X")
     );
     tempApiData.append("end_datetime", moment(this.state.toDate).format("X"));
-    this.props.getBackTestTable(tempApiData, this);
+    this.props.getBackTestTable(tempApiData, this.afterTableApi);
   };
   getDataForGraph = async (passedAssets, passedColor) => {
     let tempToDate = new Date(new Date().setDate(new Date().getDate() - 1));
@@ -505,13 +266,55 @@ class BackTestPage extends BaseReactComponent {
         tempTokenList.push(curAsset.toLowerCase());
       } else {
         tempApiData.append("strategy_id", curAsset);
-        tempApiData.append("current_portfolio_balance", 20000);
+        tempApiData.append(
+          "current_portfolio_balance",
+          CURRENT_PORTFOLIO_BALANCE
+        );
       }
     });
     tempApiData.append("token_list", JSON.stringify(tempTokenList));
     tempApiData.append("start_datetime", moment(tempFromDate).format("X"));
     tempApiData.append("end_datetime", moment(tempToDate).format("X"));
-    this.props.getBackTestChart(tempApiData, this);
+    this.props.getBackTestChart(tempApiData, this.afterChartApi);
+  };
+  afterChartApi = (isSuccess) => {
+    this.setState({
+      performanceVisualizationGraphLoading: false,
+    });
+    if (isSuccess) {
+    } else {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        PerformanceVisualizationApiCallFailed({
+          email_address: modulusUser.email,
+          assets: this.state.selectedStrategiesOptions,
+          strategy_id:
+            this.state.passedStrategyList.length > 0
+              ? this.state.passedStrategyList[0]
+              : "",
+        });
+      }
+    }
+  };
+  afterTableApi = (isSuccess) => {
+    this.setState({
+      performanceMetricTableLoading: false,
+    });
+
+    if (isSuccess) {
+    } else {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        PerformanceMetricsApiCallFailed({
+          email_address: modulusUser.email,
+          assets: this.state.selectedStrategiesOptions,
+          strategy_id:
+            this.state.passedStrategyList.length > 0
+              ? this.state.passedStrategyList[0]
+              : "",
+        });
+      }
+    }
   };
   selectStrategies = (passedData) => {
     if (passedData.length === 0) {
@@ -555,6 +358,9 @@ class BackTestPage extends BaseReactComponent {
     }
   };
 
+  getAssetDataAfterStrategyUpdate = (strategyId) => {
+    this.getAssetData([...this.state.selectedStrategiesOptions, strategyId]);
+  };
   getAssetData = (passedSelectedAssets, notForChart = false) => {
     if (notForChart) {
       this.setState({
@@ -586,6 +392,12 @@ class BackTestPage extends BaseReactComponent {
   };
 
   componentDidMount() {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPageView({
+        email_address: modulusUser.email,
+      });
+    }
     let builderList = strategyBuilderAssetList();
     let tempArrHolder = [];
     for (let i = 0; i < builderList.length; i++) {
@@ -599,14 +411,7 @@ class BackTestPage extends BaseReactComponent {
       strategiesOptions: tempArrHolder,
     });
     const { state } = this.props.location;
-    let tempHolder = sessionStorage.getItem("copiedStrategyItem");
-    if (tempHolder) {
-      tempHolder = tempHolder ? JSON.parse(tempHolder) : null;
-      this.setState({
-        copiedItem: tempHolder.id,
-        saveStrategyName: tempHolder.name,
-      });
-    }
+
     let tempIdNameHolder = sessionStorage.getItem("savedStrategyIdName");
     tempIdNameHolder = tempIdNameHolder ? JSON.parse(tempIdNameHolder) : "";
     if (tempIdNameHolder) {
@@ -645,6 +450,38 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.sortOption !== this.state.sortOption) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        BuilderPerformanceMetricsTableSorted({
+          email_address: modulusUser.email,
+          sortType: this.state.tableSortOption[this.state.sortOption.column],
+          sortBy: this.state.sortOption.value ? "asc" : "desc",
+        });
+      }
+      this.sortPerformanceMetricTableData();
+    }
+    if (prevProps.BackTestQueryState !== this.props.BackTestQueryState) {
+      const passedQueryData = this.props.BackTestQueryState;
+
+      if (passedQueryData.length > 0 && passedQueryData[0].strategy_name) {
+        this.setState({
+          saveStrategyName: passedQueryData[0].strategy_name,
+        });
+      }
+    }
+    if (
+      prevState.selectedStrategiesOptions !==
+      this.state.selectedStrategiesOptions
+    ) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        BuilderChartAddAssets({
+          email_address: modulusUser.email,
+          assets: this.state.selectedStrategiesOptions,
+        });
+      }
+    }
     if (
       prevProps.BackTestLatestStrategyState !==
       this.props.BackTestLatestStrategyState
@@ -833,16 +670,27 @@ class BackTestPage extends BaseReactComponent {
     }
   };
   afterChangeDate = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderTableChangeDate({
+        email_address: modulusUser.email,
+        fromDate: this.state.fromDate,
+        toDate: this.state.toDate,
+      });
+    }
     if (
       this.state.passedStrategyList &&
       this.state.passedStrategyList.length > 0
     ) {
-      this.getAssetData([
-        ...this.state.selectedStrategiesOptions,
-        ...this.state.passedStrategyList,
-      ]);
+      this.getAssetData(
+        [
+          ...this.state.selectedStrategiesOptions,
+          ...this.state.passedStrategyList,
+        ],
+        true
+      );
     } else {
-      this.getAssetData(this.state.selectedStrategiesOptions);
+      this.getAssetData(this.state.selectedStrategiesOptions, true);
     }
   };
 
@@ -861,14 +709,447 @@ class BackTestPage extends BaseReactComponent {
       }
     );
   };
+  changeUserAndStrategy = (userList, strategyList) => {
+    console.log("userList? ", userList);
+    console.log("strategyList? ", strategyList);
+
+    this.setState({
+      passedUserList: [userList],
+      passedStrategyList: [strategyList],
+    });
+  };
+  hoverInfo = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderChartInfoHover({ email_address: modulusUser.email });
+    }
+  };
   render() {
+    const performanceMetricColumnList = [
+      {
+        labelName: (
+          <div
+            className="history-table-header-col no-hover history-table-header-col-curve-left"
+            id="time"
+          >
+            <span className="inter-display-medium f-s-11">
+              Asset
+              <br />
+            </span>
+          </div>
+        ),
+        dataKey: "strategy",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey, dataIndex) => {
+          if (dataKey === "strategy") {
+            return (
+              <div className="strategy-builder-table-strategy-name-container">
+                <CustomOverlay
+                  position="top"
+                  isIcon={false}
+                  isInfo={true}
+                  isText={true}
+                  text={
+                    rowData.strategy_name
+                      ? rowData.strategy_name.toUpperCase()
+                      : ""
+                  }
+                >
+                  <div
+                    style={{
+                      backgroundColor:
+                        strategyBuilderChartLineColorByIndexLowOpacity(
+                          dataIndex
+                        ),
+                    }}
+                    className="strategy-builder-table-strategy-name dotDotText inter-display-medium text-uppercase f-s-14"
+                  >
+                    <svg
+                      width="5"
+                      height="6"
+                      viewBox="0 0 5 6"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="strategy-builder-table-strategy-name-circle"
+                    >
+                      <circle
+                        cx="2.5"
+                        cy="3"
+                        r="2.5"
+                        fill={strategyBuilderChartLineColorByIndex(dataIndex)}
+                      />
+                    </svg>
+
+                    <div className="strategy-builder-table-strategy-name-text dotDotText">
+                      {rowData.strategy_name}
+                    </div>
+                  </div>
+                </CustomOverlay>
+              </div>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div className="history-table-header-col no-hover" id="time">
+            <span className="inter-display-medium f-s-11 ">
+              Cumulative
+              <br />
+              Return
+            </span>
+            <div
+              onClick={() => this.handleTableSort(1)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 1 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "cumret",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "cumret") {
+            return (
+              <div className="inter-display-medium f-s-14">
+                {rowData.cumulative_return ? (
+                  <span>
+                    {rowData.cumulative_return < 0 ? "-" : ""}
+                    {numToCurrency(rowData.cumulative_return).toLocaleString(
+                      "en-US"
+                    )}
+                    %
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div className="history-table-header-col no-hover" id="time">
+            <span className="inter-display-medium f-s-11 ">
+              Annual
+              <br />
+              Return
+            </span>
+            <div
+              onClick={() => this.handleTableSort(2)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 2 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "anuret",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "anuret") {
+            return (
+              // <CustomOverlay
+              //   position="top"
+              //   isIcon={false}
+              //   isInfo={true}
+              //   isText={true}
+              //   text={
+              //     rowData.annual_return
+              //       ? rowData.annual_return + "%"
+              //       : "0.00%"
+              //   }
+              // >
+              <div className="inter-display-medium f-s-14">
+                {rowData.annual_return ? (
+                  <span>
+                    {rowData.annual_return < 0 ? "-" : ""}
+                    {numToCurrency(rowData.annual_return).toLocaleString(
+                      "en-US"
+                    )}
+                    %
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+              //  </CustomOverlay>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div
+            className="history-table-header-col no-hover history-table-header-col-curve-right"
+            id="time"
+          >
+            <span className="inter-display-medium f-s-11 ">
+              Sharpe
+              <br />
+              Ratio
+            </span>
+            <div
+              onClick={() => this.handleTableSort(3)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 3 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "sharpeRatio",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "sharpeRatio") {
+            return (
+              // <CustomOverlay
+              //   position="top"
+              //   isIcon={false}
+              //   isInfo={true}
+              //   isText={true}
+              //   text={
+              //     rowData.sharpe_ratio ? rowData.sharpe_ratio + "%" : "0.00%"
+              //   }
+              // >
+              <div className="inter-display-medium f-s-14">
+                {rowData.sharpe_ratio ? (
+                  <span>
+                    {rowData.sharpe_ratio < 0 ? "-" : ""}
+                    {numToCurrency(rowData.sharpe_ratio).toLocaleString(
+                      "en-US"
+                    )}
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+              //  </CustomOverlay>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div className="history-table-header-col no-hover" id="time">
+            <span className="inter-display-medium f-s-11 ">
+              Max 1d
+              <br />
+              Drawdown
+            </span>
+            <div
+              onClick={() => this.handleTableSort(4)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 4 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "max1ddd",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "max1ddd") {
+            return (
+              // <CustomOverlay
+              //   position="top"
+              //   isIcon={false}
+              //   isInfo={true}
+              //   isText={true}
+              //   text={
+              //     rowData.max_1d_drawdown
+              //       ? rowData.max_1d_drawdown + "%"
+              //       : "0.00%"
+              //   }
+              // >
+              <div className="inter-display-medium f-s-14">
+                {rowData.max_1d_drawdown ? (
+                  <span>
+                    {rowData.max_1d_drawdown < 0 ? "-" : ""}
+                    {numToCurrency(rowData.max_1d_drawdown).toLocaleString(
+                      "en-US"
+                    )}
+                    %
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+              //  </CustomOverlay>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div className="history-table-header-col no-hover" id="time">
+            <span className="inter-display-medium f-s-11 ">
+              Max 1w
+              <br />
+              Drawdown
+            </span>
+            <div
+              onClick={() => this.handleTableSort(5)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 5 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "max1wdd",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "max1wdd") {
+            return (
+              // <CustomOverlay
+              //   position="top"
+              //   isIcon={false}
+              //   isInfo={true}
+              //   isText={true}
+              //   text={
+              //     rowData.max_1w_drawdown
+              //       ? rowData.max_1w_drawdown + "%"
+              //       : "0.00%"
+              //   }
+              // >
+              <div className="inter-display-medium f-s-14">
+                {rowData.max_1w_drawdown ? (
+                  <span>
+                    {rowData.max_1w_drawdown < 0 ? "-" : ""}
+                    {numToCurrency(rowData.max_1w_drawdown).toLocaleString(
+                      "en-US"
+                    )}
+                    %
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+              //  </CustomOverlay>
+            );
+          }
+        },
+      },
+      {
+        labelName: (
+          <div className="history-table-header-col no-hover" id="time">
+            <span className="inter-display-medium f-s-11 ">
+              Max 1m
+              <br />
+              Drawdown
+            </span>
+            <div
+              onClick={() => this.handleTableSort(6)}
+              className="table-sort-icon-container"
+            >
+              <Image
+                src={SortByIcon}
+                className={`table-sort-icon ${
+                  this.state.sortOption.column === 6 &&
+                  !this.state.sortOption.value
+                    ? "table-sort-icon-rotateDown"
+                    : "table-sort-icon-rotateUp"
+                }`}
+              />
+            </div>
+          </div>
+        ),
+        dataKey: "max1mdd",
+
+        coumnWidth: 0.14285714,
+        isCell: true,
+        cell: (rowData, dataKey) => {
+          if (dataKey === "max1mdd") {
+            return (
+              // <CustomOverlay
+              //   position="top"
+              //   isIcon={false}
+              //   isInfo={true}
+              //   isText={true}
+              //   text={
+              //     rowData.max_1m_drawdown
+              //       ? rowData.max_1m_drawdown + "%"
+              //       : "0.00%"
+              //   }
+              // >
+              <div className="inter-display-medium f-s-14">
+                {rowData.max_1m_drawdown ? (
+                  <span>
+                    {rowData.max_1m_drawdown < 0 ? "-" : ""}
+                    {numToCurrency(rowData.max_1m_drawdown).toLocaleString(
+                      "en-US"
+                    )}
+                    %
+                  </span>
+                ) : (
+                  "0.00%"
+                )}
+              </div>
+              //  </CustomOverlay>
+            );
+          }
+        },
+      },
+    ];
     if (mobileCheck()) {
       return null;
     }
+
     return (
       <div className="back-test-page">
         {/* topbar */}
         <TopBar
+          connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
           connectedWalletevents={this.props.connectedWalletevents}
@@ -887,8 +1168,10 @@ class BackTestPage extends BaseReactComponent {
                 passedUserList={this.state.passedUserList}
                 saveStrategyName={this.state.saveStrategyName}
                 saveStrategyCheck={this.state.saveStrategyCheck}
+                hoverInfo={this.hoverInfo}
                 showSaveStrategy={this.showSaveStrategy}
                 hideSaveStrategy={this.hideSaveStrategy}
+                changeUserAndStrategy={this.changeUserAndStrategy}
                 fromAndToDate={this.state.fromAndToDate}
                 performanceVisualizationGraphLoading={
                   this.state.performanceVisualizationGraphLoading
@@ -899,9 +1182,7 @@ class BackTestPage extends BaseReactComponent {
                 selectStrategies={this.selectStrategies}
                 strategiesOptions={this.state.strategiesOptions}
                 selectedStrategiesOptions={this.state.selectedStrategiesOptions}
-                performanceMetricColumnList={
-                  this.state.performanceMetricColumnList
-                }
+                performanceMetricColumnList={performanceMetricColumnList}
                 performanceMetricTableData={
                   this.state.performanceMetricTableData
                 }
@@ -921,6 +1202,9 @@ class BackTestPage extends BaseReactComponent {
                 changeToDate={this.changeFromToDate}
                 calcChartData={this.calcChartData}
                 changeIsStrategyEmpty={this.changeIsStrategyEmpty}
+                getAssetDataAfterStrategyUpdate={
+                  this.getAssetDataAfterStrategyUpdate
+                }
                 isStrategyEmpty={this.state.isStrategyEmpty}
                 fromDate={this.state.fromDate}
                 toDate={this.state.toDate}

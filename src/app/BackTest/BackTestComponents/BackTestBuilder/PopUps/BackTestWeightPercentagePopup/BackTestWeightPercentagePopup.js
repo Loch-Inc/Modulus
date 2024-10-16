@@ -9,6 +9,8 @@ import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 import BackTestPopupInput from "../BackTestPopupInput/BackTestPopupInput";
 import "./_backTestWeightPercentagePopup.scss";
+import { BuilderPopUpWeightPercentageChanged } from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestWeightPercentagePopup extends BaseReactComponent {
   constructor(props) {
@@ -22,6 +24,13 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
     };
   }
   changeWeightPercentage = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpWeightPercentageChanged({
+        email_address: modulusUser.email,
+        weightName: item,
+      });
+    }
     this.setState({ selectedWeightPercentage: item });
     this.props.onOptionSelect(item);
   };

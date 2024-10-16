@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import BackTestBuilderBlock from "../Components/BackTestBuilderBlock/BackTestBuilderBlock";
 import BackTestWeightPercentageBlock from "../Components/BackTestWeightPercentageBlock/BackTestWeightPercentageBlock";
 import BackTestBuilderMainBlock from "./BackTestBuilderMainBlock";
+import { getModulusUser } from "src/utils/ManageToken";
+import { BuilderToggleCollapseWeightPercentage } from "src/utils/AnalyticsFunctions";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -15,12 +17,22 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
     this.state = { isItemCollapsedWeight: false };
   }
   toggleCollapseWeight = (e) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderToggleCollapseWeightPercentage({
+        email_address: modulusUser.email,
+        isCollapsed: !this.state.isItemCollapsedWeight,
+      });
+    }
     e.stopPropagation();
     this.setState({ isItemCollapsedWeight: !this.state.isItemCollapsedWeight });
   };
   render() {
     return (
-      <div className={`strategy-builder-block-container-parent`}>
+      <div
+        key={this.props.key}
+        className={`strategy-builder-block-container-parent`}
+      >
         {/* {block.weight_type === "SPECIFIED" ? ( */}
         <BackTestBuilderBlock
           isError={this.props.isError}
@@ -42,7 +54,13 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
             this.props.curItemIndex,
           ]}
           strategyBuilderString={this.props.strategyBuilderString}
+          strategyBuilderStringOpenPopUp={
+            this.props.strategyBuilderStringOpenPopUp
+          }
           changeStrategyBuilderString={this.props.changeStrategyBuilderString}
+          changeStrategyBuilderPopUpString={
+            this.props.changeStrategyBuilderPopUpString
+          }
           isItemCollapsed={this.state.isItemCollapsedWeight}
           toggleCollapse={this.toggleCollapseWeight}
         >
@@ -75,7 +93,13 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
             // FIXED
             emptyItems={this.props.emptyItems}
             strategyBuilderString={this.props.strategyBuilderString}
+            changeStrategyBuilderPopUpString={
+              this.props.changeStrategyBuilderPopUpString
+            }
             changeStrategyBuilderString={this.props.changeStrategyBuilderString}
+            strategyBuilderStringOpenPopUp={
+              this.props.strategyBuilderStringOpenPopUp
+            }
             // FIXED
 
             blocks={this.props.curItem.item}

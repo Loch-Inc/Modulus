@@ -35,34 +35,27 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       selectedFunctionDaysConditions: "",
     };
   }
-  removePopUpFromString = () => {
-    let itemToBeChangedOriginal = structuredClone(
-      this.props.strategyBuilderString
-    );
-    let itemToBeChanged = itemToBeChangedOriginal;
-    this.props.path.forEach((element) => {
-      itemToBeChanged = itemToBeChanged[element];
-    });
-    if (itemToBeChanged && itemToBeChanged.openPopup) {
-      delete itemToBeChanged.openPopup;
-    }
-    if (this.props.changeStrategyBuilderString) {
-      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
-    }
-  };
-  checkPopUp = () => {
-    let itemToBeChangedOriginal = structuredClone(
-      this.props.strategyBuilderString
-    );
-    let itemToBeChanged = itemToBeChangedOriginal;
-    this.props.path.forEach((element) => {
-      itemToBeChanged = itemToBeChanged[element];
-    });
 
-    if (itemToBeChanged && itemToBeChanged.openPopup) {
-      this.setState({
-        isPopUpOpen: true,
+  checkPopUp = () => {
+    if (
+      this.props.strategyBuilderStringOpenPopUp &&
+      Object.keys(this.props.strategyBuilderStringOpenPopUp).length > 0
+    ) {
+      let itemToBeChangedOriginal = structuredClone(
+        this.props.strategyBuilderStringOpenPopUp
+      );
+      let itemToBeChanged = itemToBeChangedOriginal;
+      this.props.path.forEach((element) => {
+        if (itemToBeChanged[element]) {
+          itemToBeChanged = itemToBeChanged[element];
+        }
       });
+
+      if (itemToBeChanged && itemToBeChanged.openPopup) {
+        this.setState({
+          isPopUpOpen: true,
+        });
+      }
     }
   };
   componentDidMount() {
@@ -335,7 +328,6 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
             </div>
             {this.state.isPopUpOpen ? (
               <BackTestConditionPopup
-                removePopUpFromString={this.removePopUpFromString}
                 changeFunctionFixedToggle={this.changeFunctionFixedToggle}
                 changePriceConditions={this.changePriceConditions}
                 changeAssetConditions={this.changeAssetConditions}

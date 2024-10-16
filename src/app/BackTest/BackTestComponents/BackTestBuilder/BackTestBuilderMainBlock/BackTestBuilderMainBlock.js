@@ -10,6 +10,11 @@ import BackTestAssetBuilderBlock from "../Components/BackTestAssetBuilderBlock/B
 import BackTestConditionBuilderBlock from "../Components/BackTestConditionBuilderBlock/BackTestConditionBuilderBlock";
 import "./_backTestBuilderMainBlock.scss";
 import BackTestBuildeWeightItem from "./BackTestBuildeWeightItem";
+import {
+  BuilderToggleCollapseElse,
+  BuilderToggleCollapseIf,
+} from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -28,10 +33,24 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
     this.setState({ isItemCollapsedWeight: !this.state.isItemCollapsedWeight });
   };
   toggleCollapseIf = (e) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderToggleCollapseIf({
+        email_address: modulusUser.email,
+        isCollapsed: !this.state.isItemCollapsedIf,
+      });
+    }
     e.stopPropagation();
     this.setState({ isItemCollapsedIf: !this.state.isItemCollapsedIf });
   };
   toggleCollapseElse = (e) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderToggleCollapseElse({
+        email_address: modulusUser.email,
+        isCollapsed: !this.state.isItemCollapsedElse,
+      });
+    }
     e.stopPropagation();
     this.setState({ isItemCollapsedElse: !this.state.isItemCollapsedElse });
   };
@@ -66,7 +85,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               blockType="weight"
               showDropDown
               path={[...this.props.path]}
+              strategyBuilderStringOpenPopUp={this.props.strategyBuilderStringOpenPopUp}
               strategyBuilderString={this.props.strategyBuilderString}
+              changeStrategyBuilderPopUpString={this.props.changeStrategyBuilderPopUpString}
               changeStrategyBuilderString={
                 this.props.changeStrategyBuilderString
               }
@@ -85,10 +106,16 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   setCopiedItem={this.props.setCopiedItem}
                   shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
                   curItem={curItem}
-                  key={key}
+                  key={key + curItemIndex}
                   passedKey={key}
                   path={this.props.path}
+                  strategyBuilderStringOpenPopUp={
+                    this.props.strategyBuilderStringOpenPopUp
+                  }
                   strategyBuilderString={this.props.strategyBuilderString}
+                  changeStrategyBuilderPopUpString={
+                    this.props.changeStrategyBuilderPopUpString
+                  }
                   changeStrategyBuilderString={
                     this.props.changeStrategyBuilderString
                   }
@@ -127,7 +154,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 //       "weight_item",
                 //       curItemIndex,
                 //     ]}
+                // strategyBuilderStringOpenPopUp={this.props.strategyBuilderStringOpenPopUp}
                 //     strategyBuilderString={this.props.strategyBuilderString}
+                // changeStrategyBuilderPopUpString={this.props.changeStrategyBuilderPopUpString}
                 //     changeStrategyBuilderString={
                 //       this.props.changeStrategyBuilderString
                 //     }
@@ -139,7 +168,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 //         "weight_item",
                 //         curItemIndex,
                 //       ]}
+                // strategyBuilderStringOpenPopUp={this.props.strategyBuilderStringOpenPopUp}
                 //       strategyBuilderString={this.props.strategyBuilderString}
+                // changeStrategyBuilderPopUpString={this.props.changeStrategyBuilderPopUpString}
                 //       changeStrategyBuilderString={
                 //         this.props.changeStrategyBuilderString
                 //       }
@@ -152,7 +183,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 //     saveStrategyName={this.props.saveStrategyName}
                 //     // FIXED
                 //     emptyItems={this.props.emptyItems}
+                // strategyBuilderStringOpenPopUp={this.props.strategyBuilderStringOpenPopUp}
                 //     strategyBuilderString={this.props.strategyBuilderString}
+                // changeStrategyBuilderPopUpString={this.props.changeStrategyBuilderPopUpString}
                 //     changeStrategyBuilderString={
                 //       this.props.changeStrategyBuilderString
                 //     }
@@ -184,7 +217,9 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               blockLevel={blockLevel}
               blockType="add item"
               path={[...path]}
+              strategyBuilderStringOpenPopUp={this.props.strategyBuilderStringOpenPopUp}
               strategyBuilderString={this.props.strategyBuilderString}
+              changeStrategyBuilderPopUpString={this.props.changeStrategyBuilderPopUpString}
               changeStrategyBuilderString={this.props.changeStrategyBuilderString}
             /> */}
           </>
@@ -205,7 +240,13 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
             blockType="asset"
             parentPath={this.props.path}
             path={[...this.props.path, key]}
+            strategyBuilderStringOpenPopUp={
+              this.props.strategyBuilderStringOpenPopUp
+            }
             strategyBuilderString={this.props.strategyBuilderString}
+            changeStrategyBuilderPopUpString={
+              this.props.changeStrategyBuilderPopUpString
+            }
             changeStrategyBuilderString={this.props.changeStrategyBuilderString}
             tokenList={block.tokenList}
           >
@@ -213,7 +254,13 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
               shouldOpenPopUpBlocks={this.props.shouldOpenPopUpBlocks}
               saveStrategyName={this.props.saveStrategyName}
               tokenList={block.tokenList}
+              strategyBuilderStringOpenPopUp={
+                this.props.strategyBuilderStringOpenPopUp
+              }
               strategyBuilderString={this.props.strategyBuilderString}
+              changeStrategyBuilderPopUpString={
+                this.props.changeStrategyBuilderPopUpString
+              }
               changeStrategyBuilderString={
                 this.props.changeStrategyBuilderString
               }
@@ -243,8 +290,14 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 blockLevel={this.props.blockLevel}
                 blockType="condition if"
                 showDropDown
+                strategyBuilderStringOpenPopUp={
+                  this.props.strategyBuilderStringOpenPopUp
+                }
                 strategyBuilderString={this.props.strategyBuilderString}
                 path={[...this.props.path]}
+                changeStrategyBuilderPopUpString={
+                  this.props.changeStrategyBuilderPopUpString
+                }
                 changeStrategyBuilderString={
                   this.props.changeStrategyBuilderString
                 }
@@ -267,20 +320,26 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                   function_type={
                     block.compare_function?.type
                       ? block.compare_function?.type
-                      : "Function"
+                      : ""
                   }
                   function_time_period={
                     block.compare_function?.time_period
                       ? block.compare_function?.time_period
-                      : "5"
+                      : ""
                   }
                   function_token={
                     block.compare_function?.token
                       ? block.compare_function?.token
-                      : "BTC"
+                      : ""
                   }
                   path={[...this.props.path, key]}
+                  strategyBuilderStringOpenPopUp={
+                    this.props.strategyBuilderStringOpenPopUp
+                  }
                   strategyBuilderString={this.props.strategyBuilderString}
+                  changeStrategyBuilderPopUpString={
+                    this.props.changeStrategyBuilderPopUpString
+                  }
                   changeStrategyBuilderString={
                     this.props.changeStrategyBuilderString
                   }
@@ -308,7 +367,13 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                     saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
+                    strategyBuilderStringOpenPopUp={
+                      this.props.strategyBuilderStringOpenPopUp
+                    }
                     strategyBuilderString={this.props.strategyBuilderString}
+                    changeStrategyBuilderPopUpString={
+                      this.props.changeStrategyBuilderPopUpString
+                    }
                     changeStrategyBuilderString={
                       this.props.changeStrategyBuilderString
                     }
@@ -338,7 +403,13 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                 blockLevel={this.props.blockLevel}
                 blockType="condition else"
                 path={[...this.props.path, key]}
+                strategyBuilderStringOpenPopUp={
+                  this.props.strategyBuilderStringOpenPopUp
+                }
                 strategyBuilderString={this.props.strategyBuilderString}
+                changeStrategyBuilderPopUpString={
+                  this.props.changeStrategyBuilderPopUpString
+                }
                 changeStrategyBuilderString={
                   this.props.changeStrategyBuilderString
                 }
@@ -368,7 +439,13 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
                     saveStrategyName={this.props.saveStrategyName}
                     // FIXED
                     emptyItems={this.props.emptyItems}
+                    strategyBuilderStringOpenPopUp={
+                      this.props.strategyBuilderStringOpenPopUp
+                    }
                     strategyBuilderString={this.props.strategyBuilderString}
+                    changeStrategyBuilderPopUpString={
+                      this.props.changeStrategyBuilderPopUpString
+                    }
                     changeStrategyBuilderString={
                       this.props.changeStrategyBuilderString
                     }

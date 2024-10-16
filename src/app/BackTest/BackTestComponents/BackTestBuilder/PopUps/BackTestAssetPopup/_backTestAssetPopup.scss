@@ -32,25 +32,34 @@
           height: 15px;
         }
       }
-      .back-test-asset-popup-header-close {
-        cursor: pointer;
-        background-color: var(--greyCardBackgroud);
+      .back-test-asset-popup-header-btns {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 24px;
-        width: 24px;
-        border-radius: 6px;
-        .back-test-asset-popup-header-close-icon {
-          height: 12px;
-          width: 12px;
-          filter: var(--invertColor);
-        }
-        &:hover {
-          background-color: var(--primaryTextColor);
-          .back-test-asset-popup-header-close-icon {
-            filter: var(--invertColorHover);
+        gap: 5px;
+        .back-test-asset-popup-header-btn {
+          cursor: pointer;
+          background-color: var(--greyCardBackgroud);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 24px;
+          width: 24px;
+          border-radius: 6px;
+          .back-test-asset-popup-header-btn-icon {
+            height: 12px;
+            width: 12px;
+            filter: var(--invertColor);
           }
+          &:hover {
+            background-color: var(--primaryTextColor);
+            .back-test-asset-popup-header-btn-icon {
+              filter: var(--invertColorHover);
+            }
+          }
+        }
+        .back-test-asset-popup-header-btn-highlighted {
+          background-color: var(--strategyBuilderPopUpHighlight);
         }
       }
     }

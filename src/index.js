@@ -21,10 +21,7 @@ import "./assets/scss/common/_commonClasses.scss";
 import "./assets/scss/style.scss";
 
 //Amplitude
-import {
-  initAmplitude,
-  initAmplitudeAnalytics,
-} from "./utils/AnalyticsFunctions";
+import { initMixpanel } from "./utils/AnalyticsFunctions";
 
 //sentry
 // import * as Sentry from "@sentry/react";
@@ -47,8 +44,7 @@ import {
 //  throw new Error("Santry Successfully added");
 
 //Amplitude Analytics initialization
-initAmplitude();
-initAmplitudeAnalytics();
+initMixpanel();
 
 // test({ session_id: "session id", chains: ["value1", "value2", "value3"] });
 

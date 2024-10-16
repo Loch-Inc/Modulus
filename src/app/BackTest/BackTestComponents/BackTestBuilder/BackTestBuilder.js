@@ -17,9 +17,23 @@ import {
   StrategyBuilderRedoIcon,
   StrategyBuilderUndoIcon,
 } from "../../../../assets/images/icons";
-import { createBackTestQuery, getBackTestQueries } from "../../Api/BackTestApi";
+import {
+  createBackTestQuery,
+  updateBackTestQuery,
+  getBackTestQueries,
+} from "../../Api/BackTestApi";
 import BackTestBuilderMainBlock from "./BackTestBuilderMainBlock/BackTestBuilderMainBlock";
 import BackTestAddingOptions from "./Components/BackTestAddingOptions/BackTestAddingOptions";
+import {
+  BuilderFirstAssetBlockAdded,
+  BuilderFirstConditionBlockAdded,
+  BuilderRedoClicked,
+  BuilderStrategySaved,
+  BuilderUndoClicked,
+  ModulusBuilderCreateStrategyApiCallFailed,
+  ModulusBuilderUpdateStrategyApiCallFailed,
+} from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 require("highcharts/modules/annotations")(Highcharts);
 
@@ -36,10 +50,12 @@ class BackTestBuilder extends BaseReactComponent {
       canUpdateBuilder: false,
       isStrategyEmpty: true,
       strategyBuilderString: {},
+      strategyBuilderStringOpenPopUp: {},
       history: [],
       currentHistoryIndex: -1,
     };
   }
+
   updateStrategyBuilderString = (newStrategyBuilderString) => {
     this.setState((prevState) => {
       const newHistory = prevState.history.slice(
@@ -57,15 +73,26 @@ class BackTestBuilder extends BaseReactComponent {
   };
 
   undo = () => {
+    this.changeStrategyBuilderPopUpString({});
+
     if (this.state.currentHistoryIndex <= 0) {
       return;
     }
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderUndoClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState((prevState) => {
       if (prevState.currentHistoryIndex > 0) {
+        console.log("Here ?", prevState.currentHistoryIndex);
+
         const newIndex = prevState.currentHistoryIndex - 1;
+        console.log("newIndex ?", newIndex);
         return {
-          strategyBuilderString: cloneDeep(prevState.history[newIndex]),
           currentHistoryIndex: newIndex,
+          strategyBuilderString: cloneDeep(prevState.history[newIndex]),
         };
       }
       return null;
@@ -73,8 +100,15 @@ class BackTestBuilder extends BaseReactComponent {
   };
 
   redo = () => {
+    this.changeStrategyBuilderPopUpString({});
     if (this.state.currentHistoryIndex >= this.state.history.length - 1) {
       return;
+    }
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderRedoClicked({
+        email_address: modulusUser.email,
+      });
     }
     this.setState((prevState) => {
       if (prevState.currentHistoryIndex < prevState.history.length - 1) {
@@ -92,6 +126,11 @@ class BackTestBuilder extends BaseReactComponent {
   // For example:
   changeStrategyBuilderString = (passedString) => {
     this.updateStrategyBuilderString(passedString);
+  };
+  changeStrategyBuilderPopUpString = (passedString) => {
+    this.setState({
+      strategyBuilderStringOpenPopUp: passedString,
+    });
   };
 
   getStrategiesQueries = () => {
@@ -128,14 +167,60 @@ class BackTestBuilder extends BaseReactComponent {
       this.props.getBackTestQueries(tempApiData, setStrategy);
     }
   };
-  afterQueryCreation = (isApiPassed) => {
+  afterStrategyUpdate = (isSuccess) => {
+    if (isSuccess) {
+      this.getStrategiesQueries();
+      if (this.props.hideSaveStrategy) {
+        this.props.hideSaveStrategy();
+      }
+      if (
+        this.props.getAssetDataAfterStrategyUpdate &&
+        this.props.passedStrategyList &&
+        this.props.passedStrategyList.length > 0
+      ) {
+        this.props.getAssetDataAfterStrategyUpdate(
+          this.props.passedStrategyList[0]
+        );
+      }
+      toast.success("Strategy updated successfully");
+    } else {
+      toast.error("An error has occurred. Please try again");
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        ModulusBuilderUpdateStrategyApiCallFailed({
+          email_address: modulusUser.email,
+          strategy_id: this.props.passedStrategyList[0],
+        });
+      }
+    }
+  };
+  afterQueryCreation = (isApiPassed, tempStrategyId) => {
     if (isApiPassed) {
+      const modulusUser = getModulusUser();
+      let tempUserId = "";
+      if (modulusUser) {
+        BuilderStrategySaved({
+          email_address: modulusUser.email,
+          strategyName: this.props.saveStrategyName,
+        });
+        console.log("modulusUser? ", modulusUser);
+
+        tempUserId = modulusUser.userId;
+      }
+      toast.success("Strategy created successfully");
+      this.props.changeUserAndStrategy(tempUserId, tempStrategyId);
       this.getStrategiesQueries();
       if (this.props.hideSaveStrategy) {
         this.props.hideSaveStrategy();
       }
     } else {
       toast.error("An error has occurred. Please try again");
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        ModulusBuilderCreateStrategyApiCallFailed({
+          email_address: modulusUser.email,
+        });
+      }
       if (this.props.showSaveStrategy) {
         this.props.showSaveStrategy();
       }
@@ -146,7 +231,7 @@ class BackTestBuilder extends BaseReactComponent {
       let totalWeight = 0;
       if (obj.weight && obj.weight.weight_item) {
         obj.weight.weight_item.forEach((curItem, curIndex) => {
-          totalWeight = totalWeight + curItem.percentage;
+          totalWeight = totalWeight + parseFloat(curItem.percentage);
           console.log("totalWeight? ", totalWeight);
           this.strategyBuilderIsQueryValid(
             curItem,
@@ -217,7 +302,6 @@ class BackTestBuilder extends BaseReactComponent {
       this.getStrategiesQueries();
     }
     if (prevState.strategyBuilderString !== this.state.strategyBuilderString) {
-      console.log("strategyBuilderString? ", this.state.strategyBuilderString);
       this.updateWidth();
       if (
         this.state.strategyBuilderString &&
@@ -264,11 +348,36 @@ class BackTestBuilder extends BaseReactComponent {
         if (this.props.saveStrategyName) {
           tempApiData.append("strategy_name", this.props.saveStrategyName);
         }
-        this.props.createBackTestQuery(
-          tempApiData,
-          this,
-          this.afterQueryCreation
-        );
+        if (
+          this.props.passedUserList &&
+          this.props.passedUserList.length > 0 &&
+          this.props.passedStrategyList &&
+          this.props.passedStrategyList.length > 0
+        ) {
+          let modulusUser = getModulusUser();
+          const passedUser = this.props.passedUserList[0];
+          if (modulusUser && modulusUser.userId === passedUser) {
+            tempApiData.append("strategy_id", this.props.passedStrategyList[0]);
+            console.log("My strategy");
+
+            this.props.updateBackTestQuery(
+              tempApiData,
+              this.afterStrategyUpdate
+            );
+          } else {
+            this.props.createBackTestQuery(
+              tempApiData,
+              this,
+              this.afterQueryCreation
+            );
+          }
+        } else {
+          this.props.createBackTestQuery(
+            tempApiData,
+            this,
+            this.afterQueryCreation
+          );
+        }
       } else {
         toast.error("Please fix all the issues with the strategy");
         this.setState({
@@ -358,51 +467,109 @@ class BackTestBuilder extends BaseReactComponent {
     this.updateStrategyBuilderString(itemItem);
   };
 
-  onAddAssetInEmptyClick = () => {
-    this.updateStrategyBuilderString({
-      weight: {
-        weight_type: "SPECIFIED",
-        weight_item: [
-          {
-            openPopup: true,
-            percentage: "100",
-            item: {
-              asset: "BTC",
+  onAddAssetInEmptyClick = (passedFunction, item, isPopUp) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderFirstAssetBlockAdded({
+        email_address: modulusUser.email,
+      });
+    }
+    if (isPopUp) {
+      passedFunction({
+        weight: {
+          weight_type: "SPECIFIED",
+          weight_item: [
+            {
+              openPopup: true,
+              percentage: "100",
+              item: {
+                asset: "BTC",
+              },
             },
-          },
-        ],
-      },
-    });
+          ],
+        },
+      });
+    } else {
+      passedFunction({
+        weight: {
+          weight_type: "SPECIFIED",
+          weight_item: [
+            {
+              percentage: "100",
+              item: {
+                asset: "BTC",
+              },
+            },
+          ],
+        },
+      });
+    }
   };
-  onAddConditionInEmptyClick = () => {
-    this.updateStrategyBuilderString({
-      weight: {
-        weight_type: "SPECIFIED",
-        weight_item: [
-          {
-            percentage: "100",
-            item: {
-              condition: {
-                openPopup: true,
-                type: "CURRENT_PRICE",
-                token: "BTC",
-                operator: ">",
-                amount: "100",
-                time_period: "4",
-                success: {},
-                failed: {},
-                compare_type: "FUNCTION",
-                compare_function: {
+  onAddConditionInEmptyClick = (passedFunction, item, isPopUp) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderFirstConditionBlockAdded({
+        email_address: modulusUser.email,
+      });
+    }
+    if (isPopUp) {
+      passedFunction({
+        weight: {
+          weight_type: "SPECIFIED",
+          weight_item: [
+            {
+              percentage: "100",
+              item: {
+                condition: {
+                  openPopup: true,
                   type: "CURRENT_PRICE",
-                  time_period: "4",
-                  token: "ETH",
+                  token: "BTC",
+                  operator: ">",
+                  amount: "100",
+                  time_period: "10",
+                  success: {},
+                  failed: {},
+                  compare_type: "FUNCTION",
+                  compare_function: {
+                    type: "MOVING_AVERAGE_PRICE",
+                    time_period: "10",
+                    token: "BTC",
+                  },
                 },
               },
             },
-          },
-        ],
-      },
-    });
+          ],
+        },
+      });
+    } else {
+      passedFunction({
+        weight: {
+          weight_type: "SPECIFIED",
+          weight_item: [
+            {
+              percentage: "100",
+              item: {
+                condition: {
+                  type: "CURRENT_PRICE",
+                  token: "BTC",
+                  operator: ">",
+                  amount: "100",
+                  time_period: "10",
+                  success: {},
+                  failed: {},
+                  compare_type: "FUNCTION",
+                  compare_function: {
+                    type: "MOVING_AVERAGE_PRICE",
+                    time_period: "10",
+                    token: "BTC",
+                  },
+                },
+              },
+            },
+          ],
+        },
+      });
+    }
   };
   render() {
     if (this.state.isStrategyEmpty) {
@@ -414,6 +581,12 @@ class BackTestBuilder extends BaseReactComponent {
                 <div className="sbc-empty-options-container-container">
                   <div className="sbc-empty-options-container">
                     <BackTestAddingOptions
+                      changeStrategyBuilderString={
+                        this.changeStrategyBuilderString
+                      }
+                      changeStrategyBuilderPopUpString={
+                        this.changeStrategyBuilderPopUpString
+                      }
                       closeOptions={() => null}
                       onAddAssetClick={this.onAddAssetInEmptyClick}
                       onAddConditionClick={this.onAddConditionInEmptyClick}
@@ -481,7 +654,13 @@ class BackTestBuilder extends BaseReactComponent {
                 saveStrategyName={this.props.saveStrategyName}
                 emptyItems={this.state.emptyItems}
                 strategyBuilderString={this.state.strategyBuilderString}
+                strategyBuilderStringOpenPopUp={
+                  this.state.strategyBuilderStringOpenPopUp
+                }
                 changeStrategyBuilderString={this.changeStrategyBuilderString}
+                changeStrategyBuilderPopUpString={
+                  this.changeStrategyBuilderPopUpString
+                }
                 blocks={this.state.strategyBuilderString}
                 path={[]}
                 blockLevel={0}
@@ -499,5 +678,9 @@ class BackTestBuilder extends BaseReactComponent {
 const mapStateToProps = (state) => ({
   BackTestQueryState: state.BackTestQueryState,
 });
-const mapDispatchToProps = { createBackTestQuery, getBackTestQueries };
+const mapDispatchToProps = {
+  createBackTestQuery,
+  getBackTestQueries,
+  updateBackTestQuery,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(BackTestBuilder);

@@ -52,6 +52,7 @@ class BackTestPageContent extends BaseReactComponent {
     const resizeObserver = new ResizeObserver(this.handleHeightChange);
     resizeObserver.observe(element);
   }
+
   render() {
     return (
       <div className="back-test-page-content">
@@ -69,6 +70,10 @@ class BackTestPageContent extends BaseReactComponent {
             className="back-test-page-content-block back-test-page-content-block-left"
           >
             <BackTestBuilder
+              getAssetDataAfterStrategyUpdate={
+                this.props.getAssetDataAfterStrategyUpdate
+              }
+              changeUserAndStrategy={this.props.changeUserAndStrategy}
               copiedItem={this.props.copiedItem}
               setCopiedItem={this.props.setCopiedItem}
               changeIsStrategyEmpty={this.props.changeIsStrategyEmpty}
@@ -114,6 +119,7 @@ class BackTestPageContent extends BaseReactComponent {
               changeFromDate={this.props.changeFromDate}
               changeToDate={this.props.changeToDate}
               fromDate={this.props.fromDate}
+              hoverInfo={this.props.hoverInfo}
               toDate={this.props.toDate}
             />
             <div className="btpcb-title btpcb-title-per-met">
@@ -126,9 +132,6 @@ class BackTestPageContent extends BaseReactComponent {
                     : ""
                 }`}
               >
-                <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
-                  From
-                </div>
                 <OutsideClickHandler
                   onOutsideClick={this.props.hideFromCalendar}
                 >
@@ -137,6 +140,9 @@ class BackTestPageContent extends BaseReactComponent {
                     class="inter-display-medium f-s-13 lh-16 time-cal-badge"
                     onClick={this.props.showFromCalendar}
                   >
+                    <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
+                      From
+                    </div>
                     <div className="btpcb-chart-calendar-Container">
                       <div className="btpcb-chart-calendar-Text">
                         {this.props.fromDate
@@ -162,20 +168,46 @@ class BackTestPageContent extends BaseReactComponent {
                         </div>
                       ) : null}
                     </div>
+
+                    <div
+                      id="2"
+                      class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
+                    >
+                      To
+                    </div>
+                    <div className="btpcb-chart-calendar-Container">
+                      <div className="btpcb-chart-calendar-Text">
+                        {this.props.toDate
+                          ? moment(this.props.toDate).format("D MMM YYYY")
+                          : ""}
+                      </div>
+                      {this.props.isToCalendar ? (
+                        <div
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="intelligenceCalendar"
+                        >
+                          <Calendar
+                            selectRange
+                            className={
+                              "calendar-select inter-display-medium f-s-13 lh-16"
+                            }
+                            onChange={this.props.changeFromDate}
+                            maxDate={this.state.todayDate}
+                            defaultActiveStartDate={this.props.toDate}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
                     <Image
                       className="btpcb-chart-calendar-icon"
                       src={StrategyBuilderPencilLightIcon}
                     />
                   </div>
-                </OutsideClickHandler>
-                <div
-                  id="2"
-                  class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
-                >
-                  To
-                </div>
-                <OutsideClickHandler onOutsideClick={this.props.hideToCalendar}>
-                  <div
+                  {/* </OutsideClickHandler> */}
+                  {/* <OutsideClickHandler onOutsideClick={this.props.hideToCalendar}> */}
+                  {/* <div
                     id="3"
                     class={`inter-display-medium f-s-13 lh-16 time-cal-badge time-cal-badge-right-cal`}
                     onClick={this.props.showToCalendar}
@@ -209,7 +241,7 @@ class BackTestPageContent extends BaseReactComponent {
                       className="btpcb-chart-calendar-icon"
                       src={StrategyBuilderPencilLightIcon}
                     />
-                  </div>
+                  </div> */}
                 </OutsideClickHandler>
               </div>
             </div>

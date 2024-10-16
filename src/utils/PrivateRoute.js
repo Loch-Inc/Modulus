@@ -1,60 +1,38 @@
-import {
-  createWeb3Modal,
-  defaultConfig,
-  useDisconnect,
-  useWeb3Modal,
-  useWeb3ModalAccount,
-  useWeb3ModalEvents,
-} from "@web3modal/ethers/react";
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
+
 import { Route } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom";
+
 import { getToken } from "./ManageToken";
 import { removeSessionSavedStrategyId } from "./ReusableFunctions";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+// import { DiscoverPageView } from "./AnalyticsFunctions";
+
+const PrivateRoute = ({
+  component: Component,
+
+  ...rest
+}) => {
   const [token] = useState(getToken());
+
   useEffect(() => {
     if (rest.path !== "/builder") {
       removeSessionSavedStrategyId();
     }
   }, [rest.path]);
-
-  // Wallet
-  const mainnet = {
-    chainId: 1,
-    name: "Ethereum",
-    currency: "ETH",
-    explorerUrl: "https://etherscan.io",
-    rpcUrl: "https://cloudflare-eth.com",
-  };
-  const metadata = {
-    name: "Loch",
-    description: "My Website description",
-    url: "https://app.loch.one/", // origin must match your domain & subdomain
-    icons: ["https://avatars.mywebsite.com/"],
-  };
-  createWeb3Modal({
-    ethersConfig: defaultConfig({ metadata }),
-    chains: [mainnet],
-    projectId: "4ba0f16b53f8888a667cbbb8bb366918",
-    enableAnalytics: true, // Optional - defaults to your Cloud configuration
-  });
-  const walletevents = useWeb3ModalEvents();
-  const { address, isConnected } = useWeb3ModalAccount();
-  const { open: openConnectWallet } = useWeb3Modal();
-  const { disconnect } = useDisconnect();
-  const openDisconnectConnectWallet = () => {
-    if (isConnected) {
-      disconnect();
-      setTimeout(() => {
-        openConnectWallet();
-      }, 1000);
+  useEffect(() => {
+    const tempHolder = sessionStorage.getItem("decoded-token");
+    if (tempHolder) {
+      // tempHolder = JSON.parse(tempHolder);
     } else {
-      openConnectWallet();
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        sessionStorage.setItem("decoded-token", JSON.stringify(decodedToken));
+      }
     }
-  };
-  // Wallet
+  }, []);
+
   if (!token || token === "jsk") {
     return (
       <Redirect
@@ -64,6 +42,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       />
     );
   }
+
   return (
     <Route
       {...rest}
@@ -73,11 +52,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             <div className={`main-section-right`}>
               <div className="main-content-wrapper">
                 <Component
-                  connectedWalletAddress={address}
-                  isWalletConnected={isConnected}
-                  connectedWalletevents={walletevents}
-                  openConnectWallet={openDisconnectConnectWallet}
-                  disconnectWallet={disconnect}
+                  connectedWalletBalance={rest.connectedWalletBalance}
+                  connectedWalletAddress={rest.connectedWalletAddress}
+                  isWalletConnected={rest.isWalletConnected}
+                  connectedWalletevents={rest.connectedWalletevents}
+                  openConnectWallet={rest.openConnectWallet}
+                  disconnectWallet={rest.disconnectWallet}
                   key={props.location.pathname}
                   {...props}
                 />

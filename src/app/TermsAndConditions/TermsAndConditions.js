@@ -9,6 +9,7 @@ class TermsAndConditions extends BaseReactComponent {
     return (
       <div className="terms-and-conditions-page">
         <TopBar
+          connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
           connectedWalletevents={this.props.connectedWalletevents}

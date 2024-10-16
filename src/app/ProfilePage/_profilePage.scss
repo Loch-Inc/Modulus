@@ -50,19 +50,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            &:hover {
-              .profile-page-left-block-name-pencil-icon {
-                opacity: 1;
-              }
-            }
+            // &:hover {
+            //   .profile-page-left-block-name-pencil-icon {
+            //     opacity: 1;
+            //   }
+            // }
             .profile-page-left-block-name-pencil-icon {
-              height: 18px;
-              width: 18px;
+              height: 20px;
+              width: 20px;
               position: absolute;
-              right: -18px;
+              right: -20px;
               top: 50%;
               transform: translateY(calc(-50% + 1.5px));
-              opacity: 0;
+
               padding-left: 5px;
               cursor: pointer;
               &:hover {
@@ -316,7 +316,144 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        .profile-page-right-title-discovery-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .profile-page-right-title {
+            font-weight: 600;
+            font-size: 16px;
+            .profile-page-right-discover-time-range-table {
+              display: flex;
+              align-items: center;
+              -webkit-user-select: none; /* Safari */
+              -moz-user-select: none; /* Firefox */
+              -ms-user-select: none; /* IE10+/Edge */
+              user-select: none; /* Standard */
+              height: 3rem;
+              .time-cal-badge {
+                // width: 100%;
+                cursor: pointer;
+                height: 100%;
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                padding: 0;
+                color: var(--primaryTextColor);
+                opacity: 1;
+                font-weight: 500;
+                font-size: 16px;
+                .profile-page-right-discover-calendar-Container {
+                  height: 100%;
+                  .profile-page-right-discover-calendar-Text {
+                    height: 100%;
+                    color: var(--primaryTextColor);
+                    padding: 0rem !important;
+                  }
+                }
 
+                .profile-page-right-discover-calendar-Container {
+                  position: relative;
+                  .profile-page-right-discover-calendar-Text {
+                    padding: 0rem 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                }
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+              .time-no-cal-badge {
+                // width: 100%;
+                background-color: transparent;
+                border-radius: 0.8rem;
+                border: 0.1rem solid transparent;
+                color: var(--primaryTextColor);
+                cursor: default;
+                text-align: center;
+                padding: 1.125rem 1rem;
+                font-weight: 500;
+                font-size: 16px;
+              }
+              .time-no-cal-badge-no-left {
+                padding-left: 0;
+              }
+            }
+            .profile-page-right-discover-time-range-table-hidden {
+              opacity: 0;
+              pointer-events: none;
+            }
+          }
+          .profile-page-right-discover-time-range-table {
+            display: flex;
+            align-items: center;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+            height: 3rem;
+            gap: 5px;
+            .time-cal-badge {
+              // width: 100%;
+
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              justify-content: center;
+              padding: 0;
+              color: var(--primaryTextColor);
+              opacity: 1;
+              font-weight: 600;
+              font-size: 14px;
+
+              border-radius: 6px;
+
+              .profile-page-right-discover-calendar-Container {
+                height: 100%;
+                .profile-page-right-discover-calendar-Text {
+                  height: 100%;
+                  color: var(--primaryTextColor);
+                  padding: 0rem !important;
+                }
+              }
+
+              .profile-page-right-discover-calendar-Container {
+                position: relative;
+                .profile-page-right-discover-calendar-Text {
+                  padding: 0rem 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+              }
+              .profile-page-right-discover-calendar-icon {
+                height: 12px;
+                width: 12px;
+              }
+            }
+            .time-cal-badge-right-cal {
+              .intelligenceCalendar {
+                right: 0;
+                transform: translateY(calc(-100% - 10px)) translateX(30px);
+              }
+            }
+            .time-no-cal-badge {
+              // width: 100%;
+              background-color: transparent;
+              color: var(--tableHeaderColor);
+              cursor: default;
+              text-align: center;
+              // padding: 1.125rem 1rem;
+              font-weight: 600;
+              font-size: 13px;
+            }
+            .time-no-cal-badge-no-left {
+              padding-left: 0;
+            }
+          }
+        }
         .profile-page-right-block-content-title {
           font-weight: 500;
           font-size: 16px;

@@ -16,6 +16,14 @@ import TopBar from "../TopBar/TopBar";
 import "./_strategyDiscovery.scss";
 import { getDiscoverStrategyApi } from "./Api/StrategyDiscoveryApi";
 import StrategyDiscoveryContent from "./StrategyDiscoveryContent";
+import { getModulusUser } from "../../utils/ManageToken";
+import {
+  DiscoverCreateYourAlgoStrategy,
+  DiscoverTablePageChanged,
+  DiscoverPageView,
+  DiscoverSortTable,
+  DiscoverStrategyClicked,
+} from "src/utils/AnalyticsFunctions";
 
 class StrategyDiscovery extends BaseReactComponent {
   constructor(props) {
@@ -25,23 +33,22 @@ class StrategyDiscovery extends BaseReactComponent {
     const page = params.get("p");
     this.state = {
       toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
-      fromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+      fromDate: new Date(
+        new Date().setMonth(new Date().getMonth() - 1, new Date().getDate() - 1)
+      ),
       sortOption: { column: 1, value: false },
       tableSortOption: [
         "strategy_name",
         "cumulative_return",
-        "annual_return",
+        "sharpe_ratio",
         "max_1d_drawdown",
         "max_1w_drawdown",
         "max_1m_drawdown",
-        "sharpe_ratio",
         "created_on",
       ],
       shouldGoToBottom: false,
       currentPage: page ? parseInt(page, 10) : START_INDEX,
       totalPages: 0,
-      toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
-      fromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
 
       performanceMetricTableData: [],
       performanceMetricTableLoading: false,
@@ -81,6 +88,12 @@ class StrategyDiscovery extends BaseReactComponent {
   };
 
   componentDidMount() {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      DiscoverPageView({
+        email_address: modulusUser.email,
+      });
+    }
     this.getDiscoverStrategyApiPass();
 
     this.props.history.replace({
@@ -94,6 +107,13 @@ class StrategyDiscovery extends BaseReactComponent {
     const params = new URLSearchParams(this.props.location.search);
     const page = parseInt(params.get("p") || START_INDEX, 10);
     if (prevPage !== page) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        DiscoverTablePageChanged({
+          email_address: modulusUser.email,
+          page: page,
+        });
+      }
       this.setState(
         {
           currentPage: page,
@@ -102,6 +122,16 @@ class StrategyDiscovery extends BaseReactComponent {
           this.getDiscoverStrategyApiPass();
         }
       );
+    }
+    if (prevState.sortOption !== this.state.sortOption) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        DiscoverSortTable({
+          email_address: modulusUser.email,
+          sortType: this.state.tableSortOption[this.state.sortOption.column],
+          sortBy: this.state.sortOption.value ? "asc" : "desc",
+        });
+      }
     }
     if (
       prevProps.StrategyDiscoveryTableState !==
@@ -197,7 +227,15 @@ class StrategyDiscovery extends BaseReactComponent {
   }
 
   goToStrategyBuilderPage = (passedItem) => {
-    if (passedItem.strategy_id) {
+    const modulusUser = getModulusUser();
+
+    if (passedItem && passedItem.strategy_id) {
+      if (modulusUser) {
+        DiscoverStrategyClicked({
+          email_address: modulusUser.email,
+          strategy_name: passedItem.strategy_name,
+        });
+      }
       this.props.history.push({
         pathname: "/builder",
         state: {
@@ -207,6 +245,11 @@ class StrategyDiscovery extends BaseReactComponent {
         },
       });
     } else {
+      if (modulusUser) {
+        DiscoverCreateYourAlgoStrategy({
+          email_address: modulusUser.email,
+        });
+      }
       this.props.history.push("/builder");
     }
   };
@@ -226,7 +269,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "strategy",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.25,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "strategy") {
@@ -323,7 +366,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "cumret",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "cumret") {
@@ -352,13 +395,68 @@ class StrategyDiscovery extends BaseReactComponent {
           }
         },
       },
+      // {
+      //   labelName: (
+      //     <div className="history-table-header-col no-hover" id="time">
+      //       <span className="inter-display-medium f-s-10 ">
+      //         Annual
+      //         <br />
+      //         Return
+      //       </span>
+      //       <div
+      //         onClick={() => this.handleTableSort(2)}
+      //         className="table-sort-icon-container"
+      //       >
+      //         <Image
+      //           src={SortByIcon}
+      //           className={`table-sort-icon ${
+      //             this.state.sortOption.column === 2 &&
+      //             !this.state.sortOption.value
+      //               ? "table-sort-icon-rotateDown"
+      //               : "table-sort-icon-rotateUp"
+      //           }`}
+      //         />
+      //       </div>
+      //     </div>
+      //   ),
+      //   dataKey: "anuret",
+
+      //   coumnWidth: 0.125,
+      //   isCell: true,
+      //   cell: (rowData, dataKey, rowIndex) => {
+      //     if (dataKey === "anuret") {
+      //       return (
+      //         <div
+      //           onClick={() => {
+      //             this.goToStrategyBuilderPage(rowData);
+      //           }}
+      //           className="full-table-row-col-width"
+      //         >
+      //           <div className="inter-display-medium f-s-13">
+      //             {rowData.annual_return ? (
+      //               <span>
+      //                 {rowData.annual_return < 0 ? "-" : ""}
+      //                 {numToCurrency(rowData.annual_return).toLocaleString(
+      //                   "en-US"
+      //                 )}
+      //                 %
+      //               </span>
+      //             ) : (
+      //               "0.00%"
+      //             )}
+      //           </div>
+      //         </div>
+      //       );
+      //     }
+      //   },
+      // },
       {
         labelName: (
           <div className="history-table-header-col no-hover" id="time">
             <span className="inter-display-medium f-s-10 ">
-              Annual
+              Sharpe
               <br />
-              Return
+              Ratio
             </span>
             <div
               onClick={() => this.handleTableSort(2)}
@@ -376,12 +474,12 @@ class StrategyDiscovery extends BaseReactComponent {
             </div>
           </div>
         ),
-        dataKey: "anuret",
+        dataKey: "sharpeRatio",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
-          if (dataKey === "anuret") {
+          if (dataKey === "sharpeRatio") {
             return (
               <div
                 onClick={() => {
@@ -390,13 +488,12 @@ class StrategyDiscovery extends BaseReactComponent {
                 className="full-table-row-col-width"
               >
                 <div className="inter-display-medium f-s-13">
-                  {rowData.annual_return ? (
+                  {rowData.sharpe_ratio ? (
                     <span>
-                      {rowData.annual_return < 0 ? "-" : ""}
-                      {numToCurrency(rowData.annual_return).toLocaleString(
+                      {rowData.sharpe_ratio < 0 ? "-" : ""}
+                      {numToCurrency(rowData.sharpe_ratio).toLocaleString(
                         "en-US"
                       )}
-                      %
                     </span>
                   ) : (
                     "0.00%"
@@ -433,7 +530,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "max1ddd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "max1ddd") {
@@ -488,7 +585,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "max1wdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "max1wdd") {
@@ -543,7 +640,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "max1mdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "max1mdd") {
@@ -572,60 +669,7 @@ class StrategyDiscovery extends BaseReactComponent {
           }
         },
       },
-      {
-        labelName: (
-          <div className="history-table-header-col no-hover" id="time">
-            <span className="inter-display-medium f-s-10 ">
-              Sharpe
-              <br />
-              Ratio
-            </span>
-            <div
-              onClick={() => this.handleTableSort(6)}
-              className="table-sort-icon-container"
-            >
-              <Image
-                src={SortByIcon}
-                className={`table-sort-icon ${
-                  this.state.sortOption.column === 6 &&
-                  !this.state.sortOption.value
-                    ? "table-sort-icon-rotateDown"
-                    : "table-sort-icon-rotateUp"
-                }`}
-              />
-            </div>
-          </div>
-        ),
-        dataKey: "sharpeRatio",
 
-        coumnWidth: 0.14285714,
-        isCell: true,
-        cell: (rowData, dataKey, rowIndex) => {
-          if (dataKey === "sharpeRatio") {
-            return (
-              <div
-                onClick={() => {
-                  this.goToStrategyBuilderPage(rowData);
-                }}
-                className="full-table-row-col-width"
-              >
-                <div className="inter-display-medium f-s-13">
-                  {rowData.sharpe_ratio ? (
-                    <span>
-                      {rowData.sharpe_ratio < 0 ? "-" : ""}
-                      {numToCurrency(rowData.sharpe_ratio).toLocaleString(
-                        "en-US"
-                      )}
-                    </span>
-                  ) : (
-                    "0.00%"
-                  )}
-                </div>
-              </div>
-            );
-          }
-        },
-      },
       {
         labelName: (
           <div
@@ -637,7 +681,7 @@ class StrategyDiscovery extends BaseReactComponent {
         ),
         dataKey: "visualization",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey, rowIndex) => {
           if (dataKey === "visualization") {
@@ -663,6 +707,7 @@ class StrategyDiscovery extends BaseReactComponent {
     return (
       <div className="strategy-discovery-page">
         <TopBar
+          connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
           connectedWalletevents={this.props.connectedWalletevents}

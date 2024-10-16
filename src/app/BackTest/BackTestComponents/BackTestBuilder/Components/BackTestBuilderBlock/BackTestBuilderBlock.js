@@ -13,6 +13,13 @@ import BackTestAddItems from "../../BuildingBlocks/BackTestAddItems/BackTestAddI
 import BackTestAddItemsBellow from "../../BuildingBlocks/BackTestAddItemsBellow/BackTestAddItemsBellow";
 import BackTestEditDelete from "../../BuildingBlocks/BackTestEditDelete/BackTestEditDelete";
 import "./_backTestBuilderBlock.scss";
+import {
+  BuilderAddBlockClicked,
+  BuilderCopyBlockClicked,
+  BuilderDeleteBlockClicked,
+  BuilderEditBlockClicked,
+} from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestBuilderBlock extends BaseReactComponent {
   constructor(props) {
@@ -70,6 +77,15 @@ class BackTestBuilderBlock extends BaseReactComponent {
     }
   }
   onDeleteClick = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderDeleteBlockClicked({
+        email_address: modulusUser.email,
+      });
+    }
+    if (this.props.changeStrategyBuilderPopUpString) {
+      this.props.changeStrategyBuilderPopUpString({});
+    }
     this.setState({ deleteBtnClicked: !this.state.deleteBtnClicked });
 
     let itemToBeChangedOriginal = structuredClone(
@@ -144,11 +160,23 @@ class BackTestBuilderBlock extends BaseReactComponent {
     });
   };
   onAddBellowClick = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderAddBlockClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState({
       isOptionsOpenToggleBellow: !this.state.isOptionsOpenToggleBellow,
     });
   };
   onCopyClick = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderCopyBlockClicked({
+        email_address: modulusUser.email,
+      });
+    }
     let itemToBeChangedOriginal = structuredClone(
       this.props.strategyBuilderString
     );
@@ -198,6 +226,12 @@ class BackTestBuilderBlock extends BaseReactComponent {
     }
   };
   onEditClick = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderEditBlockClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState({ editBtnClicked: !this.state.editBtnClicked });
   };
   render() {
@@ -255,6 +289,9 @@ class BackTestBuilderBlock extends BaseReactComponent {
               strategyBuilderString={this.props.strategyBuilderString}
               changeStrategyBuilderString={
                 this.props.changeStrategyBuilderString
+              }
+              changeStrategyBuilderPopUpString={
+                this.props.changeStrategyBuilderPopUpString
               }
               isOptionsOpenToggle={this.state.isOptionsOpenToggleBellow}
             />

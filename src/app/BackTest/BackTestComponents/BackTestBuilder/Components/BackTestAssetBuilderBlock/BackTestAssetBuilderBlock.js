@@ -4,6 +4,8 @@ import { BaseReactComponent } from "../../../../../../utils/form";
 import { strategyBuilderAssetDetailFromName } from "../../../../../../utils/ReusableFunctions";
 import BackTestAssetPopup from "../../PopUps/BackTestAssetPopup/BackTestAssetPopup";
 import "./_backTestAssetBuilderBlock.scss";
+import { BuilderPopUpAssetAssetSelected } from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestAssetBuilderBlock extends BaseReactComponent {
   constructor(props) {
@@ -28,24 +30,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     this.setCurAsset();
     this.checkPopUp();
   }
-  removePopUpFromString = () => {
-    let itemToBeChangedOriginal = structuredClone(
-      this.props.strategyBuilderString
-    );
-    let weightItemToBeChanged = itemToBeChangedOriginal;
-    this.props.weightPath.forEach((element) => {
-      weightItemToBeChanged = weightItemToBeChanged[element];
-    });
-    weightItemToBeChanged = weightItemToBeChanged.weight.weight_item;
-    weightItemToBeChanged = weightItemToBeChanged[this.props.weightIndex];
-    if (weightItemToBeChanged && weightItemToBeChanged.openPopup) {
-      delete weightItemToBeChanged.openPopup;
-    }
-    if (this.props.changeStrategyBuilderString) {
-      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
-    }
-    return true;
-  };
+
   componentDidUpdate(prevProps) {
     if (prevProps.editBtnClicked !== this.props.editBtnClicked) {
       this.togglePopUp();
@@ -58,24 +43,38 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     }
   }
   checkPopUp = () => {
-    let itemToBeChangedOriginal = structuredClone(
-      this.props.strategyBuilderString
-    );
-    let weightItemToBeChanged = itemToBeChangedOriginal;
-    this.props.weightPath.forEach((element) => {
-      weightItemToBeChanged = weightItemToBeChanged[element];
-    });
-    weightItemToBeChanged = weightItemToBeChanged.weight.weight_item;
-    weightItemToBeChanged = weightItemToBeChanged[this.props.weightIndex];
-    if (weightItemToBeChanged && weightItemToBeChanged.openPopup) {
-      this.setState({
-        isPopUpOpen: true,
+    if (
+      this.props.strategyBuilderStringOpenPopUp &&
+      Object.keys(this.props.strategyBuilderStringOpenPopUp).length > 0
+    ) {
+      let itemToBeChangedOriginal = structuredClone(
+        this.props.strategyBuilderStringOpenPopUp
+      );
+      let weightItemToBeChanged = itemToBeChangedOriginal;
+      this.props.weightPath.forEach((element) => {
+        weightItemToBeChanged = weightItemToBeChanged[element];
       });
+      if (
+        weightItemToBeChanged &&
+        weightItemToBeChanged.weight &&
+        weightItemToBeChanged.weight.weight_item
+      ) {
+        weightItemToBeChanged = weightItemToBeChanged.weight.weight_item;
+        weightItemToBeChanged = weightItemToBeChanged[this.props.weightIndex];
+        if (weightItemToBeChanged && weightItemToBeChanged.openPopup) {
+          this.setState({
+            isPopUpOpen: true,
+          });
+        }
+      }
     }
   };
   closePopUp = (e) => {
     if (e && e.stopPropagation) {
       e.stopPropagation();
+    }
+    if (this.state.isPopUpOpen) {
+      this.props.changeStrategyBuilderPopUpString({});
     }
     this.setState({ isPopUpOpen: false });
   };
@@ -86,7 +85,13 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
     this.setState({ isPopUpOpen: !this.state.isPopUpOpen });
   };
   changeAsset = (passedItem) => {
-    this.removePopUpFromString();
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpAssetAssetSelected({
+        email_address: modulusUser.email,
+        assetName: passedItem.name,
+      });
+    }
     setTimeout(() => {
       let itemToBeChangedOriginal = structuredClone(
         this.props.strategyBuilderString
@@ -126,7 +131,6 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
             {this.state.isPopUpOpen ? (
               <OutsideClickHandler
                 onOutsideClick={() => {
-                  this.removePopUpFromString();
                   this.closePopUp();
                 }}
               >
@@ -134,7 +138,6 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
                   selectedOption={this.props.selectedAsset}
                   onOptionSelect={this.changeAsset}
                   closePopUp={this.closePopUp}
-                  removePopUpFromString={this.removePopUpFromString}
                 />
               </OutsideClickHandler>
             ) : null}

@@ -2,6 +2,7 @@ import { Image } from "react-bootstrap";
 import {
   CheckBoldIcon,
   StrategyBuilderAssetIcon,
+  StrategyBuilderPopUpAcceptIcon,
   StrategyBuilderPopUpCloseIcon,
 } from "../../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../../utils/form";
@@ -47,7 +48,6 @@ class BackTestAssetPopup extends BaseReactComponent {
   }
   closePopUpPass = (e) => {
     e.stopPropagation();
-    this.props.removePopUpFromString();
     this.props.closePopUp();
   };
   render() {
@@ -69,14 +69,25 @@ class BackTestAssetPopup extends BaseReactComponent {
               />
               <div>Add asset</div>
             </div>
-            <div
-              onClick={this.closePopUpPass}
-              className="back-test-asset-popup-header-close"
-            >
-              <Image
-                src={StrategyBuilderPopUpCloseIcon}
-                className="back-test-asset-popup-header-close-icon "
-              />
+            <div className="back-test-asset-popup-header-btns">
+              <div
+                onClick={this.closePopUpPass}
+                className="back-test-asset-popup-header-btn back-test-asset-popup-header-btn-highlighted"
+              >
+                <Image
+                  src={StrategyBuilderPopUpAcceptIcon}
+                  className="back-test-asset-popup-header-btn-icon "
+                />
+              </div>
+              <div
+                onClick={this.closePopUpPass}
+                className="back-test-asset-popup-header-btn"
+              >
+                <Image
+                  src={StrategyBuilderPopUpCloseIcon}
+                  className="back-test-asset-popup-header-btn-icon "
+                />
+              </div>
             </div>
           </div>
           <div className="back-test-asset-popup-search-close-container">

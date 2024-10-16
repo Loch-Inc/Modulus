@@ -1,4 +1,14 @@
+import { Image } from "react-bootstrap";
+import OutsideClickHandler from "react-outside-click-handler";
 import { connect } from "react-redux";
+import { ProfilePageTempDP } from "src/assets/images";
+import {
+  ConnectedWalletIcon,
+  CopyIcon,
+  PasswordIcon,
+  SignOutIcon,
+  StrategyBuilderPencilIcon,
+} from "src/assets/images/icons";
 import { BaseReactComponent } from "../../utils/form";
 import {
   copyText,
@@ -6,18 +16,10 @@ import {
   TruncateText,
 } from "../../utils/ReusableFunctions";
 import TransactionTable from "../intelligence/TransactionTable";
-import { Image } from "react-bootstrap";
-import { ProfilePageTempDP } from "src/assets/images";
-import {
-  CopyIcon,
-  PasswordIcon,
-  SignOutIcon,
-  ConnectedWalletIcon,
-  StrategyBuilderPencilIcon,
-} from "src/assets/images/icons";
-import OutsideClickHandler from "react-outside-click-handler";
 import { editUserNameProfile } from "./Api/ProfilePageApi";
-import { toast } from "react-toastify";
+import { getModulusUser } from "src/utils/ManageToken";
+import { ProfileReferralCodeCopied } from "src/utils/AnalyticsFunctions";
+import moment from "moment";
 
 class ProfilePageContent extends BaseReactComponent {
   constructor(props) {
@@ -137,6 +139,13 @@ class ProfilePageContent extends BaseReactComponent {
                           <div
                             onClick={() => {
                               copyText(item.code);
+                              const modulusUser = getModulusUser();
+                              if (modulusUser) {
+                                ProfileReferralCodeCopied({
+                                  email_address: modulusUser.email,
+                                  referralCode: item.code,
+                                });
+                              }
                             }}
                             key={"referral-code-" + index}
                             className="profile-page-left-block-action-btn-referral-code-block-list-item"
@@ -183,9 +192,45 @@ class ProfilePageContent extends BaseReactComponent {
         </div>
         <div className="profile-page-right-block">
           <div className="profile-page-right-block-content">
-            {/* <div className="profile-page-right-block-content-title">
-              Strategies Created
-            </div> */}
+            <div className="profile-page-right-title-discovery-container">
+              <div className="profile-page-right-title">
+                <div>Strategies Created</div>
+              </div>
+              {this.props.toDate && this.props.fromDate ? (
+                <div class={`profile-page-right-discover-time-range-table`}>
+                  <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
+                    From
+                  </div>
+                  <div
+                    id="1"
+                    class="inter-display-medium f-s-13 lh-16 time-cal-badge"
+                  >
+                    <div className="profile-page-right-discover-calendar-Container">
+                      <div className="profile-page-right-discover-calendar-Text">
+                        {moment(this.props.fromDate).format("D MMM YYYY")}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    id="2"
+                    class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
+                  >
+                    To
+                  </div>
+
+                  <div
+                    id="3"
+                    class={`inter-display-medium f-s-13 lh-16 time-cal-badge time-cal-badge-right-cal`}
+                  >
+                    <div className="profile-page-right-discover-calendar-Container">
+                      <div className="profile-page-right-discover-calendar-Text">
+                        {moment(this.props.toDate).format("D MMM YYYY")}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
 
             <div className="profile-page-right-block-content-table-container">
               <div

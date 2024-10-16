@@ -5,9 +5,9 @@
     align-items: center;
     height: 100vh;
     min-height: 500px;
-    min-width: 130rem;
+    min-width: 135rem;
     .sign-in-page-content-left {
-      width: 60%;
+      width: 55%;
       height: 100%;
       .sign-in-page-content-left-image {
         width: 100%;
@@ -16,7 +16,7 @@
       }
     }
     .sign-in-page-content-right {
-      width: 40%;
+      width: 45%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -50,7 +50,7 @@
         pointer-events: none;
       }
       .sign-in-page-content-right-data {
-        width: 60rem;
+        width: 55rem;
         display: flex;
         align-items: center;
         justify-content: center;

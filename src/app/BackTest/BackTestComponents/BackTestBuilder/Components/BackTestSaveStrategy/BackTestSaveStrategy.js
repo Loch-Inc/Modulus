@@ -9,6 +9,8 @@ import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 import "./_backTestSaveStrategy.scss";
+import { BuilderRenameClicked } from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestSaveStrategy extends BaseReactComponent {
   constructor(props) {
@@ -70,6 +72,12 @@ class BackTestSaveStrategy extends BaseReactComponent {
     }
   };
   showInputBox = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderRenameClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState({ isInputOpen: true });
   };
   hideInputBox = () => {

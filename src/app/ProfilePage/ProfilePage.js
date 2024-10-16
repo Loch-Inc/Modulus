@@ -4,7 +4,7 @@ import { BaseReactComponent } from "../../utils/form";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { API_LIMIT, START_INDEX } from "src/utils/Constant";
-import { deleteToken } from "src/utils/ManageToken";
+import { deleteToken, getModulusUser } from "src/utils/ManageToken";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
   copyText,
@@ -23,6 +23,16 @@ import {
   getUserReferralCodes,
 } from "./Api/ProfilePageApi";
 import ProfilePageContent from "./ProfilePageContent";
+import {
+  ProfileAllReferralCodesCopied,
+  ProfileEditUsernameClicked,
+  ProfilePageView,
+  ProfileShareReferralCodeClicked,
+  ProfileSignedOut,
+  ProfileSignOutClicked,
+  ProfileTablePageChanged,
+  ProfileUsernameEdited,
+} from "src/utils/AnalyticsFunctions";
 
 class ProfilePage extends BaseReactComponent {
   constructor(props) {
@@ -32,7 +42,6 @@ class ProfilePage extends BaseReactComponent {
     const page = params.get("p");
     this.state = {
       isEditName: false,
-
       inputValue: "",
       isInputBtnDisabled: false,
       firstLoad: true,
@@ -49,8 +58,10 @@ class ProfilePage extends BaseReactComponent {
       totalPages: 0,
       isReferralCodeBlockOpen: false,
       referralCodes: [],
-      toDate: new Date(),
-      fromDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+      toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
+      fromDate: new Date(
+        new Date().setMonth(new Date().getMonth() - 1, new Date().getDate() - 1)
+      ),
       strategiesOptions: [
         {
           label: "BTC",
@@ -75,7 +86,7 @@ class ProfilePage extends BaseReactComponent {
             </div>
           ),
           dataKey: "strategy",
-          coumnWidth: 0.22222222, // Double the percentage of other items
+          coumnWidth: 0.28571429, // Double the percentage of other items
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "strategy") {
@@ -86,18 +97,18 @@ class ProfilePage extends BaseReactComponent {
                   }}
                   className="full-table-row-col-width"
                 >
-                  <div className="profile-page-table-strategy-name-container">
-                    <CustomOverlay
-                      position="top"
-                      isIcon={false}
-                      isInfo={true}
-                      isText={true}
-                      text={
-                        rowData.strategy_name
-                          ? rowData.strategy_name.toUpperCase()
-                          : ""
-                      }
-                    >
+                  <CustomOverlay
+                    position="top"
+                    isIcon={false}
+                    isInfo={true}
+                    isText={true}
+                    text={
+                      rowData.strategy_name
+                        ? rowData.strategy_name.toUpperCase()
+                        : ""
+                    }
+                  >
+                    <div className="profile-page-table-strategy-name-container">
                       <>
                         <div className="profile-page-table-strategy-name profile-page-table-strategy-name-title dotDotText inter-display-medium text-uppercase">
                           <svg
@@ -137,8 +148,8 @@ class ProfilePage extends BaseReactComponent {
                           </div>
                         ) : null}
                       </>
-                    </CustomOverlay>
-                  </div>
+                    </div>
+                  </CustomOverlay>
                 </div>
               );
             }
@@ -156,7 +167,7 @@ class ProfilePage extends BaseReactComponent {
           ),
           dataKey: "cumret",
 
-          coumnWidth: 0.12962963,
+          coumnWidth: 0.14285714,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "cumret") {
@@ -185,22 +196,63 @@ class ProfilePage extends BaseReactComponent {
             }
           },
         },
+        // {
+        //   labelName: (
+        //     <div className="history-table-header-col no-hover" id="time">
+        //       <span className="inter-display-medium f-s-10 ">
+        //         Annual
+        //         <br />
+        //         Return
+        //       </span>
+        //     </div>
+        //   ),
+        //   dataKey: "anuret",
+
+        //   coumnWidth: 0.14285714,
+        //   isCell: true,
+        //   cell: (rowData, dataKey, rowIndex) => {
+        //     if (dataKey === "anuret") {
+        //       return (
+        //         <div
+        //           onClick={() => {
+        //             this.goToStrategyBuilderPage(rowData);
+        //           }}
+        //           className="full-table-row-col-width"
+        //         >
+        //           <div className="inter-display-medium f-s-13">
+        //             {rowData.annual_return ? (
+        //               <span>
+        //                 {rowData.annual_return < 0 ? "-" : ""}
+        //                 {numToCurrency(rowData.annual_return).toLocaleString(
+        //                   "en-US"
+        //                 )}
+        //                 %
+        //               </span>
+        //             ) : (
+        //               "0.00%"
+        //             )}
+        //           </div>
+        //         </div>
+        //       );
+        //     }
+        //   },
+        // },
         {
           labelName: (
             <div className="history-table-header-col no-hover" id="time">
               <span className="inter-display-medium f-s-10 ">
-                Annual
+                Sharpe
                 <br />
-                Return
+                Ratio
               </span>
             </div>
           ),
-          dataKey: "anuret",
+          dataKey: "sharpeRatio",
 
-          coumnWidth: 0.12962963,
+          coumnWidth: 0.14285714,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
-            if (dataKey === "anuret") {
+            if (dataKey === "sharpeRatio") {
               return (
                 <div
                   onClick={() => {
@@ -209,13 +261,12 @@ class ProfilePage extends BaseReactComponent {
                   className="full-table-row-col-width"
                 >
                   <div className="inter-display-medium f-s-13">
-                    {rowData.annual_return ? (
+                    {rowData.sharpe_ratio ? (
                       <span>
-                        {rowData.annual_return < 0 ? "-" : ""}
-                        {numToCurrency(rowData.annual_return).toLocaleString(
+                        {rowData.sharpe_ratio < 0 ? "-" : ""}
+                        {numToCurrency(rowData.sharpe_ratio).toLocaleString(
                           "en-US"
                         )}
-                        %
                       </span>
                     ) : (
                       "0.00%"
@@ -238,7 +289,7 @@ class ProfilePage extends BaseReactComponent {
           ),
           dataKey: "max1ddd",
 
-          coumnWidth: 0.12962963,
+          coumnWidth: 0.14285714,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "max1ddd") {
@@ -279,7 +330,7 @@ class ProfilePage extends BaseReactComponent {
           ),
           dataKey: "max1wdd",
 
-          coumnWidth: 0.12962963,
+          coumnWidth: 0.14285714,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "max1wdd") {
@@ -310,7 +361,10 @@ class ProfilePage extends BaseReactComponent {
         },
         {
           labelName: (
-            <div className="history-table-header-col no-hover" id="time">
+            <div
+              className="history-table-header-col no-hover history-table-header-col-curve-right"
+              id="time"
+            >
               <span className="inter-display-medium f-s-10 ">
                 Max 1m
                 <br />
@@ -320,7 +374,7 @@ class ProfilePage extends BaseReactComponent {
           ),
           dataKey: "max1mdd",
 
-          coumnWidth: 0.12962963,
+          coumnWidth: 0.14285714,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
             if (dataKey === "max1mdd") {
@@ -349,50 +403,16 @@ class ProfilePage extends BaseReactComponent {
             }
           },
         },
-        {
-          labelName: (
-            <div className="history-table-header-col no-hover" id="time">
-              <span className="inter-display-medium f-s-10 ">
-                Sharpe
-                <br />
-                Ratio
-              </span>
-            </div>
-          ),
-          dataKey: "sharpeRatio",
-
-          coumnWidth: 0.12962963,
-          isCell: true,
-          cell: (rowData, dataKey, rowIndex) => {
-            if (dataKey === "sharpeRatio") {
-              return (
-                <div
-                  onClick={() => {
-                    this.goToStrategyBuilderPage(rowData);
-                  }}
-                  className="full-table-row-col-width"
-                >
-                  <div className="inter-display-medium f-s-13">
-                    {rowData.sharpe_ratio ? (
-                      <span>
-                        {rowData.sharpe_ratio < 0 ? "-" : ""}
-                        {numToCurrency(rowData.sharpe_ratio).toLocaleString(
-                          "en-US"
-                        )}
-                      </span>
-                    ) : (
-                      "0.00%"
-                    )}
-                  </div>
-                </div>
-              );
-            }
-          },
-        },
       ],
     };
   }
   openLeaveModal = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileSignOutClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState({
       showConfirmLeaveModal: true,
     });
@@ -429,6 +449,12 @@ class ProfilePage extends BaseReactComponent {
     this.props.getUserProfileData();
   };
   componentDidMount() {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfilePageView({
+        email_address: modulusUser.email,
+      });
+    }
     this.getUserCreatedStrategiesPass();
     this.getUserReferralCodesPass();
     this.getUserProfileDataPass();
@@ -444,6 +470,13 @@ class ProfilePage extends BaseReactComponent {
     const params = new URLSearchParams(this.props.location.search);
     const page = parseInt(params.get("p") || START_INDEX, 10);
     if (prevPage !== page) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        ProfileTablePageChanged({
+          email_address: modulusUser.email,
+          page: page,
+        });
+      }
       this.setState(
         {
           currentPage: page,
@@ -557,12 +590,24 @@ class ProfilePage extends BaseReactComponent {
     }
   }
   openReferralCodeBlock = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileShareReferralCodeClicked({
+        email_address: modulusUser.email,
+      });
+    }
     this.setState({ isReferralCodeBlockOpen: true });
   };
   closeReferralCodeBlock = () => {
     this.setState({ isReferralCodeBlockOpen: false });
   };
   copyAllReferralCodes = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileAllReferralCodesCopied({
+        email_address: modulusUser.email,
+      });
+    }
     let tempCodes = this.state.referralCodes;
     let tempString = "";
     tempCodes.forEach((code) => {
@@ -587,6 +632,12 @@ class ProfilePage extends BaseReactComponent {
     }
   };
   signOutFun = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileSignedOut({
+        email_address: modulusUser.email,
+      });
+    }
     deleteToken();
     setTimeout(() => {
       window.location.href = "/sign-in";
@@ -613,6 +664,13 @@ class ProfilePage extends BaseReactComponent {
     );
   };
   editNameSuccess = () => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileUsernameEdited({
+        email_address: modulusUser.email,
+        username: this.state.inputValue,
+      });
+    }
     toast.success("Username updated successfully");
     this.setState({
       isEditName: false,
@@ -629,6 +687,12 @@ class ProfilePage extends BaseReactComponent {
   };
   showEditName = () => {
     this.setState({ isEditName: true });
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      ProfileEditUsernameClicked({
+        email_address: modulusUser.email,
+      });
+    }
   };
   hideEditName = () => {
     this.setState({
@@ -651,6 +715,7 @@ class ProfilePage extends BaseReactComponent {
           />
         ) : null}
         <TopBar
+          connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
           connectedWalletevents={this.props.connectedWalletevents}
@@ -667,6 +732,8 @@ class ProfilePage extends BaseReactComponent {
           >
             <div className="page-scroll-child">
               <ProfilePageContent
+                toDate={this.state.toDate}
+                fromDate={this.state.fromDate}
                 isWalletConnected={this.props.isWalletConnected}
                 connectedWalletAddress={this.props.connectedWalletAddress}
                 userData={this.state.userData}

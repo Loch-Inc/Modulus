@@ -46,6 +46,7 @@ import {
   TotalUserCreatedStrategyCountReducer,
 } from "src/app/ProfilePage/Api/ProfilePageReducer";
 import { LeaderboardDataReducer } from "src/app/LeaderboardPage/Api/LeaderboardReducer";
+import { ModulusUserWalletBalanceReducer } from "src/app/CommonApi/CommonApiReducer";
 
 export default combineReducers({
   HeaderState: HeaderReducer,
@@ -81,4 +82,5 @@ export default combineReducers({
   LeaderboardDataState: LeaderboardDataReducer,
   StrategyDiscoveryTableCountState: StrategyDiscoveryTableCountReducer,
   GetUserProfileDataState: GetUserProfileDataReducer,
+  ModulusUserWalletBalanceState: ModulusUserWalletBalanceReducer,
 });

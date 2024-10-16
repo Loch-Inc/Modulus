@@ -27,7 +27,7 @@ export const getBackTestQueries = (passedData, setStrategy) => {
       .catch((err) => {});
   };
 };
-export const getBackTestChart = (passedData, ctx) => {
+export const getBackTestChart = (passedData, afterChartApi) => {
   return async function (dispatch, getState) {
     postLoginInstance
       .post("strategy/backtest/get-chart-data", passedData)
@@ -80,16 +80,23 @@ export const getBackTestChart = (passedData, ctx) => {
               },
             });
           }
+          if (afterChartApi) {
+            afterChartApi(true);
+          }
+        } else {
+          if (afterChartApi) {
+            afterChartApi(false);
+          }
         }
       })
       .catch((err) => {
-        ctx.setState({
-          performanceVisualizationGraphLoading: false,
-        });
+        if (afterChartApi) {
+          afterChartApi(false);
+        }
       });
   };
 };
-export const getBackTestTable = (passedData, ctx) => {
+export const getBackTestTable = (passedData, afterTableApi) => {
   return async function (dispatch, getState) {
     postLoginInstance
       .post("strategy/backtest/get-performance-data", passedData)
@@ -116,12 +123,19 @@ export const getBackTestTable = (passedData, ctx) => {
               payload: tempArrHolder,
             });
           }
+          if (afterTableApi) {
+            afterTableApi(true);
+          }
+        } else {
+          if (afterTableApi) {
+            afterTableApi(false);
+          }
         }
       })
       .catch((err) => {
-        ctx.setState({
-          performanceMetricTableLoading: false,
-        });
+        if (afterTableApi) {
+          afterTableApi(false);
+        }
       });
   };
 };
@@ -132,24 +146,52 @@ export const createBackTestQuery = (passedData, ctx, afterQueryCreation) => {
       .post("strategy/backtest/create-strategy", passedData)
       .then((res) => {
         if (!res.data.error) {
+          let tempStrategyId = "";
           if (res?.data?.data?.strategy?.id) {
+            tempStrategyId = res.data.data.strategy.id;
             dispatch({
               type: GET_LATEST_STRATEGY_ID,
               payload: res.data.data.strategy.id,
             });
           }
           if (afterQueryCreation) {
-            afterQueryCreation(true);
+            afterQueryCreation(true, tempStrategyId);
           }
         } else {
           if (afterQueryCreation) {
-            afterQueryCreation(false);
+            afterQueryCreation(false, "");
           }
         }
       })
       .catch((err) => {
         if (afterQueryCreation) {
-          afterQueryCreation(false);
+          afterQueryCreation(false, "");
+        }
+      });
+  };
+};
+export const updateBackTestQuery = (
+  passedData,
+  afterStrategyUpdate,
+  passedStrategyId
+) => {
+  return async function (dispatch, getState) {
+    postLoginInstance
+      .post("strategy/backtest/update-strategy", passedData)
+      .then((res) => {
+        if (!res.data.error) {
+          if (afterStrategyUpdate) {
+            afterStrategyUpdate(true);
+          }
+        } else {
+          if (afterStrategyUpdate) {
+            afterStrategyUpdate(false);
+          }
+        }
+      })
+      .catch((err) => {
+        if (afterStrategyUpdate) {
+          afterStrategyUpdate(false);
         }
       });
   };

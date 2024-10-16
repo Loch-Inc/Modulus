@@ -6,6 +6,17 @@ import validator from "validator";
 import { signUpApi } from "../Api/SignInUpApi";
 import SignUpPageContent from "./SignUpPageContent";
 import "./_signUpPage.scss";
+import {
+  SignUpApiCallFailed,
+  SignUpPageView,
+  SignUpReferralCodeGoBack,
+  SignUpReferralCodePageView,
+  SignUpTermsAndConditionsClicked,
+  SignUpVerifyAccountGoBack,
+  SignUpVerifyAccountPageView,
+  SignUpVerifyOtpApiCallFailed,
+  SignUpVerifyReferralCodeApiCallFailed,
+} from "src/utils/AnalyticsFunctions";
 
 class SignUpPage extends React.Component {
   constructor(props) {
@@ -37,6 +48,7 @@ class SignUpPage extends React.Component {
     this.setState({ referralCode });
   };
   componentDidMount() {
+    SignUpPageView();
     const token = getToken();
     if (token) {
       this.props.history.push("/");
@@ -45,6 +57,9 @@ class SignUpPage extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.screenPosition !== this.state.screenPosition) {
       if (this.state.screenPosition === 3) {
+        SignUpVerifyAccountPageView({
+          email_address: this.state.email,
+        });
         this.setState({
           titleOne: "Verify your account",
           titleTwo: "",
@@ -54,6 +69,9 @@ class SignUpPage extends React.Component {
           subText: "Check the code that has been sent to your email",
         });
       } else if (this.state.screenPosition === 2) {
+        SignUpReferralCodePageView({
+          email_address: this.state.email,
+        });
         this.setState({
           titleOne: "Now enter your",
           titleTwo: "referral code",
@@ -109,12 +127,27 @@ class SignUpPage extends React.Component {
     if (this.state.screenPosition === 1) {
       this.goToSignInPage();
     } else if (this.state.screenPosition === 2) {
+      SignUpReferralCodeGoBack({
+        email_address: this.state.email,
+      });
       this.goToSignInScreen();
     } else if (this.state.screenPosition === 3) {
-      this.verifyReferralCodeCall();
+      SignUpVerifyAccountGoBack({
+        email_address: this.state.email,
+      });
+      this.goToReferralCodeScreen();
     }
   };
   onBackButtonClick = () => {
+    if (this.state.screenPosition === 3) {
+      SignUpVerifyAccountGoBack({
+        email_address: this.state.email,
+      });
+    } else if (this.state.screenPosition === 2) {
+      SignUpReferralCodeGoBack({
+        email_address: this.state.email,
+      });
+    }
     this.setState({
       screenPosition: this.state.screenPosition - 1,
     });
@@ -142,8 +175,12 @@ class SignUpPage extends React.Component {
       screenPosition: this.state.screenPosition + 1,
     });
   };
-  afterSignUpApiCallError = () => {
+  afterSignUpApiCallError = (errorMessage = "") => {
     this.setState({ disableButton: false });
+    SignUpApiCallFailed({
+      email_address: this.state.email,
+      error_message: errorMessage,
+    });
   };
 
   // Verify Referral Code API call
@@ -167,8 +204,12 @@ class SignUpPage extends React.Component {
       screenPosition: 3,
     });
   };
-  afterVerifyReferralCodeCallError = () => {
+  afterVerifyReferralCodeCallError = (errorMessage = "") => {
     this.setState({ disableButton: false });
+    SignUpVerifyReferralCodeApiCallFailed({
+      email_address: this.state.email,
+      error_message: errorMessage,
+    });
   };
 
   // Verify OTP API call
@@ -199,10 +240,15 @@ class SignUpPage extends React.Component {
       this.props.history.push("/");
     }
   };
-  afterVerifyOtpCallError = () => {
+  afterVerifyOtpCallError = (errorMessage = "") => {
     this.setState({ disableButton: false });
+    SignUpVerifyOtpApiCallFailed({
+      email_address: this.state.email,
+      error_message: errorMessage,
+    });
   };
   goToTermsAndConditions = () => {
+    SignUpTermsAndConditionsClicked();
     window.open("/terms-and-conditions", "_blank");
   };
 

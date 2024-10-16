@@ -1,6 +1,19 @@
 import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import {
+  BuilderPopUpConditionAddClicked,
+  BuilderPopUpConditionAmountChanged,
+  BuilderPopUpConditionCloseClicked,
+  BuilderPopUpConditionFirstAssetSelected,
+  BuilderPopUpConditionFirstDaysChanged,
+  BuilderPopUpConditionFixedValueSelected,
+  BuilderPopUpConditionOperatorSelected,
+  BuilderPopUpConditionSecondAssetSelected,
+  BuilderPopUpConditionSecondDaysChanged,
+  BuilderPopUpConditionSecondFunctionSelected,
+} from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
+import {
   CheckBoldWhiteIcon,
   StrategyBuilderConditionIcon,
   StrategyBuilderPopUpAcceptIcon,
@@ -47,7 +60,7 @@ class BackTestConditionPopup extends BaseReactComponent {
           alt: "Moving average convergence divergence",
         },
         { name: "Volume", alt: "Volume" },
-        { name: "Market capitalization", alt: "Market capitalization" },
+        // { name: "Market capitalization", alt: "Market capitalization" },
       ],
       selectedPriceConditions: this.props.selectedPriceConditions
         ? this.props.selectedPriceConditions
@@ -106,6 +119,13 @@ class BackTestConditionPopup extends BaseReactComponent {
   }
   // Function type
   changeFunctionPriceConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionSecondFunctionSelected({
+        email_address: modulusUser.email,
+        functionName: item,
+      });
+    }
     this.setState({
       selectedFunctionPriceConditions: item,
       selectedFunctionAmountConditions: 100,
@@ -113,15 +133,37 @@ class BackTestConditionPopup extends BaseReactComponent {
     this.props.changeFunctionPriceConditions(item);
   };
   changeFunctionAssetConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionSecondAssetSelected({
+        email_address: modulusUser.email,
+        assetName: item,
+      });
+    }
     this.setState({ selectedFunctionAssetConditions: item });
     this.props.changeFunctionAssetConditions(item);
   };
   changeFunctionDaysConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+
+    if (modulusUser) {
+      BuilderPopUpConditionSecondDaysChanged({
+        email_address: modulusUser.email,
+        days: item,
+      });
+    }
     this.setState({ selectedFunctionDaysConditions: item });
     this.props.changeFunctionDaysConditions(item);
   };
   // Function type
   changePriceConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionSecondFunctionSelected({
+        email_address: modulusUser.email,
+        functionName: item,
+      });
+    }
     this.setState({
       selectedPriceConditions: item,
       selectedAmountConditions: 100,
@@ -129,18 +171,46 @@ class BackTestConditionPopup extends BaseReactComponent {
     this.props.changePriceConditions(item);
   };
   changeAssetConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionFirstAssetSelected({
+        email_address: modulusUser.email,
+        assetName: item,
+      });
+    }
     this.setState({ selectedAssetConditions: item });
     this.props.changeAssetConditions(item);
   };
   changeOperatorConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionOperatorSelected({
+        email_address: modulusUser.email,
+        operatorName: item,
+      });
+    }
     this.setState({ selectedOperatorConditions: item });
     this.props.changeOperatorConditions(item);
   };
   changeAmountConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionAmountChanged({
+        email_address: modulusUser.email,
+        amount: item,
+      });
+    }
     this.setState({ selectedAmountConditions: item });
     this.props.changeAmountConditions(item);
   };
   changeDaysConditions = (item, index) => {
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      BuilderPopUpConditionFirstDaysChanged({
+        email_address: modulusUser.email,
+        days: item,
+      });
+    }
     this.setState({ selectedDaysConditions: item });
     this.props.changeDaysConditions(item);
   };
@@ -189,6 +259,12 @@ class BackTestConditionPopup extends BaseReactComponent {
   }
   switchFunctionFixedToggle = () => {
     if (this.props.isFunction) {
+      const modulusUser = getModulusUser();
+      if (modulusUser) {
+        BuilderPopUpConditionFixedValueSelected({
+          email_address: modulusUser.email,
+        });
+      }
       this.props.changeFunctionFixedToggle("FIXED");
     } else {
       this.props.changeFunctionFixedToggle("FUNCTION");
@@ -213,11 +289,28 @@ class BackTestConditionPopup extends BaseReactComponent {
       this.closePopUpPass();
     }
   };
-  closePopUpPass = (e) => {
-    e.stopPropagation();
+  closePopUpPass = () => {
     this.props.closePopUp();
-    this.props.removePopUpFromString();
   };
+  onCloseClicked = (e) => {
+    e.stopPropagation();
+    this.closePopUpPass();
+    const modulusUser = getModulusUser();
+    if (modulusUser)
+      BuilderPopUpConditionCloseClicked({
+        email_address: modulusUser.email,
+      });
+  };
+  onAddClicked = (e) => {
+    e.stopPropagation();
+    this.closePopUpPass();
+    const modulusUser = getModulusUser();
+    if (modulusUser)
+      BuilderPopUpConditionAddClicked({
+        email_address: modulusUser.email,
+      });
+  };
+
   render() {
     return (
       <div
@@ -239,7 +332,7 @@ class BackTestConditionPopup extends BaseReactComponent {
               </div>
               <div className="back-test-condition-popup-header-btns">
                 <div
-                  onClick={this.closePopUpPass}
+                  onClick={this.onAddClicked}
                   className="back-test-condition-popup-header-btn back-test-condition-popup-header-btn-highlighted"
                 >
                   <Image
@@ -248,7 +341,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                   />
                 </div>
                 <div
-                  onClick={this.closePopUpPass}
+                  onClick={this.onCloseClicked}
                   className="back-test-condition-popup-header-btn"
                 >
                   <Image

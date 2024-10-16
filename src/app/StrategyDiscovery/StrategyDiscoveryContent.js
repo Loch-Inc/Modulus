@@ -27,7 +27,9 @@ class StrategyDiscoveryContent extends BaseReactComponent {
     return (
       <div className="strategy-discovery-page-content">
         <div
-          onClick={this.props.goToStrategyBuilderPage}
+          onClick={() => {
+            this.props.goToStrategyBuilderPage();
+          }}
           className="strategy-discovery-page-heading"
         >
           <div className="strategy-discovery-page-heading-text">
