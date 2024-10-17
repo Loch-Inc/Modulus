@@ -10,6 +10,7 @@ import {
   BuilderChartInfoHover,
   BuilderPageView,
   BuilderPerformanceMetricsTableSorted,
+  BuilderShareStrategyClicked,
   BuilderTableChangeDate,
   PerformanceMetricsApiCallFailed,
   PerformanceVisualizationApiCallFailed,
@@ -286,7 +287,7 @@ class BackTestPage extends BaseReactComponent {
     if (isSuccess) {
     } else {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         PerformanceVisualizationApiCallFailed({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -306,7 +307,7 @@ class BackTestPage extends BaseReactComponent {
     if (isSuccess) {
     } else {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         PerformanceMetricsApiCallFailed({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -395,7 +396,7 @@ class BackTestPage extends BaseReactComponent {
 
   componentDidMount() {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPageView({
         email_address: modulusUser.email,
       });
@@ -452,14 +453,8 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.passedUserList !== this.state.passedUserList ||
-      prevState.passedStrategyList !== this.state.passedStrategyList
-    ) {
-      if (
-        this.state.passedStrategyList.length > 0 &&
-        this.state.passedUserList.length > 0
-      ) {
+    if (prevState.passedStrategyList !== this.state.passedStrategyList) {
+      if (this.state.passedStrategyList.length > 0) {
         this.setState({
           isShareStrategyVisible: true,
         });
@@ -467,7 +462,7 @@ class BackTestPage extends BaseReactComponent {
     }
     if (prevState.sortOption !== this.state.sortOption) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderPerformanceMetricsTableSorted({
           email_address: modulusUser.email,
           sortType: this.state.tableSortOption[this.state.sortOption.column],
@@ -490,7 +485,7 @@ class BackTestPage extends BaseReactComponent {
       this.state.selectedStrategiesOptions
     ) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderChartAddAssets({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -686,7 +681,7 @@ class BackTestPage extends BaseReactComponent {
   };
   afterChangeDate = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderTableChangeDate({
         email_address: modulusUser.email,
         fromDate: this.state.fromDate,
@@ -735,13 +730,11 @@ class BackTestPage extends BaseReactComponent {
   };
   hoverInfo = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderChartInfoHover({ email_address: modulusUser.email });
     }
   };
   shareThisStrategy = () => {
-    console.log("share this strategy");
-    let userId = "";
     let strategyId = "";
     if (
       this.state.passedStrategyList &&
@@ -749,18 +742,15 @@ class BackTestPage extends BaseReactComponent {
     ) {
       strategyId = this.state.passedStrategyList[0];
     }
-    if (this.state.passedUserList && this.state.passedUserList.length > 0) {
-      userId = this.state.passedUserList[0];
-    }
-    const shareMessage = `Hey! I've got a strategy that's yielding a 100% cumulative return. Worth a look.\n \n \n${BASE_URL_S3}share?uid=${userId}&sid=${strategyId}`;
+
+    const shareMessage = `check out this algorithmic strategy that’s generating x% annual return\n \n \n${BASE_URL_S3}share/${strategyId}`;
     const modulusUser = getModulusUser();
-    if (modulusUser) {
-      // BuilderShareStrategyClicked({
-      //   email_address: modulusUser.email,
-      //   strategyName: this.state.saveStrategyName,
-      //   userId: userId,
-      //   strategyId: strategyId,
-      // });
+    if (modulusUser && modulusUser.email) {
+      BuilderShareStrategyClicked({
+        email_address: modulusUser.email,
+        strategyName: this.state.saveStrategyName,
+        strategyId: strategyId,
+      });
     }
     navigator.clipboard
       .writeText(shareMessage)

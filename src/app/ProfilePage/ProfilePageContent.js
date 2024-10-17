@@ -140,7 +140,7 @@ class ProfilePageContent extends BaseReactComponent {
                             onClick={() => {
                               copyText(item.code);
                               const modulusUser = getModulusUser();
-                              if (modulusUser) {
+                              if (modulusUser && modulusUser.email) {
                                 ProfileReferralCodeCopied({
                                   email_address: modulusUser.email,
                                   referralCode: item.code,

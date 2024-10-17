@@ -72,7 +72,7 @@ const routes = [
     component: InAppTelegramChat,
   },
   {
-    path: "/share",
+    path: "/share/:strategyId",
     name: "Share Strategy",
     type: PublicRoute,
     component: ShareStrategy,

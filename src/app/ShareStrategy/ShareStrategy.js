@@ -3,8 +3,9 @@ import TopBar from "../TopBar/TopBar";
 import "./_shareStrategy.scss";
 import { Image } from "react-bootstrap";
 import { SpinningLogo } from "src/assets/images";
-import { getModulusUser } from "src/utils/ManageToken";
-import { BuilderShareStrategyClicked } from "src/utils/AnalyticsFunctions";
+import { getModulusUser, getToken } from "src/utils/ManageToken";
+import { BuilderSharedStrategyOpened } from "src/utils/AnalyticsFunctions";
+import { jwtDecode } from "jwt-decode";
 
 class ShareStrategy extends Component {
   constructor(props) {
@@ -12,43 +13,38 @@ class ShareStrategy extends Component {
     this.state = {};
   }
   componentDidMount() {
-    let uid = "";
-    let sid = "";
-    const urlParams = new URLSearchParams(window.location.search);
-    uid = urlParams.get("uid");
-    sid = urlParams.get("sid");
-
+    let tempStrategyId = "";
+    const { strategyId } = this.props?.match?.params;
+    if (strategyId) {
+      tempStrategyId = strategyId;
+    }
     this.goToStrategyBuilderPage({
-      user_id: uid,
-      strategy_id: sid,
+      strategy_id: tempStrategyId,
       strategy_name: "",
     });
   }
   goToStrategyBuilderPage = (passedItem) => {
-    const modulusUser = getModulusUser();
+    const modulusToken = getToken();
 
     if (passedItem && passedItem.strategy_id) {
-      if (modulusUser) {
-        // BuilderShareStrategyClicked({
-        //   email_address: modulusUser.email,
-        //   userId: passedItem.user_id,
-        //   strategyId: passedItem.strategy_id,
-        // });
+      if (modulusToken) {
+        const modulusUser = jwtDecode(modulusToken);
+        BuilderSharedStrategyOpened({
+          email_address: modulusUser.email,
+          strategyId: passedItem.strategy_id,
+        });
+        this.props.history.push({
+          pathname: "/builder",
+          state: {
+            passedStrategyId: passedItem.strategy_id,
+            passedStrategyName: passedItem.strategy_name,
+          },
+        });
+      } else {
+        sessionStorage.setItem("sharedStrategyId", passedItem.strategy_id);
+        this.props.history.push("/sign-up");
       }
-      this.props.history.push({
-        pathname: "/builder",
-        state: {
-          passedStrategyId: passedItem.strategy_id,
-          passedStrategyName: passedItem.strategy_name,
-          passedUserId: passedItem.user_id,
-        },
-      });
     } else {
-      if (modulusUser) {
-        // DiscoverCreateYourAlgoStrategy({
-        //   email_address: modulusUser.email,
-        // });
-      }
       this.props.history.push("/builder");
     }
   };

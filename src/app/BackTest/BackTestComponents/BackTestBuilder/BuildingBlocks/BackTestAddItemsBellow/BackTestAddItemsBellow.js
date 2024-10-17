@@ -25,7 +25,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   };
   onAddAssetClick = (passedFunction, passedItem, openPopUp) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderAddBellowAssetClicked({
         email_address: modulusUser.email,
       });
@@ -256,7 +256,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   };
   onAddConditionClick = (passedFunction, passedItem, openPopUp) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderAddBellowConditionClicked({
         email_address: modulusUser.email,
       });
@@ -452,7 +452,7 @@ class BackTestAddItemsBellow extends BaseReactComponent {
   };
   onAddPasteClick = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderAddBellowPasteClicked({
         email_address: modulusUser.email,
       });

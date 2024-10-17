@@ -25,7 +25,7 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
   }
   changeWeightPercentage = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpWeightPercentageChanged({
         email_address: modulusUser.email,
         weightName: item,

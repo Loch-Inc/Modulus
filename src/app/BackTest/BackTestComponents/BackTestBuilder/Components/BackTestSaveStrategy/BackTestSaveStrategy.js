@@ -78,7 +78,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
   };
   showInputBox = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderRenameClicked({
         email_address: modulusUser.email,
       });

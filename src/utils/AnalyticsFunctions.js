@@ -379,27 +379,20 @@ export const BuilderToggleCollapseElse = ({ email_address, isCollapsed }) => {
 export const BuilderShareStrategyClicked = ({
   email_address,
   strategyName,
-  userId,
   strategyId,
 }) => {
   const event_name = "Builder: Share Strategy Clicked";
   const eventProperties = {
     "email address": email_address,
     "strategy name": strategyName,
-    "user id": userId,
     "strategy id": strategyId,
   };
   sendMixpanelData(event_name, eventProperties);
 };
-export const BuilderSharedStrategyOpened = ({
-  email_address,
-  userId,
-  strategyId,
-}) => {
+export const BuilderSharedStrategyOpened = ({ email_address, strategyId }) => {
   const event_name = "Builder: Shared Strategy Opened";
   const eventProperties = {
     "email address": email_address,
-    "user id": userId,
     "strategy id": strategyId,
   };
   sendMixpanelData(event_name, eventProperties);

@@ -237,7 +237,13 @@ class SignUpPage extends React.Component {
     let userToken = passedData.token;
     if (userToken) {
       setToken(userToken);
-      this.props.history.push("/");
+      const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
+      if (sharedStrategyId) {
+        sessionStorage.removeItem("sharedStrategyId");
+        this.props.history.push(`/share/${sharedStrategyId}`);
+      } else {
+        this.props.history.push("/");
+      }
     }
   };
   afterVerifyOtpCallError = (errorMessage = "") => {

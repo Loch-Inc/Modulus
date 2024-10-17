@@ -33,7 +33,7 @@ const setToken = (token) => {
 
 const getModulusUser = () => {
   const modulusUser = sessionStorage.getItem("decoded-token");
-  if (modulusUser) {
+  if (modulusUser && modulusUser.email) {
     return JSON.parse(modulusUser);
   }
   return {};
