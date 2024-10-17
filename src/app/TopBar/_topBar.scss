@@ -87,9 +87,9 @@
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          cursor: pointer;
           gap: 5px;
           .top-bar-content-right-sign-in-out {
+            cursor: pointer;
             background-color: var(--cardBackgroud);
             padding: 10px 18px;
             border-radius: 12px;

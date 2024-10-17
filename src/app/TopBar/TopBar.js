@@ -85,11 +85,11 @@ class TopBar extends React.Component {
           text: "Builder",
           link: "/builder",
         },
-        {
-          icon: TopBarConnectIcon,
-          text: this.props.isWalletConnected ? "Connected" : "Connect",
-          link: "/connect",
-        },
+        // {
+        //   icon: TopBarConnectIcon,
+        //   text: this.props.isWalletConnected ? "Connected" : "Connect",
+        //   link: "/connect",
+        // },
         {
           icon: TopBarFeedbackIcon,
           text: "Feedback",

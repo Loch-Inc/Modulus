@@ -5,6 +5,7 @@ import { ProfilePageTempDP } from "src/assets/images";
 import {
   ConnectedWalletIcon,
   CopyIcon,
+  InfoIcon,
   PasswordIcon,
   SignOutIcon,
   StrategyBuilderPencilIcon,
@@ -20,6 +21,7 @@ import { editUserNameProfile } from "./Api/ProfilePageApi";
 import { getModulusUser } from "src/utils/ManageToken";
 import { ProfileReferralCodeCopied } from "src/utils/AnalyticsFunctions";
 import moment from "moment";
+import CustomOverlay from "src/utils/commonComponent/CustomOverlay";
 
 class ProfilePageContent extends BaseReactComponent {
   constructor(props) {
@@ -195,8 +197,27 @@ class ProfilePageContent extends BaseReactComponent {
             <div className="profile-page-right-title-discovery-container">
               <div className="profile-page-right-title">
                 <div>Strategies Created</div>
+                {this.props.toDate && this.props.fromDate ? (
+                  <CustomOverlay
+                    position="top"
+                    isIcon={false}
+                    isInfo={true}
+                    isText={true}
+                    className={"fix-width"}
+                    text={`Performance is measured from ${moment(
+                      this.props.fromDate
+                    ).format("D MMM YYYY")} to ${moment(
+                      this.props.toDate
+                    ).format("D MMM YYYY")}`}
+                  >
+                    <InfoIcon
+                      onMouseEnter={this.props.hoverInfo}
+                      className="header-info-icon"
+                    />
+                  </CustomOverlay>
+                ) : null}
               </div>
-              {this.props.toDate && this.props.fromDate ? (
+              {/* {this.props.toDate && this.props.fromDate ? (
                 <div class={`profile-page-right-discover-time-range-table`}>
                   <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
                     From
@@ -229,7 +250,7 @@ class ProfilePageContent extends BaseReactComponent {
                     </div>
                   </div>
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
 
             <div className="profile-page-right-block-content-table-container">
