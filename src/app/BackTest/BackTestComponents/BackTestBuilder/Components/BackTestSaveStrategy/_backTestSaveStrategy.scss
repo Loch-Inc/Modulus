@@ -94,29 +94,39 @@
     gap: 10px;
   }
 }
-.strategy-builder-save-strategy-btn {
-  border: 1px solid var(--strategyBuilderBorder);
-  box-shadow: var(--boxShadowMd);
-  border-radius: 10px;
-  height: 4rem;
-  width: 180px;
+.strategy-builder-save-strategy-btns-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: var(--primaryTextColor);
-  text-shadow: 0.1px 0 var(--primaryTextColor);
-  font-weight: 600;
-
-  &:hover {
+  gap: 10px;
+  .strategy-builder-save-strategy-btn {
+    border: 1px solid var(--strategyBuilderBorder);
+    box-shadow: var(--boxShadowMd);
+    border-radius: 10px;
+    height: 4rem;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--primaryTextColor);
+    text-shadow: 0.1px 0 var(--primaryTextColor);
     background-color: var(--strategyBuilderDarkGrey);
+    font-weight: 600;
+
+    &:hover {
+      background-color: var(--primaryTextColor);
+      color: var(--cardBackgroud);
+    }
   }
-}
-.strategy-builder-save-strategy-btn-highlighted {
-  background-color: #cbf458;
-  &:hover {
-    background-color: var(--primaryTextColor);
-    color: var(--cardBackgroud);
+  .strategy-builder-save-strategy-btn-highlighted {
+    background-color: #cbf458;
+    color: var(--primaryTextColor);
+    text-shadow: 0.1px 0 var(--primaryTextColor);
+    &:hover {
+      background-color: var(--primaryTextColor);
+      color: var(--cardBackgroud);
+    }
   }
 }
 .strategy-builder-save-strategy-btn-loading {

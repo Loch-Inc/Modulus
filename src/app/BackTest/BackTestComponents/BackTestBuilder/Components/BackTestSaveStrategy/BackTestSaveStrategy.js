@@ -60,6 +60,11 @@ class BackTestSaveStrategy extends BaseReactComponent {
   changeStragegyName = (e) => {
     this.setState({ strategyName: e.target.value });
   };
+  shareStrategyClickedPass = () => {
+    if (this.props.shareThisStrategy) {
+      this.props.shareThisStrategy();
+    }
+  };
   saveStrategyClickedPass = () => {
     this.setState({
       isInputOpen: false,
@@ -145,17 +150,29 @@ class BackTestSaveStrategy extends BaseReactComponent {
                   </div>
                 </div>
               </div>
-              <div
-                onClick={this.saveStrategyClickedPass}
-                className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
-                  this.props.loadingSaveInvestStrategyBtn ||
-                  this.state.strategyName === "" ||
-                  this.state.disableBtn
-                    ? "strategy-builder-save-strategy-btn-loading"
-                    : ""
-                }`}
-              >
-                Save
+              <div className="strategy-builder-save-strategy-btns-container">
+                <div
+                  onClick={this.shareStrategyClickedPass}
+                  className={`strategy-builder-save-strategy-btn  ${
+                    !this.props.isShareStrategyVisible
+                      ? "strategy-builder-save-strategy-btn-loading"
+                      : ""
+                  }`}
+                >
+                  Share
+                </div>
+                <div
+                  onClick={this.saveStrategyClickedPass}
+                  className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
+                    this.props.loadingSaveInvestStrategyBtn ||
+                    this.state.strategyName === "" ||
+                    this.state.disableBtn
+                      ? "strategy-builder-save-strategy-btn-loading"
+                      : ""
+                  }`}
+                >
+                  Save
+                </div>
               </div>
             </div>
           )}

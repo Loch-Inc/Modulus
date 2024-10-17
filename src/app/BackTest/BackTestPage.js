@@ -15,6 +15,7 @@ import {
   PerformanceVisualizationApiCallFailed,
 } from "src/utils/AnalyticsFunctions";
 import {
+  BASE_URL_S3,
   CURRENT_PORTFOLIO_BALANCE,
   DEFAULT_STRATEGY_NAME,
 } from "src/utils/Constant";
@@ -56,6 +57,7 @@ class BackTestPage extends BaseReactComponent {
       saveStrategyName: DEFAULT_STRATEGY_NAME,
       passedStrategyList: [],
       passedUserList: [],
+      isShareStrategyVisible: false,
       isFromCalendar: false,
       isToCalendar: false,
       toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
@@ -450,6 +452,19 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.passedUserList !== this.state.passedUserList ||
+      prevState.passedStrategyList !== this.state.passedStrategyList
+    ) {
+      if (
+        this.state.passedStrategyList.length > 0 &&
+        this.state.passedUserList.length > 0
+      ) {
+        this.setState({
+          isShareStrategyVisible: true,
+        });
+      }
+    }
     if (prevState.sortOption !== this.state.sortOption) {
       const modulusUser = getModulusUser();
       if (modulusUser) {
@@ -723,6 +738,38 @@ class BackTestPage extends BaseReactComponent {
     if (modulusUser) {
       BuilderChartInfoHover({ email_address: modulusUser.email });
     }
+  };
+  shareThisStrategy = () => {
+    console.log("share this strategy");
+    let userId = "";
+    let strategyId = "";
+    if (
+      this.state.passedStrategyList &&
+      this.state.passedStrategyList.length > 0
+    ) {
+      strategyId = this.state.passedStrategyList[0];
+    }
+    if (this.state.passedUserList && this.state.passedUserList.length > 0) {
+      userId = this.state.passedUserList[0];
+    }
+    const shareMessage = `Hey! I've got a strategy that's yielding a 100% cumulative return. Worth a look.\n \n \n${BASE_URL_S3}share?uid=${userId}&sid=${strategyId}`;
+    const modulusUser = getModulusUser();
+    if (modulusUser) {
+      // BuilderShareStrategyClicked({
+      //   email_address: modulusUser.email,
+      //   strategyName: this.state.saveStrategyName,
+      //   userId: userId,
+      //   strategyId: strategyId,
+      // });
+    }
+    navigator.clipboard
+      .writeText(shareMessage)
+      .then(() => {
+        toast.success("Copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy share message: ", err);
+      });
   };
   render() {
     const performanceMetricColumnList = [
@@ -1208,6 +1255,8 @@ class BackTestPage extends BaseReactComponent {
                 isStrategyEmpty={this.state.isStrategyEmpty}
                 fromDate={this.state.fromDate}
                 toDate={this.state.toDate}
+                isShareStrategyVisible={this.state.isShareStrategyVisible}
+                shareThisStrategy={this.shareThisStrategy}
                 // Copy Paste
                 copiedItem={this.state.copiedItem}
                 setCopiedItem={this.setCopiedItem}
