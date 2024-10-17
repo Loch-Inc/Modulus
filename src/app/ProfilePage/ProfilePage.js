@@ -408,7 +408,7 @@ class ProfilePage extends BaseReactComponent {
   }
   openLeaveModal = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileSignOutClicked({
         email_address: modulusUser.email,
       });
@@ -450,7 +450,7 @@ class ProfilePage extends BaseReactComponent {
   };
   componentDidMount() {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfilePageView({
         email_address: modulusUser.email,
       });
@@ -471,7 +471,7 @@ class ProfilePage extends BaseReactComponent {
     const page = parseInt(params.get("p") || START_INDEX, 10);
     if (prevPage !== page) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         ProfileTablePageChanged({
           email_address: modulusUser.email,
           page: page,
@@ -591,7 +591,7 @@ class ProfilePage extends BaseReactComponent {
   }
   openReferralCodeBlock = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileShareReferralCodeClicked({
         email_address: modulusUser.email,
       });
@@ -603,7 +603,7 @@ class ProfilePage extends BaseReactComponent {
   };
   copyAllReferralCodes = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileAllReferralCodesCopied({
         email_address: modulusUser.email,
       });
@@ -633,7 +633,7 @@ class ProfilePage extends BaseReactComponent {
   };
   signOutFun = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileSignedOut({
         email_address: modulusUser.email,
       });
@@ -665,7 +665,7 @@ class ProfilePage extends BaseReactComponent {
   };
   editNameSuccess = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileUsernameEdited({
         email_address: modulusUser.email,
         username: this.state.inputValue,
@@ -688,7 +688,7 @@ class ProfilePage extends BaseReactComponent {
   showEditName = () => {
     this.setState({ isEditName: true });
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileEditUsernameClicked({
         email_address: modulusUser.email,
       });

@@ -63,6 +63,8 @@ class BackTestPageContent extends BaseReactComponent {
           isExistingStrategy={this.props.isExistingStrategy}
           saveStrategyClicked={this.props.saveStrategyClicked}
           isStrategyEmpty={this.props.isStrategyEmpty}
+          isShareStrategyVisible={this.props.isShareStrategyVisible}
+          shareThisStrategy={this.props.shareThisStrategy}
         />
         <div className="back-test-page-content-blocks-container">
           <div

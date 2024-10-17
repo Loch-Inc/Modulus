@@ -89,7 +89,7 @@ class StrategyDiscovery extends BaseReactComponent {
 
   componentDidMount() {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       DiscoverPageView({
         email_address: modulusUser.email,
       });
@@ -108,7 +108,7 @@ class StrategyDiscovery extends BaseReactComponent {
     const page = parseInt(params.get("p") || START_INDEX, 10);
     if (prevPage !== page) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         DiscoverTablePageChanged({
           email_address: modulusUser.email,
           page: page,
@@ -125,7 +125,7 @@ class StrategyDiscovery extends BaseReactComponent {
     }
     if (prevState.sortOption !== this.state.sortOption) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         DiscoverSortTable({
           email_address: modulusUser.email,
           sortType: this.state.tableSortOption[this.state.sortOption.column],
@@ -230,7 +230,7 @@ class StrategyDiscovery extends BaseReactComponent {
     const modulusUser = getModulusUser();
 
     if (passedItem && passedItem.strategy_id) {
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         DiscoverStrategyClicked({
           email_address: modulusUser.email,
           strategy_name: passedItem.strategy_name,
@@ -245,7 +245,7 @@ class StrategyDiscovery extends BaseReactComponent {
         },
       });
     } else {
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         DiscoverCreateYourAlgoStrategy({
           email_address: modulusUser.email,
         });

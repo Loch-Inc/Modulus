@@ -1,0 +1,12 @@
+.share-strategy-page {
+  .share-strategy-page-content {
+    height: calc(100vh - 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .share-strategy-page-spinning-logo {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}

@@ -41,7 +41,7 @@ class BackTestNameSave extends BaseReactComponent {
         />
 
         <div className="strategy-builder-name-save-btns-container">
-          <div
+          {/* <div
             onClick={this.saveStrategyClickedPass}
             className={`strategy-builder-name-save-btn ${
               this.props.loadingSaveInvestStrategyBtn ||
@@ -51,7 +51,7 @@ class BackTestNameSave extends BaseReactComponent {
             }`}
           >
             Share
-          </div>
+          </div> */}
           <div
             onClick={this.saveStrategyClickedPass}
             className={`strategy-builder-name-save-btn ${

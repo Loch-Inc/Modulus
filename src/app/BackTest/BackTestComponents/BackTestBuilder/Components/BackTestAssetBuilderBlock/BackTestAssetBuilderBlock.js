@@ -86,7 +86,7 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
   };
   changeAsset = (passedItem) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpAssetAssetSelected({
         email_address: modulusUser.email,
         assetName: passedItem.name,

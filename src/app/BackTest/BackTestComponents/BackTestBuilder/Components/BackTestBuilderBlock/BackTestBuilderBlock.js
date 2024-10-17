@@ -78,7 +78,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
   }
   onDeleteClick = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderDeleteBlockClicked({
         email_address: modulusUser.email,
       });
@@ -161,7 +161,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
   };
   onAddBellowClick = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderAddBlockClicked({
         email_address: modulusUser.email,
       });
@@ -172,7 +172,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
   };
   onCopyClick = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderCopyBlockClicked({
         email_address: modulusUser.email,
       });
@@ -227,7 +227,7 @@ class BackTestBuilderBlock extends BaseReactComponent {
   };
   onEditClick = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderEditBlockClicked({
         email_address: modulusUser.email,
       });
