@@ -25,13 +25,9 @@ import {
   TopBarSignOutClicked,
 } from "src/utils/AnalyticsFunctions";
 import { deleteToken, getModulusUser, getToken } from "src/utils/ManageToken";
+import { numToCurrency, TruncateText } from "src/utils/ReusableFunctions";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
 import "./_topBar.scss";
-import {
-  CurrencyType,
-  numToCurrency,
-  TruncateText,
-} from "src/utils/ReusableFunctions";
 
 class TopBar extends React.Component {
   constructor(props) {
