@@ -91,8 +91,6 @@ class BackTestPage extends BaseReactComponent {
     };
   }
   handleTableSort = (column) => {
-    console.log("One ");
-
     if (column === this.state.sortOption.column) {
       this.setState({
         sortOption: { column: column, value: !this.state.sortOption.value },
@@ -539,9 +537,14 @@ class BackTestPage extends BaseReactComponent {
           }
         });
 
-        this.setState({
-          performanceMetricTableData: tempArr,
-        });
+        this.setState(
+          {
+            performanceMetricTableData: tempArr,
+          },
+          () => {
+            this.sortPerformanceMetricTableData();
+          }
+        );
       }
     }
     if (prevProps.BackTestChartState !== this.props.BackTestChartState) {

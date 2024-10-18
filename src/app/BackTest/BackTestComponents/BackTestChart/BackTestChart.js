@@ -49,11 +49,11 @@ class BackTestChart extends BaseReactComponent {
               isInfo={true}
               isText={true}
               className={"fix-width"}
-              text="We assume an initial investment of $100,000."
+              text="We assume an initial investment of $100,000"
             >
               <InfoIcon
                 onMouseEnter={this.props.hoverInfo}
-                className="btpcb-chart-header-info-icon"
+                className="header-info-icon"
               />
             </CustomOverlay>
           </div>
@@ -354,7 +354,7 @@ class BackTestChart extends BaseReactComponent {
                           .image(GraphLogoDark, x, y, imageWidth, imageHeight)
                           .attr({
                             zIndex: 2,
-                            class: "watermark-opacity",
+                            class: "half-opacity",
                           })
                           .add();
                         const chart = this;

@@ -7,10 +7,12 @@ import TransactionTable from "../intelligence/TransactionTable";
 import { Image } from "react-bootstrap";
 
 import {
+  InfoIcon,
   StrategyDiscoveryHeadingArrowIcon,
   StrategyDiscoveryHeadingFloatingBlocks,
 } from "../../assets/images/icons";
 import moment from "moment";
+import CustomOverlay from "src/utils/commonComponent/CustomOverlay";
 
 class StrategyDiscoveryContent extends BaseReactComponent {
   constructor(props) {
@@ -53,8 +55,30 @@ class StrategyDiscoveryContent extends BaseReactComponent {
           <div className="btpcb-title-discovery-container">
             <div className="btpcb-title">
               <div>Discover</div>
+              {this.props.toDate && this.props.fromDate ? (
+                <CustomOverlay
+                  position="top"
+                  isIcon={false}
+                  isInfo={true}
+                  isText={true}
+                  className={"fix-widt"}
+                  text={`Performance is measured from ${moment(
+                    this.props.fromDate
+                  ).format("D MMM YYYY")} to ${moment(this.props.toDate).format(
+                    "D MMM YYYY"
+                  )}`}
+                >
+                  <InfoIcon
+                    onMouseEnter={this.props.hoverInfo}
+                    className="header-info-icon"
+                    style={{
+                      transform: "translateY(0.5px)",
+                    }}
+                  />
+                </CustomOverlay>
+              ) : null}
             </div>
-            {this.props.toDate && this.props.fromDate ? (
+            {/* {this.props.toDate && this.props.fromDate ? (
               <div class={`btpcb-discover-time-range-table`}>
                 <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
                   From
@@ -87,7 +111,7 @@ class StrategyDiscoveryContent extends BaseReactComponent {
                   </div>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
 
           <div className="btpcb-right-table-container">
