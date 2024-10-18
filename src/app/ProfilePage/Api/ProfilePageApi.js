@@ -5,7 +5,6 @@ import {
   GET_STRATEGIES_CREATED_TABLE_DATA,
   GET_USER_PROFILE_DATA,
 } from "./ProfilePageActionTypes";
-import { toast } from "react-toastify";
 
 export const getUserCreatedStrategies = (data, stopLoading) => {
   return async function (dispatch, getState) {

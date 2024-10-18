@@ -71,6 +71,9 @@ class StrategyDiscoveryContent extends BaseReactComponent {
                   <InfoIcon
                     onMouseEnter={this.props.hoverInfo}
                     className="header-info-icon"
+                    style={{
+                      transform: "translateY(0.5px)",
+                    }}
                   />
                 </CustomOverlay>
               ) : null}
