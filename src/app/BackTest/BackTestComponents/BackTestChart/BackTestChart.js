@@ -354,7 +354,7 @@ class BackTestChart extends BaseReactComponent {
                           .image(GraphLogoDark, x, y, imageWidth, imageHeight)
                           .attr({
                             zIndex: 2,
-                            class: "watermark-opacity",
+                            class: "half-opacity",
                           })
                           .add();
                         const chart = this;

@@ -3387,6 +3387,10 @@ input {
   }
 }
 
+.half-opacity {
+  opacity: 0.5;
+}
+
 .watermark-opacity {
   opacity: var(--watermarkOpacity);
 }
