@@ -323,6 +323,10 @@
           .profile-page-right-title {
             font-weight: 600;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
             .profile-page-right-discover-time-range-table {
               display: flex;
               align-items: center;
