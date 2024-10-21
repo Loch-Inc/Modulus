@@ -129,7 +129,7 @@ export const BuilderStrategySaved = ({ email_address, strategyName }) => {
   sendMixpanelData(event_name, eventProperties);
 };
 export const BuilderStrategyEdited = ({ email_address, strategyName }) => {
-  const event_name = "Builder: Strategy Udated";
+  const event_name = "Builder: Strategy Updated";
   const eventProperties = {
     "email address": email_address,
     "strategy name": strategyName,
@@ -606,6 +606,13 @@ export const SignUpVerifyAccountPageView = ({ email_address }) => {
 };
 export const SignUpVerifyAccountGoBack = ({ email_address }) => {
   const event_name = "Sign Up: Verify Account: Go Back";
+  const eventProperties = {
+    "email address": email_address,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
+export const SignedUp = ({ email_address }) => {
+  const event_name = "Sign Up: Signed Up";
   const eventProperties = {
     "email address": email_address,
   };
