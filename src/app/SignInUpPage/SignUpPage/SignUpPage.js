@@ -7,6 +7,7 @@ import { signUpApi } from "../Api/SignInUpApi";
 import SignUpPageContent from "./SignUpPageContent";
 import "./_signUpPage.scss";
 import {
+  SignedUp,
   SignUpApiCallFailed,
   SignUpPageView,
   SignUpReferralCodeGoBack,
@@ -236,6 +237,9 @@ class SignUpPage extends React.Component {
     });
     let userToken = passedData.token;
     if (userToken) {
+      SignedUp({
+        email_address: this.state.email,
+      });
       setToken(userToken);
       this.props.history.push("/");
     }

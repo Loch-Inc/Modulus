@@ -130,9 +130,6 @@ class SignInPage extends React.Component {
     }
   };
   afterSignInApiCallSuccess = () => {
-    SignedIn({
-      email_address: this.state.email,
-    });
     this.setState({
       disableButton: false,
       isOtpScreen: true,
@@ -170,6 +167,9 @@ class SignInPage extends React.Component {
     });
     let userToken = passedData.token;
     if (userToken) {
+      SignedIn({
+        email_address: this.state.email,
+      });
       setToken(userToken);
       this.props.history.push("/");
     }

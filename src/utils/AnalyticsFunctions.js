@@ -611,6 +611,13 @@ export const SignUpVerifyAccountGoBack = ({ email_address }) => {
   };
   sendMixpanelData(event_name, eventProperties);
 };
+export const SignedUp = ({ email_address }) => {
+  const event_name = "Sign Up: Signed Up";
+  const eventProperties = {
+    "email address": email_address,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
 
 // Sign Up Page
 
