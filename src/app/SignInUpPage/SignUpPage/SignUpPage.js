@@ -49,10 +49,11 @@ class SignUpPage extends React.Component {
     this.setState({ referralCode });
   };
   componentDidMount() {
-    SignUpPageView();
     const token = getToken();
     if (token) {
       this.props.history.push("/");
+    } else {
+      SignUpPageView();
     }
   }
   componentDidUpdate(prevProps, prevState) {

@@ -44,8 +44,9 @@ class SignInPage extends React.Component {
     const token = getToken();
     if (token) {
       this.props.history.push("/");
+    } else {
+      SignInPageView();
     }
-    SignInPageView();
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isOtpScreen !== this.state.isOtpScreen) {

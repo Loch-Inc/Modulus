@@ -129,7 +129,7 @@ export const BuilderStrategySaved = ({ email_address, strategyName }) => {
   sendMixpanelData(event_name, eventProperties);
 };
 export const BuilderStrategyEdited = ({ email_address, strategyName }) => {
-  const event_name = "Builder: Strategy Udated";
+  const event_name = "Builder: Strategy Updated";
   const eventProperties = {
     "email address": email_address,
     "strategy name": strategyName,
