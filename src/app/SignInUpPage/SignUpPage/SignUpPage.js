@@ -7,6 +7,7 @@ import { signUpApi } from "../Api/SignInUpApi";
 import SignUpPageContent from "./SignUpPageContent";
 import "./_signUpPage.scss";
 import {
+  SignedUp,
   SignUpApiCallFailed,
   SignUpPageView,
   SignUpReferralCodeGoBack,
@@ -48,10 +49,11 @@ class SignUpPage extends React.Component {
     this.setState({ referralCode });
   };
   componentDidMount() {
-    SignUpPageView();
     const token = getToken();
     if (token) {
       this.props.history.push("/");
+    } else {
+      SignUpPageView();
     }
     const sharedUserReferralCode = sessionStorage.getItem(
       "sharedUserReferralCode"
@@ -243,6 +245,9 @@ class SignUpPage extends React.Component {
     let userToken = passedData.token;
     if (userToken) {
       sessionStorage.removeItem("sharedUserReferralCode");
+      SignedUp({
+        email_address: this.state.email,
+      });
       setToken(userToken);
       const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
       if (sharedStrategyId) {

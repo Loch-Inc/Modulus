@@ -44,8 +44,9 @@ class SignInPage extends React.Component {
     const token = getToken();
     if (token) {
       this.props.history.push("/");
+    } else {
+      SignInPageView();
     }
-    SignInPageView();
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isOtpScreen !== this.state.isOtpScreen) {
@@ -130,9 +131,6 @@ class SignInPage extends React.Component {
     }
   };
   afterSignInApiCallSuccess = () => {
-    SignedIn({
-      email_address: this.state.email,
-    });
     this.setState({
       disableButton: false,
       isOtpScreen: true,
@@ -170,6 +168,9 @@ class SignInPage extends React.Component {
     });
     let userToken = passedData.token;
     if (userToken) {
+      SignedIn({
+        email_address: this.state.email,
+      });
       setToken(userToken);
       const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
       if (sharedStrategyId) {
