@@ -8,13 +8,25 @@ import {
   StrategyBuilderAssetBnbIcon,
   StrategyBuilderAssetBtcIcon,
   StrategyBuilderAssetDogeIcon,
+  StrategyBuilderAssetDotIcon,
   StrategyBuilderAssetEthIcon,
+  StrategyBuilderAssetLinkIcon,
+  StrategyBuilderAssetNearIcon,
+  StrategyBuilderAssetShibIcon,
   StrategyBuilderAssetSolIcon,
   StrategyBuilderAssetTonIcon,
   StrategyBuilderAssetTrxIcon,
   StrategyBuilderAssetUsdcIcon,
   StrategyBuilderAssetUsdtIcon,
   StrategyBuilderAssetXrpIcon,
+  StrategyBuilderAssetSuiIcon,
+  StrategyBuilderAssetLeoIcon,
+  StrategyBuilderAssetLtcIcon,
+  StrategyBuilderAssetDaiIcon,
+  StrategyBuilderAssetAptIcon,
+  StrategyBuilderAssetUniIcon,
+  StrategyBuilderAssetPepeIcon,
+  StrategyBuilderAssetTaoIcon,
 } from "../assets/images/icons";
 import { API_LIMIT, BASE_URL_S3 } from "./Constant";
 import { getCurrentUser, getToken } from "./ManageToken";
@@ -133,12 +145,7 @@ export const strategyBuilderAssetList = () => {
       icon: StrategyBuilderAssetUsdtIcon,
       color: "#26A17B",
     },
-    {
-      name: "USDC",
-      fullName: "USD Coin",
-      icon: StrategyBuilderAssetUsdcIcon,
-      color: "#627EEA",
-    },
+
     {
       name: "BNB",
       fullName: "Binance Coin",
@@ -152,10 +159,10 @@ export const strategyBuilderAssetList = () => {
       color: "#9F99D8",
     },
     {
-      name: "DOGE",
-      fullName: "Dogecoin",
-      icon: StrategyBuilderAssetDogeIcon,
-      color: "#FDA523",
+      name: "USDC",
+      fullName: "USD Coin",
+      icon: StrategyBuilderAssetUsdcIcon,
+      color: "#627EEA",
     },
     {
       name: "XRP",
@@ -164,16 +171,22 @@ export const strategyBuilderAssetList = () => {
       color: "#00AAE5",
     },
     {
-      name: "TON",
-      fullName: "Toncoin",
-      icon: StrategyBuilderAssetTonIcon,
-      color: "#0098EA",
+      name: "DOGE",
+      fullName: "Dogecoin",
+      icon: StrategyBuilderAssetDogeIcon,
+      color: "#FDA523",
     },
     {
       name: "TRX",
       fullName: "Tron",
       icon: StrategyBuilderAssetTrxIcon,
       color: "#FE0001",
+    },
+    {
+      name: "TON",
+      fullName: "Toncoin",
+      icon: StrategyBuilderAssetTonIcon,
+      color: "#0098EA",
     },
     {
       name: "ADA",
@@ -186,6 +199,85 @@ export const strategyBuilderAssetList = () => {
       fullName: "Avalanche",
       icon: StrategyBuilderAssetAvaxIcon,
       color: "#E84142",
+    },
+    // New ones
+    {
+      name: "SHIB",
+      fullName: "Shiba Inu",
+      icon: StrategyBuilderAssetShibIcon,
+      color: "#F00300",
+    },
+    {
+      name: "LINK",
+      fullName: "Chainlink",
+      icon: StrategyBuilderAssetLinkIcon,
+      color: "#2A5BDA",
+    },
+    {
+      name: "BCH",
+      fullName: "Bitcoin Cash",
+      icon: StrategyBuilderAssetBtcIcon,
+      color: "#0EC18E",
+    },
+    {
+      name: "DOT",
+      fullName: "Polkadot",
+      icon: StrategyBuilderAssetDotIcon,
+      color: "#E6007A",
+    },
+    {
+      name: "NEAR",
+      fullName: "Near Protocol",
+      icon: StrategyBuilderAssetNearIcon,
+      color: "#02EC97",
+    },
+    {
+      name: "SUI",
+      fullName: "Sui",
+      icon: StrategyBuilderAssetSuiIcon,
+      color: "#4DA2FF",
+    },
+    {
+      name: "LEO",
+      fullName: "UNUS SED LEO",
+      icon: StrategyBuilderAssetLeoIcon,
+      color: "#F8E536",
+    },
+    {
+      name: "LTC",
+      fullName: "Litecoin",
+      icon: StrategyBuilderAssetLtcIcon,
+      color: "#345d9d",
+    },
+    {
+      name: "DAI",
+      fullName: "Dai",
+      icon: StrategyBuilderAssetDaiIcon,
+      color: "#F5AC37",
+    },
+    {
+      name: "APT",
+      fullName: "Aptos",
+      icon: StrategyBuilderAssetAptIcon,
+      color: "#627EEA",
+    },
+    {
+      name: "UNI",
+      fullName: "Uniswap",
+      icon: StrategyBuilderAssetUniIcon,
+      color: "#FF007A",
+    },
+    {
+      name: "PEPE",
+      fullName: "Pepe",
+      icon: StrategyBuilderAssetPepeIcon,
+      color: "#3D812F",
+    },
+    {
+      name: "TAO",
+      fullName: "Tao",
+      icon: StrategyBuilderAssetTaoIcon,
+      color: "#000",
     },
   ];
 };
