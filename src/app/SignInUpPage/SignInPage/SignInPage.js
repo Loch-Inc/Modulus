@@ -174,7 +174,14 @@ class SignInPage extends React.Component {
       const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
       if (sharedStrategyId) {
         sessionStorage.removeItem("sharedStrategyId");
-        this.props.history.push(`/share/${sharedStrategyId}`);
+        this.props.history.push({
+          pathname: "/builder",
+          state: {
+            passedStrategyId: sharedStrategyId,
+            passedStrategyName: "",
+            passedUserId: "",
+          },
+        });
       } else {
         this.props.history.push("/");
       }

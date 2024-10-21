@@ -33,6 +33,7 @@ import TopBar from "../TopBar/TopBar";
 import "./_backTest.scss";
 import { getBackTestChart, getBackTestTable } from "./Api/BackTestApi";
 import BackTestPageContent from "./BackTestPageContent";
+import { getUserReferralCodes } from "../ProfilePage/Api/ProfilePageApi";
 
 class BackTestPage extends BaseReactComponent {
   constructor(props) {
@@ -58,6 +59,7 @@ class BackTestPage extends BaseReactComponent {
       saveStrategyName: DEFAULT_STRATEGY_NAME,
       passedStrategyList: [],
       passedUserList: [],
+      strategyPercentageReturn: null,
       isShareStrategyVisible: false,
       isFromCalendar: false,
       isToCalendar: false,
@@ -391,6 +393,9 @@ class BackTestPage extends BaseReactComponent {
       JSON.stringify(tempHolderObj)
     );
   };
+  getUserReferralCodesPass = () => {
+    this.props.getUserReferralCodes();
+  };
 
   componentDidMount() {
     const modulusUser = getModulusUser();
@@ -400,6 +405,7 @@ class BackTestPage extends BaseReactComponent {
       });
     }
     let builderList = strategyBuilderAssetList();
+    this.getUserReferralCodesPass();
     let tempArrHolder = [];
     for (let i = 0; i < builderList.length; i++) {
       let tempObj = {
@@ -451,8 +457,14 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.passedStrategyList !== this.state.passedStrategyList) {
-      if (this.state.passedStrategyList.length > 0) {
+    if (
+      prevState.passedStrategyList !== this.state.passedStrategyList ||
+      prevState.strategyPercentageReturn !== this.state.strategyPercentageReturn
+    ) {
+      if (
+        this.state.passedStrategyList.length > 0 &&
+        this.state.strategyPercentageReturn !== null
+      ) {
         this.setState({
           isShareStrategyVisible: true,
         });
@@ -520,7 +532,15 @@ class BackTestPage extends BaseReactComponent {
           for (var key in curItem) {
             if (curItem.hasOwnProperty(key)) {
               let itemFound = curItem[key];
-              if (itemFound) {
+
+              if (itemFound && itemFound.data) {
+                if (itemFound.strategy_id) {
+                  let tempStrategyPercentageReturn =
+                    itemFound.data.annual_return;
+                  this.setState({
+                    strategyPercentageReturn: tempStrategyPercentageReturn,
+                  });
+                }
                 let tempHolder = {
                   annual_return: itemFound.data.annual_return,
                   calmar_ratio: itemFound.data.calmar_ratio,
@@ -739,14 +759,19 @@ class BackTestPage extends BaseReactComponent {
   };
   shareThisStrategy = () => {
     let strategyId = "";
+    let userReferralCode = "";
+    let strategyPercentageReturn = this.state.strategyPercentageReturn;
     if (
       this.state.passedStrategyList &&
       this.state.passedStrategyList.length > 0
     ) {
       strategyId = this.state.passedStrategyList[0];
     }
+    if (sessionStorage.getItem("userReferralCode")) {
+      userReferralCode = sessionStorage.getItem("userReferralCode");
+    }
 
-    const shareMessage = `check out this algorithmic strategy that’s generating x% annual return\n \n \n${BASE_URL_S3}share/${strategyId}`;
+    const shareMessage = `Check out this algorithmic strategy that’s generating ${strategyPercentageReturn}% annual return:\n \n \n${BASE_URL_S3}share/${strategyId}/${userReferralCode}`;
     const modulusUser = getModulusUser();
     if (modulusUser && modulusUser.email) {
       BuilderShareStrategyClicked({
@@ -1271,6 +1296,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getBackTestChart,
   getBackTestTable,
+  getUserReferralCodes,
 };
 
 BackTestPage.propTypes = {};

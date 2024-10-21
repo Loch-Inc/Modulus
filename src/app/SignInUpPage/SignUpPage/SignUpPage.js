@@ -53,6 +53,12 @@ class SignUpPage extends React.Component {
     if (token) {
       this.props.history.push("/");
     }
+    const sharedUserReferralCode = sessionStorage.getItem(
+      "sharedUserReferralCode"
+    );
+    if (sharedUserReferralCode) {
+      this.setState({ referralCode: sharedUserReferralCode });
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.screenPosition !== this.state.screenPosition) {
@@ -236,11 +242,19 @@ class SignUpPage extends React.Component {
     });
     let userToken = passedData.token;
     if (userToken) {
+      sessionStorage.removeItem("sharedUserReferralCode");
       setToken(userToken);
       const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
       if (sharedStrategyId) {
         sessionStorage.removeItem("sharedStrategyId");
-        this.props.history.push(`/share/${sharedStrategyId}`);
+        this.props.history.push({
+          pathname: "/builder",
+          state: {
+            passedStrategyId: sharedStrategyId,
+            passedStrategyName: "",
+            passedUserId: "",
+          },
+        });
       } else {
         this.props.history.push("/");
       }

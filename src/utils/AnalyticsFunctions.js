@@ -416,6 +416,13 @@ export const ProfileTablePageChanged = ({ email_address, page }) => {
   };
   sendMixpanelData(event_name, eventProperties);
 };
+export const ProfileInviteAFriendClicked = ({ email_address }) => {
+  const event_name = "Profile: Invite a friend Clicked";
+  const eventProperties = {
+    "email address": email_address,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
 export const ProfileShareReferralCodeClicked = ({ email_address }) => {
   const event_name = "Profile: Share Referral Code Clicked";
   const eventProperties = {

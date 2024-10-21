@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import {
   StrategyBuilderPencilLightIcon,
   StrategyBuilderTitleDiamondIcon,
+  StrategyShareIcon,
 } from "src/assets/images/icons";
 import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
@@ -153,13 +154,14 @@ class BackTestSaveStrategy extends BaseReactComponent {
               <div className="strategy-builder-save-strategy-btns-container">
                 <div
                   onClick={this.shareStrategyClickedPass}
-                  className={`strategy-builder-save-strategy-btn  ${
+                  className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-white  ${
                     !this.props.isShareStrategyVisible
                       ? "strategy-builder-save-strategy-btn-loading"
                       : ""
                   }`}
                 >
-                  Share
+                  <StrategyShareIcon className="strategy-builder-save-strategy-btn-white-icon" />
+                  <div>Share</div>
                 </div>
                 <div
                   onClick={this.saveStrategyClickedPass}

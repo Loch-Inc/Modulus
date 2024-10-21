@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import TopBar from "../TopBar/TopBar";
-import "./_shareStrategy.scss";
+import { jwtDecode } from "jwt-decode";
+import { Component } from "react";
 import { Image } from "react-bootstrap";
 import { SpinningLogo } from "src/assets/images";
-import { getModulusUser, getToken } from "src/utils/ManageToken";
 import { BuilderSharedStrategyOpened } from "src/utils/AnalyticsFunctions";
-import { jwtDecode } from "jwt-decode";
+import { getToken } from "src/utils/ManageToken";
+import TopBar from "../TopBar/TopBar";
+import "./_shareStrategy.scss";
 
 class ShareStrategy extends Component {
   constructor(props) {
@@ -14,13 +14,18 @@ class ShareStrategy extends Component {
   }
   componentDidMount() {
     let tempStrategyId = "";
-    const { strategyId } = this.props?.match?.params;
+    let tempUserReferralCode = "";
+    const { strategyId, userReferralCode } = this.props?.match?.params;
     if (strategyId) {
       tempStrategyId = strategyId;
+    }
+    if (userReferralCode) {
+      tempUserReferralCode = userReferralCode;
     }
     this.goToStrategyBuilderPage({
       strategy_id: tempStrategyId,
       strategy_name: "",
+      userReferralCode: tempUserReferralCode,
     });
   }
   goToStrategyBuilderPage = (passedItem) => {
@@ -42,6 +47,10 @@ class ShareStrategy extends Component {
         });
       } else {
         sessionStorage.setItem("sharedStrategyId", passedItem.strategy_id);
+        sessionStorage.setItem(
+          "sharedUserReferralCode",
+          passedItem.userReferralCode
+        );
         this.props.history.push("/sign-up");
       }
     } else {
