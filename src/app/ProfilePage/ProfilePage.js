@@ -3,6 +3,16 @@ import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
 import { toast } from "react-toastify";
+import {
+  ProfileAllReferralCodesCopied,
+  ProfileEditUsernameClicked,
+  ProfileInviteAFriendClicked,
+  ProfilePageView,
+  ProfileSignedOut,
+  ProfileSignOutClicked,
+  ProfileTablePageChanged,
+  ProfileUsernameEdited,
+} from "src/utils/AnalyticsFunctions";
 import { API_LIMIT, BASE_URL_S3, START_INDEX } from "src/utils/Constant";
 import { deleteToken, getModulusUser } from "src/utils/ManageToken";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
@@ -23,17 +33,6 @@ import {
   getUserReferralCodes,
 } from "./Api/ProfilePageApi";
 import ProfilePageContent from "./ProfilePageContent";
-import {
-  ProfileAllReferralCodesCopied,
-  ProfileEditUsernameClicked,
-  ProfileInviteAFriendClicked,
-  ProfilePageView,
-  ProfileShareReferralCodeClicked,
-  ProfileSignedOut,
-  ProfileSignOutClicked,
-  ProfileTablePageChanged,
-  ProfileUsernameEdited,
-} from "src/utils/AnalyticsFunctions";
 
 class ProfilePage extends BaseReactComponent {
   constructor(props) {
@@ -126,7 +125,9 @@ class ProfilePage extends BaseReactComponent {
                               width="8"
                               height="8"
                               transform="rotate(45 5.65686 0.343262)"
-                              fill={strategyBuilderChartLineColorByIndex(0)}
+                              fill={strategyBuilderChartLineColorByIndex(
+                                rowIndex
+                              )}
                             />
                             <rect
                               x="5.65686"
