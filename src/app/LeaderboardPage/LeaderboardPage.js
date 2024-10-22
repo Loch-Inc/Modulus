@@ -15,6 +15,7 @@ class LeaderboardPage extends BaseReactComponent {
     super(props);
 
     this.state = {
+      showBackButtonForSignInUp: false,
       lastUpdated: "",
       totalStrategiesCreated: 0,
       totalUsers: 0,
@@ -173,6 +174,18 @@ class LeaderboardPage extends BaseReactComponent {
     this.props.getLeaderboardData(this, this.stopLoading);
   };
   componentDidMount() {
+    const showBackButtonForSignInUp =
+      this.props.location.state?.showBackButton || false;
+    if (showBackButtonForSignInUp === "true") {
+      this.setState({
+        showBackButtonForSignInUp: true,
+      });
+    } else {
+      this.setState({
+        showBackButtonForSignInUp: false,
+      });
+    }
+
     this.getLeaderboardDataPass();
     const modulusUser = getModulusUser();
     if (modulusUser && modulusUser.email) {

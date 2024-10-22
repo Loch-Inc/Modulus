@@ -1,11 +1,6 @@
 import React from "react";
-import SignInPageContent from "./SignInPageContent";
-import "./_signInPage.scss";
 import { connect } from "react-redux";
-import { signInApi } from "../Api/SignInUpApi";
-import validator from "validator";
 import { toast } from "react-toastify";
-import { getToken, setToken } from "src/utils/ManageToken";
 import {
   SignedIn,
   SignInApiCallFailed,
@@ -15,6 +10,11 @@ import {
   SignInVerifyAccountSendCodeAgainClicked,
   SignInVerifyOtpApiCallFailed,
 } from "src/utils/AnalyticsFunctions";
+import { getToken, setToken } from "src/utils/ManageToken";
+import validator from "validator";
+import { signInApi } from "../Api/SignInUpApi";
+import SignInPageContent from "./SignInPageContent";
+import "./_signInPage.scss";
 
 class SignInPage extends React.Component {
   constructor(props) {
@@ -195,9 +195,6 @@ class SignInPage extends React.Component {
       error_message: errorMessage,
     });
   };
-  goToLeaderboard = () => {
-    this.props.history.push("/leaderboard");
-  };
 
   render() {
     return (
@@ -220,7 +217,7 @@ class SignInPage extends React.Component {
           onBackButtonClick={this.onBackButtonClick}
           isOtp={this.state.isOtpScreen}
           showBrowseLeaderboard={!this.state.isOtpScreen}
-          goToLeaderboard={this.goToLeaderboard}
+          history={this.props.history}
         />
       </div>
     );

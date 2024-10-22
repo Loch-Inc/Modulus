@@ -91,6 +91,11 @@ class SignInUpFunctionality extends React.Component {
     }
   };
 
+  goToLeaderboard = () => {
+    this.props.history.push("/leaderboard", {
+      showBackButton: "true",
+    });
+  };
   render() {
     return (
       <div className="sign-in-up-functionality">
@@ -221,7 +226,7 @@ class SignInUpFunctionality extends React.Component {
         )}
         {this.props.showBrowseLeaderboard ? (
           <div
-            onClick={this.props.goToLeaderboard}
+            onClick={this.goToLeaderboard}
             className="sign-in-up-functionality-browse-leaderboard-container"
           >
             <SignUpTrophyIcon className="sign-in-up-functionality-browse-leaderboard-icon" />

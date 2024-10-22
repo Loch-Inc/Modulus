@@ -60,7 +60,7 @@ class SignInPageContent extends React.Component {
               otpValue={this.props.otp}
               changeInput={this.props.changeEmail}
               showBrowseLeaderboard={this.props.showBrowseLeaderboard}
-              goToLeaderboard={this.props.goToLeaderboard}
+              history={this.props.history}
             />
           </div>
           <div className="sign-in-page-content-right-footer"></div>
