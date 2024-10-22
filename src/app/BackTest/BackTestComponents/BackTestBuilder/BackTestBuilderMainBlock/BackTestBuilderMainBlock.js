@@ -34,7 +34,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
   };
   toggleCollapseIf = (e) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderToggleCollapseIf({
         email_address: modulusUser.email,
         isCollapsed: !this.state.isItemCollapsedIf,
@@ -45,7 +45,7 @@ class BackTestBuilderMainBlock extends BaseReactComponent {
   };
   toggleCollapseElse = (e) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderToggleCollapseElse({
         email_address: modulusUser.email,
         isCollapsed: !this.state.isItemCollapsedElse,

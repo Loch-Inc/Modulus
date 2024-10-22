@@ -3,7 +3,7 @@ import { BaseReactComponent } from "../../utils/form";
 
 import moment from "moment";
 import { toast } from "react-toastify";
-import { API_LIMIT, START_INDEX } from "src/utils/Constant";
+import { API_LIMIT, BASE_URL_S3, START_INDEX } from "src/utils/Constant";
 import { deleteToken, getModulusUser } from "src/utils/ManageToken";
 import CustomOverlay from "../../utils/commonComponent/CustomOverlay";
 import {
@@ -26,6 +26,7 @@ import ProfilePageContent from "./ProfilePageContent";
 import {
   ProfileAllReferralCodesCopied,
   ProfileEditUsernameClicked,
+  ProfileInviteAFriendClicked,
   ProfilePageView,
   ProfileShareReferralCodeClicked,
   ProfileSignedOut,
@@ -408,7 +409,7 @@ class ProfilePage extends BaseReactComponent {
   }
   openLeaveModal = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileSignOutClicked({
         email_address: modulusUser.email,
       });
@@ -423,7 +424,7 @@ class ProfilePage extends BaseReactComponent {
     });
   };
   getUserReferralCodesPass = () => {
-    this.props.getUserReferralCodes(this);
+    this.props.getUserReferralCodes();
   };
 
   getUserCreatedStrategiesPass = () => {
@@ -450,7 +451,7 @@ class ProfilePage extends BaseReactComponent {
   };
   componentDidMount() {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfilePageView({
         email_address: modulusUser.email,
       });
@@ -471,7 +472,7 @@ class ProfilePage extends BaseReactComponent {
     const page = parseInt(params.get("p") || START_INDEX, 10);
     if (prevPage !== page) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         ProfileTablePageChanged({
           email_address: modulusUser.email,
           page: page,
@@ -589,21 +590,35 @@ class ProfilePage extends BaseReactComponent {
       }
     }
   }
-  openReferralCodeBlock = () => {
+  inviteAFriend = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
-      ProfileShareReferralCodeClicked({
+    if (modulusUser && modulusUser.email) {
+      ProfileInviteAFriendClicked({
         email_address: modulusUser.email,
       });
     }
-    this.setState({ isReferralCodeBlockOpen: true });
+    let userReferralCode = "";
+
+    if (sessionStorage.getItem("userReferralCode")) {
+      userReferralCode = sessionStorage.getItem("userReferralCode");
+    }
+
+    const shareMessage = `${BASE_URL_S3}refcode/${userReferralCode}`;
+    navigator.clipboard
+      .writeText(shareMessage)
+      .then(() => {
+        toast.success("Copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy share message: ", err);
+      });
   };
   closeReferralCodeBlock = () => {
     this.setState({ isReferralCodeBlockOpen: false });
   };
   copyAllReferralCodes = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileAllReferralCodesCopied({
         email_address: modulusUser.email,
       });
@@ -633,7 +648,7 @@ class ProfilePage extends BaseReactComponent {
   };
   signOutFun = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileSignedOut({
         email_address: modulusUser.email,
       });
@@ -665,7 +680,7 @@ class ProfilePage extends BaseReactComponent {
   };
   editNameSuccess = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileUsernameEdited({
         email_address: modulusUser.email,
         username: this.state.inputValue,
@@ -688,7 +703,7 @@ class ProfilePage extends BaseReactComponent {
   showEditName = () => {
     this.setState({ isEditName: true });
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       ProfileEditUsernameClicked({
         email_address: modulusUser.email,
       });
@@ -743,7 +758,7 @@ class ProfilePage extends BaseReactComponent {
                 location={this.props.location}
                 signOutFun={this.openLeaveModal}
                 copyAllReferralCodes={this.copyAllReferralCodes}
-                openReferralCodeBlock={this.openReferralCodeBlock}
+                inviteAFriend={this.inviteAFriend}
                 closeReferralCodeBlock={this.closeReferralCodeBlock}
                 referralCodes={this.state.referralCodes}
                 isReferralCodeBlockOpen={this.state.isReferralCodeBlockOpen}

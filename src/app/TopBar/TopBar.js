@@ -136,7 +136,7 @@ class TopBar extends React.Component {
   gotoPage = (page) => {
     const modulusUser = getModulusUser();
     let userEmail = "";
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       userEmail = modulusUser.email;
     }
     if (page === "/connect") {
@@ -203,7 +203,7 @@ class TopBar extends React.Component {
   onclickSignInOut = () => {
     const modulusUser = getModulusUser();
     let userEmail = "";
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       userEmail = modulusUser.email;
     }
     if (this.state.isSignnedIn) {
@@ -232,7 +232,7 @@ class TopBar extends React.Component {
   signOutFun = () => {
     const modulusUser = getModulusUser();
     let userEmail = "";
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       userEmail = modulusUser.email;
     }
     TopBarSignedOut({
@@ -246,7 +246,7 @@ class TopBar extends React.Component {
   goToHome = () => {
     const modulusUser = getModulusUser();
     let userEmail = "";
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       userEmail = modulusUser.email;
     }
     TopBarHomeClicked({

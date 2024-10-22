@@ -7,6 +7,7 @@ import { signUpApi } from "../Api/SignInUpApi";
 import SignUpPageContent from "./SignUpPageContent";
 import "./_signUpPage.scss";
 import {
+  SignedUp,
   SignUpApiCallFailed,
   SignUpPageView,
   SignUpReferralCodeGoBack,
@@ -48,10 +49,17 @@ class SignUpPage extends React.Component {
     this.setState({ referralCode });
   };
   componentDidMount() {
-    SignUpPageView();
     const token = getToken();
     if (token) {
       this.props.history.push("/");
+    } else {
+      SignUpPageView();
+    }
+    const sharedUserReferralCode = sessionStorage.getItem(
+      "sharedUserReferralCode"
+    );
+    if (sharedUserReferralCode) {
+      this.setState({ referralCode: sharedUserReferralCode });
     }
   }
   componentDidUpdate(prevProps, prevState) {
@@ -236,8 +244,25 @@ class SignUpPage extends React.Component {
     });
     let userToken = passedData.token;
     if (userToken) {
+      sessionStorage.removeItem("sharedUserReferralCode");
+      SignedUp({
+        email_address: this.state.email,
+      });
       setToken(userToken);
-      this.props.history.push("/");
+      const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
+      if (sharedStrategyId) {
+        sessionStorage.removeItem("sharedStrategyId");
+        this.props.history.push({
+          pathname: "/builder",
+          state: {
+            passedStrategyId: sharedStrategyId,
+            passedStrategyName: "",
+            passedUserId: "",
+          },
+        });
+      } else {
+        this.props.history.push("/");
+      }
     }
   };
   afterVerifyOtpCallError = (errorMessage = "") => {

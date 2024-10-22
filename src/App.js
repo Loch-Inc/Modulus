@@ -17,7 +17,10 @@ import { connect, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import routes from "./routes";
-import { ModulusWebsiteView } from "./utils/AnalyticsFunctions";
+import {
+  ModulusWebsiteView,
+  setMixpanelDataPoints,
+} from "./utils/AnalyticsFunctions";
 import { getModulusUser } from "./utils/ManageToken";
 import { switchToDarkMode, switchToLightMode } from "./utils/ReusableFunctions";
 
@@ -54,8 +57,9 @@ function App(props) {
       sessionStorage.setItem("isPageViewRegistered", true);
       const modulusUser = getModulusUser();
       let userEmail = "";
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         userEmail = modulusUser.email;
+        setMixpanelDataPoints(userEmail);
       }
       ModulusWebsiteView({
         email_address: userEmail,

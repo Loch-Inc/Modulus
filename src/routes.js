@@ -3,8 +3,10 @@ import InAppTelegramChat from "./app/IntegratedTelegramChat/IntegratedTelegramCh
 import LeaderboardPage from "./app/LeaderboardPage/LeaderboardPage";
 import ModulusHome from "./app/ModulusHome/ModulusHome";
 import ProfilePage from "./app/ProfilePage/ProfilePage";
+import ShareStrategy from "./app/ShareStrategy/ShareStrategy";
 import SignInPage from "./app/SignInUpPage/SignInPage/SignInPage";
 import SignUpPage from "./app/SignInUpPage/SignUpPage/SignUpPage";
+import SignupLink from "./app/SignupLink/SignupLink";
 import StrategyDiscovery from "./app/StrategyDiscovery/StrategyDiscovery";
 import TermsAndConditionsPage from "./app/TermsAndConditions/TermsAndConditions";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -69,6 +71,18 @@ const routes = [
     name: "Telegram Chat",
     type: PrivateRoute,
     component: InAppTelegramChat,
+  },
+  {
+    path: "/share/:strategyId/:userReferralCode",
+    name: "Share Strategy",
+    type: PublicRoute,
+    component: ShareStrategy,
+  },
+  {
+    path: "/refcode/:userReferralCode",
+    name: "Sign Up Link",
+    type: PublicRoute,
+    component: SignupLink,
   },
 ];
 export default routes;

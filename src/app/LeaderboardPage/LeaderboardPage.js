@@ -175,7 +175,7 @@ class LeaderboardPage extends BaseReactComponent {
   componentDidMount() {
     this.getLeaderboardDataPass();
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       LeaderboardPageView({
         email_address: modulusUser.email,
       });

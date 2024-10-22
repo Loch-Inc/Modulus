@@ -4,6 +4,7 @@ const deleteAddWallet = () => {
 const deleteToken = (notCurrencyRates) => {
   window.localStorage.removeItem("setMetamaskConnectedSessionStorage");
   window.localStorage.removeItem("lochModulusToken");
+  window.localStorage.removeItem("decoded-token");
   window.localStorage.removeItem("addWallet");
   window.localStorage.removeItem("lochUser");
   window.localStorage.removeItem("lochDummyUser");
@@ -32,9 +33,10 @@ const setToken = (token) => {
 };
 
 const getModulusUser = () => {
-  const modulusUser = sessionStorage.getItem("decoded-token");
-  if (modulusUser) {
-    return JSON.parse(modulusUser);
+  let modulusUser = sessionStorage.getItem("decoded-token");
+  modulusUser = JSON.parse(modulusUser);
+  if (modulusUser && modulusUser.email) {
+    return modulusUser;
   }
   return {};
 };
