@@ -139,6 +139,7 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
     if (e && e.stopPropagation) {
       e.stopPropagation();
     }
+    this.props.changeStrategyBuilderPopUpString({});
     this.setState({ isPopUpOpen: false });
   };
   openPopUp = (e) => {
@@ -276,6 +277,39 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
       this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
     }
   };
+  changeWholeCondition = (passedItem) => {
+    let itemToBeChangedOriginal = structuredClone(
+      this.props.strategyBuilderString
+    );
+    let itemToBeChanged = itemToBeChangedOriginal;
+    this.props.path.forEach((element) => {
+      itemToBeChanged = itemToBeChanged[element];
+    });
+
+    // itemToBeChanged = passedItem;
+    itemToBeChanged.time_period = passedItem.selectedDaysConditions;
+    itemToBeChanged.amount = passedItem.selectedAmountConditions;
+    itemToBeChanged.operator = strategyBuilderOperatorConvertorTextToSymbol(
+      passedItem.selectedOperatorConditions
+    );
+    itemToBeChanged.token = passedItem.selectedAssetConditions;
+    itemToBeChanged.type = strategyBuilderTypeConvertorTextToSymbol(
+      passedItem.selectedPriceConditions
+    );
+    itemToBeChanged.compare_type = passedItem.compare_type;
+    itemToBeChanged.compare_function.time_period =
+      passedItem.selectedFunctionDaysConditions;
+    itemToBeChanged.compare_function.token =
+      passedItem.selectedFunctionAssetConditions;
+    itemToBeChanged.compare_function.type =
+      strategyBuilderTypeConvertorTextToSymbol(
+        passedItem.selectedFunctionPriceConditions
+      );
+
+    if (this.props.changeStrategyBuilderString) {
+      this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
+    }
+  };
 
   render() {
     return (
@@ -328,6 +362,7 @@ class BackTestConditionBuilderBlock extends BaseReactComponent {
             </div>
             {this.state.isPopUpOpen ? (
               <BackTestConditionPopup
+                changeWholeCondition={this.changeWholeCondition}
                 changeFunctionFixedToggle={this.changeFunctionFixedToggle}
                 changePriceConditions={this.changePriceConditions}
                 changeAssetConditions={this.changeAssetConditions}
