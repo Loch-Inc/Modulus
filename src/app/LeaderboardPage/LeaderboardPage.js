@@ -124,15 +124,15 @@ class LeaderboardPage extends BaseReactComponent {
               id="time"
             >
               {/* <ModulusLeaderboardAnualReturn className="leaderboard-page-content-header-block-icon" /> */}
-              <span className="inter-display-medium  ">Best Annual Return</span>
+              <span className="inter-display-medium  ">Best Return (30d)</span>
             </div>
           ),
-          dataKey: "best_anual_return",
+          dataKey: "best_return",
 
           coumnWidth: 0.25,
           isCell: true,
           cell: (rowData, dataKey, rowIndex) => {
-            if (dataKey === "best_anual_return") {
+            if (dataKey === "best_return") {
               return (
                 <div className="full-table-row-col-width">
                   <CustomOverlay
@@ -141,8 +141,8 @@ class LeaderboardPage extends BaseReactComponent {
                     isInfo={true}
                     isText={true}
                     text={
-                      rowData.best_anual_return
-                        ? Math.abs(rowData.best_anual_return).toLocaleString(
+                      rowData.best_return
+                        ? Math.abs(rowData.best_return).toLocaleString(
                             "en-US"
                           ) + "%"
                         : "0.00%"
@@ -150,9 +150,9 @@ class LeaderboardPage extends BaseReactComponent {
                     colorCode="#000"
                   >
                     <div className="inter-display-medium leaderboard-annual-return ">
-                      {rowData.best_anual_return
+                      {rowData.best_return
                         ? Math.abs(
-                            rowData.best_anual_return.toFixed(2)
+                            rowData.best_return.toFixed(2)
                           ).toLocaleString("en-US") + "%"
                         : "0.00%"}
                       {/* {rowData.best_anual_return}% */}
@@ -233,6 +233,7 @@ class LeaderboardPage extends BaseReactComponent {
           best_anual_return: item.best_annual_return
             ? item.best_annual_return
             : "",
+          best_return: item.best_return ? item.best_return : "",
         });
       });
       this.setState({
