@@ -54,7 +54,7 @@ function App(props) {
       sessionStorage.setItem("isPageViewRegistered", true);
       const modulusUser = getModulusUser();
       let userEmail = "";
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         userEmail = modulusUser.email;
       }
       ModulusWebsiteView({

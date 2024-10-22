@@ -10,11 +10,13 @@ import {
   BuilderChartInfoHover,
   BuilderPageView,
   BuilderPerformanceMetricsTableSorted,
+  BuilderShareStrategyClicked,
   BuilderTableChangeDate,
   PerformanceMetricsApiCallFailed,
   PerformanceVisualizationApiCallFailed,
 } from "src/utils/AnalyticsFunctions";
 import {
+  BASE_URL_S3,
   CURRENT_PORTFOLIO_BALANCE,
   DEFAULT_STRATEGY_NAME,
 } from "src/utils/Constant";
@@ -31,6 +33,7 @@ import TopBar from "../TopBar/TopBar";
 import "./_backTest.scss";
 import { getBackTestChart, getBackTestTable } from "./Api/BackTestApi";
 import BackTestPageContent from "./BackTestPageContent";
+import { getUserReferralCodes } from "../ProfilePage/Api/ProfilePageApi";
 
 class BackTestPage extends BaseReactComponent {
   constructor(props) {
@@ -56,6 +59,8 @@ class BackTestPage extends BaseReactComponent {
       saveStrategyName: DEFAULT_STRATEGY_NAME,
       passedStrategyList: [],
       passedUserList: [],
+      strategyPercentageReturn: null,
+      isShareStrategyVisible: false,
       isFromCalendar: false,
       isToCalendar: false,
       toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
@@ -282,7 +287,7 @@ class BackTestPage extends BaseReactComponent {
     if (isSuccess) {
     } else {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         PerformanceVisualizationApiCallFailed({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -302,7 +307,7 @@ class BackTestPage extends BaseReactComponent {
     if (isSuccess) {
     } else {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         PerformanceMetricsApiCallFailed({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -388,15 +393,19 @@ class BackTestPage extends BaseReactComponent {
       JSON.stringify(tempHolderObj)
     );
   };
+  getUserReferralCodesPass = () => {
+    this.props.getUserReferralCodes();
+  };
 
   componentDidMount() {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPageView({
         email_address: modulusUser.email,
       });
     }
     let builderList = strategyBuilderAssetList();
+    this.getUserReferralCodesPass();
     let tempArrHolder = [];
     for (let i = 0; i < builderList.length; i++) {
       let tempObj = {
@@ -448,9 +457,22 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.passedStrategyList !== this.state.passedStrategyList ||
+      prevState.strategyPercentageReturn !== this.state.strategyPercentageReturn
+    ) {
+      if (
+        this.state.passedStrategyList.length > 0 &&
+        this.state.strategyPercentageReturn !== null
+      ) {
+        this.setState({
+          isShareStrategyVisible: true,
+        });
+      }
+    }
     if (prevState.sortOption !== this.state.sortOption) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderPerformanceMetricsTableSorted({
           email_address: modulusUser.email,
           sortType: this.state.tableSortOption[this.state.sortOption.column],
@@ -473,7 +495,7 @@ class BackTestPage extends BaseReactComponent {
       this.state.selectedStrategiesOptions
     ) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderChartAddAssets({
           email_address: modulusUser.email,
           assets: this.state.selectedStrategiesOptions,
@@ -510,7 +532,15 @@ class BackTestPage extends BaseReactComponent {
           for (var key in curItem) {
             if (curItem.hasOwnProperty(key)) {
               let itemFound = curItem[key];
-              if (itemFound) {
+
+              if (itemFound && itemFound.data) {
+                if (itemFound.strategy_id) {
+                  let tempStrategyPercentageReturn =
+                    itemFound.data.annual_return;
+                  this.setState({
+                    strategyPercentageReturn: tempStrategyPercentageReturn,
+                  });
+                }
                 let tempHolder = {
                   annual_return: itemFound.data.annual_return,
                   calmar_ratio: itemFound.data.calmar_ratio,
@@ -674,7 +704,7 @@ class BackTestPage extends BaseReactComponent {
   };
   afterChangeDate = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderTableChangeDate({
         email_address: modulusUser.email,
         fromDate: this.state.fromDate,
@@ -723,9 +753,41 @@ class BackTestPage extends BaseReactComponent {
   };
   hoverInfo = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderChartInfoHover({ email_address: modulusUser.email });
     }
+  };
+  shareThisStrategy = () => {
+    let strategyId = "";
+    let userReferralCode = "";
+    let strategyPercentageReturn = this.state.strategyPercentageReturn;
+    if (
+      this.state.passedStrategyList &&
+      this.state.passedStrategyList.length > 0
+    ) {
+      strategyId = this.state.passedStrategyList[0];
+    }
+    if (sessionStorage.getItem("userReferralCode")) {
+      userReferralCode = sessionStorage.getItem("userReferralCode");
+    }
+
+    const shareMessage = `Check out this algorithmic strategy that’s generating ${strategyPercentageReturn}% annual return:\n \n \n${BASE_URL_S3}share/${strategyId}/${userReferralCode}`;
+    const modulusUser = getModulusUser();
+    if (modulusUser && modulusUser.email) {
+      BuilderShareStrategyClicked({
+        email_address: modulusUser.email,
+        strategyName: this.state.saveStrategyName,
+        strategyId: strategyId,
+      });
+    }
+    navigator.clipboard
+      .writeText(shareMessage)
+      .then(() => {
+        toast.success("Copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy share message: ", err);
+      });
   };
   render() {
     const performanceMetricColumnList = [
@@ -1211,6 +1273,8 @@ class BackTestPage extends BaseReactComponent {
                 isStrategyEmpty={this.state.isStrategyEmpty}
                 fromDate={this.state.fromDate}
                 toDate={this.state.toDate}
+                isShareStrategyVisible={this.state.isShareStrategyVisible}
+                shareThisStrategy={this.shareThisStrategy}
                 // Copy Paste
                 copiedItem={this.state.copiedItem}
                 setCopiedItem={this.setCopiedItem}
@@ -1232,6 +1296,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getBackTestChart,
   getBackTestTable,
+  getUserReferralCodes,
 };
 
 BackTestPage.propTypes = {};

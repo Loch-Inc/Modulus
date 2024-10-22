@@ -79,7 +79,7 @@ class BackTestBuilder extends BaseReactComponent {
       return;
     }
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderUndoClicked({
         email_address: modulusUser.email,
       });
@@ -105,7 +105,7 @@ class BackTestBuilder extends BaseReactComponent {
       return;
     }
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderRedoClicked({
         email_address: modulusUser.email,
       });
@@ -186,7 +186,7 @@ class BackTestBuilder extends BaseReactComponent {
     } else {
       toast.error("An error has occurred. Please try again");
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         ModulusBuilderUpdateStrategyApiCallFailed({
           email_address: modulusUser.email,
           strategy_id: this.props.passedStrategyList[0],
@@ -198,7 +198,7 @@ class BackTestBuilder extends BaseReactComponent {
     if (isApiPassed) {
       const modulusUser = getModulusUser();
       let tempUserId = "";
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderStrategySaved({
           email_address: modulusUser.email,
           strategyName: this.props.saveStrategyName,
@@ -216,7 +216,7 @@ class BackTestBuilder extends BaseReactComponent {
     } else {
       toast.error("An error has occurred. Please try again");
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         ModulusBuilderCreateStrategyApiCallFailed({
           email_address: modulusUser.email,
         });
@@ -469,7 +469,7 @@ class BackTestBuilder extends BaseReactComponent {
 
   onAddAssetInEmptyClick = (passedFunction, item, isPopUp) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderFirstAssetBlockAdded({
         email_address: modulusUser.email,
       });
@@ -507,7 +507,7 @@ class BackTestBuilder extends BaseReactComponent {
   };
   onAddConditionInEmptyClick = (passedFunction, item, isPopUp) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderFirstConditionBlockAdded({
         email_address: modulusUser.email,
       });

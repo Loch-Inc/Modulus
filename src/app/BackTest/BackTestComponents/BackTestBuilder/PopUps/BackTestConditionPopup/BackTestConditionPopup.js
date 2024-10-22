@@ -120,7 +120,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   // Function type
   changeFunctionPriceConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionSecondFunctionSelected({
         email_address: modulusUser.email,
         functionName: item,
@@ -134,7 +134,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   changeFunctionAssetConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionSecondAssetSelected({
         email_address: modulusUser.email,
         assetName: item,
@@ -146,7 +146,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   changeFunctionDaysConditions = (item, index) => {
     const modulusUser = getModulusUser();
 
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionSecondDaysChanged({
         email_address: modulusUser.email,
         days: item,
@@ -158,7 +158,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   // Function type
   changePriceConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionSecondFunctionSelected({
         email_address: modulusUser.email,
         functionName: item,
@@ -172,7 +172,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   changeAssetConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionFirstAssetSelected({
         email_address: modulusUser.email,
         assetName: item,
@@ -183,7 +183,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   changeOperatorConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionOperatorSelected({
         email_address: modulusUser.email,
         operatorName: item,
@@ -194,7 +194,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   changeAmountConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionAmountChanged({
         email_address: modulusUser.email,
         amount: item,
@@ -205,7 +205,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   changeDaysConditions = (item, index) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderPopUpConditionFirstDaysChanged({
         email_address: modulusUser.email,
         days: item,
@@ -260,7 +260,7 @@ class BackTestConditionPopup extends BaseReactComponent {
   switchFunctionFixedToggle = () => {
     if (this.props.isFunction) {
       const modulusUser = getModulusUser();
-      if (modulusUser) {
+      if (modulusUser && modulusUser.email) {
         BuilderPopUpConditionFixedValueSelected({
           email_address: modulusUser.email,
         });

@@ -112,16 +112,16 @@ class ProfilePageContent extends BaseReactComponent {
                     ? "profile-page-left-block-action-btn-selected"
                     : ""
                 }`}
-                onClick={this.props.openReferralCodeBlock}
+                onClick={this.props.inviteAFriend}
               >
                 <Image
                   className="profile-page-left-block-action-btn-icon"
                   src={PasswordIcon}
                 />
                 <div className="profile-page-left-block-action-btn-text">
-                  Share Referral Code
+                  Invite a friend
                 </div>
-                {this.props.isReferralCodeBlockOpen ? (
+                {/* {this.props.isReferralCodeBlockOpen ? (
                   <div className="profile-page-left-block-action-btn-referral-code-block">
                     <div className="profile-page-left-block-action-btn-referral-code-block-title">
                       <div className="profile-page-left-block-action-btn-referral-code-block-title-text">
@@ -142,7 +142,7 @@ class ProfilePageContent extends BaseReactComponent {
                             onClick={() => {
                               copyText(item.code);
                               const modulusUser = getModulusUser();
-                              if (modulusUser) {
+                              if (modulusUser && modulusUser.email) {
                                 ProfileReferralCodeCopied({
                                   email_address: modulusUser.email,
                                   referralCode: item.code,
@@ -172,7 +172,7 @@ class ProfilePageContent extends BaseReactComponent {
                         ))}
                     </div>
                   </div>
-                ) : null}
+                ) : null} */}
               </button>
             </OutsideClickHandler>
           </div>

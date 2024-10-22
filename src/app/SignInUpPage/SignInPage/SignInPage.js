@@ -172,7 +172,20 @@ class SignInPage extends React.Component {
         email_address: this.state.email,
       });
       setToken(userToken);
-      this.props.history.push("/");
+      const sharedStrategyId = sessionStorage.getItem("sharedStrategyId");
+      if (sharedStrategyId) {
+        sessionStorage.removeItem("sharedStrategyId");
+        this.props.history.push({
+          pathname: "/builder",
+          state: {
+            passedStrategyId: sharedStrategyId,
+            passedStrategyName: "",
+            passedUserId: "",
+          },
+        });
+      } else {
+        this.props.history.push("/");
+      }
     }
   };
   afterVerifyOtpCallError = (errorMessage = "") => {

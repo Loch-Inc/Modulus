@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import {
   StrategyBuilderPencilLightIcon,
   StrategyBuilderTitleDiamondIcon,
+  StrategyShareIcon,
 } from "src/assets/images/icons";
 import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
 import { BaseReactComponent } from "../../../../../../utils/form";
@@ -60,6 +61,11 @@ class BackTestSaveStrategy extends BaseReactComponent {
   changeStragegyName = (e) => {
     this.setState({ strategyName: e.target.value });
   };
+  shareStrategyClickedPass = () => {
+    if (this.props.shareThisStrategy) {
+      this.props.shareThisStrategy();
+    }
+  };
   saveStrategyClickedPass = () => {
     this.setState({
       isInputOpen: false,
@@ -73,7 +79,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
   };
   showInputBox = () => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderRenameClicked({
         email_address: modulusUser.email,
       });
@@ -145,17 +151,30 @@ class BackTestSaveStrategy extends BaseReactComponent {
                   </div>
                 </div>
               </div>
-              <div
-                onClick={this.saveStrategyClickedPass}
-                className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
-                  this.props.loadingSaveInvestStrategyBtn ||
-                  this.state.strategyName === "" ||
-                  this.state.disableBtn
-                    ? "strategy-builder-save-strategy-btn-loading"
-                    : ""
-                }`}
-              >
-                Save
+              <div className="strategy-builder-save-strategy-btns-container">
+                <div
+                  onClick={this.shareStrategyClickedPass}
+                  className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-white  ${
+                    !this.props.isShareStrategyVisible
+                      ? "strategy-builder-save-strategy-btn-loading"
+                      : ""
+                  }`}
+                >
+                  <StrategyShareIcon className="strategy-builder-save-strategy-btn-white-icon" />
+                  <div>Share</div>
+                </div>
+                <div
+                  onClick={this.saveStrategyClickedPass}
+                  className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
+                    this.props.loadingSaveInvestStrategyBtn ||
+                    this.state.strategyName === "" ||
+                    this.state.disableBtn
+                      ? "strategy-builder-save-strategy-btn-loading"
+                      : ""
+                  }`}
+                >
+                  Save
+                </div>
               </div>
             </div>
           )}

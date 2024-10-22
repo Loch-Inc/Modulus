@@ -94,29 +94,58 @@
     gap: 10px;
   }
 }
-.strategy-builder-save-strategy-btn {
-  border: 1px solid var(--strategyBuilderBorder);
-  box-shadow: var(--boxShadowMd);
-  border-radius: 10px;
-  height: 4rem;
-  width: 180px;
+.strategy-builder-save-strategy-btns-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: var(--primaryTextColor);
-  text-shadow: 0.1px 0 var(--primaryTextColor);
-  font-weight: 600;
-
-  &:hover {
+  gap: 10px;
+  .strategy-builder-save-strategy-btn {
+    border: 1px solid var(--strategyBuilderBorder);
+    box-shadow: var(--boxShadowMd);
+    border-radius: 10px;
+    height: 4rem;
+    padding: 0 50px;
+    // width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--primaryTextColor);
     background-color: var(--strategyBuilderDarkGrey);
+    font-weight: 600;
+
+    &:hover {
+      background-color: var(--primaryTextColor);
+      color: var(--cardBackgroud);
+    }
   }
-}
-.strategy-builder-save-strategy-btn-highlighted {
-  background-color: #cbf458;
-  &:hover {
-    background-color: var(--primaryTextColor);
-    color: var(--cardBackgroud);
+  .strategy-builder-save-strategy-btn-highlighted {
+    background-color: #cbf458;
+    color: var(--primaryTextColor);
+    &:hover {
+      background-color: var(--primaryTextColor);
+      color: var(--cardBackgroud);
+    }
+  }
+  .strategy-builder-save-strategy-btn-white {
+    background-color: var(--cardBackgroud);
+    color: var(--strategyBuilderShareText);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    .strategy-builder-save-strategy-btn-white-icon {
+      height: 17px;
+      width: 17px;
+    }
+    &:hover {
+      .strategy-builder-save-strategy-btn-white-icon {
+        path {
+          stroke: var(--cardBackgroud);
+        }
+      }
+    }
   }
 }
 .strategy-builder-save-strategy-btn-loading {

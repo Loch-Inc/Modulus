@@ -376,6 +376,28 @@ export const BuilderToggleCollapseElse = ({ email_address, isCollapsed }) => {
   sendMixpanelData(event_name, eventProperties);
 };
 
+export const BuilderShareStrategyClicked = ({
+  email_address,
+  strategyName,
+  strategyId,
+}) => {
+  const event_name = "Builder: Share Strategy Clicked";
+  const eventProperties = {
+    "email address": email_address,
+    "strategy name": strategyName,
+    "strategy id": strategyId,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
+export const BuilderSharedStrategyOpened = ({ email_address, strategyId }) => {
+  const event_name = "Builder: Shared Strategy Opened";
+  const eventProperties = {
+    "email address": email_address,
+    "strategy id": strategyId,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
+
 //Builder Page
 
 // Profile Page
@@ -391,6 +413,13 @@ export const ProfileTablePageChanged = ({ email_address, page }) => {
   const eventProperties = {
     "email address": email_address,
     page: page,
+  };
+  sendMixpanelData(event_name, eventProperties);
+};
+export const ProfileInviteAFriendClicked = ({ email_address }) => {
+  const event_name = "Profile: Invite a friend Clicked";
+  const eventProperties = {
+    "email address": email_address,
   };
   sendMixpanelData(event_name, eventProperties);
 };
