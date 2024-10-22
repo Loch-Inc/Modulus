@@ -1,0 +1,12 @@
+.sign-up-link-page {
+  .sign-up-link-page-content {
+    height: calc(100vh - 130px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .sign-up-link-page-spinning-logo {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}

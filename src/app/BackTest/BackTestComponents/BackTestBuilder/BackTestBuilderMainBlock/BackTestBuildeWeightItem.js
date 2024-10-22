@@ -18,7 +18,7 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
   }
   toggleCollapseWeight = (e) => {
     const modulusUser = getModulusUser();
-    if (modulusUser) {
+    if (modulusUser && modulusUser.email) {
       BuilderToggleCollapseWeightPercentage({
         email_address: modulusUser.email,
         isCollapsed: !this.state.isItemCollapsedWeight,

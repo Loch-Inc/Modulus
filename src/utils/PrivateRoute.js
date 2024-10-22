@@ -22,14 +22,10 @@ const PrivateRoute = ({
     }
   }, [rest.path]);
   useEffect(() => {
-    const tempHolder = sessionStorage.getItem("decoded-token");
-    if (tempHolder) {
-      // tempHolder = JSON.parse(tempHolder);
-    } else {
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        sessionStorage.setItem("decoded-token", JSON.stringify(decodedToken));
-      }
+    const tempToken = getToken();
+    if (tempToken) {
+      const decodedToken = jwtDecode(tempToken);
+      sessionStorage.setItem("decoded-token", JSON.stringify(decodedToken));
     }
   }, []);
 

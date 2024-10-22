@@ -39,11 +39,21 @@ export const getUserCreatedStrategies = (data, stopLoading) => {
       });
   };
 };
-export const getUserReferralCodes = (passedData, ctx) => {
+export const getUserReferralCodes = (passedData) => {
   return async function (dispatch, getState) {
     PostLoginNoModulusAxios.get("users-api/users/referral-codes", passedData)
       .then((res) => {
         if (!res.data.error) {
+          let userReferralCode = "";
+
+          if (
+            res?.data?.data?.referralCodes &&
+            res?.data?.data?.referralCodes.length > 0
+          ) {
+            userReferralCode = res.data.data.referralCodes[0].code;
+            sessionStorage.setItem("userReferralCode", userReferralCode);
+          }
+
           if (res.data.data) {
             dispatch({
               type: GET_REFERRAL_CODES_MODULUS,
@@ -53,9 +63,7 @@ export const getUserReferralCodes = (passedData, ctx) => {
         }
       })
       .catch((err) => {
-        ctx.setState({
-          performanceMetricTableLoading: false,
-        });
+        console.log("err", err);
       });
   };
 };
