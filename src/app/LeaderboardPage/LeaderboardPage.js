@@ -8,7 +8,7 @@ import "./_leaderboard.scss";
 import { getLeaderboardData } from "./Api/LeaderboardApi";
 import LeaderboardPageContent from "./LeaderboardPageContent";
 import { LeaderboardPageView } from "src/utils/AnalyticsFunctions";
-import { getModulusUser } from "src/utils/ManageToken";
+import { getModulusUser, getToken } from "src/utils/ManageToken";
 
 class LeaderboardPage extends BaseReactComponent {
   constructor(props) {
@@ -176,11 +176,13 @@ class LeaderboardPage extends BaseReactComponent {
   componentDidMount() {
     const showBackButtonForSignInUp =
       this.props.location.state?.showBackButton || false;
-    if (showBackButtonForSignInUp === "true") {
+    const modulusToken = getToken();
+    if (showBackButtonForSignInUp === "true" && !modulusToken) {
       this.setState({
         showBackButtonForSignInUp: true,
       });
     } else {
+      console.log("2");
       this.setState({
         showBackButtonForSignInUp: false,
       });
@@ -248,6 +250,9 @@ class LeaderboardPage extends BaseReactComponent {
       leaderboardTableData: [],
     });
   };
+  onBackButtonClick = () => {
+    this.props.history.goBack();
+  };
 
   render() {
     if (mobileCheck()) {
@@ -257,6 +262,8 @@ class LeaderboardPage extends BaseReactComponent {
       <div className="leaderboard-page">
         <div className="leaderboard-page-topbar">
           <TopBar
+            showBackButton={this.state.showBackButtonForSignInUp}
+            onBackButtonClick={this.onBackButtonClick}
             connectedWalletBalance={this.props.connectedWalletBalance}
             isWalletConnected={this.props.isWalletConnected}
             connectedWalletAddress={this.props.connectedWalletAddress}
