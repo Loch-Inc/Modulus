@@ -23,6 +23,7 @@ import { BaseReactComponent } from "../../../../../../utils/form";
 import {
   mobileCheck,
   strategyBuilderAssetList,
+  strategyBuilderChartShouldShowDate,
   strategyBuilderLimitAmountTo,
   strategyBuilderTypeConvertorTextToSymbol,
 } from "../../../../../../utils/ReusableFunctions";
@@ -35,6 +36,8 @@ class BackTestConditionPopup extends BaseReactComponent {
     super(props);
     this.state = {
       //Price condition
+      shouldShowDays: props.shouldShowDays,
+      shouldShowFunctionDays: props.shouldShowFunctionDays,
       isMobile: mobileCheck(),
       allPriceConditions: [
         { name: "Current price", alt: "Current price" },
@@ -72,6 +75,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       selectedFunctionDaysConditions: this.props.selectedFunctionDaysConditions
         ? this.props.selectedFunctionDaysConditions
         : "",
+      isFunction: this.props.isFunction,
 
       //Asset condition
       allAssetConditions: [
@@ -129,8 +133,11 @@ class BackTestConditionPopup extends BaseReactComponent {
     this.setState({
       selectedFunctionPriceConditions: item,
       selectedFunctionAmountConditions: 100,
+      shouldShowFunctionDays: strategyBuilderChartShouldShowDate(
+        strategyBuilderTypeConvertorTextToSymbol(item)
+      ),
     });
-    this.props.changeFunctionPriceConditions(item);
+    // this.props.changeFunctionPriceConditions(item);
   };
   changeFunctionAssetConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -141,7 +148,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedFunctionAssetConditions: item });
-    this.props.changeFunctionAssetConditions(item);
+    // this.props.changeFunctionAssetConditions(item);
   };
   changeFunctionDaysConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -153,7 +160,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedFunctionDaysConditions: item });
-    this.props.changeFunctionDaysConditions(item);
+    // this.props.changeFunctionDaysConditions(item);
   };
   // Function type
   changePriceConditions = (item, index) => {
@@ -167,8 +174,11 @@ class BackTestConditionPopup extends BaseReactComponent {
     this.setState({
       selectedPriceConditions: item,
       selectedAmountConditions: 100,
+      shouldShowDays: strategyBuilderChartShouldShowDate(
+        strategyBuilderTypeConvertorTextToSymbol(item)
+      ),
     });
-    this.props.changePriceConditions(item);
+    // this.props.changePriceConditions(item);
   };
   changeAssetConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -179,7 +189,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedAssetConditions: item });
-    this.props.changeAssetConditions(item);
+    // this.props.changeAssetConditions(item);
   };
   changeOperatorConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -190,7 +200,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedOperatorConditions: item });
-    this.props.changeOperatorConditions(item);
+    // this.props.changeOperatorConditions(item);
   };
   changeAmountConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -201,7 +211,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedAmountConditions: item });
-    this.props.changeAmountConditions(item);
+    // this.props.changeAmountConditions(item);
   };
   changeDaysConditions = (item, index) => {
     const modulusUser = getModulusUser();
@@ -212,7 +222,7 @@ class BackTestConditionPopup extends BaseReactComponent {
       });
     }
     this.setState({ selectedDaysConditions: item });
-    this.props.changeDaysConditions(item);
+    // this.props.changeDaysConditions(item);
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -258,16 +268,18 @@ class BackTestConditionPopup extends BaseReactComponent {
     }
   }
   switchFunctionFixedToggle = () => {
-    if (this.props.isFunction) {
+    if (this.state.isFunction) {
       const modulusUser = getModulusUser();
       if (modulusUser && modulusUser.email) {
         BuilderPopUpConditionFixedValueSelected({
           email_address: modulusUser.email,
         });
       }
-      this.props.changeFunctionFixedToggle("FIXED");
+      this.setState({ isFunction: false });
+      // this.props.changeFunctionFixedToggle("FIXED");
     } else {
-      this.props.changeFunctionFixedToggle("FUNCTION");
+      this.setState({ isFunction: true });
+      // this.props.changeFunctionFixedToggle("FUNCTION");
     }
   };
   componentDidMount() {
@@ -292,6 +304,10 @@ class BackTestConditionPopup extends BaseReactComponent {
   closePopUpPass = () => {
     this.props.closePopUp();
   };
+  onOutsideClickpass = () => {
+    this.changeWholeCondition();
+    this.closePopUpPass();
+  };
   onCloseClicked = (e) => {
     e.stopPropagation();
     this.closePopUpPass();
@@ -303,12 +319,30 @@ class BackTestConditionPopup extends BaseReactComponent {
   };
   onAddClicked = (e) => {
     e.stopPropagation();
-    this.closePopUpPass();
     const modulusUser = getModulusUser();
-    if (modulusUser)
+    if (modulusUser) {
       BuilderPopUpConditionAddClicked({
         email_address: modulusUser.email,
       });
+    }
+    this.closePopUpPass();
+    this.changeWholeCondition();
+  };
+  changeWholeCondition = () => {
+    const tempConditionItemHolder = {
+      selectedPriceConditions: this.state.selectedPriceConditions,
+      selectedAssetConditions: this.state.selectedAssetConditions,
+      selectedOperatorConditions: this.state.selectedOperatorConditions,
+      selectedAmountConditions: this.state.selectedAmountConditions,
+      selectedDaysConditions: this.state.selectedDaysConditions,
+      selectedFunctionPriceConditions:
+        this.state.selectedFunctionPriceConditions,
+      selectedFunctionAssetConditions:
+        this.state.selectedFunctionAssetConditions,
+      selectedFunctionDaysConditions: this.state.selectedFunctionDaysConditions,
+      compare_type: this.state.isFunction ? "FUNCTION" : "FIXED",
+    };
+    this.props.changeWholeCondition(tempConditionItemHolder);
   };
 
   render() {
@@ -320,7 +354,7 @@ class BackTestConditionPopup extends BaseReactComponent {
             : ""
         }`}
       >
-        <OutsideClickHandler onOutsideClick={this.closePopUpPass}>
+        <OutsideClickHandler onOutsideClick={this.onOutsideClickpass}>
           <div className="back-test-condition-popup">
             <div className="back-test-condition-popup-header-container">
               <div className="back-test-condition-popup-header-text">
@@ -356,7 +390,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                 <div className="back-test-condition-popup-body-colored-block">
                   if
                 </div>
-                {this.props.shouldShowDays ? (
+                {this.state.shouldShowDays ? (
                   <>
                     <BackTestPopupInput
                       smallerInput
@@ -399,7 +433,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                 >
                   <div
                     className={`back-test-condition-popup-body-toggle-switch ${
-                      this.props.isFunction
+                      this.state.isFunction
                         ? ""
                         : "back-test-condition-popup-body-toggle-switch-on"
                     }`}
@@ -415,9 +449,9 @@ class BackTestConditionPopup extends BaseReactComponent {
                 <div className="back-test-condition-popup-body-colored-block zeroOpacity">
                   is
                 </div>
-                {this.props.isFunction ? (
+                {this.state.isFunction ? (
                   <>
-                    {this.props.shouldShowFunctionDays ? (
+                    {this.state.shouldShowFunctionDays ? (
                       <>
                         <BackTestPopupInput
                           smallerInput
