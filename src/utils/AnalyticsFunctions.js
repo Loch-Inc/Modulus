@@ -7,12 +7,22 @@ export const initMixpanel = () => {
     loaded: function (mixpanel) {},
   });
 };
+export const setMixpanelDataPoints = (email_address) => {
+  Mixpanel.alias(email_address);
+  Mixpanel.identify(email_address);
+  Mixpanel.people.set({
+    $email: email_address,
+    $user_id: email_address,
+    $distinct_id: email_address,
+  });
+};
 
 // send Aplitude Data
-export const sendMixpanelData = (eventType, eventProperties) => {
+export const sendMixpanelData = (eventType, eventProperties, email_address) => {
   let newEventProperties = {
     ...eventProperties,
     isMobile: mobileCheck(),
+    distinct_id: email_address ? email_address : "",
   };
   Mixpanel.track(eventType, newEventProperties);
 };
@@ -22,7 +32,7 @@ export const ModulusWebsiteView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 //Discover Page
@@ -31,7 +41,7 @@ export const DiscoverPageView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const DiscoverTablePageChanged = ({ email_address, page }) => {
   const event_name = "Discover: Table: Page Changed";
@@ -39,14 +49,14 @@ export const DiscoverTablePageChanged = ({ email_address, page }) => {
     "email address": email_address,
     page: page,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const DiscoverCreateYourAlgoStrategy = ({ email_address }) => {
   const event_name = "Discover: Create Your Own Algorithmic Strategy Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const DiscoverSortTable = ({ email_address, sortType, sortBy }) => {
   const event_name = "Discover: Table Sorted";
@@ -55,7 +65,7 @@ export const DiscoverSortTable = ({ email_address, sortType, sortBy }) => {
     "sort type": sortType,
     "sort by": sortBy,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const DiscoverStrategyClicked = ({ email_address, strategy_name }) => {
   const event_name = "Discover: Strategy Clicked";
@@ -63,7 +73,7 @@ export const DiscoverStrategyClicked = ({ email_address, strategy_name }) => {
     "email address": email_address,
     "strategy name": strategy_name,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 //Discover Page
@@ -74,14 +84,14 @@ export const BuilderPageView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderChartInfoHover = ({ email_address }) => {
   const event_name = "Builder: Visualization: Info hover";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPerformanceMetricsTableSorted = ({
   email_address,
@@ -94,7 +104,7 @@ export const BuilderPerformanceMetricsTableSorted = ({
     "sort type": sortType,
     "sort by": sortBy,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderChartAddAssets = ({ email_address, assets }) => {
   const event_name = "Builder: Visualization: Benchmark Changed";
@@ -102,7 +112,7 @@ export const BuilderChartAddAssets = ({ email_address, assets }) => {
     "email address": email_address,
     "assets list": assets,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderTableChangeDate = ({ email_address, fromDate, toDate }) => {
   const event_name = "Builder: Performance Metrics: Change Date";
@@ -111,14 +121,14 @@ export const BuilderTableChangeDate = ({ email_address, fromDate, toDate }) => {
     "from date": fromDate,
     "to date": toDate,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderRenameClicked = ({ email_address }) => {
   const event_name = "Builder: Rename Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderStrategySaved = ({ email_address, strategyName }) => {
   const event_name = "Builder: Strategy Created";
@@ -126,7 +136,7 @@ export const BuilderStrategySaved = ({ email_address, strategyName }) => {
     "email address": email_address,
     "strategy name": strategyName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderStrategyEdited = ({ email_address, strategyName }) => {
   const event_name = "Builder: Strategy Updated";
@@ -134,7 +144,7 @@ export const BuilderStrategyEdited = ({ email_address, strategyName }) => {
     "email address": email_address,
     "strategy name": strategyName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const BuilderUndoClicked = ({ email_address }) => {
@@ -142,7 +152,7 @@ export const BuilderUndoClicked = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const BuilderRedoClicked = ({ email_address }) => {
@@ -150,7 +160,7 @@ export const BuilderRedoClicked = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const BuilderFirstAssetBlockAdded = ({ email_address }) => {
@@ -158,28 +168,28 @@ export const BuilderFirstAssetBlockAdded = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderFirstConditionBlockAdded = ({ email_address }) => {
   const event_name = "Builder: First Condition Block Added";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionCloseClicked = ({ email_address }) => {
   const event_name = "Builder: Pop Up: Condition: Close Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionAddClicked = ({ email_address }) => {
   const event_name = "Builder: Pop Up: Condition: Check Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionFirstFunctionSelected = ({
   email_address,
@@ -190,7 +200,7 @@ export const BuilderPopUpConditionFirstFunctionSelected = ({
     "email address": email_address,
     "function name": functionName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionSecondFunctionSelected = ({
   email_address,
@@ -201,7 +211,7 @@ export const BuilderPopUpConditionSecondFunctionSelected = ({
     "email address": email_address,
     "function name": functionName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionFirstAssetSelected = ({
   email_address,
@@ -212,7 +222,7 @@ export const BuilderPopUpConditionFirstAssetSelected = ({
     "email address": email_address,
     "asset name": assetName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionSecondAssetSelected = ({
   email_address,
@@ -223,7 +233,7 @@ export const BuilderPopUpConditionSecondAssetSelected = ({
     "email address": email_address,
     "asset name": assetName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionFirstDaysChanged = ({
   email_address,
@@ -234,7 +244,7 @@ export const BuilderPopUpConditionFirstDaysChanged = ({
     "email address": email_address,
     days: days,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionSecondDaysChanged = ({
   email_address,
@@ -245,7 +255,7 @@ export const BuilderPopUpConditionSecondDaysChanged = ({
     "email address": email_address,
     days: days,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionOperatorSelected = ({
   email_address,
@@ -256,7 +266,7 @@ export const BuilderPopUpConditionOperatorSelected = ({
     "email address": email_address,
     "operator name": operatorName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionAmountChanged = ({
   email_address,
@@ -267,14 +277,14 @@ export const BuilderPopUpConditionAmountChanged = ({
     "email address": email_address,
     amount: amount,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpConditionFixedValueSelected = ({ email_address }) => {
   const event_name = "Builder: Pop Up: Condition: Fixed Value Selected";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const BuilderAddBlockClicked = ({ email_address }) => {
@@ -282,49 +292,49 @@ export const BuilderAddBlockClicked = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderEditBlockClicked = ({ email_address }) => {
   const event_name = "Builder: Edit Block Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderCopyBlockClicked = ({ email_address }) => {
   const event_name = "Builder: Copy Block Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderDeleteBlockClicked = ({ email_address }) => {
   const event_name = "Builder: Delete Block Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderAddBellowAssetClicked = ({ email_address }) => {
   const event_name = "Builder: Add Below: Asset Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderAddBellowConditionClicked = ({ email_address }) => {
   const event_name = "Builder: Add Below: Condition Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderAddBellowPasteClicked = ({ email_address }) => {
   const event_name = "Builder: Add Below: Paste Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpAssetAssetSelected = ({
   email_address,
@@ -335,7 +345,7 @@ export const BuilderPopUpAssetAssetSelected = ({
     "email address": email_address,
     "asset name": assetName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderPopUpWeightPercentageChanged = ({
   email_address,
@@ -346,7 +356,7 @@ export const BuilderPopUpWeightPercentageChanged = ({
     "email address": email_address,
     "weight name": weightName,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderToggleCollapseWeightPercentage = ({
   email_address,
@@ -357,7 +367,7 @@ export const BuilderToggleCollapseWeightPercentage = ({
     "email address": email_address,
     "is collapsed": isCollapsed,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderToggleCollapseIf = ({ email_address, isCollapsed }) => {
   const event_name = "Builder: Toggle Collapse: If";
@@ -365,7 +375,7 @@ export const BuilderToggleCollapseIf = ({ email_address, isCollapsed }) => {
     "email address": email_address,
     "is collapsed": isCollapsed,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderToggleCollapseElse = ({ email_address, isCollapsed }) => {
   const event_name = "Builder: Toggle Collapse: Else";
@@ -373,7 +383,7 @@ export const BuilderToggleCollapseElse = ({ email_address, isCollapsed }) => {
     "email address": email_address,
     "is collapsed": isCollapsed,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const BuilderShareStrategyClicked = ({
@@ -387,7 +397,7 @@ export const BuilderShareStrategyClicked = ({
     "strategy name": strategyName,
     "strategy id": strategyId,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const BuilderSharedStrategyOpened = ({ email_address, strategyId }) => {
   const event_name = "Builder: Shared Strategy Opened";
@@ -395,7 +405,7 @@ export const BuilderSharedStrategyOpened = ({ email_address, strategyId }) => {
     "email address": email_address,
     "strategy id": strategyId,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 //Builder Page
@@ -406,7 +416,7 @@ export const ProfilePageView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileTablePageChanged = ({ email_address, page }) => {
   const event_name = "Profile: Table: Page Changed";
@@ -414,21 +424,21 @@ export const ProfileTablePageChanged = ({ email_address, page }) => {
     "email address": email_address,
     page: page,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileInviteAFriendClicked = ({ email_address }) => {
   const event_name = "Profile: Invite a friend Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileShareReferralCodeClicked = ({ email_address }) => {
   const event_name = "Profile: Share Referral Code Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileReferralCodeCopied = ({ email_address, referralCode }) => {
   const event_name = "Profile: Referral Code Copied";
@@ -436,21 +446,21 @@ export const ProfileReferralCodeCopied = ({ email_address, referralCode }) => {
     "email address": email_address,
     "referral code": referralCode,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileAllReferralCodesCopied = ({ email_address }) => {
   const event_name = "Profile: All Referral Codes Copied";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileEditUsernameClicked = ({ email_address }) => {
   const event_name = "Profile: Edit Username Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const ProfileUsernameEdited = ({ email_address, username }) => {
@@ -459,21 +469,21 @@ export const ProfileUsernameEdited = ({ email_address, username }) => {
     "email address": email_address,
     username: username,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileSignOutClicked = ({ email_address }) => {
   const event_name = "Profile: Sign Out Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ProfileSignedOut = ({ email_address }) => {
   const event_name = "Profile: Signed Out";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 // Profile Page
@@ -483,7 +493,7 @@ export const LeaderboardPageView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 // Leaderboard Page
 
@@ -494,56 +504,56 @@ export const TopBarDiscoverClicked = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarLeaderboardClicked = ({ email_address }) => {
   const event_name = "Top Bar: Leaderboard Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarBuilderClicked = ({ email_address }) => {
   const event_name = "Top Bar: Builder Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarConnectClicked = ({ email_address }) => {
   const event_name = "Top Bar: Connect Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarFeedbackClicked = ({ email_address }) => {
   const event_name = "Top Bar: Feedback Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarProfileClicked = ({ email_address }) => {
   const event_name = "Top Bar: Profile Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarSignOutClicked = ({ email_address }) => {
   const event_name = "Top Bar: Sign Out Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarSignedOut = ({ email_address }) => {
   const event_name = "Top Bar: Signed Out";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 export const TopBarSignInClicked = ({ email_address }) => {
@@ -551,14 +561,14 @@ export const TopBarSignInClicked = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const TopBarHomeClicked = ({ email_address }) => {
   const event_name = "Top Bar: Home Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 // Top Bar
@@ -567,35 +577,42 @@ export const TopBarHomeClicked = ({ email_address }) => {
 export const SignInPageView = () => {
   const event_name = "Sign In: Page View";
   const eventProperties = {};
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, "");
 };
 export const SignInVerifyAccountPageView = ({ email_address }) => {
   const event_name = "Sign In: Verify Account: Page View";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignInVerifyAccountSendCodeAgainClicked = ({ email_address }) => {
   const event_name = "Sign In: Verify Account: Send Code Again Clicked";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignInVerifyAccountGoBack = ({ email_address }) => {
   const event_name = "Sign In: Verify Account: Go Back";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignedIn = ({ email_address }) => {
+  Mixpanel.alias(email_address);
+  Mixpanel.identify(email_address);
+  Mixpanel.people.set({
+    $email: email_address,
+    $user_id: email_address,
+    $distinct_id: email_address,
+  });
   const event_name = "Sign In: Signed In";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 // Sign In Page
@@ -604,12 +621,12 @@ export const SignedIn = ({ email_address }) => {
 export const SignUpPageView = () => {
   const event_name = "Sign Up: Page View";
   const eventProperties = {};
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, "");
 };
 export const SignUpTermsAndConditionsClicked = () => {
   const event_name = "Sign Up: Terms and Conditions Clicked";
   const eventProperties = {};
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, "");
 };
 
 export const SignUpReferralCodePageView = ({ email_address }) => {
@@ -617,35 +634,42 @@ export const SignUpReferralCodePageView = ({ email_address }) => {
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignUpReferralCodeGoBack = ({ email_address }) => {
   const event_name = "Sign Up: Referral Code: Go Back";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignUpVerifyAccountPageView = ({ email_address }) => {
   const event_name = "Sign Up: Verify Account: Page View";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignUpVerifyAccountGoBack = ({ email_address }) => {
   const event_name = "Sign Up: Verify Account: Go Back";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignedUp = ({ email_address }) => {
+  Mixpanel.alias(email_address);
+  Mixpanel.identify(email_address);
+  Mixpanel.people.set({
+    $email: email_address,
+    $user_id: email_address,
+    $distinct_id: email_address,
+  });
   const event_name = "Sign Up: Signed Up";
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 // Sign Up Page
@@ -658,7 +682,7 @@ export const SignInApiCallFailed = ({ email_address, error_message }) => {
     "email address": email_address,
     "error message": error_message,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignInVerifyOtpApiCallFailed = ({
   email_address,
@@ -669,7 +693,7 @@ export const SignInVerifyOtpApiCallFailed = ({
     "email address": email_address,
     "error message": error_message,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 // Sign In
 
@@ -680,7 +704,7 @@ export const SignUpApiCallFailed = ({ email_address, error_message }) => {
     "email address": email_address,
     "error message": error_message,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignUpVerifyReferralCodeApiCallFailed = ({
   email_address,
@@ -691,7 +715,7 @@ export const SignUpVerifyReferralCodeApiCallFailed = ({
     "email address": email_address,
     "error message": error_message,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const SignUpVerifyOtpApiCallFailed = ({
   email_address,
@@ -702,7 +726,7 @@ export const SignUpVerifyOtpApiCallFailed = ({
     "email address": email_address,
     "error message": error_message,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 // Sign Up
 // Modulus Builder
@@ -713,7 +737,7 @@ export const ModulusBuilderCreateStrategyApiCallFailed = ({
   const eventProperties = {
     "email address": email_address,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const ModulusBuilderUpdateStrategyApiCallFailed = ({
   email_address,
@@ -724,7 +748,7 @@ export const ModulusBuilderUpdateStrategyApiCallFailed = ({
     "email address": email_address,
     "strategy id": strategy_id,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const PerformanceVisualizationApiCallFailed = ({
   email_address,
@@ -738,7 +762,7 @@ export const PerformanceVisualizationApiCallFailed = ({
     assets: assets,
     "strategy id": strategy_id,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 export const PerformanceMetricsApiCallFailed = ({
   email_address,
@@ -751,7 +775,7 @@ export const PerformanceMetricsApiCallFailed = ({
     assets: assets,
     "strategy id": strategy_id,
   };
-  sendMixpanelData(event_name, eventProperties);
+  sendMixpanelData(event_name, eventProperties, email_address);
 };
 
 // Modulus Builder
