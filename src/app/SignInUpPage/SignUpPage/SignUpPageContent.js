@@ -64,6 +64,8 @@ class SignUpPageContent extends React.Component {
                   ? this.props.changeEmail
                   : this.props.changeReferralCode
               }
+              showBrowseLeaderboard={this.props.showBrowseLeaderboard}
+              history={this.props.history}
             />
           </div>
           <div className="sign-up-page-content-right-footer"></div>
