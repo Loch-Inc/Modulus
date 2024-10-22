@@ -277,6 +277,9 @@ class SignUpPage extends React.Component {
     window.open("/terms-and-conditions", "_blank");
   };
 
+  goToLeaderboard = () => {
+    this.props.history.push("/leaderboard");
+  };
   render() {
     return (
       <div className="sign-up-page-container">
@@ -301,6 +304,8 @@ class SignUpPage extends React.Component {
           onBackButtonClick={this.onBackButtonClick}
           goToTermsAndConditions={this.goToTermsAndConditions}
           isTermsAndConditions={this.state.screenPosition === 1}
+          showBrowseLeaderboard={this.state.screenPosition === 1}
+          goToLeaderboard={this.goToLeaderboard}
         />
       </div>
     );

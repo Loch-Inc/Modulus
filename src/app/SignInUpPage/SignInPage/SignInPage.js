@@ -195,6 +195,9 @@ class SignInPage extends React.Component {
       error_message: errorMessage,
     });
   };
+  goToLeaderboard = () => {
+    this.props.history.push("/leaderboard");
+  };
 
   render() {
     return (
@@ -216,6 +219,8 @@ class SignInPage extends React.Component {
           showBackButton={this.state.showBackButton}
           onBackButtonClick={this.onBackButtonClick}
           isOtp={this.state.isOtpScreen}
+          showBrowseLeaderboard={!this.state.isOtpScreen}
+          goToLeaderboard={this.goToLeaderboard}
         />
       </div>
     );

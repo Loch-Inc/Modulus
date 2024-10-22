@@ -1,7 +1,11 @@
 import React from "react";
 
 import { Image } from "react-bootstrap";
-import { LochLogoBlackThinIcon } from "src/assets/images/icons";
+import {
+  LochLogoBlackThinIcon,
+  SignUpLeaderBoardRightArrowIcon,
+  SignUpTrophyIcon,
+} from "src/assets/images/icons";
 import "./_signInUpFunctionality.scss";
 class SignInUpFunctionality extends React.Component {
   constructor(props) {
@@ -215,6 +219,23 @@ class SignInUpFunctionality extends React.Component {
             {this.props.bottomText}
           </div>
         )}
+        {this.props.showBrowseLeaderboard ? (
+          <div
+            onClick={this.props.goToLeaderboard}
+            className="sign-in-up-functionality-browse-leaderboard-container"
+          >
+            <SignUpTrophyIcon className="sign-in-up-functionality-browse-leaderboard-icon" />
+            <div className="sign-in-up-functionality-browse-leaderboard-text">
+              <div className="sign-in-up-functionality-browse-leaderboard-text-subheading">
+                Browse the
+              </div>
+              <div className="sign-in-up-functionality-browse-leaderboard-text-heading">
+                <div>Loch Leaderboard</div>
+                <SignUpLeaderBoardRightArrowIcon className="sign-in-up-functionality-browse-leaderboard-text-heading-icon" />
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }
