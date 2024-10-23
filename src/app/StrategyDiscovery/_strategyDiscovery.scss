@@ -172,6 +172,23 @@
             pointer-events: none;
           }
         }
+        .btpcb-discover-search-container {
+          .btpcb-discover-search-input {
+            border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+            border-radius: 8px;
+            height: calc(3.5rem - 1px);
+            padding: 0rem 0.8rem;
+            outline: none;
+            width: 100%;
+            box-shadow: var(--boxShadowLg);
+            &:hover {
+              border: 1px solid var(--blockOneHeaderGradSecondary);
+            }
+            &:focus {
+              border: 1px solid var(--blockOneHeaderGradSecondary);
+            }
+          }
+        }
         .btpcb-discover-time-range-table {
           display: flex;
           align-items: center;

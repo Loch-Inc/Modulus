@@ -78,6 +78,15 @@ class StrategyDiscoveryContent extends BaseReactComponent {
                 </CustomOverlay>
               ) : null}
             </div>
+            <div className="btpcb-discover-search-container">
+              <input
+                className="btpcb-discover-search-input"
+                type="text"
+                placeholder="Search strategy"
+                value={this.props.searchValue}
+                onChange={this.props.changeSearchValue}
+              />
+            </div>
             {/* {this.props.toDate && this.props.fromDate ? (
               <div class={`btpcb-discover-time-range-table`}>
                 <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">

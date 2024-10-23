@@ -199,6 +199,20 @@ export { default as StrategyBuilderAssetTonIcon } from "./StrategyBuilderAssetTo
 export { default as StrategyBuilderAssetTrxIcon } from "./StrategyBuilderAssetTrx.svg";
 export { default as StrategyBuilderAssetAdaIcon } from "./StrategyBuilderAssetAda.svg";
 export { default as StrategyBuilderAssetAvaxIcon } from "./StrategyBuilderAssetAvax.svg";
+export { default as StrategyBuilderAssetShibIcon } from "./StrategyBuilderAssetShib.svg";
+export { default as StrategyBuilderAssetLinkIcon } from "./StrategyBuilderAssetLink.svg";
+
+export { default as StrategyBuilderAssetDotIcon } from "./StrategyBuilderAssetDot.svg";
+export { default as StrategyBuilderAssetNearIcon } from "./StrategyBuilderAssetNear.svg";
+export { default as StrategyBuilderAssetSuiIcon } from "./StrategyBuilderAssetSui.svg";
+export { default as StrategyBuilderAssetLeoIcon } from "./StrategyBuilderAssetLeo.svg";
+export { default as StrategyBuilderAssetLtcIcon } from "./StrategyBuilderAssetLtc.svg";
+export { default as StrategyBuilderAssetDaiIcon } from "./StrategyBuilderAssetDai.svg";
+export { default as StrategyBuilderAssetAptIcon } from "./StrategyBuilderAssetApt.svg";
+export { default as StrategyBuilderAssetUniIcon } from "./StrategyBuilderAssetUni.svg";
+export { default as StrategyBuilderAssetPepeIcon } from "./StrategyBuilderAssetPepe.svg";
+export { default as StrategyBuilderAssetTaoIcon } from "./StrategyBuilderAssetTao.svg";
+
 export { default as StrategyDiscoveryDownGreenArrowIcon } from "./StrategyDiscoveryDownGreenArrow.svg";
 export { default as StrategyDiscoveryDownRedArrowIcon } from "./StrategyDiscoveryDownRedArrow.svg";
 export { default as StrategyDiscoveryHeadingArrowIcon } from "./StrategyDiscoveryHeadingArrow.svg";
@@ -237,3 +251,5 @@ export { ReactComponent as LeaderboardTrophyIcon } from "./leaderboardTrophy.svg
 export { ReactComponent as InfoIcon } from "./icon-info-i.svg";
 export { ReactComponent as StrategyShareIcon } from "./StrategyShare.svg";
 export { ReactComponent as CreateNewStrategyIcon } from "./CreateNewStrategy.svg";
+export { ReactComponent as SignUpTrophyIcon } from "./SignUpTrophy.svg";
+export { ReactComponent as SignUpLeaderBoardRightArrowIcon } from "./SignUpLeaderBoardRightArrow.svg";
