@@ -655,7 +655,14 @@ class BackTestPage extends BaseReactComponent {
                 chartDataPointHolder.push(tempHolder);
                 // return tempHolder;
               });
-
+              let isStrategy = false;
+              let allAssets = strategyBuilderAssetList().map(
+                (item) => item.name
+              );
+              let myKey = key.toUpperCase();
+              if (!allAssets.includes(myKey)) {
+                isStrategy = true;
+              }
               const tempGraphOptions = {
                 name: key,
                 data: chartDataPointHolder,
@@ -686,7 +693,9 @@ class BackTestPage extends BaseReactComponent {
                 //           [1, "transparent"],
                 //         ],
                 //       },
-                color: strategyBuilderChartLineColorByIndex(curIndex),
+                color: isStrategy
+                  ? "var(--strategyBuilderGraphStrategy)"
+                  : strategyBuilderChartLineColorByIndex(curIndex),
               };
               allGraphListItems.push(tempGraphOptions);
               tempRangeDateHolder = tempRangeDate;
@@ -809,6 +818,12 @@ class BackTestPage extends BaseReactComponent {
         isCell: true,
         cell: (rowData, dataKey, dataIndex) => {
           if (dataKey === "strategy") {
+            let isStrategy = false;
+            let allAssets = strategyBuilderAssetList().map((item) => item.name);
+            let myKey = rowData.strategy_name.toUpperCase();
+            if (!allAssets.includes(myKey)) {
+              isStrategy = true;
+            }
             return (
               <div className="strategy-builder-table-strategy-name-container">
                 <CustomOverlay
@@ -824,10 +839,11 @@ class BackTestPage extends BaseReactComponent {
                 >
                   <div
                     style={{
-                      backgroundColor:
-                        strategyBuilderChartLineColorByIndexLowOpacity(
-                          dataIndex
-                        ),
+                      backgroundColor: isStrategy
+                        ? "var(--strategyBuilderGraphStrategyLowOpacity)"
+                        : strategyBuilderChartLineColorByIndexLowOpacity(
+                            dataIndex
+                          ),
                     }}
                     className="strategy-builder-table-strategy-name dotDotText inter-display-medium text-uppercase f-s-14"
                   >
@@ -843,7 +859,11 @@ class BackTestPage extends BaseReactComponent {
                         cx="2.5"
                         cy="3"
                         r="2.5"
-                        fill={strategyBuilderChartLineColorByIndex(dataIndex)}
+                        fill={
+                          isStrategy
+                            ? "var(--strategyBuilderGraphStrategy)"
+                            : strategyBuilderChartLineColorByIndex(dataIndex)
+                        }
                       />
                     </svg>
 
