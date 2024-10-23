@@ -40,6 +40,7 @@ class BackTestPage extends BaseReactComponent {
     super(props);
 
     this.state = {
+      selectedDateRange: "3M",
       sortOption: { column: 1, value: false },
       tableSortOption: [
         "strategy_name",
@@ -92,6 +93,11 @@ class BackTestPage extends BaseReactComponent {
       performanceMetricTableLoading: false,
     };
   }
+  changeSelectedDateRange = (passedDateRange) => {
+    this.setState({
+      selectedDateRange: passedDateRange,
+    });
+  };
   handleTableSort = (column) => {
     if (column === this.state.sortOption.column) {
       this.setState({
@@ -252,10 +258,8 @@ class BackTestPage extends BaseReactComponent {
     this.props.getBackTestTable(tempApiData, this.afterTableApi);
   };
   getDataForGraph = async (passedAssets, passedColor) => {
-    let tempToDate = new Date(new Date().setDate(new Date().getDate() - 1));
-    let tempFromDate = new Date(
-      new Date().setFullYear(new Date().getFullYear() - 1)
-    );
+    let tempToDate = this.state.toDate;
+    let tempFromDate = this.state.fromDate;
     let tempApiData = new URLSearchParams();
     let tempTokenList = [];
     passedAssets.forEach((curAsset) => {
@@ -364,24 +368,24 @@ class BackTestPage extends BaseReactComponent {
   getAssetDataAfterStrategyUpdate = (strategyId) => {
     this.getAssetData([...this.state.selectedStrategiesOptions, strategyId]);
   };
-  getAssetData = (passedSelectedAssets, notForChart = false) => {
-    if (notForChart) {
-      this.setState({
-        performanceMetricTableData: [],
-        performanceMetricTableLoading: true,
-      });
-      this.getDataForTable(passedSelectedAssets);
-    } else {
-      this.setState({
-        performanceVisualizationGraphData: [],
-        performanceVisualizationGraphDataOriginal: {},
-        performanceMetricTableData: [],
-        performanceVisualizationGraphLoading: true,
-        performanceMetricTableLoading: true,
-      });
-      this.getDataForGraph(passedSelectedAssets);
-      this.getDataForTable(passedSelectedAssets);
-    }
+  getAssetData = (passedSelectedAssets) => {
+    // if (notForChart) {
+    //   this.setState({
+    //     performanceMetricTableData: [],
+    //     performanceMetricTableLoading: true,
+    //   });
+    //   this.getDataForTable(passedSelectedAssets);
+    // } else {
+    this.setState({
+      performanceVisualizationGraphData: [],
+      performanceVisualizationGraphDataOriginal: {},
+      performanceMetricTableData: [],
+      performanceVisualizationGraphLoading: true,
+      performanceMetricTableLoading: true,
+    });
+    this.getDataForGraph(passedSelectedAssets);
+    this.getDataForTable(passedSelectedAssets);
+    // }
   };
   setSessionPassedStrategyId = (passedId) => {
     let tempHolderObj = {
@@ -1278,6 +1282,8 @@ class BackTestPage extends BaseReactComponent {
                 // Copy Paste
                 copiedItem={this.state.copiedItem}
                 setCopiedItem={this.setCopiedItem}
+                selectedDateRange={this.state.selectedDateRange}
+                changeSelectedDateRange={this.changeSelectedDateRange}
               />
             </div>
           </div>
