@@ -349,7 +349,7 @@ class TopBar extends React.Component {
                       Create new
                     </div>
                   </div>
-                ) : (
+                ) : !this.state.isSignnedIn ? (
                   <div
                     onClick={this.onclickSignInOut}
                     className="top-bar-content-right-sign-in-out"
@@ -359,7 +359,7 @@ class TopBar extends React.Component {
                       {this.state.isSignnedIn ? "Sign out" : "Sign in"}
                     </div>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
