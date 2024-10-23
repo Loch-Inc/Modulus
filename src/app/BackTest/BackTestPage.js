@@ -789,6 +789,9 @@ class BackTestPage extends BaseReactComponent {
         console.error("Failed to copy share message: ", err);
       });
   };
+  createNewStrategy = () => {
+    this.props.history.push("/builder-reroute");
+  };
   render() {
     const performanceMetricColumnList = [
       {
@@ -1214,6 +1217,8 @@ class BackTestPage extends BaseReactComponent {
       <div className="back-test-page">
         {/* topbar */}
         <TopBar
+          showCreateNew
+          createNewStrategy={this.createNewStrategy}
           connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}

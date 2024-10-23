@@ -2,10 +2,9 @@ import React from "react";
 import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
-  ConnectedWalletIcon,
+  CreateNewStrategyIcon,
   LochModulusLogoIcon,
   TopBarBuilderIcon,
-  TopBarConnectIcon,
   TopBarDiscoverIcon,
   TopBarFeedbackIcon,
   TopBarLeaderboardIcon,
@@ -25,7 +24,6 @@ import {
   TopBarSignOutClicked,
 } from "src/utils/AnalyticsFunctions";
 import { deleteToken, getModulusUser, getToken } from "src/utils/ManageToken";
-import { numToCurrency, TruncateText } from "src/utils/ReusableFunctions";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
 import "./_topBar.scss";
 
@@ -254,6 +252,7 @@ class TopBar extends React.Component {
     });
     this.gotoPage("/discover");
   };
+
   render() {
     return (
       <div className="top-bar-parent">
@@ -313,7 +312,7 @@ class TopBar extends React.Component {
                 // onClick={this.connectWalletEthers}
                 className="top-bar-content-right"
               >
-                {this.props.isWalletConnected ? (
+                {/* {this.props.isWalletConnected ? (
                   <>
                     <div className="top-bar-content-right-title">
                       <ConnectedWalletIcon className="top-bar-content-right-title-icon" />
@@ -326,11 +325,30 @@ class TopBar extends React.Component {
                         ? numToCurrency(
                             this.props.connectedWalletBalance.toFixed(2)
                           ).toLocaleString("en-US") + " USD"
-                        : // : "0.00 USD"}
-                          ""}
-                      {/* {this.props.connectedWalletBalance} USD */}
+                        : ""}
                     </div>
                   </>
+                ) : (
+                  <div
+                    onClick={this.onclickSignInOut}
+                    className="top-bar-content-right-sign-in-out"
+                  >
+                    <TopBarSignInOutIcon className="top-bar-content-right-sign-in-out-icon" />
+                    <div className="top-bar-content-right-sign-in-out-text">
+                      {this.state.isSignnedIn ? "Sign out" : "Sign in"}
+                    </div>
+                  </div>
+                )} */}
+                {this.props.showCreateNew ? (
+                  <div
+                    onClick={this.props.createNewStrategy}
+                    className="top-bar-content-right-sign-in-out"
+                  >
+                    <CreateNewStrategyIcon className="top-bar-content-right-sign-in-out-icon" />
+                    <div className="top-bar-content-right-sign-in-out-text top-bar-content-right-create-new-text">
+                      Create new
+                    </div>
+                  </div>
                 ) : (
                   <div
                     onClick={this.onclickSignInOut}
