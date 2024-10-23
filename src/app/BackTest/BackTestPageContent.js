@@ -2,20 +2,12 @@
 // Strategy Performance -> Performance Visualization
 // Performance Preview -> Performance Metrics
 
-import React from "react";
-
-import moment from "moment";
-import Calendar from "react-calendar";
-import OutsideClickHandler from "react-outside-click-handler";
 import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 import { mobileCheck } from "../../utils/ReusableFunctions";
-import TransactionTable from "../intelligence/TransactionTable";
 import BackTestBuilder from "./BackTestComponents/BackTestBuilder/BackTestBuilder";
-import BackTestChart from "./BackTestComponents/BackTestChart/BackTestChart";
 import BackTestSaveStrategy from "./BackTestComponents/BackTestBuilder/Components/BackTestSaveStrategy/BackTestSaveStrategy";
-import { StrategyBuilderPencilLightIcon } from "src/assets/images/icons";
-import { Image } from "react-bootstrap";
+import BackTestChart from "./BackTestComponents/BackTestChart/BackTestChart";
 import BackTestTable from "./BackTestComponents/BackTestChart/BackTestTable";
 
 class BackTestPageContent extends BaseReactComponent {
@@ -53,7 +45,58 @@ class BackTestPageContent extends BaseReactComponent {
     const resizeObserver = new ResizeObserver(this.handleHeightChange);
     resizeObserver.observe(element);
   }
-
+  select1W = () => {
+    let fromDate = new Date(new Date().setDate(new Date().getDate() - 7));
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("1W");
+  };
+  select1M = () => {
+    let fromDate = new Date(
+      new Date().setMonth(new Date().getMonth() - 1, new Date().getDate() - 1)
+    );
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("1M");
+  };
+  select3M = () => {
+    let fromDate = new Date(
+      new Date().setMonth(new Date().getMonth() - 3, new Date().getDate() - 1)
+    );
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("3M");
+  };
+  select6M = () => {
+    let fromDate = new Date(
+      new Date().setMonth(new Date().getMonth() - 6, new Date().getDate() - 1)
+    );
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("6M");
+  };
+  select1Y = () => {
+    let fromDate = new Date(
+      new Date(
+        new Date().setFullYear(
+          new Date().getFullYear() - 1,
+          new Date().getMonth(),
+          new Date().getDate() - 1
+        )
+      )
+    );
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("1Y");
+  };
+  selectMAX = () => {
+    let fromDate = new Date(
+      new Date().setFullYear(new Date().getFullYear() - 10)
+    );
+    let toDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    this.props.changeFromDate([fromDate, toDate]);
+    this.props.changeSelectedDateRange("MAX");
+  };
   render() {
     return (
       <div className="back-test-page-content">
@@ -135,117 +178,72 @@ class BackTestPageContent extends BaseReactComponent {
                     : ""
                 }`}
               >
-                <OutsideClickHandler
-                  onOutsideClick={this.props.hideFromCalendar}
+                <div
+                  id="1"
+                  class="inter-display-medium f-s-13 lh-16 date-selection-container"
+                  onClick={this.props.showFromCalendar}
                 >
                   <div
-                    id="1"
-                    class="inter-display-medium f-s-13 lh-16 time-cal-badge"
-                    onClick={this.props.showFromCalendar}
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "1W"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.select1W}
                   >
-                    <div className="inter-display-medium f-s-13 lh-16 time-no-cal-badge">
-                      From
-                    </div>
-                    <div className="btpcb-chart-calendar-Container">
-                      <div className="btpcb-chart-calendar-Text">
-                        {this.props.fromDate
-                          ? moment(this.props.fromDate).format("D MMM YYYY")
-                          : ""}
-                      </div>
-                      {this.props.isFromCalendar ? (
-                        <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                          className="intelligenceCalendar"
-                        >
-                          <Calendar
-                            selectRange
-                            className={
-                              "calendar-select inter-display-medium f-s-13 lh-16"
-                            }
-                            onChange={this.props.changeFromDate}
-                            maxDate={this.state.todayDate}
-                            defaultActiveStartDate={this.props.fromDate}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div
-                      id="2"
-                      class="inter-display-medium f-s-13 lh-16 time-no-cal-badge"
-                    >
-                      To
-                    </div>
-                    <div className="btpcb-chart-calendar-Container">
-                      <div className="btpcb-chart-calendar-Text">
-                        {this.props.toDate
-                          ? moment(this.props.toDate).format("D MMM YYYY")
-                          : ""}
-                      </div>
-                      {this.props.isToCalendar ? (
-                        <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                          className="intelligenceCalendar"
-                        >
-                          <Calendar
-                            selectRange
-                            className={
-                              "calendar-select inter-display-medium f-s-13 lh-16"
-                            }
-                            onChange={this.props.changeFromDate}
-                            maxDate={this.state.todayDate}
-                            defaultActiveStartDate={this.props.toDate}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    <Image
-                      className="btpcb-chart-calendar-icon"
-                      src={StrategyBuilderPencilLightIcon}
-                    />
+                    1W
                   </div>
-                  {/* </OutsideClickHandler> */}
-                  {/* <OutsideClickHandler onOutsideClick={this.props.hideToCalendar}> */}
-                  {/* <div
-                    id="3"
-                    class={`inter-display-medium f-s-13 lh-16 time-cal-badge time-cal-badge-right-cal`}
-                    onClick={this.props.showToCalendar}
+                  <div
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "1M"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.select1M}
                   >
-                    <div className="btpcb-chart-calendar-Container">
-                      <div className="btpcb-chart-calendar-Text">
-                        {this.props.toDate
-                          ? moment(this.props.toDate).format("D MMM YYYY")
-                          : ""}
-                      </div>
-                      {this.props.isToCalendar ? (
-                        <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                          className="intelligenceCalendar"
-                        >
-                          <Calendar
-                            selectRange
-                            className={
-                              "calendar-select inter-display-medium f-s-13 lh-16"
-                            }
-                            onChange={this.props.changeFromDate}
-                            maxDate={this.state.todayDate}
-                            defaultActiveStartDate={this.props.toDate}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    <Image
-                      className="btpcb-chart-calendar-icon"
-                      src={StrategyBuilderPencilLightIcon}
-                    />
-                  </div> */}
-                </OutsideClickHandler>
+                    1M
+                  </div>
+                  <div
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "3M"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.select3M}
+                  >
+                    3M
+                  </div>
+                  <div
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "6M"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.select6M}
+                  >
+                    6M
+                  </div>
+                  <div
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "1Y"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.select1Y}
+                  >
+                    1Y
+                  </div>
+                  <div
+                    className={`date-selection-item ${
+                      this.props.selectedDateRange === "MAX"
+                        ? "date-selection-item-selected"
+                        : ""
+                    }`}
+                    onClick={this.selectMAX}
+                  >
+                    MAX
+                  </div>
+                </div>
               </div>
             </div>
 

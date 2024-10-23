@@ -3,6 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { connect } from "react-redux";
 import { ProfilePageTempDP } from "src/assets/images";
 import {
+  BlankProfileIllustration,
   ConnectedWalletIcon,
   CopyIcon,
   InfoIcon,
@@ -254,36 +255,54 @@ class ProfilePageContent extends BaseReactComponent {
             </div>
 
             <div className="profile-page-right-block-content-table-container">
-              <div
-                style={{
-                  overflowX: this.state.isMobile ? "scroll" : "",
-                }}
-                className={`${
-                  this.state.isMobile
-                    ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
-                    : "cost-table-section"
-                }`}
-              >
-                <TransactionTable
-                  totalPage={this.props.totalPage}
-                  history={this.props.history}
-                  location={this.props.location}
-                  page={this.props.page}
-                  paginationNew
-                  hidePaginationRecords
-                  // Old
-                  message="No strategies created yet"
-                  tableData={this.props.strategiesCreatedTableData}
-                  columnList={this.props.strategiesCreatedColumnList}
-                  isLoading={this.props.strategiesCreatedTableLoading}
-                  yAxisScrollable
-                  addWatermark={!this.state.isMobile}
-                  fakeWatermark={this.state.isMobile}
-                  xAxisScrollable={this.state.isMobile}
-                  xAxisScrollableColumnWidth={3.5}
-                  isMiniversion={this.state.isMobile}
-                />
-              </div>
+              {this.props.strategiesCreatedTableLoading ||
+              (this.props.strategiesCreatedTableData &&
+                this.props.strategiesCreatedTableData.length > 0) ? (
+                <div
+                  style={{
+                    overflowX: this.state.isMobile ? "scroll" : "",
+                  }}
+                  className={`${
+                    this.state.isMobile
+                      ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
+                      : "cost-table-section"
+                  }`}
+                >
+                  <TransactionTable
+                    totalPage={this.props.totalPage}
+                    history={this.props.history}
+                    location={this.props.location}
+                    page={this.props.page}
+                    paginationNew
+                    hidePaginationRecords
+                    // Old
+                    message="No strategies created yet"
+                    tableData={this.props.strategiesCreatedTableData}
+                    columnList={this.props.strategiesCreatedColumnList}
+                    isLoading={this.props.strategiesCreatedTableLoading}
+                    yAxisScrollable
+                    addWatermark={!this.state.isMobile}
+                    fakeWatermark={this.state.isMobile}
+                    xAxisScrollable={this.state.isMobile}
+                    xAxisScrollableColumnWidth={3.5}
+                    isMiniversion={this.state.isMobile}
+                  />
+                </div>
+              ) : (
+                <div className="profile-page-right-block-empty-table">
+                  <BlankProfileIllustration className="profile-page-right-block-empty-table-illustration" />
+                  <div className="profile-page-right-block-empty-table-text">
+                    <div>Create a strategy to see</div>
+                    <div>them in your profile</div>
+                  </div>
+                  <div
+                    onClick={this.props.goToBuilderPage}
+                    className="profile-page-right-block-empty-table-text-btn"
+                  >
+                    Create new
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
