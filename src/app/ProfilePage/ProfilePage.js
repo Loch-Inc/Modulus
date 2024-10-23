@@ -607,7 +607,7 @@ class ProfilePage extends BaseReactComponent {
     navigator.clipboard
       .writeText(shareMessage)
       .then(() => {
-        toast.success("Copied to clipboard");
+        toast.success("Share the copied referral link with your friends");
       })
       .catch((err) => {
         console.error("Failed to copy share message: ", err);
