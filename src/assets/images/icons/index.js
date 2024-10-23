@@ -237,3 +237,4 @@ export { ReactComponent as LeaderboardTrophyIcon } from "./leaderboardTrophy.svg
 export { ReactComponent as InfoIcon } from "./icon-info-i.svg";
 export { ReactComponent as StrategyShareIcon } from "./StrategyShare.svg";
 export { ReactComponent as BlankProfileIllustration } from "./blankProfileIllustration.svg";
+export { ReactComponent as CreateNewStrategyIcon } from "./CreateNewStrategy.svg";
