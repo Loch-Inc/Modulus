@@ -507,7 +507,7 @@
           .table-wrapper {
             .transaction-table-loading-wrapper {
               .animation-wrapper {
-                height: 670px;
+                height: 400px;
               }
             }
             .not-found-wrapper {
@@ -609,6 +609,39 @@
             }
             .ReactVirtualized__Table__row:not(:last-child) {
               border-bottom: 0.5px solid var(--strategyDiscoveryTableSeperator);
+            }
+          }
+          .profile-page-right-block-empty-table {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            .profile-page-right-block-empty-table-illustration {
+              height: 200px;
+            }
+            .profile-page-right-block-empty-table-text {
+              font-family: Inter;
+              font-size: 13px;
+              font-weight: 500;
+              text-align: center;
+              transform: translateY(-12px);
+            }
+            .profile-page-right-block-empty-table-text-btn {
+              // transform: translateY(-10px);
+              font-family: Inter;
+              font-size: 13px;
+              font-weight: 600;
+              text-align: center;
+              background-color: var(--strategyBuilderDarkNeon);
+              padding: 8px 20px;
+              border-radius: 8px;
+              border: 1.5px solid var(--strategySignUpBtnBorder);
+              cursor: pointer;
+              &:hover {
+                background-color: var(--primaryTextColor);
+                color: var(--cardBackgroud);
+              }
             }
           }
         }
