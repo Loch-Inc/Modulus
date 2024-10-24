@@ -11,6 +11,7 @@ import {
   amountFormat,
   CurrencyType,
   mobileCheck,
+  strategyBuilderAssetList,
   strategyBuilderChartLineColorByIndex,
   strategyBuilderChartLineColorByIndexLowOpacity,
 } from "../../../../utils/ReusableFunctions";
@@ -211,15 +212,32 @@ class BackTestChart extends BaseReactComponent {
 
                     labelFormatter: function () {
                       let curName = this.name;
+                      let myCurName = curName.toUpperCase();
+                      let isStrategy = false;
+                      let allAssets = strategyBuilderAssetList().map(
+                        (item) => item.name
+                      );
+
+                      if (!allAssets.includes(myCurName)) {
+                        isStrategy = true;
+                      }
                       if (curName.length > 4) {
                         curName = curName.substring(0, 3) + "...";
                       }
                       return `<div
-                      style="backgroundColor:${strategyBuilderChartLineColorByIndexLowOpacity(
-                        this.symbolIndex
-                      )};borderColor:${strategyBuilderChartLineColorByIndexLowOpacity(
-                        this.symbolIndex
-                      )}"
+                      style="backgroundColor:${
+                        isStrategy
+                          ? "var(--strategyBuilderGraphStrategyLowOpacity)"
+                          : strategyBuilderChartLineColorByIndexLowOpacity(
+                              this.symbolIndex
+                            )
+                      };borderColor:${
+                        isStrategy
+                          ? "var(--strategyBuilderGraphStrategyLowOpacity)"
+                          : strategyBuilderChartLineColorByIndexLowOpacity(
+                              this.symbolIndex
+                            )
+                      }"
                       class="strategy-builder-chart-legend dotDotText inter-display-medium text-uppercase f-s-13"
                     >
                       <svg
@@ -234,9 +252,13 @@ class BackTestChart extends BaseReactComponent {
                           cx="2.5"
                           cy="3"
                           r="2.5"
-                          fill=${strategyBuilderChartLineColorByIndex(
-                            this.symbolIndex
-                          )}
+                          fill=${
+                            isStrategy
+                              ? "var(--strategyBuilderGraphStrategy)"
+                              : strategyBuilderChartLineColorByIndex(
+                                  this.symbolIndex
+                                )
+                          }
                         />
                       </svg>
 

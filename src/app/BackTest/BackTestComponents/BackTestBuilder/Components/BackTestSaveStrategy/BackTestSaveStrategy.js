@@ -6,61 +6,25 @@ import {
   StrategyBuilderTitleDiamondIcon,
   StrategyShareIcon,
 } from "src/assets/images/icons";
-import { DEFAULT_STRATEGY_NAME } from "src/utils/Constant";
+import { BuilderRenameClicked } from "src/utils/AnalyticsFunctions";
+import { getModulusUser } from "src/utils/ManageToken";
 import { BaseReactComponent } from "../../../../../../utils/form";
 import { mobileCheck } from "../../../../../../utils/ReusableFunctions";
 import "./_backTestSaveStrategy.scss";
-import { BuilderRenameClicked } from "src/utils/AnalyticsFunctions";
-import { getModulusUser } from "src/utils/ManageToken";
 
 class BackTestSaveStrategy extends BaseReactComponent {
   constructor(props) {
     super(props);
     this.state = {
       isInputOpen: false,
-      strategyName: this.props.saveStrategyName
-        ? this.props.saveStrategyName
-        : "",
       isMobile: mobileCheck(),
       disableBtn: true,
     };
   }
 
-  componentDidMount() {
-    if (this.props.saveStrategyName === DEFAULT_STRATEGY_NAME) {
-      this.setState({
-        disableBtn: true,
-      });
-    } else {
-      this.setState({
-        disableBtn: false,
-      });
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.strategyName !== this.state.strategyName &&
-      !this.props.isStrategyEmpty
-    ) {
-      this.setState({
-        disableBtn: false,
-      });
-    }
-    if (this.props.isSaveInvestStrategy !== prevProps.isSaveInvestStrategy) {
-      // if (this.props.isSaveInvestStrategy) {
-      this.setState({
-        disableBtn: !this.props.isSaveInvestStrategy,
-      });
-      // }
-    }
+  componentDidMount() {}
+  componentDidUpdate(prevProps, prevState) {}
 
-    if (prevProps.saveStrategyName !== this.props.saveStrategyName) {
-      this.setState({ strategyName: this.props.saveStrategyName });
-    }
-  }
-  changeStragegyName = (e) => {
-    this.setState({ strategyName: e.target.value });
-  };
   shareStrategyClickedPass = () => {
     if (this.props.shareThisStrategy) {
       this.props.shareThisStrategy();
@@ -70,7 +34,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
     this.setState({
       isInputOpen: false,
     });
-    this.props.saveStrategyClicked(this.state.strategyName);
+    this.props.saveStrategyClicked(this.props.strategyInputValue);
   };
   onKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -108,8 +72,8 @@ class BackTestSaveStrategy extends BaseReactComponent {
             <>
               <input
                 placeholder="Draft Strategy"
-                value={this.state.strategyName}
-                onChange={this.changeStragegyName}
+                value={this.props.strategyInputValue}
+                onChange={this.props.changeStragegyName}
                 onKeyDown={this.onKeyPress}
                 className="strategy-builder-save-strategy-title-input"
               />
@@ -117,9 +81,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
                 <div
                   onClick={this.saveStrategyClickedPass}
                   className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
-                    this.props.loadingSaveInvestStrategyBtn ||
-                    this.state.strategyName === "" ||
-                    this.state.disableBtn
+                    this.props.disableSaveBtn
                       ? "strategy-builder-save-strategy-btn-loading"
                       : ""
                   }`}
@@ -136,7 +98,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
                   src={StrategyBuilderTitleDiamondIcon}
                 />
                 <div className="strategy-builder-save-strategy-title">
-                  {this.state.strategyName}
+                  {this.props.strategyInputValue}
                 </div>
                 <div
                   onClick={this.showInputBox}
@@ -166,9 +128,7 @@ class BackTestSaveStrategy extends BaseReactComponent {
                 <div
                   onClick={this.saveStrategyClickedPass}
                   className={`strategy-builder-save-strategy-btn strategy-builder-save-strategy-btn-highlighted ${
-                    this.props.loadingSaveInvestStrategyBtn ||
-                    this.state.strategyName === "" ||
-                    this.state.disableBtn
+                    this.props.disableSaveBtn
                       ? "strategy-builder-save-strategy-btn-loading"
                       : ""
                   }`}

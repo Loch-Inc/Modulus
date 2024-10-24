@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 6rem;
+  height: 48px;
   padding: 0 1rem;
 
   .strategy-builder-save-strategy-title-input {
@@ -102,8 +102,8 @@
   .strategy-builder-save-strategy-btn {
     border: 1px solid var(--strategyBuilderBorder);
     box-shadow: var(--boxShadowMd);
-    border-radius: 10px;
-    height: 4rem;
+    border-radius: 8px;
+    height: 32px;
     padding: 0 50px;
     // width: 180px;
     display: flex;
@@ -113,7 +113,7 @@
     color: var(--primaryTextColor);
     background-color: var(--strategyBuilderDarkGrey);
     font-weight: 600;
-
+    font-size: 13px;
     &:hover {
       background-color: var(--primaryTextColor);
       color: var(--cardBackgroud);
@@ -136,8 +136,8 @@
     justify-content: center;
     gap: 5px;
     .strategy-builder-save-strategy-btn-white-icon {
-      height: 17px;
-      width: 17px;
+      height: 13px;
+      width: 13px;
     }
     &:hover {
       .strategy-builder-save-strategy-btn-white-icon {
@@ -174,7 +174,7 @@
   }
   .strategy-builder-save-strategy-btns-container {
     .strategy-builder-save-strategy-btn {
-      height: 40px;
+      height: 32px;
       width: 100px;
       border-radius: 8px;
       &:hover {
