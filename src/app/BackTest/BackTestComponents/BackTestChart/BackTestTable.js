@@ -40,7 +40,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "strategy",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.165,
         isCell: true,
         cell: (rowData, dataKey, dataIndex) => {
           if (dataKey === "strategy") {
@@ -145,7 +145,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "cumret",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.165,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "cumret") {
@@ -193,7 +193,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "anuret",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "anuret") {
@@ -236,7 +236,7 @@ class BackTestTable extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Sharpe
               <br />
-              Ratio
+              <span className="zero-opacity">Ratio</span>
             </span>
             <div
               onClick={() => this.props.handleTableSort(3)}
@@ -256,7 +256,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "sharpeRatio",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "sharpeRatio") {
@@ -293,7 +293,7 @@ class BackTestTable extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1d
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.props.handleTableSort(4)}
@@ -313,7 +313,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "max1ddd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.14,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1ddd") {
@@ -353,7 +353,7 @@ class BackTestTable extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1w
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.props.handleTableSort(5)}
@@ -373,7 +373,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "max1wdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.14,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1wdd") {
@@ -413,7 +413,7 @@ class BackTestTable extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1m
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.props.handleTableSort(6)}
@@ -433,7 +433,7 @@ class BackTestTable extends BaseReactComponent {
         ),
         dataKey: "max1mdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.14,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1mdd") {
