@@ -236,3 +236,5 @@ export { ReactComponent as TopBarSignInOutIcon } from "./topBarSignInOut.svg";
 export { ReactComponent as LeaderboardTrophyIcon } from "./leaderboardTrophy.svg";
 export { ReactComponent as InfoIcon } from "./icon-info-i.svg";
 export { ReactComponent as StrategyShareIcon } from "./StrategyShare.svg";
+export { ReactComponent as SignUpTrophyIcon } from "./SignUpTrophy.svg";
+export { ReactComponent as SignUpLeaderBoardRightArrowIcon } from "./SignUpLeaderBoardRightArrow.svg";
