@@ -43,6 +43,7 @@ class BackTestBuilder extends BaseReactComponent {
     this.scrollableRef = React.createRef();
 
     this.state = {
+      apiResponseStrategy: false,
       shouldOpenPopUpBlocks: true,
       innerWidth: 650,
       emptyItems: [],
@@ -329,6 +330,9 @@ class BackTestBuilder extends BaseReactComponent {
         // this.setState({
         //   strategyBuilderString: passedQueryData[0].strategy,
         // });
+        this.setState({
+          apiResponseStrategy: true,
+        });
         this.updateStrategyBuilderString(passedQueryData[0].strategy);
         this.setState({
           shouldOpenPopUpBlocks: false,
@@ -366,7 +370,13 @@ class BackTestBuilder extends BaseReactComponent {
           isStrategyEmpty: false,
         });
         if (this.props.showSaveStrategy) {
-          this.props.showSaveStrategy();
+          if (this.state.apiResponseStrategy) {
+            this.setState({
+              apiResponseStrategy: false,
+            });
+          } else {
+            this.props.showSaveStrategy();
+          }
         }
       }
     }
