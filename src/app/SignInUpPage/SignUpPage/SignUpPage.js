@@ -1,11 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { getToken, setToken } from "src/utils/ManageToken";
-import validator from "validator";
-import { signUpApi } from "../Api/SignInUpApi";
-import SignUpPageContent from "./SignUpPageContent";
-import "./_signUpPage.scss";
 import {
   SignedUp,
   SignUpApiCallFailed,
@@ -18,6 +13,11 @@ import {
   SignUpVerifyOtpApiCallFailed,
   SignUpVerifyReferralCodeApiCallFailed,
 } from "src/utils/AnalyticsFunctions";
+import { getToken, setToken } from "src/utils/ManageToken";
+import validator from "validator";
+import { signUpApi } from "../Api/SignInUpApi";
+import SignUpPageContent from "./SignUpPageContent";
+import "./_signUpPage.scss";
 
 class SignUpPage extends React.Component {
   constructor(props) {
@@ -301,6 +301,8 @@ class SignUpPage extends React.Component {
           onBackButtonClick={this.onBackButtonClick}
           goToTermsAndConditions={this.goToTermsAndConditions}
           isTermsAndConditions={this.state.screenPosition === 1}
+          showBrowseLeaderboard={this.state.screenPosition === 1}
+          history={this.props.history}
         />
       </div>
     );

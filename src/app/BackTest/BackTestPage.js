@@ -415,6 +415,8 @@ class BackTestPage extends BaseReactComponent {
       let tempObj = {
         name: builderList[i].name,
         alt: builderList[i].fullName,
+        icon: builderList[i].icon,
+        iconColor: builderList[i].color,
       };
       tempArrHolder.push(tempObj);
     }

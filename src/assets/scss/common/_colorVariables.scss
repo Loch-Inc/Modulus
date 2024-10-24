@@ -368,6 +368,7 @@
   --strategyBuilderLighterNeon: #faffee;
 
   --strategyBuilderPopUpAssetBorder: #f1f1f1;
+  --strategyBuilderChartPopUpAssetBorder: #cacbcc;
 
   --strategyBuilderDropdownSelected: #cbf45880;
 
@@ -412,6 +413,13 @@
 
   --strategyTopBarDotBorder: #0000001a;
   --leaderboardTableHeader: #93a757;
+
+  --strategyChartDropdownCancelText: #8c8c8c;
+  --strategyChartDropdownApplyText: #cbf459;
+  --strategyChartDropdownTextInput: #666666;
+
+  --strategyBuilderDropdownLightText: #878889;
+  --signInUpBrowseLeaderboardSubHeading: #96979a;
 }
 [data-theme="dark"] {
   --w3m-z-index: 1000 !important;
