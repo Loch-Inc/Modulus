@@ -263,6 +263,7 @@ class LeaderboardPage extends BaseReactComponent {
       <div className="leaderboard-page">
         <div className="leaderboard-page-topbar">
           <TopBar
+            showCreateNew={!this.state.showBackButtonForSignInUp}
             showBackButton={this.state.showBackButtonForSignInUp}
             onBackButtonClick={this.onBackButtonClick}
             connectedWalletBalance={this.props.connectedWalletBalance}
