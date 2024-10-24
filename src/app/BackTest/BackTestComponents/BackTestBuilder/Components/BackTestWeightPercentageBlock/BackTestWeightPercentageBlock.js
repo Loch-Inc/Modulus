@@ -28,6 +28,9 @@ class BackTestWeightPercentageBlock extends BaseReactComponent {
     if (this.props.changeStrategyBuilderString) {
       this.props.changeStrategyBuilderString(itemToBeChangedOriginal);
     }
+    if (this.props.changeStrategyBuilderPopUpString) {
+      this.props.changeStrategyBuilderPopUpString({});
+    }
   };
   componentDidUpdate(prevProps) {
     if (this.props.weightPercentage !== prevProps.weightPercentage) {
