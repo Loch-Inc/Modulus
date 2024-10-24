@@ -16,6 +16,7 @@ import BackTestChart from "./BackTestComponents/BackTestChart/BackTestChart";
 import BackTestSaveStrategy from "./BackTestComponents/BackTestBuilder/Components/BackTestSaveStrategy/BackTestSaveStrategy";
 import { StrategyBuilderPencilLightIcon } from "src/assets/images/icons";
 import { Image } from "react-bootstrap";
+import BackTestTable from "./BackTestComponents/BackTestChart/BackTestTable";
 
 class BackTestPageContent extends BaseReactComponent {
   constructor(props) {
@@ -248,31 +249,18 @@ class BackTestPageContent extends BaseReactComponent {
               </div>
             </div>
 
-            <div className="btpcb-right-table-container">
-              <div
-                style={{
-                  overflowX: this.state.isMobile ? "scroll" : "",
-                }}
-                className={`${
-                  this.state.isMobile
-                    ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
-                    : "cost-table-section"
-                }`}
-              >
-                <TransactionTable
-                  message="No performance metric found"
-                  tableData={this.props.performanceMetricTableData}
-                  columnList={this.props.performanceMetricColumnList}
-                  isLoading={this.props.performanceMetricTableLoading}
-                  yAxisScrollable
-                  addWatermark={!this.state.isMobile}
-                  fakeWatermark={this.state.isMobile}
-                  xAxisScrollable={this.state.isMobile}
-                  xAxisScrollableColumnWidth={3.5}
-                  isMiniversion={this.state.isMobile}
-                />
-              </div>
-            </div>
+            <BackTestTable
+              currentAssetsColors={this.props.currentAssetsColors}
+              performanceMetricTableData={this.props.performanceMetricTableData}
+              // performanceMetricColumnList={
+              //   this.props.performanceMetricColumnList
+              // }
+              sortOption={this.props.sortOption}
+              handleTableSort={this.props.handleTableSort}
+              performanceMetricTableLoading={
+                this.props.performanceMetricTableLoading
+              }
+            />
           </div>
         </div>
       </div>
