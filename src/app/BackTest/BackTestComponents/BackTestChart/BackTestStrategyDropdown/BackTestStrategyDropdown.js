@@ -242,15 +242,13 @@ class BackTestStrategyDropdown extends BaseReactComponent {
                     ))
                   : null}
               </div>
-              <div
-                className={`back-test-strategy-accept-decline-container ${
-                  this.state.selectedOptions.length === 0
-                    ? "back-test-strategy-accept-decline-container-disabled"
-                    : ""
-                }`}
-              >
+              <div className={`back-test-strategy-accept-decline-container`}>
                 <div
-                  className="back-test-strategy-accept-decline-button back-test-strategy-accept-decline-button-highlighted"
+                  className={`back-test-strategy-accept-decline-button back-test-strategy-accept-decline-button-highlighted ${
+                    this.state.selectedOptions.length === 0
+                      ? "back-test-strategy-accept-decline-button-disabled"
+                      : ""
+                  }`}
                   onClick={this.selectOption}
                 >
                   Apply
