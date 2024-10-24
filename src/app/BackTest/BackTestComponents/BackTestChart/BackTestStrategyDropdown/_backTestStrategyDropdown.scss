@@ -188,11 +188,11 @@
         color: var(--primaryTextColor);
         border: 1px solid #0000000d;
       }
-    }
-    .back-test-strategy-accept-decline-container-disabled {
-      pointer-events: none;
-      cursor: default;
-      opacity: 0.5;
+      .back-test-strategy-accept-decline-button-disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+      }
     }
   }
 }
