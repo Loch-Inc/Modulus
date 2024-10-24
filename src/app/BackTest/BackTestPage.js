@@ -35,6 +35,8 @@ class BackTestPage extends BaseReactComponent {
     super(props);
 
     this.state = {
+      strategyInputValue: DEFAULT_STRATEGY_NAME,
+      disableSaveBtn: true,
       currentAssetsColors: {},
       sortOption: { column: 1, value: false },
       tableSortOption: [
@@ -455,6 +457,23 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.strategyInputValue !== this.state.strategyInputValue) {
+      this.setState({
+        disableSaveBtn: false,
+      });
+    }
+    if (prevProps.BackTestQueryState !== this.props.BackTestQueryState) {
+      if (this.props.BackTestQueryState.length > 0) {
+        this.setState({
+          disableSaveBtn: true,
+        });
+      }
+    }
+    if (prevState.saveStrategyName !== this.state.saveStrategyName) {
+      this.setState({
+        strategyInputValue: this.state.saveStrategyName,
+      });
+    }
     // if (
     //   prevState.performanceMetricTableData !==
     //   this.state.performanceMetricTableData
@@ -811,6 +830,10 @@ class BackTestPage extends BaseReactComponent {
         console.error("Failed to copy share message: ", err);
       });
   };
+
+  changeStragegyName = (e) => {
+    this.setState({ strategyInputValue: e.target.value });
+  };
   render() {
     if (mobileCheck()) {
       return null;
@@ -820,6 +843,8 @@ class BackTestPage extends BaseReactComponent {
       <div className="back-test-page">
         {/* topbar */}
         <TopBar
+          showCreateNewPopUp={!this.state.disableSaveBtn}
+          showCreateNew
           connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
@@ -832,6 +857,9 @@ class BackTestPage extends BaseReactComponent {
           <div className=" page-scroll">
             <div className="page-scroll-child ">
               <BackTestPageContent
+                disableSaveBtn={this.state.disableSaveBtn}
+                changeStragegyName={this.changeStragegyName}
+                strategyInputValue={this.state.strategyInputValue}
                 isSaveInvestStrategy={this.state.isSaveInvestStrategy}
                 isExistingStrategy={this.state.isExistingStrategy}
                 saveStrategyClicked={this.saveStrategyClicked}

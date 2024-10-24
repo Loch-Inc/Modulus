@@ -58,6 +58,9 @@ class BackTestPageContent extends BaseReactComponent {
     return (
       <div className="back-test-page-content">
         <BackTestSaveStrategy
+          disableSaveBtn={this.props.disableSaveBtn}
+          strategyInputValue={this.props.strategyInputValue}
+          changeStragegyName={this.props.changeStragegyName}
           saveStrategyName={this.props.saveStrategyName}
           changeStrategyName={this.props.changeStrategyNames}
           isSaveInvestStrategy={this.props.isSaveInvestStrategy}

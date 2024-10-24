@@ -608,7 +608,7 @@ class ProfilePage extends BaseReactComponent {
     navigator.clipboard
       .writeText(shareMessage)
       .then(() => {
-        toast.success("Copied to clipboard");
+        toast.success("Invitation link copied to clipboard");
       })
       .catch((err) => {
         console.error("Failed to copy share message: ", err);
@@ -734,6 +734,7 @@ class ProfilePage extends BaseReactComponent {
           />
         ) : null}
         <TopBar
+          showCreateNew
           connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}

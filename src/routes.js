@@ -1,4 +1,5 @@
 import BackTestPage from "./app/BackTest/BackTestPage";
+import BackTestPageReroute from "./app/BackTest/BackTestPageReroute";
 import InAppTelegramChat from "./app/IntegratedTelegramChat/IntegratedTelegramChat";
 import LeaderboardPage from "./app/LeaderboardPage/LeaderboardPage";
 import ModulusHome from "./app/ModulusHome/ModulusHome";
@@ -35,6 +36,12 @@ const routes = [
     name: "Strategy Builder Page",
     type: PrivateRoute,
     component: BackTestPage,
+  },
+  {
+    path: "/builder-reroute",
+    name: "Strategy Builder Page Reroute",
+    type: PrivateRoute,
+    component: BackTestPageReroute,
   },
   {
     path: "/sign-up",

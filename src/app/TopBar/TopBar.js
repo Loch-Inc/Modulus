@@ -2,11 +2,10 @@ import React from "react";
 import { Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
-  ConnectedWalletIcon,
+  CreateNewStrategyIcon,
   LochModulusLogoIcon,
   SignUpLeaderBoardRightArrowIcon,
   TopBarBuilderIcon,
-  TopBarConnectIcon,
   TopBarDiscoverIcon,
   TopBarFeedbackIcon,
   TopBarLeaderboardIcon,
@@ -26,7 +25,6 @@ import {
   TopBarSignOutClicked,
 } from "src/utils/AnalyticsFunctions";
 import { deleteToken, getModulusUser, getToken } from "src/utils/ManageToken";
-import { numToCurrency, TruncateText } from "src/utils/ReusableFunctions";
 import ConfirmLeaveModal from "../common/ConfirmLeaveModal";
 import "./_topBar.scss";
 
@@ -34,6 +32,7 @@ class TopBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showConfirmationCreateNewModal: false,
       showConfirmLeaveModalForWalletDisconect: false,
       showConfirmLeaveModal: false,
       selectedItem: "",
@@ -230,6 +229,16 @@ class TopBar extends React.Component {
       showConfirmLeaveModal: false,
     });
   };
+  openConfirmationCreateNewModal = () => {
+    this.setState({
+      showConfirmationCreateNewModal: true,
+    });
+  };
+  closeConfirmationCreateNewModal = () => {
+    this.setState({
+      showConfirmationCreateNewModal: false,
+    });
+  };
   signOutFun = () => {
     const modulusUser = getModulusUser();
     let userEmail = "";
@@ -255,9 +264,30 @@ class TopBar extends React.Component {
     });
     this.gotoPage("/discover");
   };
+  createNewStrategyCheck = () => {
+    if (this.props.showCreateNewPopUp) {
+      this.openConfirmationCreateNewModal();
+    } else {
+      this.createNewStrategy();
+    }
+  };
+  createNewStrategy = () => {
+    this.props.history.push("/builder-reroute");
+  };
   render() {
     return (
       <div className="top-bar-parent">
+        {this.state.showConfirmationCreateNewModal ? (
+          <ConfirmLeaveModal
+            customMessage="Are you sure you want to abandon this masterpiece?"
+            agreeText="Yes, don’t save it"
+            disagreeText="No"
+            show
+            history={this.props.history}
+            handleClose={this.closeConfirmationCreateNewModal}
+            handleAccept={this.createNewStrategy}
+          />
+        ) : null}
         {this.state.showConfirmLeaveModal ? (
           <ConfirmLeaveModal
             show
@@ -323,7 +353,7 @@ class TopBar extends React.Component {
                 // onClick={this.connectWalletEthers}
                 className="top-bar-content-right"
               >
-                {this.props.isWalletConnected ? (
+                {/* {this.props.isWalletConnected ? (
                   <>
                     <div className="top-bar-content-right-title">
                       <ConnectedWalletIcon className="top-bar-content-right-title-icon" />
@@ -336,9 +366,7 @@ class TopBar extends React.Component {
                         ? numToCurrency(
                             this.props.connectedWalletBalance.toFixed(2)
                           ).toLocaleString("en-US") + " USD"
-                        : // : "0.00 USD"}
-                          ""}
-                      {/* {this.props.connectedWalletBalance} USD */}
+                        : ""}
                     </div>
                   </>
                 ) : (
@@ -351,7 +379,28 @@ class TopBar extends React.Component {
                       {this.state.isSignnedIn ? "Sign out" : "Sign in"}
                     </div>
                   </div>
-                )}
+                )} */}
+                {this.props.showCreateNew ? (
+                  <div
+                    onClick={this.createNewStrategyCheck}
+                    className="top-bar-content-right-sign-in-out"
+                  >
+                    <CreateNewStrategyIcon className="top-bar-content-right-sign-in-out-icon" />
+                    <div className="top-bar-content-right-sign-in-out-text top-bar-content-right-create-new-text">
+                      Create new
+                    </div>
+                  </div>
+                ) : !this.state.isSignnedIn ? (
+                  <div
+                    onClick={this.onclickSignInOut}
+                    className="top-bar-content-right-sign-in-out"
+                  >
+                    <TopBarSignInOutIcon className="top-bar-content-right-sign-in-out-icon" />
+                    <div className="top-bar-content-right-sign-in-out-text">
+                      {this.state.isSignnedIn ? "Sign out" : "Sign in"}
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
