@@ -73,6 +73,9 @@ class BackTestBuildeWeightItem extends BaseReactComponent {
             ]}
             strategyBuilderString={this.props.strategyBuilderString}
             changeStrategyBuilderString={this.props.changeStrategyBuilderString}
+            changeStrategyBuilderPopUpString={
+              this.props.changeStrategyBuilderPopUpString
+            }
             weightPercentage={this.props.curItem.percentage}
           />
         </BackTestBuilderBlock>

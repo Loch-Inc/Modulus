@@ -115,17 +115,17 @@ class BackTestAssetBuilderBlock extends BaseReactComponent {
             <div className="back-test-asset-popup-item-content">
               <div
                 style={{
-                  backgroundColor: this.state.curAsset.color,
+                  backgroundColor: this.state.curAsset?.color,
                 }}
                 className="back-test-asset-popup-item-icon"
               >
                 <Image
                   className="back-test-asset-popup-item-icon-image"
-                  src={this.state.curAsset.icon}
+                  src={this.state.curAsset?.icon}
                 />
               </div>
               <div className="back-test-asset-popup-item-name">
-                {this.state.curAsset.name}
+                {this.state.curAsset?.name}
               </div>
             </div>
             {this.state.isPopUpOpen ? (

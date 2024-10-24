@@ -130,7 +130,10 @@ class BackTestBuilderBlock extends BaseReactComponent {
         ) {
           if (this.props.weightPath.length === 0) {
             itemToBeChangedOriginal = {};
-          } else if (this.props.blockType === "weight percentage") {
+          } else if (
+            this.props.blockType === "weight percentage" ||
+            this.props.blockType === "asset"
+          ) {
             let newWeightItem = itemToBeChangedOriginal;
             this.props.weightPath.forEach((element) => {
               newWeightItem = newWeightItem[element];
@@ -189,7 +192,6 @@ class BackTestBuilderBlock extends BaseReactComponent {
       this.props.blockType === "asset" ||
       this.props.blockType === "condition if"
     ) {
-      console.log("itemToBeChanged? ", itemToBeChanged);
       if (this.props.weightPath.length >= 0 && this.props.weightIndex !== -1) {
         if (this.props.setCopiedItem) {
           this.props.setCopiedItem(itemToBeChanged, this.props.blockType);
@@ -197,20 +199,16 @@ class BackTestBuilderBlock extends BaseReactComponent {
       }
     } else if (this.props.blockType === "weight percentage") {
       itemToBeChanged = itemToBeChanged.item;
-      console.log("itemToBeChanged ", itemToBeChanged);
       if (itemToBeChanged.asset) {
-        console.log("itemToBeChanged? ", itemToBeChanged.asset);
         if (
           this.props.weightPath.length >= 0 &&
           this.props.weightIndex !== -1
         ) {
           if (this.props.setCopiedItem) {
-            console.log("HERE?");
             this.props.setCopiedItem(itemToBeChanged.asset, "asset");
           }
         }
       } else if (itemToBeChanged.condition) {
-        console.log("itemToBeChanged? ", itemToBeChanged);
         if (
           this.props.weightPath.length >= 0 &&
           this.props.weightIndex !== -1

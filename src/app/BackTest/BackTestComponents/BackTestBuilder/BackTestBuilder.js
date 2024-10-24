@@ -43,6 +43,7 @@ class BackTestBuilder extends BaseReactComponent {
     this.scrollableRef = React.createRef();
 
     this.state = {
+      apiResponseStrategy: false,
       shouldOpenPopUpBlocks: true,
       innerWidth: 650,
       emptyItems: [],
@@ -226,21 +227,43 @@ class BackTestBuilder extends BaseReactComponent {
       }
     }
   };
-  strategyBuilderIsQueryValid = (obj, path, emptyHolderArr) => {
+  strategyBuilderIsQueryValid = (
+    obj,
+    path,
+    emptyHolderArr,
+    specificErrorToastMessage
+  ) => {
     if ("weight" in obj) {
       let totalWeight = 0;
       if (obj.weight && obj.weight.weight_item) {
         obj.weight.weight_item.forEach((curItem, curIndex) => {
           totalWeight = totalWeight + parseFloat(curItem.percentage);
-          console.log("totalWeight? ", totalWeight);
+
           this.strategyBuilderIsQueryValid(
             curItem,
             [...path, "weight", "weight_item", curIndex],
-            emptyHolderArr
+            emptyHolderArr,
+            specificErrorToastMessage
           );
         });
         totalWeight = Math.round(totalWeight);
-        if (!(totalWeight >= 99.8 && totalWeight <= 100)) {
+        console.log("totalWeight ? ", totalWeight);
+
+        if (totalWeight !== 100) {
+          if (
+            specificErrorToastMessage &&
+            specificErrorToastMessage.length === 0
+          ) {
+            if (totalWeight > 100) {
+              specificErrorToastMessage.push(
+                "Your asset allocation is more than 100%"
+              );
+            } else {
+              specificErrorToastMessage.push(
+                "Your asset allocation is less than 100%"
+              );
+            }
+          }
           emptyHolderArr.push([...path, "weight"]);
         }
       }
@@ -248,33 +271,53 @@ class BackTestBuilder extends BaseReactComponent {
       this.strategyBuilderIsQueryValid(
         obj.item,
         [...path, "item"],
-        emptyHolderArr
+        emptyHolderArr,
+        specificErrorToastMessage
       );
     } else if ("condition" in obj) {
       this.strategyBuilderIsQueryValid(
         obj.condition,
         [...path, "condition"],
-        emptyHolderArr
+        emptyHolderArr,
+        specificErrorToastMessage
       );
     } else {
       if ("success" in obj) {
         if (Object.keys(obj.success).length === 0) {
+          if (
+            specificErrorToastMessage &&
+            specificErrorToastMessage.length === 0
+          ) {
+            specificErrorToastMessage.push(
+              "Please add asset allocations between all IF and ELSE blocks"
+            );
+          }
           emptyHolderArr.push([...path, "success"]);
         }
         this.strategyBuilderIsQueryValid(
           obj.success,
           [...path, "success"],
-          emptyHolderArr
+          emptyHolderArr,
+          specificErrorToastMessage
         );
       }
       if ("failed" in obj) {
         if (Object.keys(obj.failed).length === 0) {
+          if (
+            specificErrorToastMessage &&
+            specificErrorToastMessage.length === 0
+          ) {
+            specificErrorToastMessage.push(
+              "Please add asset allocations between all IF and ELSE blocks"
+            );
+          }
           emptyHolderArr.push([...path, "failed"]);
         }
         this.strategyBuilderIsQueryValid(
           obj.failed,
           [...path, "failed"],
-          emptyHolderArr
+          emptyHolderArr,
+          specificErrorToastMessage
         );
       }
     }
@@ -287,6 +330,9 @@ class BackTestBuilder extends BaseReactComponent {
         // this.setState({
         //   strategyBuilderString: passedQueryData[0].strategy,
         // });
+        this.setState({
+          apiResponseStrategy: true,
+        });
         this.updateStrategyBuilderString(passedQueryData[0].strategy);
         this.setState({
           shouldOpenPopUpBlocks: false,
@@ -324,7 +370,13 @@ class BackTestBuilder extends BaseReactComponent {
           isStrategyEmpty: false,
         });
         if (this.props.showSaveStrategy) {
-          this.props.showSaveStrategy();
+          if (this.state.apiResponseStrategy) {
+            this.setState({
+              apiResponseStrategy: false,
+            });
+          } else {
+            this.props.showSaveStrategy();
+          }
         }
       }
     }
@@ -333,10 +385,12 @@ class BackTestBuilder extends BaseReactComponent {
         emptyItems: [],
       });
       let emptyHolderArr = [];
+      let specificErrorToastMessage = [];
       this.strategyBuilderIsQueryValid(
         this.state.strategyBuilderString,
         [],
-        emptyHolderArr
+        emptyHolderArr,
+        specificErrorToastMessage
       );
 
       if (emptyHolderArr.length === 0) {
@@ -379,7 +433,11 @@ class BackTestBuilder extends BaseReactComponent {
           );
         }
       } else {
-        toast.error("Please fix all the issues with the strategy");
+        if (specificErrorToastMessage && specificErrorToastMessage.length > 0) {
+          toast.error(specificErrorToastMessage[0]);
+        } else {
+          toast.error("Please fix all the issues with the strategy");
+        }
         this.setState({
           emptyItems: emptyHolderArr,
         });

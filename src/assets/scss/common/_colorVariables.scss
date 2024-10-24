@@ -314,27 +314,29 @@
   --strategyBuilderGraphNavigatorMaskBackground: #e5e5e680;
   --strategyBuilderTableRowBackground: #e5e5e680;
 
-  --strategyBuilderGraph1: rgb(247, 147, 26);
-  --strategyBuilderGraph2: rgb(128, 67, 243);
-  --strategyBuilderGraph3: rgb(86, 185, 182);
-  --strategyBuilderGraph4: rgb(43, 127, 255);
-  --strategyBuilderGraph5: rgb(255, 102, 194);
-  --strategyBuilderGraph6: rgb(255, 66, 66);
-  --strategyBuilderGraph7: rgb(0, 255, 0);
-  --strategyBuilderGraph8: rgb(0, 0, 255);
-  --strategyBuilderGraph9: rgb(255, 255, 0);
-  --strategyBuilderGraph10: rgb(64, 141, 179);
+  --strategyBuilderGraphStrategy: rgb(176, 238, 0);
+  --strategyBuilderGraph1: rgb(203, 233, 205);
+  --strategyBuilderGraph2: rgb(206, 209, 241);
+  --strategyBuilderGraph3: rgb(187, 214, 249);
+  --strategyBuilderGraph4: rgb(242, 208, 230);
+  --strategyBuilderGraph5: rgb(255, 204, 188);
+  --strategyBuilderGraph6: rgb(255, 255, 204);
+  --strategyBuilderGraph7: rgb(204, 255, 255);
+  --strategyBuilderGraph8: rgb(255, 204, 255);
+  --strategyBuilderGraph9: rgb(204, 255, 204);
+  --strategyBuilderGraph10: rgb(204, 204, 255);
   //Low opacity
-  --strategyBuilderGraphLowOpacity1: rgba(247, 147, 26, 0.1);
-  --strategyBuilderGraphLowOpacity2: rgba(128, 67, 243, 0.1);
-  --strategyBuilderGraphLowOpacity3: rgba(86, 185, 182, 0.1);
-  --strategyBuilderGraphLowOpacity4: rgba(43, 127, 255, 0.1);
-  --strategyBuilderGraphLowOpacity5: rgba(255, 102, 194, 0.1);
-  --strategyBuilderGraphLowOpacity6: rgba(255, 66, 66, 0.1);
-  --strategyBuilderGraphLowOpacity7: rgba(0, 255, 0, 0.1);
-  --strategyBuilderGraphLowOpacity8: rgba(0, 0, 255, 0.1);
-  --strategyBuilderGraphLowOpacity9: rgba(255, 255, 0, 0.1);
-  --strategyBuilderGraphLowOpacity10: rgba(64, 141, 179, 0.1);
+  --strategyBuilderGraphStrategyLowOpacity: rgba(176, 238, 0, 0.4);
+  --strategyBuilderGraphLowOpacity1: rgba(203, 233, 205, 0.4);
+  --strategyBuilderGraphLowOpacity2: rgba(206, 209, 241, 0.4);
+  --strategyBuilderGraphLowOpacity3: rgba(187, 214, 249, 0.4);
+  --strategyBuilderGraphLowOpacity4: rgba(242, 208, 230, 0.4);
+  --strategyBuilderGraphLowOpacity5: rgba(255, 204, 188, 0.4);
+  --strategyBuilderGraphLowOpacity6: rgba(255, 255, 204, 0.4);
+  --strategyBuilderGraphLowOpacity7: rgba(204, 255, 255, 0.4);
+  --strategyBuilderGraphLowOpacity8: rgba(255, 204, 255, 0.4);
+  --strategyBuilderGraphLowOpacity9: rgba(204, 255, 204, 0.4);
+  --strategyBuilderGraphLowOpacity10: rgba(204, 204, 255, 0.4);
 
   --strategyBuilderMainBlockBackground: #00000014;
 
@@ -410,6 +412,7 @@
   --strategyBuilderErrorBlock: #f18c8e4d;
   --strategyBuilderErrorBlockBorder: #f18c8e33;
   --strategyBuilderShareText: #4a4b4d;
+  --strategyBuilderCreateNewText: #4a4b4d;
 
   --strategyTopBarDotBorder: #0000001a;
   --leaderboardTableHeader: #93a757;

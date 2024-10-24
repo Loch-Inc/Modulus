@@ -407,7 +407,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                     <CheckBoldWhiteIcon />
                   </div>
                   <div className="back-test-condition-popup-body-toggle-text">
-                    Fixed value
+                    Fixed value ({this.props.selectedAmountSymbol})
                   </div>
                 </div>
               </div>
@@ -461,7 +461,7 @@ class BackTestConditionPopup extends BaseReactComponent {
                     updatedText={this.state.shouldUpdateText}
                     selectedOption={this.state.selectedAmountConditions}
                     isInputDropDown
-                    selectedAmountSymbol={this.props.selectedAmountSymbol}
+                    // selectedAmountSymbol={this.props.selectedAmountSymbol}
                     onOptionSelect={this.changeAmountConditions}
                     handleKeyDown={this.handleKeyDown}
                   />

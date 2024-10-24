@@ -5,11 +5,10 @@
 import { connect } from "react-redux";
 import { BaseReactComponent } from "../../utils/form";
 import { mobileCheck } from "../../utils/ReusableFunctions";
-import TransactionTable from "../intelligence/TransactionTable";
 import BackTestBuilder from "./BackTestComponents/BackTestBuilder/BackTestBuilder";
 import BackTestSaveStrategy from "./BackTestComponents/BackTestBuilder/Components/BackTestSaveStrategy/BackTestSaveStrategy";
 import BackTestChart from "./BackTestComponents/BackTestChart/BackTestChart";
-import moment from "moment";
+import BackTestTable from "./BackTestComponents/BackTestChart/BackTestTable";
 
 class BackTestPageContent extends BaseReactComponent {
   constructor(props) {
@@ -102,6 +101,9 @@ class BackTestPageContent extends BaseReactComponent {
     return (
       <div className="back-test-page-content">
         <BackTestSaveStrategy
+          disableSaveBtn={this.props.disableSaveBtn}
+          strategyInputValue={this.props.strategyInputValue}
+          changeStragegyName={this.props.changeStragegyName}
           saveStrategyName={this.props.saveStrategyName}
           changeStrategyName={this.props.changeStrategyNames}
           isSaveInvestStrategy={this.props.isSaveInvestStrategy}
@@ -248,31 +250,18 @@ class BackTestPageContent extends BaseReactComponent {
               </div>
             </div>
 
-            <div className="btpcb-right-table-container">
-              <div
-                style={{
-                  overflowX: this.state.isMobile ? "scroll" : "",
-                }}
-                className={`${
-                  this.state.isMobile
-                    ? "freezeTheFirstColumn newHomeTableContainer hide-scrollbar"
-                    : "cost-table-section"
-                }`}
-              >
-                <TransactionTable
-                  message="No performance metric found"
-                  tableData={this.props.performanceMetricTableData}
-                  columnList={this.props.performanceMetricColumnList}
-                  isLoading={this.props.performanceMetricTableLoading}
-                  yAxisScrollable
-                  addWatermark={!this.state.isMobile}
-                  fakeWatermark={this.state.isMobile}
-                  xAxisScrollable={this.state.isMobile}
-                  xAxisScrollableColumnWidth={3.5}
-                  isMiniversion={this.state.isMobile}
-                />
-              </div>
-            </div>
+            <BackTestTable
+              currentAssetsColors={this.props.currentAssetsColors}
+              performanceMetricTableData={this.props.performanceMetricTableData}
+              // performanceMetricColumnList={
+              //   this.props.performanceMetricColumnList
+              // }
+              sortOption={this.props.sortOption}
+              handleTableSort={this.props.handleTableSort}
+              performanceMetricTableLoading={
+                this.props.performanceMetricTableLoading
+              }
+            />
           </div>
         </div>
       </div>

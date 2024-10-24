@@ -89,13 +89,12 @@ class BackTestWeightPercentagePopup extends BaseReactComponent {
             <div className="back-test-weight-percentage-popup-body">
               <div className="back-test-weight-percentage-popup-body-row">
                 <div className="back-test-weight-percentage-popup-body-colored-block">
-                  Weight allocated
+                  Weight allocated (%)
                 </div>
 
                 <BackTestPopupInput
                   selectedOption={this.state.selectedWeightPercentage}
                   isInputDropDown
-                  selectedAmountSymbol="%"
                   onOptionSelect={this.changeWeightPercentage}
                   limitAmounTo={100}
                   handleKeyDown={this.handleKeyDown}
