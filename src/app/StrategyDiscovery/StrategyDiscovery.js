@@ -707,6 +707,7 @@ class StrategyDiscovery extends BaseReactComponent {
     return (
       <div className="strategy-discovery-page">
         <TopBar
+          showCreateNew
           connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}

@@ -730,6 +730,7 @@ class ProfilePage extends BaseReactComponent {
           />
         ) : null}
         <TopBar
+          showCreateNew
           connectedWalletBalance={this.props.connectedWalletBalance}
           isWalletConnected={this.props.isWalletConnected}
           connectedWalletAddress={this.props.connectedWalletAddress}
