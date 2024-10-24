@@ -123,7 +123,7 @@ class LeaderboardPage extends BaseReactComponent {
               id="time"
             >
               {/* <ModulusLeaderboardAnualReturn className="leaderboard-page-content-header-block-icon" /> */}
-              <span className="inter-display-medium  ">Best Return (30d)</span>
+              <span className="inter-display-medium  ">Best Return (30D)</span>
             </div>
           ),
           dataKey: "best_return",
