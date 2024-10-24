@@ -250,6 +250,7 @@ class BackTestPageContent extends BaseReactComponent {
             </div>
 
             <BackTestTable
+              currentAssetsColors={this.props.currentAssetsColors}
               performanceMetricTableData={this.props.performanceMetricTableData}
               // performanceMetricColumnList={
               //   this.props.performanceMetricColumnList

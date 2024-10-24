@@ -67,6 +67,13 @@ class BackTestTable extends BaseReactComponent {
                     style={{
                       backgroundColor: isStrategy
                         ? "var(--strategyBuilderGraphStrategyLowOpacity)"
+                        : this.props.currentAssetsColors &&
+                          this.props.currentAssetsColors[rowData.strategy_name]
+                        ? strategyBuilderChartLineColorByIndexLowOpacity(
+                            this.props.currentAssetsColors[
+                              rowData.strategy_name
+                            ]
+                          )
                         : strategyBuilderChartLineColorByIndexLowOpacity(
                             dataIndex
                           ),
@@ -88,6 +95,15 @@ class BackTestTable extends BaseReactComponent {
                         fill={
                           isStrategy
                             ? "var(--strategyBuilderGraphStrategy)"
+                            : this.props.currentAssetsColors &&
+                              this.props.currentAssetsColors[
+                                rowData.strategy_name
+                              ]
+                            ? strategyBuilderChartLineColorByIndex(
+                                this.props.currentAssetsColors[
+                                  rowData.strategy_name
+                                ]
+                              )
                             : strategyBuilderChartLineColorByIndex(dataIndex)
                         }
                       />

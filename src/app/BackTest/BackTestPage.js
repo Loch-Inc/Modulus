@@ -35,6 +35,7 @@ class BackTestPage extends BaseReactComponent {
     super(props);
 
     this.state = {
+      currentAssetsColors: {},
       sortOption: { column: 1, value: false },
       tableSortOption: [
         "strategy_name",
@@ -103,37 +104,37 @@ class BackTestPage extends BaseReactComponent {
       if (this.state.sortOption.column === 0) {
         return a.strategy_name.localeCompare(b.strategy_name);
       } else if (this.state.sortOption.column === 1) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.cumulative_return - b.cumulative_return;
         } else {
           return b.cumulative_return - a.cumulative_return;
         }
       } else if (this.state.sortOption.column === 2) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.annual_return - b.annual_return;
         } else {
           return b.annual_return - a.annual_return;
         }
       } else if (this.state.sortOption.column === 3) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.sharpe_ratio - b.sharpe_ratio;
         } else {
           return b.sharpe_ratio - a.sharpe_ratio;
         }
       } else if (this.state.sortOption.column === 4) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.max_1d_drawdown - b.max_1d_drawdown;
         } else {
           return b.max_1d_drawdown - a.max_1d_drawdown;
         }
       } else if (this.state.sortOption.column === 5) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.max_1w_drawdown - b.max_1w_drawdown;
         } else {
           return b.max_1w_drawdown - a.max_1w_drawdown;
         }
       } else if (this.state.sortOption.column === 6) {
-        if (this.state.sortOption.value) {
+        if (!this.state.sortOption?.value) {
           return a.max_1m_drawdown - b.max_1m_drawdown;
         } else {
           return b.max_1m_drawdown - a.max_1m_drawdown;
@@ -452,6 +453,12 @@ class BackTestPage extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    // if (
+    //   prevState.performanceMetricTableData !==
+    //   this.state.performanceMetricTableData
+    // ) {
+    //   console.log("Coming here ? ", this.state.performanceMetricTableData);
+    // }
     if (
       prevState.passedStrategyList !== this.state.passedStrategyList ||
       prevState.strategyPercentageReturn !== this.state.strategyPercentageReturn
@@ -551,10 +558,14 @@ class BackTestPage extends BaseReactComponent {
             }
           }
         });
-
+        let tempColorAssetArr = {};
+        tempArr.forEach((item, itemIndex) => {
+          tempColorAssetArr[item.strategy_name] = itemIndex;
+        });
         this.setState(
           {
             performanceMetricTableData: tempArr,
+            currentAssetsColors: tempColorAssetArr,
           },
           () => {
             this.sortPerformanceMetricTableData();
@@ -690,6 +701,11 @@ class BackTestPage extends BaseReactComponent {
                 //       },
                 color: isStrategy
                   ? "var(--strategyBuilderGraphStrategy)"
+                  : this.props.currentAssetsColors &&
+                    this.props.currentAssetsColors[key]
+                  ? strategyBuilderChartLineColorByIndex(
+                      this.props.currentAssetsColors[key]
+                    )
                   : strategyBuilderChartLineColorByIndex(curIndex),
               };
               allGraphListItems.push(tempGraphOptions);
@@ -868,6 +884,7 @@ class BackTestPage extends BaseReactComponent {
                 // Copy Paste
                 copiedItem={this.state.copiedItem}
                 setCopiedItem={this.setCopiedItem}
+                currentAssetsColors={this.state.currentAssetsColors}
               />
             </div>
           </div>
