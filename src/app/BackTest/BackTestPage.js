@@ -811,7 +811,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "strategy",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.15,
         isCell: true,
         cell: (rowData, dataKey, dataIndex) => {
           if (dataKey === "strategy") {
@@ -889,7 +889,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "cumret",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.15,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "cumret") {
@@ -937,7 +937,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "anuret",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "anuret") {
@@ -1000,7 +1000,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "sharpeRatio",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.125,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "sharpeRatio") {
@@ -1057,7 +1057,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "max1ddd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.15,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1ddd") {
@@ -1117,7 +1117,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "max1wdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.15,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1wdd") {
@@ -1177,7 +1177,7 @@ class BackTestPage extends BaseReactComponent {
         ),
         dataKey: "max1mdd",
 
-        coumnWidth: 0.14285714,
+        coumnWidth: 0.15,
         isCell: true,
         cell: (rowData, dataKey) => {
           if (dataKey === "max1mdd") {
