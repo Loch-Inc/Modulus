@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import {
   CreateNewStrategyIcon,
   LochModulusLogoIcon,
+  SignUpLeaderBoardRightArrowIcon,
   TopBarBuilderIcon,
   TopBarDiscoverIcon,
   TopBarFeedbackIcon,
@@ -308,15 +309,24 @@ class TopBar extends React.Component {
           <div className="top-bar">
             <div className="top-bar-content">
               <div className="top-bar-content-left">
-                <Image
-                  onClick={this.goToHome}
-                  className={`top-bar-content-left-logo ${
-                    this.state.selectedItem === "Discover"
-                      ? "no-pointer-event"
-                      : ""
-                  }`}
-                  src={LochModulusLogoIcon}
-                />
+                {this.props.showBackButton ? (
+                  <div
+                    onClick={this.props.onBackButtonClick}
+                    className="top-bar-content-left-back-button-container"
+                  >
+                    <SignUpLeaderBoardRightArrowIcon className="top-bar-content-left-back-button" />
+                  </div>
+                ) : (
+                  <Image
+                    onClick={this.goToHome}
+                    className={`top-bar-content-left-logo ${
+                      this.state.selectedItem === "Discover"
+                        ? "no-pointer-event"
+                        : ""
+                    }`}
+                    src={LochModulusLogoIcon}
+                  />
+                )}
               </div>
               <div className="top-bar-content-middle">
                 {this.state.profileItems.map((item, index) => {

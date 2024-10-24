@@ -2,10 +2,9 @@ import { Image } from "react-bootstrap";
 import OutsideClickHandler from "react-outside-click-handler";
 import { compareTwoArrayOfStrings } from "src/utils/ReusableFunctions";
 import {
+  CheckBoldIcon,
   CheckIcon,
-  StrategyBuilderDropdownArrowIcon,
-  StrategyBuilderPopUpAcceptIcon,
-  StrategyBuilderPopUpCloseIcon,
+  StrategyChartDropdownArrowIcon,
 } from "../../../../../assets/images/icons";
 import { BaseReactComponent } from "../../../../../utils/form";
 import "./_backTestStrategyDropdown.scss";
@@ -20,6 +19,7 @@ class BackTestStrategyDropdown extends BaseReactComponent {
 
       searchOptions: [],
       selectedOptions: [],
+      selectedOptionsIcons: [],
     };
   }
 
@@ -31,6 +31,15 @@ class BackTestStrategyDropdown extends BaseReactComponent {
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedOptions !== this.state.selectedOptions) {
+      this.setState({
+        selectedOptionsIcons: this.props.allOptions.filter(
+          (option) =>
+            this.state.selectedOptions.includes(option.name) ||
+            this.state.selectedOptions.includes(option.alt)
+        ),
+      });
+    }
     if (prevProps.selectedOption !== this.props.selectedOption) {
       this.setState({
         selectedOptions: [...this.props.selectedOption],
@@ -129,8 +138,30 @@ class BackTestStrategyDropdown extends BaseReactComponent {
             onClick={this.toggleDropdown}
             className="back-test-strategy-pop-up-dropdown dotDotText"
           >
-            <div>{this.state.selectedOptions.length}/4 selected</div>
-            <Image src={StrategyBuilderDropdownArrowIcon} />
+            {this.state.selectedOptionsIcons &&
+            this.state.selectedOptionsIcons.length > 0 ? (
+              <div className="back-test-strategy-pop-up-dropdown-icons-container">
+                {this.state.selectedOptionsIcons.map((option, index) => (
+                  <div
+                    className="back-test-strategy-pop-up-dropdown-icon-container"
+                    style={{ backgroundColor: option.iconColor }}
+                  >
+                    <Image
+                      className="back-test-strategy-pop-up-dropdown-icon"
+                      src={option.icon}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            <div>
+              {this.state.selectedOptions.length}
+              <span className="back-test-strategy-pop-up-dropdown-light">
+                /4
+              </span>{" "}
+              Selected
+            </div>
+            <StrategyChartDropdownArrowIcon className="back-test-strategy-pop-up-dropdown-icon" />
           </div>
           {this.state.isDropdownOpen ? (
             <div className="back-test-strategy-pop-up-dropdown-popup">
@@ -161,9 +192,6 @@ class BackTestStrategyDropdown extends BaseReactComponent {
                         onClick={() => {
                           this.itemSelected(option, index);
                         }}
-                        style={{
-                          marginTop: index === 0 ? "8px" : "0px",
-                        }}
                         key={option.name + index}
                       >
                         <div>{option.name}</div>
@@ -190,46 +218,46 @@ class BackTestStrategyDropdown extends BaseReactComponent {
                         onClick={() => {
                           this.itemSelected(option, index);
                         }}
-                        style={{
-                          marginTop: index === 0 ? "8px" : "0px",
-                        }}
                         key={option.name + index}
                       >
-                        <div>{option.name}</div>
+                        <div className="back-test-strategy-popup-list-item-icon-name">
+                          <div
+                            className="back-test-strategy-popup-list-item-icon-container"
+                            style={{ backgroundColor: option.iconColor }}
+                          >
+                            <Image
+                              className="back-test-strategy-popup-list-item-icon"
+                              src={option.icon}
+                            />
+                          </div>
+                          <div>{option.alt}</div>
+                        </div>
                         {this.state.selectedOptions.includes(option.name) ? (
-                          <Image
+                          <CheckBoldIcon
                             className="back-test-strategy-popup-list-item-check-icon"
-                            src={CheckIcon}
+                            // src={CheckBoldIcon}
                           />
                         ) : null}
                       </div>
                     ))
                   : null}
               </div>
-              <div
-                className={`back-test-strategy-accept-decline-container ${
-                  this.state.selectedOptions.length === 0
-                    ? "back-test-strategy-accept-decline-container-disabled"
-                    : ""
-                }`}
-              >
+              <div className={`back-test-strategy-accept-decline-container`}>
                 <div
-                  className="back-test-strategy-accept-decline-button back-test-strategy-accept-decline-button-highlighted"
+                  className={`back-test-strategy-accept-decline-button back-test-strategy-accept-decline-button-highlighted ${
+                    this.state.selectedOptions.length === 0
+                      ? "back-test-strategy-accept-decline-button-disabled"
+                      : ""
+                  }`}
                   onClick={this.selectOption}
                 >
-                  <Image
-                    className="back-test-strategy-accept-decline-button-icon"
-                    src={StrategyBuilderPopUpAcceptIcon}
-                  />
+                  Apply
                 </div>
                 <div
                   className="back-test-strategy-accept-decline-button"
                   onClick={this.closeDropdown}
                 >
-                  <Image
-                    className="back-test-strategy-accept-decline-button-icon"
-                    src={StrategyBuilderPopUpCloseIcon}
-                  />
+                  Cancel
                 </div>
               </div>
             </div>

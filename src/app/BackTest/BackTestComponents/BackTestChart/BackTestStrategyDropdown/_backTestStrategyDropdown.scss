@@ -14,9 +14,30 @@
     align-items: center;
     justify-content: space-between;
     padding: 4px 15px;
-    gap: 10px;
+    gap: 5px;
     width: fit-content;
-
+    .back-test-strategy-pop-up-dropdown-light {
+      color: var(--strategyBuilderDropdownLightText);
+    }
+    .back-test-strategy-pop-up-dropdown-icon {
+      height: 12px;
+    }
+    .back-test-strategy-pop-up-dropdown-icons-container {
+      display: flex;
+      align-items: center;
+      .back-test-strategy-pop-up-dropdown-icon-container {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: -8px;
+        .back-test-strategy-pop-up-dropdown-icon {
+          height: 12px;
+        }
+      }
+    }
     &:hover {
       background-color: var(--strategyBuilderSaveStrategyBorder);
     }
@@ -26,11 +47,12 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+    border: 1px solid var(--strategyBuilderChartPopUpAssetBorder);
     background-color: var(--cardBackgroud);
     box-shadow: var(--boxShadowLg);
-    padding: 0.8rem 0rem;
-    border-radius: 6px;
+    padding: 8px 4px;
+    margin-top: 8px;
+    border-radius: 12px;
     bottom: 0;
     right: 0;
     transform: translateY(calc(100% + 0.4rem));
@@ -41,11 +63,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      width: calc(100% - 2rem);
-      margin: 0rem 1rem;
+      width: 100%;
+      padding: 0px 4px;
       .back-test-strategy-popup-search {
         flex: 1;
-        border: 1px solid var(--strategyBuilderPopUpAssetBorder);
+        border: 1px solid var(--strategyChartDropdownTextInput);
         border-radius: 6px;
         .back-test-strategy-popup-search-input {
           border-radius: 5px;
@@ -57,15 +79,22 @@
         }
         &:hover {
           border: 1px solid var(--blockOneHeaderGradSecondary);
+          .back-test-strategy-popup-search-input {
+            &::placeholder {
+              color: var(--primaryTextColor);
+            }
+          }
         }
       }
     }
     .back-test-strategy-popup-item-container {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 5px;
       max-height: 30rem;
       overflow-y: scroll;
+      padding: 0px 4px;
+      margin: 8px 0px;
       &::-webkit-scrollbar {
         width: 0.4rem;
         height: 0rem;
@@ -90,8 +119,25 @@
         padding: 0.5rem 1rem;
         box-sizing: border-box;
         cursor: pointer;
+        border: 1px solid transparent;
         .back-test-strategy-popup-list-item-check-icon {
           height: 12px;
+        }
+        .back-test-strategy-popup-list-item-icon-name {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          .back-test-strategy-popup-list-item-icon-container {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .back-test-strategy-popup-list-item-icon {
+              height: 12px;
+            }
+          }
         }
         &:hover {
           background-color: var(--greyCardBackgroud);
@@ -105,6 +151,7 @@
         pointer-events: all;
         cursor: pointer;
         background-color: var(--strategyBuilderDropdownSelected);
+        border: 1px solid var(--strategyBuilderBorder);
         &:hover {
           background-color: var(--strategyBuilderDropdownSelected);
           filter: contrast(0.8);
@@ -114,38 +161,38 @@
     .back-test-strategy-accept-decline-container {
       display: flex;
       align-items: center;
-      gap: 10px;
-      width: calc(100% - 2rem);
-      margin: 0rem 1rem;
-      padding-top: 0.8rem;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+      padding: 0px 4px;
       .back-test-strategy-accept-decline-button {
         flex: 1;
-        padding: 10px 10px;
-        border-radius: 0.5rem;
+        padding: 8px 0px;
+        font-size: 13px;
+        border-radius: 8px;
         cursor: pointer;
-        background-color: var(--greyCardBackgroud);
+        color: var(--strategyChartDropdownCancelText);
         display: flex;
         align-items: center;
         justify-content: center;
-        .back-test-strategy-accept-decline-button-icon {
-          height: 12px;
-          filter: var(--invertColor);
-        }
+        width: 100%;
+        border: 1px solid transparent;
+
         &:hover {
           background-color: var(--primaryTextColor);
-          .back-test-strategy-accept-decline-button-icon {
-            filter: var(--invertColorHover);
-          }
+          color: var(--cardBackgroud);
         }
       }
       .back-test-strategy-accept-decline-button-highlighted {
-        background-color: var(--strategyBuilderPopUpHighlight);
+        background-color: var(--strategyChartDropdownApplyText);
+        color: var(--primaryTextColor);
+        border: 1px solid #0000000d;
       }
-    }
-    .back-test-strategy-accept-decline-container-disabled {
-      pointer-events: none;
-      cursor: default;
-      opacity: 0.5;
+      .back-test-strategy-accept-decline-button-disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+      }
     }
   }
 }

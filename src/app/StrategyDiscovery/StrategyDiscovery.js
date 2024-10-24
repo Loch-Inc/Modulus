@@ -32,6 +32,7 @@ class StrategyDiscovery extends BaseReactComponent {
     const params = new URLSearchParams(search);
     const page = params.get("p");
     this.state = {
+      searchValue: "",
       toDate: new Date(new Date().setDate(new Date().getDate() - 1)),
       fromDate: new Date(
         new Date().setMonth(new Date().getMonth() - 1, new Date().getDate() - 1)
@@ -67,6 +68,7 @@ class StrategyDiscovery extends BaseReactComponent {
   };
 
   getDiscoverStrategyApiPass = () => {
+    let tempSearchValue = this.state.searchValue;
     let tempSort = this.state.tableSortOption[this.state.sortOption.column];
     if (!this.state.sortOption.value) {
       tempSort = `-${tempSort}`;
@@ -79,6 +81,7 @@ class StrategyDiscovery extends BaseReactComponent {
     tempApiData.append("page", this.state.currentPage + 1);
     tempApiData.append("per_page", 10);
     tempApiData.append("sort", tempSort);
+    tempApiData.append("q", tempSearchValue);
     this.props.getDiscoverStrategyApi(tempApiData, this.stopLoading);
   };
   stopLoading = () => {
@@ -145,7 +148,7 @@ class StrategyDiscovery extends BaseReactComponent {
 
       tempBtTableData = tempBtTableData.strategies;
 
-      if (tempBtTableData && tempBtTableData.length > 0) {
+      if (tempBtTableData) {
         let tempArr = [];
 
         tempBtTableData.forEach((item) => {
@@ -252,6 +255,28 @@ class StrategyDiscovery extends BaseReactComponent {
       }
       this.props.history.push("/builder");
     }
+  };
+  changeSearchValue = (e) => {
+    this.setState(
+      {
+        searchValue: e.target.value,
+      },
+      () => {
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(() => {
+          const tempSearch = this.props.location.search;
+          const tempParams = new URLSearchParams(tempSearch);
+          const tempPage = tempParams.get("p");
+          if (tempPage === "0") {
+            this.getDiscoverStrategyApiPass();
+          } else {
+            this.props.history.push(
+              `${this.props.history.location.pathname}?p=0`
+            );
+          }
+        }, 700);
+      }
+    );
   };
   render() {
     const performanceMetricColumnList = [
@@ -740,6 +765,8 @@ class StrategyDiscovery extends BaseReactComponent {
                   this.state.performanceMetricTableData
                 }
                 goToStrategyBuilderPage={this.goToStrategyBuilderPage}
+                searchValue={this.state.searchValue}
+                changeSearchValue={this.changeSearchValue}
               />
             </div>
           </div>

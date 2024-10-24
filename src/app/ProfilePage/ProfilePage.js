@@ -715,6 +715,9 @@ class ProfilePage extends BaseReactComponent {
       inputValue: this.state.userData?.username,
     });
   };
+  goToBuilderPage = () => {
+    this.props.history.push("/builder");
+  };
   render() {
     if (mobileCheck()) {
       return null;
@@ -780,6 +783,7 @@ class ProfilePage extends BaseReactComponent {
                 isEditName={this.state.isEditName}
                 inputValue={this.state.inputValue}
                 isInputBtnDisabled={this.state.isInputBtnDisabled}
+                goToBuilderPage={this.goToBuilderPage}
               />
             </div>
           </div>

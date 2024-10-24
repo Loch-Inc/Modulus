@@ -29,6 +29,31 @@
         .top-bar-content-left {
           position: absolute;
           left: 0;
+          .top-bar-content-left-back-button-container {
+            background-color: var(--cardBackgroud);
+            height: 35px;
+            width: 35px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--boxShadowLg);
+            cursor: pointer;
+            .top-bar-content-left-back-button {
+              height: 18px;
+              width: 18px;
+              transform: rotate(180deg);
+            }
+            &:hover {
+              background-color: var(--primaryTextColor);
+
+              .top-bar-content-left-back-button {
+                path {
+                  stroke: var(--primaryBackgroud);
+                }
+              }
+            }
+          }
           .top-bar-content-left-logo {
             height: 20px;
             cursor: pointer;
