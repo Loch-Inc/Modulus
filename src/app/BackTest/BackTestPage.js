@@ -978,7 +978,7 @@ class BackTestPage extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Sharpe
               <br />
-              Ratio
+              <span className="zeroOpacity">Ratio</span>
             </span>
             <div
               onClick={() => this.handleTableSort(3)}
@@ -1035,7 +1035,7 @@ class BackTestPage extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1d
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.handleTableSort(4)}
@@ -1095,7 +1095,7 @@ class BackTestPage extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1w
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.handleTableSort(5)}
@@ -1155,7 +1155,7 @@ class BackTestPage extends BaseReactComponent {
             <span className="inter-display-medium f-s-11 ">
               Max 1m
               <br />
-              Drawdown
+              DD
             </span>
             <div
               onClick={() => this.handleTableSort(6)}

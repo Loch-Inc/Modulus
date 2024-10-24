@@ -140,7 +140,7 @@
           .strategy-builder-table-strategy-name-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             .strategy-builder-table-strategy-name {
               border-radius: 6px;
               padding: 4px;
@@ -181,11 +181,13 @@
                     // opacity: 0.5;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: flex-start;
                     padding: 1rem;
                     box-sizing: border-box !important;
                     overflow: hidden;
                     text-align: center;
+                    gap: 2px;
+                    text-align: left;
                     // pointer-events: none;
                     span {
                       color: var(--tableHeaderColor);
@@ -198,6 +200,7 @@
                       padding-left: 2px;
                       pointer-events: all;
                       cursor: pointer;
+                      transform: translateY(-6px);
                       &:hover {
                         .table-sort-icon {
                           filter: var(--hoverBrightnessValue);
@@ -243,6 +246,8 @@
             }
             .ReactVirtualized__Table__row {
               .ReactVirtualized__Table__rowColumn {
+                text-align: left;
+
                 .strategy-builder-table-strategy-name-text {
                   color: var(--primaryTextColor);
                   font-weight: 500;
