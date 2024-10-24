@@ -50,14 +50,13 @@
                 border-radius: 4px;
                 cursor: pointer;
                 &:hover {
-                  background-color: var(--primaryTextColor);
-                  color: var(--cardBackgroud);
-                  opacity: 0.3;
+                  background-color: var(
+                    --strategyBuilderSaveStrategyRenameBorder
+                  );
                 }
               }
               .date-selection-item-selected {
-                background-color: var(--primaryTextColor);
-                color: var(--cardBackgroud);
+                background-color: var(--cardBackgroud);
                 pointer-events: none;
               }
             }

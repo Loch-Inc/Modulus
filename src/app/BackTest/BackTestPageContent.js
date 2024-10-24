@@ -234,7 +234,7 @@ class BackTestPageContent extends BaseReactComponent {
                   >
                     1Y
                   </div>
-                  <div
+                  {/* <div
                     className={`date-selection-item ${
                       this.props.selectedDateRange === "MAX"
                         ? "date-selection-item-selected"
@@ -243,7 +243,7 @@ class BackTestPageContent extends BaseReactComponent {
                     onClick={this.selectMAX}
                   >
                     MAX
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
