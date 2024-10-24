@@ -36,10 +36,10 @@ class ConfirmLeaveModal extends BaseReactComponent {
                 className="secondary-btn m-r-24 main-button btn-bg-white-outline-black"
                 onClick={this.props.handleAccept}
               >
-                Yes
+                {this.props.agreeText ? this.props.agreeText : "Yes"}
               </Button>
               <Button className="primary-btn" onClick={this.props.handleClose}>
-                No
+                {this.props.disagreeText ? this.props.disagreeText : "No"}
               </Button>
             </div>
           </div>

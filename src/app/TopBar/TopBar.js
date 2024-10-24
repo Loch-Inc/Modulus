@@ -31,6 +31,7 @@ class TopBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showConfirmationCreateNewModal: false,
       showConfirmLeaveModalForWalletDisconect: false,
       showConfirmLeaveModal: false,
       selectedItem: "",
@@ -227,6 +228,16 @@ class TopBar extends React.Component {
       showConfirmLeaveModal: false,
     });
   };
+  openConfirmationCreateNewModal = () => {
+    this.setState({
+      showConfirmationCreateNewModal: true,
+    });
+  };
+  closeConfirmationCreateNewModal = () => {
+    this.setState({
+      showConfirmationCreateNewModal: false,
+    });
+  };
   signOutFun = () => {
     const modulusUser = getModulusUser();
     let userEmail = "";
@@ -252,10 +263,30 @@ class TopBar extends React.Component {
     });
     this.gotoPage("/discover");
   };
-
+  createNewStrategyCheck = () => {
+    if (this.props.showCreateNewPopUp) {
+      this.openConfirmationCreateNewModal();
+    } else {
+      this.createNewStrategy();
+    }
+  };
+  createNewStrategy = () => {
+    this.props.history.push("/builder-reroute");
+  };
   render() {
     return (
       <div className="top-bar-parent">
+        {this.state.showConfirmationCreateNewModal ? (
+          <ConfirmLeaveModal
+            customMessage="Are you sure you want to abandon this masterpiece?"
+            agreeText="Yes, don’t save it"
+            disagreeText="No"
+            show
+            history={this.props.history}
+            handleClose={this.closeConfirmationCreateNewModal}
+            handleAccept={this.createNewStrategy}
+          />
+        ) : null}
         {this.state.showConfirmLeaveModal ? (
           <ConfirmLeaveModal
             show
@@ -341,7 +372,7 @@ class TopBar extends React.Component {
                 )} */}
                 {this.props.showCreateNew ? (
                   <div
-                    onClick={this.props.createNewStrategy}
+                    onClick={this.createNewStrategyCheck}
                     className="top-bar-content-right-sign-in-out"
                   >
                     <CreateNewStrategyIcon className="top-bar-content-right-sign-in-out-icon" />
