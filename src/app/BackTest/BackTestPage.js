@@ -190,6 +190,7 @@ class BackTestPage extends BaseReactComponent {
     this.setState({
       isSaveInvestStrategy: true,
       loadingSaveInvestStrategyBtn: false,
+      disableSaveBtn: false,
     });
   };
   hideSaveStrategy = () => {
